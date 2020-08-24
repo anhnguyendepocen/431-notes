@@ -92,7 +92,7 @@ The levels for the multi-categorical variables are:
 - **MaritalStatus**: Married, Widowed, Divorced, Separated, NeverMarried or LivePartner (living with partner).
 - **HealthGen**: Excellent, Vgood, Good, Fair or Poor.
 
-A more detailed summary can be obtained using either the `summary` function applied to our data frame, or perhaps the `skim` function from the `skimr` package.
+Some details can be obtained using the `summary` function.
 
 ```{r}
 summary(nh_adults)
@@ -100,13 +100,7 @@ summary(nh_adults)
 
 Note the appearance of `NA's` (indicating missing values) in some columns, and that some variables are summarized by a list of their (categorical) values and some (quantitative/numeric) variables are summarized with a minimum, quartiles and mean.
 
-```{r}
-skimr::skim(nh_adults)
-```
-
-## Types of Variables
-
-### Quantitative Variables
+## Quantitative Variables
 
 Variables recorded in numbers that we use as numbers are called **quantitative**. Familiar examples include incomes, heights, weights, ages, distances, times, and counts. All quantitative variables have measurement units, which tell you how the quantitative variable was measured. Without units (like miles per hour, angstroms, yen or degrees Celsius) the values of a quantitative variable have no meaning. 
 
@@ -128,7 +122,7 @@ Variables recorded in numbers that we use as numbers are called **quantitative**
 
 - Quantitative variables lend themselves to many of the summaries we will discuss, like means, quantiles, and our various measures of spread, like the standard deviation or inter-quartile range. They also have at least a chance to follow the Normal distribution.
 
-#### A look at BMI (Body-Mass Index)
+### A look at BMI (Body-Mass Index)
 
 The definition of BMI (*body-mass index*) for adult subjects (which is expressed in units of kg/m^2^) is:
 
@@ -140,7 +134,7 @@ $$
 > 
 > Wikipedia, https://en.wikipedia.org/wiki/Body_mass_index
 
-### Qualitative (Categorical) Variables
+## Qualitative (Categorical) Variables
 
 **Qualitative** or categorical variables consist of names of categories. These names may be numerical, but the numbers (or names) are simply codes to identify the groups or categories into which the individuals are divided. Categorical variables with two categories, like yes or no, up or down, or, more generally, 1 and 0, are called **binary** variables. Those with more than two-categories are sometimes called **multi-categorical** variables. 
 
@@ -160,12 +154,4 @@ $$
     + Binary variables in the `nh_adults` data include `Sex`, `PhysActive`, `Smoke100`, `SleepTrouble`. Each can be thought of as either ordinal or nominal.
 
 Lots of variables may be treated as either quantitative or qualitative, depending on how we use them. For instance, we usually think of age as a quantitative variable, but if we simply use age to make the distinction between "child" and "adult" then we are using it to describe categorical information. Just because your variable's values are numbers, don't assume that the information provided is quantitative.
-
-## Creating a Data Report Quickly
-
-The `DataExplorer` package has a function called `create_report` that you might like. It is easy to run, but the results can be a bit overwhelming, so I'll just show the code, but not run the report here.
-
-```{r, eval = FALSE}
-DataExplorer::create_report(nh_adults)
-```
 

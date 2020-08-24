@@ -294,14 +294,6 @@ nh_adults %>%
               mean = mean(SBP), sd = sd(SBP), n = n(), missing = sum(is.na(SBP)))
 ```
 
-### `skim` in the `skimr` package
-
-```{r}
-nh_adults %>%
-    select(Pulse) %>%
-    skimr::skim()
-```
-
 ### `describe` in the `psych` package
 
 The `psych` package has a more detailed list of numerical summaries for quantitative variables that lets us look at a group of observations at once.
@@ -339,5 +331,5 @@ The package [`summarytools` has a function called `dfSummary`](https://cran.r-pr
 
 The [`naniar` package](http://naniar.njtierney.com/) is helpful for wrangling and visualizing missing values, and checking imputations.
 
-As mentioned previously, [`DataExplorer`](https://boxuancui.github.io/DataExplorer/) can be used for more automated exploratory data analyses (and don't forget about [`skimr`](https://github.com/ropensci/skimr)) and [`visdat`](http://visdat.njtierney.com/), as well.
+[`DataExplorer`](https://boxuancui.github.io/DataExplorer/) can be used for more automated exploratory data analyses (and some people also like [`skimr`](https://github.com/ropensci/skimr)) and [`visdat`](http://visdat.njtierney.com/), as well.
 

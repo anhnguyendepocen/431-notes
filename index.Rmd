@@ -74,8 +74,24 @@ library(janitor)
 library(NHANES)
 library(palmerpenguins)
 library(patchwork)
+library(rms)
 library(tidyverse) # note: tidyverse includes the dplyr and ggplot2 packages
 ```
 
-I have deliberately set up this list of loaded packages to be relatively small, and will add some others later ithe Notes. You only need to install a package once, but you need to reload it every time you start a new session.
+I have deliberately set up this list of loaded packages to be relatively small, and will add some others later in these Notes. You only need to install a package once, but you need to reload it every time you start a new session.
+
+## Additional R Packages installed for this book
+
+Some packages need to be installed on the user's system, but do not need to be loaded by R in order to run the code presented in this set of notes. These additional packages include the following.
+
+```
+car
+Epi
+gt
+psych
+mosaic
+naniar
+tidymodels
+visdat
+```
 

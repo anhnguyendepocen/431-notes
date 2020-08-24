@@ -206,9 +206,9 @@ Which of these Tables is more useful to you?
 2013 Percent of Students in grades 9-12 who are obese
 
 State | % Obese | 95% CI | Sample Size
------ | ------- | ------ | -----------
+:----- | :-------: | :------: | :-----------:
 Alabama | 17.1 | (14.6 - 19.9) | 1,499
-Alaska |	12.4	| (10.5-14.6)	| 1,167
+Alaska | 12.4 | (10.5-14.6)	| 1,167
 Arizona |	10.7 |	(8.3-13.6)	| 1,520
 Arkansas |	17.8	| (15.7-20.1)	| 1,470
 Connecticut |	12.3 |	(10.2-14.7)	| 2,270
@@ -221,7 +221,7 @@ Wyoming	| 10.7 |	(9.4-12.2)	| 2,910
 or ...
 
 State | % Obese | 95% CI | Sample Size
------ | ------- | ------ | -----------
+:----- | :-------: | :------: | :-----------:
 Kentucky | 18.0 | (15.7 - 20.6) | 1,537
 Arkansas | 17.8 | (15.7 - 20.1) | 1,470
 Alabama | 17.1 | (14.6 - 19.9) | 1,499
@@ -265,3 +265,9 @@ Do we usually have 40,000 observations?
 Summaries of rows and columns provide a measure of what is typical or usual. Sometimes a sum is helpful, at other times, consider presenting a median or other summary. The ALL category, as @HW_VisualRevelations suggests, should be both visually different from the individual entries and set spatially apart.
 
 On the whole, it's *far* easier to fall into a good graph in R (at least if you have some ggplot2 skills) than to produce a good table.
+
+## Gaining Control over Tables in R: the `gt` package
+
+With the `gt` package, anyone can make wonderful-looking tables using the R programming language. The `gt` package is described in substantial detail at https://gt.rstudio.com/ and we'll get started with it soon.
+
+

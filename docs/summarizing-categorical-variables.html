@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 6 Summarizing Categorical Variables | Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431</title>
+  <meta name="description" content="This book describes some fundamental approaches to doing biostatistical and data science in research." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 6 Summarizing Categorical Variables | Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book describes some fundamental approaches to doing biostatistical and data science in research." />
+  <meta name="github-repo" content="thomaselove/431-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 6 Summarizing Categorical Variables | Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431" />
+  
+  <meta name="twitter:description" content="This book describes some fundamental approaches to doing biostatistical and data science in research." />
+  
+
+<meta name="author" content="Thomas E. Love" />
+
+
+<meta name="date" content="2020-08-23" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="summarizing-quantities.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Dr. Love's Notes for 431</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Working with These Notes</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-youll-find-here"><i class="fa fa-check"></i>What You’ll Find Here</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#setting-up-r"><i class="fa fa-check"></i>Setting Up R</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#initial-setup-of-r-packages"><i class="fa fa-check"></i>Initial Setup of R Packages</a></li>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#additional-r-packages-installed-for-this-book"><i class="fa fa-check"></i><b>0.1</b> Additional R Packages installed for this book</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>1</b> Data Science</a><ul>
+<li class="chapter" data-level="1.1" data-path="data-science.html"><a href="data-science.html#data-science-project-cycle"><i class="fa fa-check"></i><b>1.1</b> Data Science Project Cycle</a></li>
+<li class="chapter" data-level="1.2" data-path="data-science.html"><a href="data-science.html#data-science-and-the-431-course"><i class="fa fa-check"></i><b>1.2</b> Data Science and the 431 Course</a></li>
+<li class="chapter" data-level="1.3" data-path="data-science.html"><a href="data-science.html#what-the-course-is-and-isnt"><i class="fa fa-check"></i><b>1.3</b> What The Course Is and Isn’t</a></li>
+</ul></li>
+<li class="part"><span><b>Part A. Exploring Data</b></span></li>
+<li class="chapter" data-level="2" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html"><i class="fa fa-check"></i><b>2</b> Looking at the Palmer Penguins</a><ul>
+<li class="chapter" data-level="2.1" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#package-loading-then-dealing-with-missing-data"><i class="fa fa-check"></i><b>2.1</b> Package Loading, then Dealing with Missing Data</a></li>
+<li class="chapter" data-level="2.2" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#counting-things-and-making-tables"><i class="fa fa-check"></i><b>2.2</b> Counting Things and Making Tables</a></li>
+<li class="chapter" data-level="2.3" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#visualizing-the-data-in-a-graph-or-a-few"><i class="fa fa-check"></i><b>2.3</b> Visualizing the Data in a Graph (or a few…)</a></li>
+<li class="chapter" data-level="2.4" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#six-ways-to-improve-this-graph"><i class="fa fa-check"></i><b>2.4</b> Six Ways To “Improve” This Graph</a></li>
+<li class="chapter" data-level="2.5" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#a-little-reflection"><i class="fa fa-check"></i><b>2.5</b> A Little Reflection</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dataviz.html"><a href="dataviz.html"><i class="fa fa-check"></i><b>3</b> NHANES: Initial Exploring</a><ul>
+<li class="chapter" data-level="3.1" data-path="dataviz.html"><a href="dataviz.html#the-nhanes-data-collecting-a-sample"><i class="fa fa-check"></i><b>3.1</b> The NHANES data: Collecting a Sample</a></li>
+<li class="chapter" data-level="3.2" data-path="dataviz.html"><a href="dataviz.html#age-and-height"><i class="fa fa-check"></i><b>3.2</b> Age and Height</a></li>
+<li class="chapter" data-level="3.3" data-path="dataviz.html"><a href="dataviz.html#subset-of-subjects-with-known-age-and-height"><i class="fa fa-check"></i><b>3.3</b> Subset of Subjects with Known Age and Height</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="dataviz.html"><a href="dataviz.html#the-distinction-between-gender-and-sex"><i class="fa fa-check"></i><b>3.3.1</b> The Distinction between <code>Gender</code> and <code>Sex</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="dataviz.html"><a href="dataviz.html#age-height-and-sex"><i class="fa fa-check"></i><b>3.4</b> Age-Height and Sex?</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="dataviz.html"><a href="dataviz.html#can-we-show-the-female-and-male-relationships-in-separate-panels"><i class="fa fa-check"></i><b>3.4.1</b> Can we show the Female and Male relationships in separate panels?</a></li>
+<li class="chapter" data-level="3.4.2" data-path="dataviz.html"><a href="dataviz.html#can-we-add-a-smooth-curve-to-show-the-relationship-in-each-plot"><i class="fa fa-check"></i><b>3.4.2</b> Can we add a smooth curve to show the relationship in each plot?</a></li>
+<li class="chapter" data-level="3.4.3" data-path="dataviz.html"><a href="dataviz.html#what-if-we-want-to-assume-straight-line-relationships"><i class="fa fa-check"></i><b>3.4.3</b> What if we want to assume straight line relationships?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="dataviz.html"><a href="dataviz.html#creating-a-new-subset-ages-21-79"><i class="fa fa-check"></i><b>3.5</b> Creating A New Subset: Ages 21-79</a></li>
+<li class="chapter" data-level="3.6" data-path="dataviz.html"><a href="dataviz.html#distribution-of-heights"><i class="fa fa-check"></i><b>3.6</b> Distribution of Heights</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="dataviz.html"><a href="dataviz.html#changing-a-histograms-fill-and-color"><i class="fa fa-check"></i><b>3.6.1</b> Changing a Histogram’s Fill and Color</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="dataviz.html"><a href="dataviz.html#height-and-sex"><i class="fa fa-check"></i><b>3.7</b> Height and Sex</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="dataviz.html"><a href="dataviz.html#a-boxplot-of-height-by-sex"><i class="fa fa-check"></i><b>3.7.1</b> A Boxplot of Height by Sex</a></li>
+<li class="chapter" data-level="3.7.2" data-path="dataviz.html"><a href="dataviz.html#histograms-of-height-by-sex"><i class="fa fa-check"></i><b>3.7.2</b> Histograms of Height by Sex</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="dataviz.html"><a href="dataviz.html#looking-at-pulse-rate"><i class="fa fa-check"></i><b>3.8</b> Looking at Pulse Rate</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="dataviz.html"><a href="dataviz.html#pulse-rate-and-physical-activity"><i class="fa fa-check"></i><b>3.8.1</b> Pulse Rate and Physical Activity</a></li>
+<li class="chapter" data-level="3.8.2" data-path="dataviz.html"><a href="dataviz.html#pulse-by-sleeping-trouble"><i class="fa fa-check"></i><b>3.8.2</b> Pulse by Sleeping Trouble</a></li>
+<li class="chapter" data-level="3.8.3" data-path="dataviz.html"><a href="dataviz.html#pulse-and-healthgen"><i class="fa fa-check"></i><b>3.8.3</b> Pulse and HealthGen</a></li>
+<li class="chapter" data-level="3.8.4" data-path="dataviz.html"><a href="dataviz.html#pulse-rate-and-systolic-blood-pressure"><i class="fa fa-check"></i><b>3.8.4</b> Pulse Rate and Systolic Blood Pressure</a></li>
+<li class="chapter" data-level="3.8.5" data-path="dataviz.html"><a href="dataviz.html#sleep-troubls-vs.-no-sleep-trouble"><i class="fa fa-check"></i><b>3.8.5</b> Sleep Troubls vs. No Sleep Trouble?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="dataviz.html"><a href="dataviz.html#general-health-status"><i class="fa fa-check"></i><b>3.9</b> General Health Status</a><ul>
+<li class="chapter" data-level="3.9.1" data-path="dataviz.html"><a href="dataviz.html#bar-chart-for-categorical-data"><i class="fa fa-check"></i><b>3.9.1</b> Bar Chart for Categorical Data</a></li>
+<li class="chapter" data-level="3.9.2" data-path="dataviz.html"><a href="dataviz.html#working-with-tables"><i class="fa fa-check"></i><b>3.9.2</b> Working with Tables</a></li>
+<li class="chapter" data-level="3.9.3" data-path="dataviz.html"><a href="dataviz.html#sbp-by-general-health-status"><i class="fa fa-check"></i><b>3.9.3</b> SBP by General Health Status</a></li>
+<li class="chapter" data-level="3.9.4" data-path="dataviz.html"><a href="dataviz.html#sbp-by-physical-activity-and-general-health-status"><i class="fa fa-check"></i><b>3.9.4</b> SBP by Physical Activity and General Health Status</a></li>
+<li class="chapter" data-level="3.9.5" data-path="dataviz.html"><a href="dataviz.html#sbp-by-sleep-trouble-and-general-health-status"><i class="fa fa-check"></i><b>3.9.5</b> SBP by Sleep Trouble and General Health Status</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="dataviz.html"><a href="dataviz.html#conclusions"><i class="fa fa-check"></i><b>3.10</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html"><i class="fa fa-check"></i><b>4</b> Data Structures and Types of Variables</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#data-require-structure-and-context"><i class="fa fa-check"></i><b>4.1</b> Data require structure and context</a></li>
+<li class="chapter" data-level="4.2" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#newNHANES"><i class="fa fa-check"></i><b>4.2</b> A New NHANES Adult Sample</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#summarizing-the-datas-structure"><i class="fa fa-check"></i><b>4.2.1</b> Summarizing the Data’s Structure</a></li>
+<li class="chapter" data-level="4.2.2" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#what-are-the-variables"><i class="fa fa-check"></i><b>4.2.2</b> What are the variables?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#quantitative-variables"><i class="fa fa-check"></i><b>4.3</b> Quantitative Variables</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#a-look-at-bmi-body-mass-index"><i class="fa fa-check"></i><b>4.3.1</b> A look at BMI (Body-Mass Index)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#qualitative-categorical-variables"><i class="fa fa-check"></i><b>4.4</b> Qualitative (Categorical) Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html"><i class="fa fa-check"></i><b>5</b> Summarizing Quantitative Variables</a><ul>
+<li class="chapter" data-level="5.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-summary-function-for-quantitative-data"><i class="fa fa-check"></i><b>5.1</b> The <code>summary</code> function for Quantitative data</a></li>
+<li class="chapter" data-level="5.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-center-of-a-distribution"><i class="fa fa-check"></i><b>5.2</b> Measuring the Center of a Distribution</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-mean-and-the-median"><i class="fa fa-check"></i><b>5.2.1</b> The Mean and The Median</a></li>
+<li class="chapter" data-level="5.2.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#dealing-with-missingness"><i class="fa fa-check"></i><b>5.2.2</b> Dealing with Missingness</a></li>
+<li class="chapter" data-level="5.2.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-mode-of-a-quantitative-variable"><i class="fa fa-check"></i><b>5.2.3</b> The Mode of a Quantitative Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-spread-of-a-distribution"><i class="fa fa-check"></i><b>5.3</b> Measuring the Spread of a Distribution</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#rangeandiqr"><i class="fa fa-check"></i><b>5.3.1</b> The Range and the Interquartile Range (IQR)</a></li>
+<li class="chapter" data-level="5.3.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-variance-and-the-standard-deviation"><i class="fa fa-check"></i><b>5.3.2</b> The Variance and the Standard Deviation</a></li>
+<li class="chapter" data-level="5.3.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#obtaining-the-variance-and-standard-deviation-in-r"><i class="fa fa-check"></i><b>5.3.3</b> Obtaining the Variance and Standard Deviation in R</a></li>
+<li class="chapter" data-level="5.3.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#defining-the-variance-and-standard-deviation"><i class="fa fa-check"></i><b>5.3.4</b> Defining the Variance and Standard Deviation</a></li>
+<li class="chapter" data-level="5.3.5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#empirical-rule-interpretation-of-the-standard-deviation"><i class="fa fa-check"></i><b>5.3.5</b> Empirical Rule Interpretation of the Standard Deviation</a></li>
+<li class="chapter" data-level="5.3.6" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#chebyshevs-inequality-one-interpretation-of-the-standard-deviation"><i class="fa fa-check"></i><b>5.3.6</b> Chebyshev’s Inequality: One Interpretation of the Standard Deviation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-shape-of-a-distribution"><i class="fa fa-check"></i><b>5.4</b> Measuring the Shape of a Distribution</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#multimodal-vs.-unimodal-distributions"><i class="fa fa-check"></i><b>5.4.1</b> Multimodal vs. Unimodal distributions</a></li>
+<li class="chapter" data-level="5.4.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#skew"><i class="fa fa-check"></i><b>5.4.2</b> Skew</a></li>
+<li class="chapter" data-level="5.4.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#kurtosis"><i class="fa fa-check"></i><b>5.4.3</b> Kurtosis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#more-detailed-numerical-summaries-for-quantitative-variables"><i class="fa fa-check"></i><b>5.5</b> More Detailed Numerical Summaries for Quantitative Variables</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#favstats-in-the-mosaic-package"><i class="fa fa-check"></i><b>5.5.1</b> <code>favstats</code> in the <code>mosaic</code> package</a></li>
+<li class="chapter" data-level="5.5.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#describe-in-the-psych-package"><i class="fa fa-check"></i><b>5.5.2</b> <code>describe</code> in the <code>psych</code> package</a></li>
+<li class="chapter" data-level="5.5.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#describe-in-the-hmisc-package"><i class="fa fa-check"></i><b>5.5.3</b> <code>describe</code> in the <code>Hmisc</code> package</a></li>
+<li class="chapter" data-level="5.5.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#other-options"><i class="fa fa-check"></i><b>5.5.4</b> Other options</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html"><i class="fa fa-check"></i><b>6</b> Summarizing Categorical Variables</a><ul>
+<li class="chapter" data-level="6.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#the-summary-function-for-categorical-data"><i class="fa fa-check"></i><b>6.1</b> The <code>summary</code> function for Categorical data</a></li>
+<li class="chapter" data-level="6.2" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#tables-to-describe-one-categorical-variable"><i class="fa fa-check"></i><b>6.2</b> Tables to describe One Categorical Variable</a></li>
+<li class="chapter" data-level="6.3" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#the-mode-of-a-categorical-variable"><i class="fa fa-check"></i><b>6.3</b> The Mode of a Categorical Variable</a></li>
+<li class="chapter" data-level="6.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#describe-in-the-hmisc-package"><i class="fa fa-check"></i><b>6.4</b> <code>describe</code> in the <code>Hmisc</code> package</a></li>
+<li class="chapter" data-level="6.5" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#cross-tabulations"><i class="fa fa-check"></i><b>6.5</b> Cross-Tabulations</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#cross-classifying-three-categorical-variables"><i class="fa fa-check"></i><b>6.5.1</b> Cross-Classifying Three Categorical Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#constructing-tables-well"><i class="fa fa-check"></i><b>6.6</b> Constructing Tables Well</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#alabama-first"><i class="fa fa-check"></i><b>6.6.1</b> Alabama First!</a></li>
+<li class="chapter" data-level="6.6.2" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#order-rows-and-columns-sensibly"><i class="fa fa-check"></i><b>6.6.2</b> Order rows and columns sensibly</a></li>
+<li class="chapter" data-level="6.6.3" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#round---a-lot"><i class="fa fa-check"></i><b>6.6.3</b> Round - a lot!</a></li>
+<li class="chapter" data-level="6.6.4" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#all-is-different-and-important"><i class="fa fa-check"></i><b>6.6.4</b> ALL is different and important</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#gaining-control-over-tables-in-r-the-gt-package"><i class="fa fa-check"></i><b>6.7</b> Gaining Control over Tables in R: the <code>gt</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="summarizing-categorical-variables" class="section level1">
+<h1><span class="header-section-number">Chapter 6</span> Summarizing Categorical Variables</h1>
+<p>Summarizing categorical variables numerically is mostly about building tables, and calculating percentages or proportions. We’ll save our discussion of modeling categorical data for later. Recall that in the <code>nh_adults</code> data set we built in Section <a href="data-structures-and-types-of-variables.html#newNHANES">4.2</a> we had the following categorical variables. The number of levels indicates the number of possible categories for each categorical variable.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Variable</th>
+<th>Description</th>
+<th>Levels</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">Sex</td>
+<td>sex of subject</td>
+<td>2</td>
+<td>binary</td>
+</tr>
+<tr class="even">
+<td align="right">Race</td>
+<td>subject’s race</td>
+<td>6</td>
+<td>nominal</td>
+</tr>
+<tr class="odd">
+<td align="right">Education</td>
+<td>subject’s educational level</td>
+<td>5</td>
+<td>ordinal</td>
+</tr>
+<tr class="even">
+<td align="right">PhysActive</td>
+<td>Participates in sports?</td>
+<td>2</td>
+<td>binary</td>
+</tr>
+<tr class="odd">
+<td align="right">Smoke100</td>
+<td>Smoked 100+ cigarettes?</td>
+<td>2</td>
+<td>binary</td>
+</tr>
+<tr class="even">
+<td align="right">SleepTrouble</td>
+<td>Trouble sleeping?</td>
+<td>2</td>
+<td>binary</td>
+</tr>
+<tr class="odd">
+<td align="right">HealthGen</td>
+<td>Self-report health</td>
+<td>5</td>
+<td>ordinal</td>
+</tr>
+</tbody>
+</table>
+<div id="the-summary-function-for-categorical-data" class="section level2">
+<h2><span class="header-section-number">6.1</span> The <code>summary</code> function for Categorical data</h2>
+<p>When R recognizes a variable as categorical, it stores it as a <em>factor</em>. Such variables get special treatment from the <code>summary</code> function, in particular a table of available values (so long as there aren’t too many.)</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="summarizing-categorical-variables.html#cb139-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb139-2"><a href="summarizing-categorical-variables.html#cb139-2"></a><span class="st">  </span><span class="kw">select</span>(Sex, Race, Education, PhysActive, Smoke100, </span>
+<span id="cb139-3"><a href="summarizing-categorical-variables.html#cb139-3"></a>         SleepTrouble, HealthGen, MaritalStatus) <span class="op">%&gt;%</span></span>
+<span id="cb139-4"><a href="summarizing-categorical-variables.html#cb139-4"></a><span class="st">  </span><span class="kw">summary</span>()</span></code></pre></div>
+<pre><code>     Sex            Race              Education   PhysActive Smoke100 
+ female:221   Asian   : 42   8th Grade     : 24   No :215    No :297  
+ male  :279   Black   : 63   9 - 11th Grade: 60   Yes:285    Yes:203  
+              Hispanic: 26   High School   : 81                       
+              Mexican : 38   Some College  :153                       
+              White   :313   College Grad  :182                       
+              Other   : 18                                            
+ SleepTrouble     HealthGen        MaritalStatus
+ No :380      Excellent: 50   Divorced    : 51  
+ Yes:120      Vgood    :154   LivePartner : 51  
+              Good     :184   Married     :259  
+              Fair     : 49   NeverMarried:112  
+              Poor     : 14   Separated   : 16  
+              NA&#39;s     : 49   Widowed     : 11  </code></pre>
+</div>
+<div id="tables-to-describe-one-categorical-variable" class="section level2">
+<h2><span class="header-section-number">6.2</span> Tables to describe One Categorical Variable</h2>
+<p>Suppose we build a table (using the <code>tabyl</code> function from the <code>janitor</code> package) to describe the <code>HealthGen</code> distribution.</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="summarizing-categorical-variables.html#cb141-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb141-2"><a href="summarizing-categorical-variables.html#cb141-2"></a><span class="st">    </span><span class="kw">tabyl</span>(HealthGen) <span class="op">%&gt;%</span></span>
+<span id="cb141-3"><a href="summarizing-categorical-variables.html#cb141-3"></a><span class="st">    </span><span class="kw">adorn_pct_formatting</span>()</span></code></pre></div>
+<pre><code> HealthGen   n percent valid_percent
+ Excellent  50   10.0%         11.1%
+     Vgood 154   30.8%         34.1%
+      Good 184   36.8%         40.8%
+      Fair  49    9.8%         10.9%
+      Poor  14    2.8%          3.1%
+      &lt;NA&gt;  49    9.8%             -</code></pre>
+<p>Note how the missing (<code>&lt;NA&gt;</code>) values are not included in the <code>valid_percent</code> calculation, but are in the <code>percent</code> calculation. Note also the use of percentage formatting.</p>
+<p>What if we want to add a total count, sometimes called the <em>marginal</em> total?</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="summarizing-categorical-variables.html#cb143-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb143-2"><a href="summarizing-categorical-variables.html#cb143-2"></a><span class="st">    </span><span class="kw">tabyl</span>(HealthGen) <span class="op">%&gt;%</span></span>
+<span id="cb143-3"><a href="summarizing-categorical-variables.html#cb143-3"></a><span class="st">    </span><span class="kw">adorn_totals</span>() <span class="op">%&gt;%</span></span>
+<span id="cb143-4"><a href="summarizing-categorical-variables.html#cb143-4"></a><span class="st">    </span><span class="kw">adorn_pct_formatting</span>()</span></code></pre></div>
+<pre><code> HealthGen   n percent valid_percent
+ Excellent  50   10.0%         11.1%
+     Vgood 154   30.8%         34.1%
+      Good 184   36.8%         40.8%
+      Fair  49    9.8%         10.9%
+      Poor  14    2.8%          3.1%
+      &lt;NA&gt;  49    9.8%             -
+     Total 500  100.0%        100.0%</code></pre>
+<p>What about marital status, which has no missing data in our sample?</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="summarizing-categorical-variables.html#cb145-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb145-2"><a href="summarizing-categorical-variables.html#cb145-2"></a><span class="st">    </span><span class="kw">tabyl</span>(MaritalStatus) <span class="op">%&gt;%</span></span>
+<span id="cb145-3"><a href="summarizing-categorical-variables.html#cb145-3"></a><span class="st">    </span><span class="kw">adorn_totals</span>() <span class="op">%&gt;%</span></span>
+<span id="cb145-4"><a href="summarizing-categorical-variables.html#cb145-4"></a><span class="st">    </span><span class="kw">adorn_pct_formatting</span>()</span></code></pre></div>
+<pre><code> MaritalStatus   n percent
+      Divorced  51   10.2%
+   LivePartner  51   10.2%
+       Married 259   51.8%
+  NeverMarried 112   22.4%
+     Separated  16    3.2%
+       Widowed  11    2.2%
+         Total 500  100.0%</code></pre>
+</div>
+<div id="the-mode-of-a-categorical-variable" class="section level2">
+<h2><span class="header-section-number">6.3</span> The Mode of a Categorical Variable</h2>
+<p>A common measure applied to a categorical variable is to identify the mode, the most frequently observed value. To find the mode for variables with lots of categories (so that the <code>summary</code> may not be sufficient), we usually tabulate the data, and then sort by the counts of the numbers of observations, as we did with discrete quantitative variables.</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="summarizing-categorical-variables.html#cb147-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb147-2"><a href="summarizing-categorical-variables.html#cb147-2"></a><span class="st">    </span><span class="kw">group_by</span>(HealthGen) <span class="op">%&gt;%</span></span>
+<span id="cb147-3"><a href="summarizing-categorical-variables.html#cb147-3"></a><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">count =</span> <span class="kw">n</span>()) <span class="op">%&gt;%</span></span>
+<span id="cb147-4"><a href="summarizing-categorical-variables.html#cb147-4"></a><span class="st">    </span><span class="kw">arrange</span>(<span class="kw">desc</span>(count)) </span></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code># A tibble: 6 x 2
+  HealthGen count
+  &lt;fct&gt;     &lt;int&gt;
+1 Good        184
+2 Vgood       154
+3 Excellent    50
+4 Fair         49
+5 &lt;NA&gt;         49
+6 Poor         14</code></pre>
+</div>
+<div id="describe-in-the-hmisc-package" class="section level2">
+<h2><span class="header-section-number">6.4</span> <code>describe</code> in the <code>Hmisc</code> package</h2>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="summarizing-categorical-variables.html#cb150-1"></a>Hmisc<span class="op">::</span><span class="kw">describe</span>(nh_adults <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb150-2"><a href="summarizing-categorical-variables.html#cb150-2"></a><span class="st">                    </span><span class="kw">select</span>(Sex, Race, Education, PhysActive, </span>
+<span id="cb150-3"><a href="summarizing-categorical-variables.html#cb150-3"></a>                           Smoke100, SleepTrouble, </span>
+<span id="cb150-4"><a href="summarizing-categorical-variables.html#cb150-4"></a>                           HealthGen, MaritalStatus))</span></code></pre></div>
+<pre><code>nh_adults %&gt;% select(Sex, Race, Education, PhysActive, Smoke100, SleepTrouble, HealthGen, MaritalStatus) 
+
+ 8  Variables      500  Observations
+--------------------------------------------------------------------------------
+Sex 
+       n  missing distinct 
+     500        0        2 
+                        
+Value      female   male
+Frequency     221    279
+Proportion  0.442  0.558
+--------------------------------------------------------------------------------
+Race 
+       n  missing distinct 
+     500        0        6 
+
+lowest : Asian    Black    Hispanic Mexican  White   
+highest: Black    Hispanic Mexican  White    Other   
+                                                                
+Value         Asian    Black Hispanic  Mexican    White    Other
+Frequency        42       63       26       38      313       18
+Proportion    0.084    0.126    0.052    0.076    0.626    0.036
+--------------------------------------------------------------------------------
+Education 
+       n  missing distinct 
+     500        0        5 
+
+lowest : 8th Grade      9 - 11th Grade High School    Some College   College Grad  
+highest: 8th Grade      9 - 11th Grade High School    Some College   College Grad  
+                                                                      
+Value           8th Grade 9 - 11th Grade    High School   Some College
+Frequency              24             60             81            153
+Proportion          0.048          0.120          0.162          0.306
+                         
+Value        College Grad
+Frequency             182
+Proportion          0.364
+--------------------------------------------------------------------------------
+PhysActive 
+       n  missing distinct 
+     500        0        2 
+                    
+Value        No  Yes
+Frequency   215  285
+Proportion 0.43 0.57
+--------------------------------------------------------------------------------
+Smoke100 
+       n  missing distinct 
+     500        0        2 
+                      
+Value         No   Yes
+Frequency    297   203
+Proportion 0.594 0.406
+--------------------------------------------------------------------------------
+SleepTrouble 
+       n  missing distinct 
+     500        0        2 
+                    
+Value        No  Yes
+Frequency   380  120
+Proportion 0.76 0.24
+--------------------------------------------------------------------------------
+HealthGen 
+       n  missing distinct 
+     451       49        5 
+
+lowest : Excellent Vgood     Good      Fair      Poor     
+highest: Excellent Vgood     Good      Fair      Poor     
+                                                            
+Value      Excellent     Vgood      Good      Fair      Poor
+Frequency         50       154       184        49        14
+Proportion     0.111     0.341     0.408     0.109     0.031
+--------------------------------------------------------------------------------
+MaritalStatus 
+       n  missing distinct 
+     500        0        6 
+
+lowest : Divorced     LivePartner  Married      NeverMarried Separated   
+highest: LivePartner  Married      NeverMarried Separated    Widowed     
+                                                                           
+Value          Divorced  LivePartner      Married NeverMarried    Separated
+Frequency            51           51          259          112           16
+Proportion        0.102        0.102        0.518        0.224        0.032
+                       
+Value           Widowed
+Frequency            11
+Proportion        0.022
+--------------------------------------------------------------------------------</code></pre>
+</div>
+<div id="cross-tabulations" class="section level2">
+<h2><span class="header-section-number">6.5</span> Cross-Tabulations</h2>
+<p>It is very common for us to want to describe the association of one categorical variable with another. For instance, is there a relationship between Education and SleepTrouble in these data?</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="summarizing-categorical-variables.html#cb152-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb152-2"><a href="summarizing-categorical-variables.html#cb152-2"></a><span class="st">    </span><span class="kw">tabyl</span>(Education, SleepTrouble) <span class="op">%&gt;%</span></span>
+<span id="cb152-3"><a href="summarizing-categorical-variables.html#cb152-3"></a><span class="st">    </span><span class="kw">adorn_totals</span>(<span class="dt">where =</span> <span class="kw">c</span>(<span class="st">&quot;row&quot;</span>, <span class="st">&quot;col&quot;</span>)) </span></code></pre></div>
+<pre><code>      Education  No Yes Total
+      8th Grade  18   6    24
+ 9 - 11th Grade  45  15    60
+    High School  62  19    81
+   Some College 118  35   153
+   College Grad 137  45   182
+          Total 380 120   500</code></pre>
+<p>Note the use of <code>adorn_totals</code> to get the marginal counts, and how we specify that we want both the row and column totals. We can add a title for the columns with…</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="summarizing-categorical-variables.html#cb154-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb154-2"><a href="summarizing-categorical-variables.html#cb154-2"></a><span class="st">    </span><span class="kw">tabyl</span>(Education, SleepTrouble) <span class="op">%&gt;%</span></span>
+<span id="cb154-3"><a href="summarizing-categorical-variables.html#cb154-3"></a><span class="st">    </span><span class="kw">adorn_totals</span>(<span class="dt">where =</span> <span class="kw">c</span>(<span class="st">&quot;row&quot;</span>, <span class="st">&quot;col&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb154-4"><a href="summarizing-categorical-variables.html#cb154-4"></a><span class="st">    </span><span class="kw">adorn_title</span>(<span class="dt">placement =</span> <span class="st">&quot;combined&quot;</span>)</span></code></pre></div>
+<pre><code> Education/SleepTrouble  No Yes Total
+              8th Grade  18   6    24
+         9 - 11th Grade  45  15    60
+            High School  62  19    81
+           Some College 118  35   153
+           College Grad 137  45   182
+                  Total 380 120   500</code></pre>
+<p>Often, we’ll want to show percentages in a cross-tabulation like this. To get row percentages so that we can directly see the probability of <code>SleepTrouble = Yes</code> for each level of <code>Education</code>, we can use:</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="summarizing-categorical-variables.html#cb156-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb156-2"><a href="summarizing-categorical-variables.html#cb156-2"></a><span class="st">    </span><span class="kw">tabyl</span>(Education, SleepTrouble) <span class="op">%&gt;%</span></span>
+<span id="cb156-3"><a href="summarizing-categorical-variables.html#cb156-3"></a><span class="st">    </span><span class="kw">adorn_totals</span>(<span class="dt">where =</span> <span class="st">&quot;row&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb156-4"><a href="summarizing-categorical-variables.html#cb156-4"></a><span class="st">    </span><span class="kw">adorn_percentages</span>(<span class="dt">denominator =</span> <span class="st">&quot;row&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb156-5"><a href="summarizing-categorical-variables.html#cb156-5"></a><span class="st">    </span><span class="kw">adorn_pct_formatting</span>() <span class="op">%&gt;%</span></span>
+<span id="cb156-6"><a href="summarizing-categorical-variables.html#cb156-6"></a><span class="st">    </span><span class="kw">adorn_title</span>(<span class="dt">placement =</span> <span class="st">&quot;combined&quot;</span>)</span></code></pre></div>
+<pre><code> Education/SleepTrouble    No   Yes
+              8th Grade 75.0% 25.0%
+         9 - 11th Grade 75.0% 25.0%
+            High School 76.5% 23.5%
+           Some College 77.1% 22.9%
+           College Grad 75.3% 24.7%
+                  Total 76.0% 24.0%</code></pre>
+<p>If we want to compare the distribution of <code>Education</code> between the two levels of <code>SleepTrouble</code> with column percentages, we can use the following…</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="summarizing-categorical-variables.html#cb158-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb158-2"><a href="summarizing-categorical-variables.html#cb158-2"></a><span class="st">    </span><span class="kw">tabyl</span>(Education, SleepTrouble) <span class="op">%&gt;%</span></span>
+<span id="cb158-3"><a href="summarizing-categorical-variables.html#cb158-3"></a><span class="st">    </span><span class="kw">adorn_totals</span>(<span class="dt">where =</span> <span class="st">&quot;col&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb158-4"><a href="summarizing-categorical-variables.html#cb158-4"></a><span class="st">    </span><span class="kw">adorn_percentages</span>(<span class="dt">denominator =</span> <span class="st">&quot;col&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb158-5"><a href="summarizing-categorical-variables.html#cb158-5"></a><span class="st">    </span><span class="kw">adorn_pct_formatting</span>() <span class="op">%&gt;%</span></span>
+<span id="cb158-6"><a href="summarizing-categorical-variables.html#cb158-6"></a><span class="st">    </span><span class="kw">adorn_title</span>(<span class="dt">placement =</span> <span class="st">&quot;combined&quot;</span>) </span></code></pre></div>
+<pre><code> Education/SleepTrouble    No   Yes Total
+              8th Grade  4.7%  5.0%  4.8%
+         9 - 11th Grade 11.8% 12.5% 12.0%
+            High School 16.3% 15.8% 16.2%
+           Some College 31.1% 29.2% 30.6%
+           College Grad 36.1% 37.5% 36.4%</code></pre>
+<p>If we want overall percentages in the cells of the table, so that the total across all combinations of <code>Education</code> and <code>SleepTrouble</code> is 100%, we can use:</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="summarizing-categorical-variables.html#cb160-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb160-2"><a href="summarizing-categorical-variables.html#cb160-2"></a><span class="st">    </span><span class="kw">tabyl</span>(Education, SleepTrouble) <span class="op">%&gt;%</span></span>
+<span id="cb160-3"><a href="summarizing-categorical-variables.html#cb160-3"></a><span class="st">    </span><span class="kw">adorn_totals</span>(<span class="dt">where =</span> <span class="kw">c</span>(<span class="st">&quot;row&quot;</span>, <span class="st">&quot;col&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb160-4"><a href="summarizing-categorical-variables.html#cb160-4"></a><span class="st">    </span><span class="kw">adorn_percentages</span>(<span class="dt">denominator =</span> <span class="st">&quot;all&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb160-5"><a href="summarizing-categorical-variables.html#cb160-5"></a><span class="st">    </span><span class="kw">adorn_pct_formatting</span>() <span class="op">%&gt;%</span></span>
+<span id="cb160-6"><a href="summarizing-categorical-variables.html#cb160-6"></a><span class="st">    </span><span class="kw">adorn_title</span>(<span class="dt">placement =</span> <span class="st">&quot;combined&quot;</span>) </span></code></pre></div>
+<pre><code> Education/SleepTrouble    No   Yes  Total
+              8th Grade  3.6%  1.2%   4.8%
+         9 - 11th Grade  9.0%  3.0%  12.0%
+            High School 12.4%  3.8%  16.2%
+           Some College 23.6%  7.0%  30.6%
+           College Grad 27.4%  9.0%  36.4%
+                  Total 76.0% 24.0% 100.0%</code></pre>
+<p>Another common approach is to include both counts and percentages in a cross-tabulation. Let’s look at the breakdown of <code>HealthGen</code> by <code>MaritalStatus</code>.</p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="summarizing-categorical-variables.html#cb162-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb162-2"><a href="summarizing-categorical-variables.html#cb162-2"></a><span class="st">    </span><span class="kw">tabyl</span>(MaritalStatus, HealthGen) <span class="op">%&gt;%</span></span>
+<span id="cb162-3"><a href="summarizing-categorical-variables.html#cb162-3"></a><span class="st">    </span><span class="kw">adorn_totals</span>(<span class="dt">where =</span> <span class="kw">c</span>(<span class="st">&quot;row&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb162-4"><a href="summarizing-categorical-variables.html#cb162-4"></a><span class="st">    </span><span class="kw">adorn_percentages</span>(<span class="dt">denominator =</span> <span class="st">&quot;row&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb162-5"><a href="summarizing-categorical-variables.html#cb162-5"></a><span class="st">    </span><span class="kw">adorn_pct_formatting</span>() <span class="op">%&gt;%</span></span>
+<span id="cb162-6"><a href="summarizing-categorical-variables.html#cb162-6"></a><span class="st">    </span><span class="kw">adorn_ns</span>(<span class="dt">position =</span> <span class="st">&quot;front&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb162-7"><a href="summarizing-categorical-variables.html#cb162-7"></a><span class="st">    </span><span class="kw">adorn_title</span>(<span class="dt">placement =</span> <span class="st">&quot;combined&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb162-8"><a href="summarizing-categorical-variables.html#cb162-8"></a><span class="st">    </span>knitr<span class="op">::</span><span class="kw">kable</span>()</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">MaritalStatus/HealthGen</th>
+<th align="left">Excellent</th>
+<th align="left">Vgood</th>
+<th align="left">Good</th>
+<th align="left">Fair</th>
+<th align="left">Poor</th>
+<th align="left">NA_</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Divorced</td>
+<td align="left">7 (13.7%)</td>
+<td align="left">14 (27.5%)</td>
+<td align="left">20 (39.2%)</td>
+<td align="left">5 (9.8%)</td>
+<td align="left">2 (3.9%)</td>
+<td align="left">3 (5.9%)</td>
+</tr>
+<tr class="even">
+<td align="left">LivePartner</td>
+<td align="left">1 (2.0%)</td>
+<td align="left">18 (35.3%)</td>
+<td align="left">16 (31.4%)</td>
+<td align="left">11 (21.6%)</td>
+<td align="left">1 (2.0%)</td>
+<td align="left">4 (7.8%)</td>
+</tr>
+<tr class="odd">
+<td align="left">Married</td>
+<td align="left">23 (8.9%)</td>
+<td align="left">84 (32.4%)</td>
+<td align="left">102 (39.4%)</td>
+<td align="left">15 (5.8%)</td>
+<td align="left">4 (1.5%)</td>
+<td align="left">31 (12.0%)</td>
+</tr>
+<tr class="even">
+<td align="left">NeverMarried</td>
+<td align="left">14 (12.5%)</td>
+<td align="left">31 (27.7%)</td>
+<td align="left">43 (38.4%)</td>
+<td align="left">13 (11.6%)</td>
+<td align="left">3 (2.7%)</td>
+<td align="left">8 (7.1%)</td>
+</tr>
+<tr class="odd">
+<td align="left">Separated</td>
+<td align="left">4 (25.0%)</td>
+<td align="left">4 (25.0%)</td>
+<td align="left">1 (6.2%)</td>
+<td align="left">4 (25.0%)</td>
+<td align="left">1 (6.2%)</td>
+<td align="left">2 (12.5%)</td>
+</tr>
+<tr class="even">
+<td align="left">Widowed</td>
+<td align="left">1 (9.1%)</td>
+<td align="left">3 (27.3%)</td>
+<td align="left">2 (18.2%)</td>
+<td align="left">1 (9.1%)</td>
+<td align="left">3 (27.3%)</td>
+<td align="left">1 (9.1%)</td>
+</tr>
+<tr class="odd">
+<td align="left">Total</td>
+<td align="left">50 (10.0%)</td>
+<td align="left">154 (30.8%)</td>
+<td align="left">184 (36.8%)</td>
+<td align="left">49 (9.8%)</td>
+<td align="left">14 (2.8%)</td>
+<td align="left">49 (9.8%)</td>
+</tr>
+</tbody>
+</table>
+<p>What if we wanted to ignore the missing <code>HealthGen</code> values? Most often, I filter down to the complete observations.</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="summarizing-categorical-variables.html#cb163-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb163-2"><a href="summarizing-categorical-variables.html#cb163-2"></a><span class="st">    </span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(MaritalStatus, HealthGen)) <span class="op">%&gt;%</span></span>
+<span id="cb163-3"><a href="summarizing-categorical-variables.html#cb163-3"></a><span class="st">    </span><span class="kw">tabyl</span>(MaritalStatus, HealthGen) <span class="op">%&gt;%</span></span>
+<span id="cb163-4"><a href="summarizing-categorical-variables.html#cb163-4"></a><span class="st">    </span><span class="kw">adorn_totals</span>(<span class="dt">where =</span> <span class="kw">c</span>(<span class="st">&quot;row&quot;</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb163-5"><a href="summarizing-categorical-variables.html#cb163-5"></a><span class="st">    </span><span class="kw">adorn_percentages</span>(<span class="dt">denominator =</span> <span class="st">&quot;row&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb163-6"><a href="summarizing-categorical-variables.html#cb163-6"></a><span class="st">    </span><span class="kw">adorn_pct_formatting</span>() <span class="op">%&gt;%</span></span>
+<span id="cb163-7"><a href="summarizing-categorical-variables.html#cb163-7"></a><span class="st">    </span><span class="kw">adorn_ns</span>(<span class="dt">position =</span> <span class="st">&quot;front&quot;</span>) <span class="op">%&gt;%</span></span>
+<span id="cb163-8"><a href="summarizing-categorical-variables.html#cb163-8"></a><span class="st">    </span><span class="kw">adorn_title</span>(<span class="dt">placement =</span> <span class="st">&quot;combined&quot;</span>)</span></code></pre></div>
+<pre><code> MaritalStatus/HealthGen  Excellent       Vgood        Good       Fair
+                Divorced  7 (14.6%)  14 (29.2%)  20 (41.7%)  5 (10.4%)
+             LivePartner  1  (2.1%)  18 (38.3%)  16 (34.0%) 11 (23.4%)
+                 Married 23 (10.1%)  84 (36.8%) 102 (44.7%) 15  (6.6%)
+            NeverMarried 14 (13.5%)  31 (29.8%)  43 (41.3%) 13 (12.5%)
+               Separated  4 (28.6%)   4 (28.6%)   1  (7.1%)  4 (28.6%)
+                 Widowed  1 (10.0%)   3 (30.0%)   2 (20.0%)  1 (10.0%)
+                   Total 50 (11.1%) 154 (34.1%) 184 (40.8%) 49 (10.9%)
+       Poor
+  2  (4.2%)
+  1  (2.1%)
+  4  (1.8%)
+  3  (2.9%)
+  1  (7.1%)
+  3 (30.0%)
+ 14  (3.1%)</code></pre>
+<p>For more on working with <code>tabyls</code>, see the vignette in the <code>janitor</code> package. There you’ll find a complete list of all of the <code>adorn</code> functions, for example.</p>
+<p>Here’s another approach, to look at the cross-classification of Race and HealthGen:</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="summarizing-categorical-variables.html#cb165-1"></a><span class="kw">xtabs</span>(<span class="op">~</span><span class="st"> </span>Race <span class="op">+</span><span class="st"> </span>HealthGen, <span class="dt">data =</span> nh_adults)</span></code></pre></div>
+<pre><code>          HealthGen
+Race       Excellent Vgood Good Fair Poor
+  Asian            3    11   17    3    0
+  Black            8    11   19   11    6
+  Hispanic         3     3   11    4    1
+  Mexican          2     8   17    6    3
+  White           33   113  114   22    4
+  Other            1     8    6    3    0</code></pre>
+<div id="cross-classifying-three-categorical-variables" class="section level3">
+<h3><span class="header-section-number">6.5.1</span> Cross-Classifying Three Categorical Variables</h3>
+<p>Suppose we are interested in <code>Smoke100</code> and its relationship to <code>PhysActive</code> and <code>SleepTrouble</code>.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="summarizing-categorical-variables.html#cb167-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb167-2"><a href="summarizing-categorical-variables.html#cb167-2"></a><span class="st">    </span><span class="kw">tabyl</span>(Smoke100, PhysActive, SleepTrouble) <span class="op">%&gt;%</span></span>
+<span id="cb167-3"><a href="summarizing-categorical-variables.html#cb167-3"></a><span class="st">    </span><span class="kw">adorn_title</span>(<span class="dt">placement =</span> <span class="st">&quot;top&quot;</span>)</span></code></pre></div>
+<pre><code>$No
+          PhysActive    
+ Smoke100         No Yes
+       No         99 142
+      Yes         62  77
+
+$Yes
+          PhysActive    
+ Smoke100         No Yes
+       No         21  35
+      Yes         33  31</code></pre>
+<p>The result here is a tabyl of <code>Smoke100</code> (rows) by <code>PhysActive</code> (columns), split into a list by <code>SleepTrouble</code>. Another approach to get the same table is:</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="summarizing-categorical-variables.html#cb169-1"></a><span class="kw">xtabs</span>(<span class="op">~</span><span class="st"> </span>Smoke100 <span class="op">+</span><span class="st"> </span>PhysActive <span class="op">+</span><span class="st"> </span>SleepTrouble, <span class="dt">data =</span> nh_adults)</span></code></pre></div>
+<pre><code>, , SleepTrouble = No
+
+        PhysActive
+Smoke100  No Yes
+     No   99 142
+     Yes  62  77
+
+, , SleepTrouble = Yes
+
+        PhysActive
+Smoke100  No Yes
+     No   21  35
+     Yes  33  31</code></pre>
+<p>We can also build a <strong>flat</strong> version of this table, as follows:</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="summarizing-categorical-variables.html#cb171-1"></a><span class="kw">ftable</span>(Smoke100 <span class="op">~</span><span class="st"> </span>PhysActive <span class="op">+</span><span class="st"> </span>SleepTrouble, <span class="dt">data =</span> nh_adults)</span></code></pre></div>
+<pre><code>                        Smoke100  No Yes
+PhysActive SleepTrouble                 
+No         No                     99  62
+           Yes                    21  33
+Yes        No                    142  77
+           Yes                    35  31</code></pre>
+<p>And we can do this with <code>dplyr</code> functions, as well, for example…</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="summarizing-categorical-variables.html#cb173-1"></a>nh_adults <span class="op">%&gt;%</span></span>
+<span id="cb173-2"><a href="summarizing-categorical-variables.html#cb173-2"></a><span class="st">    </span><span class="kw">select</span>(Smoke100, PhysActive, SleepTrouble) <span class="op">%&gt;%</span></span>
+<span id="cb173-3"><a href="summarizing-categorical-variables.html#cb173-3"></a><span class="st">    </span><span class="kw">table</span>() </span></code></pre></div>
+<pre><code>, , SleepTrouble = No
+
+        PhysActive
+Smoke100  No Yes
+     No   99 142
+     Yes  62  77
+
+, , SleepTrouble = Yes
+
+        PhysActive
+Smoke100  No Yes
+     No   21  35
+     Yes  33  31</code></pre>
+</div>
+</div>
+<div id="constructing-tables-well" class="section level2">
+<h2><span class="header-section-number">6.6</span> Constructing Tables Well</h2>
+<p>The prolific Howard Wainer is responsible for many interesting books on visualization and related issues, including <span class="citation">Wainer (<a href="#ref-HW_GraphicDiscovery" role="doc-biblioref">2005</a>)</span> and <span class="citation">Wainer (<a href="#ref-HW_MedicalIlluminations" role="doc-biblioref">2013</a>)</span>. These rules come from Chapter 10 of <span class="citation">Wainer (<a href="#ref-HW_VisualRevelations" role="doc-biblioref">1997</a>)</span>.</p>
+<ol style="list-style-type: decimal">
+<li>Order the rows and columns in a way that makes sense.</li>
+<li>Round, a lot!</li>
+<li>ALL is different and important</li>
+</ol>
+<div id="alabama-first" class="section level3">
+<h3><span class="header-section-number">6.6.1</span> Alabama First!</h3>
+<p>Which of these Tables is more useful to you?</p>
+<p>2013 Percent of Students in grades 9-12 who are obese</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">State</th>
+<th align="center">% Obese</th>
+<th align="center">95% CI</th>
+<th align="center">Sample Size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Alabama</td>
+<td align="center">17.1</td>
+<td align="center">(14.6 - 19.9)</td>
+<td align="center">1,499</td>
+</tr>
+<tr class="even">
+<td align="left">Alaska</td>
+<td align="center">12.4</td>
+<td align="center">(10.5-14.6) | 1,</td>
+<td align="center">1,167</td>
+</tr>
+<tr class="odd">
+<td align="left">Arizona</td>
+<td align="center">10.7 | (8.3</td>
+<td align="center">(8.3-13.6) | 1,52</td>
+<td align="center">1,520</td>
+</tr>
+<tr class="even">
+<td align="left">Arkansas</td>
+<td align="center">17.8 | (15.7-</td>
+<td align="center">(15.7-20.1) |</td>
+<td align="center">1,470</td>
+</tr>
+<tr class="odd">
+<td align="left">Connecticut</td>
+<td align="center">12.3 |</td>
+<td align="center">(10.2-14.7) | 2,2</td>
+<td align="center">2,270</td>
+</tr>
+<tr class="even">
+<td align="left">Delaware</td>
+<td align="center">14.2 | (12</td>
+<td align="center">(12.9-15.6) |</td>
+<td align="center">2,475</td>
+</tr>
+<tr class="odd">
+<td align="left">Florida</td>
+<td align="center">11.6 | (10.5-1</td>
+<td align="center">(10.5-12.8) |</td>
+<td align="center">5,491</td>
+</tr>
+<tr class="even">
+<td align="left">…</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">Wisconsin</td>
+<td align="center">11.6 | (</td>
+<td align="center">(9.7-13.9) | 2,7</td>
+<td align="center">2,771</td>
+</tr>
+<tr class="even">
+<td align="left">Wyoming</td>
+<td align="center">10.7</td>
+<td align="center">(9.4-12.2) | 2,910</td>
+<td align="center">2,910</td>
+</tr>
+</tbody>
+</table>
+<p>or …</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left">State</th>
+<th align="center">% Obese</th>
+<th align="center">95% CI</th>
+<th align="center">Sample Size</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Kentucky</td>
+<td align="center">18.0</td>
+<td align="center">(15.7 - 20.6)</td>
+<td align="center">1,537</td>
+</tr>
+<tr class="even">
+<td align="left">Arkansas</td>
+<td align="center">17.8</td>
+<td align="center">(15.7 - 20.1)</td>
+<td align="center">1,470</td>
+</tr>
+<tr class="odd">
+<td align="left">Alabama</td>
+<td align="center">17.1</td>
+<td align="center">(14.6 - 19.9)</td>
+<td align="center">1,499</td>
+</tr>
+<tr class="even">
+<td align="left">Tennessee</td>
+<td align="center">16.9</td>
+<td align="center">(15.1 - 18.8)</td>
+<td align="center">1,831</td>
+</tr>
+<tr class="odd">
+<td align="left">Texas</td>
+<td align="center">15.7</td>
+<td align="center">(13.9 - 17.6)</td>
+<td align="center">3,039</td>
+</tr>
+<tr class="even">
+<td align="left">…</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="left">Massachusetts</td>
+<td align="center">10.2</td>
+<td align="center">(8.5 - 12.1)</td>
+<td align="center">2,547</td>
+</tr>
+<tr class="even">
+<td align="left">Idaho</td>
+<td align="center">9.6</td>
+<td align="center">(8.2 - 11.1)</td>
+<td align="center">1,841</td>
+</tr>
+<tr class="odd">
+<td align="left">Montana</td>
+<td align="center">9.4</td>
+<td align="center">(8.4 - 10.5)</td>
+<td align="center">4,679</td>
+</tr>
+<tr class="even">
+<td align="left">New Jersey</td>
+<td align="center">8.7</td>
+<td align="center">(6.8 - 11.2)</td>
+<td align="center">1,644</td>
+</tr>
+<tr class="odd">
+<td align="left">Utah</td>
+<td align="center">6.4</td>
+<td align="center">(4.8 - 8.5)</td>
+<td align="center">2,136</td>
+</tr>
+</tbody>
+</table>
+<p>It is a rare event when Alabama first is the best choice.</p>
+</div>
+<div id="order-rows-and-columns-sensibly" class="section level3">
+<h3><span class="header-section-number">6.6.2</span> Order rows and columns sensibly</h3>
+<ul>
+<li>Alabama First!
+<ul>
+<li>Size places - put the largest first. We often look most carefully at the top.</li>
+</ul></li>
+<li>Order time from the past to the future to help the viewer.</li>
+<li>If there is a clear predictor-outcome relationship, put the predictors in the rows and the outcomes in the columns.</li>
+</ul>
+</div>
+<div id="round---a-lot" class="section level3">
+<h3><span class="header-section-number">6.6.3</span> Round - a lot!</h3>
+<ul>
+<li>Humans cannot understand more than two digits very easily.</li>
+<li>We almost never care about accuracy of more than two digits.</li>
+<li>We can almost never justify more than two digits of accuracy statistically.</li>
+<li>It’s also helpful to remember that we are almost invariably publishing progress to date, rather than a truly final answer.</li>
+</ul>
+<p>Suppose, for instance, we report a correlation coefficient of 0.25. How many observations do you think you would need to justify such a choice?</p>
+<ul>
+<li>To report 0.25 meaningfully, we want to be sure that the second digit isn’t 4 or 6.</li>
+<li>That requires a standard error less than 0.005</li>
+<li>The <em>standard error</em> of any statistic is proportional to 1 over the square root of the sample size, <em>n</em>.</li>
+</ul>
+<p>So <span class="math inline">\(\frac{1}{\sqrt{n}}\)</span> ~ 0.005, but that means <span class="math inline">\(\sqrt{n} = \frac{1}{0.005} = 200\)</span>. If <span class="math inline">\(\sqrt{n} = 200\)</span>, then <em>n</em> = (200)<sup>2</sup> = 40,000.</p>
+<p>Do we usually have 40,000 observations?</p>
+</div>
+<div id="all-is-different-and-important" class="section level3">
+<h3><span class="header-section-number">6.6.4</span> ALL is different and important</h3>
+<p>Summaries of rows and columns provide a measure of what is typical or usual. Sometimes a sum is helpful, at other times, consider presenting a median or other summary. The ALL category, as <span class="citation">Wainer (<a href="#ref-HW_VisualRevelations" role="doc-biblioref">1997</a>)</span> suggests, should be both visually different from the individual entries and set spatially apart.</p>
+<p>On the whole, it’s <em>far</em> easier to fall into a good graph in R (at least if you have some ggplot2 skills) than to produce a good table.</p>
+</div>
+</div>
+<div id="gaining-control-over-tables-in-r-the-gt-package" class="section level2">
+<h2><span class="header-section-number">6.7</span> Gaining Control over Tables in R: the <code>gt</code> package</h2>
+<p>With the <code>gt</code> package, anyone can make wonderful-looking tables using the R programming language. The <code>gt</code> package is described in substantial detail at <a href="https://gt.rstudio.com/" class="uri">https://gt.rstudio.com/</a> and we’ll get started with it soon.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-HW_VisualRevelations">
+<p>Wainer, Howard. 1997. <em>Visual Revelations: Graphical Tales of Fate and Deception from Napoleon Bonaparte to Ross Perot</em>. New York: Springer-Verlag.</p>
+</div>
+<div id="ref-HW_GraphicDiscovery">
+<p>Wainer, Howard. 2005. <em>Graphic Discovery: A Trout in the Milk and Other Visual Adventures</em>. Princeton, NJ: Princeton University Press.</p>
+</div>
+<div id="ref-HW_MedicalIlluminations">
+<p>Wainer, Howard. 2013. <em>Medical Illuminations: Using Evidence, Visualization and Statistical Thinking to Improve Healthcare</em>. New York: Oxford University Press.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="summarizing-quantities.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/06-summarizing_categories.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["431-notes.pdf", "431-notes.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
