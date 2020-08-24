@@ -1,2 +1,6 @@
-# 431-notes
-Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431
+This the repository for Professor Love's notes for 431 in Fall 2020.
+
+To view the notes, visit XXXXX.
+
+
+
