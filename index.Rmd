@@ -71,6 +71,7 @@ knitr::opts_chunk$set(comment = NA)
 library(knitr)
 library(magrittr)
 library(janitor)
+library(NHANES)
 library(palmerpenguins)
 library(patchwork)
 library(tidyverse) # note: tidyverse includes the dplyr and ggplot2 packages
