@@ -21,6 +21,10 @@ description: "This book describes some fundamental approaches to doing biostatis
     - download a PDF or EPUB (Kindle-readable) version of the entire document.
 3. The document will be updated (unpredictably) throughout the semester.
 
+## The 431 Course online {-}
+
+The **main web page** for the 431 course in Fall 2020 is https://thomaselove.github.io/431/. Go there for all information related to the course.
+
 ## What You'll Find Here {-}
 
 These Notes provide a series of examples using R to work through issues that are likely to come up in PQHS/CRSP/MPHP 431. What you will mostly find are brief explanations of a key idea or summary, accompanied (most of the time) by R code and a demonstration of the results of applying that code. 
@@ -80,7 +84,7 @@ library(tidyverse) # note: tidyverse includes the dplyr and ggplot2 packages
 
 I have deliberately set up this list of loaded packages to be relatively small, and will add some others later in these Notes. You only need to install a package once, but you need to reload it every time you start a new session.
 
-## Additional R Packages installed for this book
+## Additional R Packages installed for this book {-}
 
 Some packages need to be installed on the user's system, but do not need to be loaded by R in order to run the code presented in this set of notes. These additional packages include the following.
 
