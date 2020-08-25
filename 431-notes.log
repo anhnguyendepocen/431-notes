@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (MiKTeX 2.9) (preloaded format=xelatex 2016.8.27)  24 AUG 2020 16:28
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (MiKTeX 2.9) (preloaded format=xelatex 2016.8.27)  25 AUG 2020 08:46
 entering extended mode
 **431-notes.tex
 (C:\Users\Thomas\Dropbox\2020-431\431-notes\431-notes.tex
@@ -1167,24 +1167,26 @@ LaTeX Font Info:    Try loading font information for EU1+lmtt on input line 55.
 File: eu1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
 ))
 \tf@toc=\write4
-[4] [5
+[4]
+File: figures/431_foot2.png Graphic file (type QTm)
+<use  "figures/431_foot2.png" > [5
 
 ]
-Underfull \hbox (badness 2671) in paragraph at lines 221--222
+Underfull \hbox (badness 2671) in paragraph at lines 223--224
 []\EU1/lmr/m/n/10 This description comes from []$[][][][] [] [] [] [][][][][][]
 [][][] [] [][][][][][][] [] [][][] [] [][][][][][] [][] [] [] [][][][]$[]
  []
 
 [6]
 LaTeX Font Info:    Font shape `EU1/lmtt/bx/n' in size <10> not available
-(Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 233.
+(Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 235.
 [7] [8
 
 ]
 Chapter 1.
 File: figures/data-science-venn20.png Graphic file (type QTm)
 <use  "figures/data-science-venn20.png" > [9]
-Underfull \hbox (badness 10000) in paragraph at lines 289--290
+Underfull \hbox (badness 10000) in paragraph at lines 291--292
 [][]$[][][][] [] [] [] [][][] [] [][][][][][][][][] [] [][][] [] [][][][] [] []
 [] [] [][][][][][] [][] [][][][] [][] [][][][][][][] [][] [][][][] [][]
  []
@@ -1200,7 +1202,7 @@ Chapter 2.
 [15
 
 ]
-Overfull \hbox (34.75pt too wide) in paragraph at lines 421--421
+Overfull \hbox (34.75pt too wide) in paragraph at lines 423--423
 []   \EU1/lmtt/m/n/10 species island bill_length_mm bill_depth_mm flipper_lengt
 h_~ body_mass_g[] 
  []
@@ -1229,7 +1231,7 @@ File: 431-notes_files/figure-latex/nh_dat1_heightbyage1-fig-1.pdf Graphic file
 (type QTm)
 <use  "431-notes_files/figure-latex/nh_dat1_heightbyage1-fig-1.pdf" > [22]
 LaTeX Font Info:    Font shape `EU1/lmtt/bx/n' in size <12> not available
-(Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 679.
+(Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 681.
 [23] [24]
 File: 431-notes_files/figure-latex/nh_dat2_heightbyageandsex1-fig-1.pdf Graphic
  file (type QTm)
@@ -1252,7 +1254,7 @@ File: 431-notes_files/figure-latex/nh_dat2_heightbyageandsex4-fig-1.pdf Graphic
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [27] [28]
-Overfull \hbox (24.25pt too wide) in paragraph at lines 896--896
+Overfull \hbox (24.25pt too wide) in paragraph at lines 898--898
 []      \EU1/lmtt/m/n/10 ID Sex     Age Height Pulse   SBP SleepTrouble PhysAct
 ive MaritalStatus[] 
  []
@@ -1366,7 +1368,7 @@ File: 431-notes_files/figure-latex/HealthGengraph3-fig-1.pdf Graphic file (type
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [48] [49]
-Overfull \hbox (65.37012pt too wide) in paragraph at lines 1500--1509
+Overfull \hbox (65.37012pt too wide) in paragraph at lines 1502--1511
 [][] 
  []
 
@@ -1392,168 +1394,168 @@ Chapter 4.
 Underfull \vbox (badness 2269) has occurred while \output is active []
 
 [55]
-Overfull \hbox (27.75pt too wide) in paragraph at lines 1672--1672
+Overfull \hbox (27.75pt too wide) in paragraph at lines 1674--1674
 []      \EU1/lmtt/m/n/10 ID Sex     Age Race  Education   BMI   SBP   DBP Pulse
  PhysActive Smoke100[] 
  []
 
 
-Overfull \hbox (20.75pt too wide) in paragraph at lines 1672--1672
+Overfull \hbox (20.75pt too wide) in paragraph at lines 1674--1674
 []   \EU1/lmtt/m/n/10 <int> <fct> <int> <fct> <fct>     <dbl> <int> <int> <int>
  <fct>      <fct>[] 
  []
 
 [56]
-Overfull \hbox (97.75pt too wide) in paragraph at lines 1715--1715
+Overfull \hbox (97.75pt too wide) in paragraph at lines 1717--1717
 [] \EU1/lmtt/m/n/10 $ ID           : int [1:500] 71531 68613 67064 63924 62840 
 68058 68936 71189 69936 70687 ...[] 
  []
 
 
-Overfull \hbox (10.25pt too wide) in paragraph at lines 1715--1715
+Overfull \hbox (10.25pt too wide) in paragraph at lines 1717--1717
 [] \EU1/lmtt/m/n/10 $ Sex          : Factor w/ 2 levels "female","male": 2 1 2 
 1 2 2 1 2 1 2 ...[] 
  []
 
 
-Overfull \hbox (27.75pt too wide) in paragraph at lines 1715--1715
+Overfull \hbox (27.75pt too wide) in paragraph at lines 1717--1717
 [] \EU1/lmtt/m/n/10 $ Race         : Factor w/ 6 levels "Asian","Black",..: 5 5
  5 2 5 5 2 5 1 5 ...[] 
  []
 
 
-Overfull \hbox (97.75pt too wide) in paragraph at lines 1715--1715
+Overfull \hbox (97.75pt too wide) in paragraph at lines 1717--1717
 [] \EU1/lmtt/m/n/10 $ Education    : Factor w/ 5 levels "8th Grade","9 - 11th G
 rade",..: 4 4 5 3 1 4 3 5 5 5 ...[] 
  []
 
 
-Overfull \hbox (47.0pt too wide) in paragraph at lines 1715--1715
+Overfull \hbox (47.0pt too wide) in paragraph at lines 1717--1717
 [] \EU1/lmtt/m/n/10 $ BMI          : num [1:500] 22.4 27.7 26.6 41.9 35.8 30.6 
 30.5 25.6 21.8 25.5 ...[] 
  []
 
 
-Overfull \hbox (90.75pt too wide) in paragraph at lines 1715--1715
+Overfull \hbox (90.75pt too wide) in paragraph at lines 1717--1717
 [] \EU1/lmtt/m/n/10 $ MaritalStatus: Factor w/ 6 levels "Divorced","LivePartner
 ",..: 4 6 3 5 3 3 4 3 3 6 ...[] 
  []
 
 
-Overfull \hbox (62.75pt too wide) in paragraph at lines 1715--1715
+Overfull \hbox (62.75pt too wide) in paragraph at lines 1717--1717
 [] \EU1/lmtt/m/n/10 $ HealthGen    : Factor w/ 5 levels "Excellent","Vgood",..:
  3 2 3 4 5 3 3 NA 3 1 ...[] 
  []
 
 
-Overfull \hbox (24.25pt too wide) in paragraph at lines 1736--1736
+Overfull \hbox (24.25pt too wide) in paragraph at lines 1738--1738
 []     \EU1/lmtt/m/n/10 ID Sex     Age Race  Education   BMI   SBP   DBP Pulse 
 PhysActive Smoke100[] 
  []
 
 
-Overfull \hbox (17.25pt too wide) in paragraph at lines 1736--1736
+Overfull \hbox (17.25pt too wide) in paragraph at lines 1738--1738
 []  \EU1/lmtt/m/n/10 <int> <fct> <int> <fct> <fct>     <dbl> <int> <int> <int> 
 <fct>      <fct>[] 
  []
 
 
-Overfull \hbox (1.5pt too wide) in paragraph at lines 1736--1736
+Overfull \hbox (1.5pt too wide) in paragraph at lines 1738--1738
 []\EU1/lmtt/m/n/10 # ... with 3 more variables: SleepTrouble <fct>, MaritalStat
 us <fct>,[] 
  []
 
 [57]
-Overfull \hbox (27.75pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (27.75pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ ID            <int> 71531, 68613, 67064, 63924, 62840, 680
 58, 68936, 7118...[] 
  []
 
 
-Overfull \hbox (29.5pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (29.5pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ Sex           <fct> male, female, male, female, male, male
 , female, male,...[] 
  []
 
 
-Overfull \hbox (19.0pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (19.0pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ Age           <int> 35, 61, 31, 29, 60, 50, 36, 51, 54, 59
 , 59, 27, 44, 4...[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (31.25pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ Race          <fct> White, White, White, Black, White, Whi
 te, Black, Whit...[] 
  []
 
 
-Overfull \hbox (40.0pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (40.0pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ Education     <fct> Some College, Some College, College Gr
 ad, High School...[] 
  []
 
 
-Overfull \hbox (27.75pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (27.75pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ BMI           <dbl> 22.4, 27.7, 26.6, 41.9, 35.8, 30.6, 30
 .5, 25.6, 21.8,...[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (22.5pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ SBP           <int> 143, 119, 110, 98, 127, NA, 119, 112, 
 126, 149, 122, ...[] 
  []
 
 
-Overfull \hbox (19.0pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (19.0pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ DBP           <int> 90, 86, 76, 56, 0, NA, 69, 70, 80, 89,
  75, 78, 69, 78...[] 
  []
 
 
-Overfull \hbox (24.25pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (24.25pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ Pulse         <int> 84, 112, 86, 74, 110, NA, 60, 54, 78, 
 62, 82, 68, 76,...[] 
  []
 
 
-Overfull \hbox (34.75pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (34.75pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ PhysActive    <fct> Yes, No, Yes, No, No, No, No, Yes, Yes
 , Yes, No, Yes,...[] 
  []
 
 
-Overfull \hbox (29.5pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (29.5pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ Smoke100      <fct> No, No, Yes, Yes, Yes, Yes, No, Yes, N
 o, No, No, No, ...[] 
  []
 
 
-Overfull \hbox (36.5pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (36.5pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ SleepTrouble  <fct> Yes, No, No, Yes, Yes, Yes, No, No, No
 , No, No, No, N...[] 
  []
 
 
-Overfull \hbox (50.5pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (50.5pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ MaritalStatus <fct> NeverMarried, Widowed, Married, Separa
 ted, Married, M...[] 
  []
 
 
-Overfull \hbox (36.5pt too wide) in paragraph at lines 1766--1766
+Overfull \hbox (36.5pt too wide) in paragraph at lines 1768--1768
 []\EU1/lmtt/m/n/10 $ HealthGen     <fct> Good, Vgood, Good, Fair, Poor, Good, G
 ood, NA, Good, ...[] 
  []
 
 
-Overfull \hbox (4.68211pt too wide) in paragraph at lines 1859--1860
+Overfull \hbox (4.68211pt too wide) in paragraph at lines 1861--1862
  []\EU1/lmr/m/n/10 SleepTrouble|
  []
 
 
-Overfull \hbox (8.63211pt too wide) in paragraph at lines 1866--1867
+Overfull \hbox (8.63211pt too wide) in paragraph at lines 1868--1869
  []\EU1/lmr/m/n/10 MaritalStatus|
  []
 
@@ -1563,126 +1565,126 @@ Underfull \vbox (badness 1931) has occurred while \output is active []
 [59] [60] [61] [62]
 Chapter 5.
 LaTeX Font Info:    Font shape `EU1/lmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 2046.
+(Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 2048.
 
 [63
 
 ] [64]
-Overfull \hbox (27.75pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (27.75pt too wide) in paragraph at lines 2182--2182
 []  \EU1/lmtt/m/n/10 [1] 21 21 21 21 21 21 21 21 22 22 22 22 22 22 22 22 22 22 
 22 22 23 23 23 23 23[] 
  []
 
 
-Overfull \hbox (29.5pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (29.5pt too wide) in paragraph at lines 2182--2182
 [] \EU1/lmtt/m/n/10 [26] 23 23 23 23 23 23 24 24 24 24 24 24 24 24 24 24 24 24 
 24 24 24 25 25 25 25[] 
  []
 
 
-Overfull \hbox (29.5pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (29.5pt too wide) in paragraph at lines 2182--2182
 [] \EU1/lmtt/m/n/10 [51] 25 25 25 25 25 26 26 26 26 26 26 26 26 26 26 26 26 26 
 27 27 27 27 27 27 27[] 
  []
 
 
-Overfull \hbox (29.5pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (29.5pt too wide) in paragraph at lines 2182--2182
 [] \EU1/lmtt/m/n/10 [76] 27 27 27 27 27 27 27 27 28 28 28 28 28 28 28 28 28 28 
 28 28 28 29 29 29 29[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [101] 29 29 29 30 30 30 30 30 30 30 30 30 30 30 30 30 30 30 
 31 31 31 31 31 31 31[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [126] 31 31 31 31 31 32 32 32 32 32 32 32 32 32 32 32 32 32 
 32 33 33 33 33 33 33[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [151] 33 33 33 33 33 33 33 34 34 34 34 34 34 34 35 35 35 35 
 35 35 35 35 35 36 36[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [176] 36 36 36 36 36 37 37 37 37 37 37 37 37 37 37 37 37 37 
 37 37 37 37 37 38 38[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [201] 38 38 38 38 38 38 38 38 38 38 39 39 39 39 39 39 39 39 
 39 39 39 39 39 40 40[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [226] 40 40 40 40 40 40 40 40 40 41 41 41 41 41 41 41 41 41 
 41 41 41 42 42 42 42[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [251] 42 42 42 42 42 42 42 42 43 43 43 43 43 43 43 43 43 43 
 43 43 43 43 43 44 44[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [276] 44 44 44 44 44 44 44 44 44 45 45 45 45 45 45 45 45 45 
 45 45 45 45 45 45 46[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [301] 46 46 46 46 46 46 47 47 47 47 47 47 47 47 47 47 48 48 
 48 48 48 48 49 49 49[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [326] 49 49 49 49 49 49 49 49 49 49 49 49 49 49 50 50 50 50 
 50 50 50 50 50 50 50[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [351] 50 50 50 50 51 51 51 51 51 51 51 51 51 52 52 52 52 52 
 52 52 52 53 53 53 53[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [376] 53 53 53 53 53 53 53 53 53 53 54 54 54 54 54 54 54 54 
 54 54 54 54 55 55 55[] 
  []
 
 [65]
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [401] 55 55 55 55 55 55 55 55 56 56 56 56 56 56 56 56 56 56 
 56 56 56 56 56 57 57[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [426] 57 57 57 57 57 57 57 57 57 58 58 58 58 58 58 58 58 58 
 59 59 59 59 59 59 59[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [451] 59 59 59 59 59 59 59 59 60 60 60 60 60 60 60 60 60 60 
 60 61 61 61 61 61 61[] 
  []
 
 
-Overfull \hbox (31.25pt too wide) in paragraph at lines 2180--2180
+Overfull \hbox (31.25pt too wide) in paragraph at lines 2182--2182
 []\EU1/lmtt/m/n/10 [476] 61 61 61 61 61 62 62 62 62 62 63 63 63 63 63 63 63 63 
 64 64 64 64 64 64 64[] 
  []
@@ -1705,37 +1707,37 @@ BLES \EU1/lmr/m/n/10 75
  []
 
 [75]
-Overfull \hbox (75.0pt too wide) in paragraph at lines 2728--2728
+Overfull \hbox (75.0pt too wide) in paragraph at lines 2730--2730
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 [76]
-Overfull \hbox (75.0pt too wide) in paragraph at lines 2728--2728
+Overfull \hbox (75.0pt too wide) in paragraph at lines 2730--2730
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 2728--2728
+Overfull \hbox (75.0pt too wide) in paragraph at lines 2730--2730
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 2728--2728
+Overfull \hbox (75.0pt too wide) in paragraph at lines 2730--2730
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 2728--2728
+Overfull \hbox (75.0pt too wide) in paragraph at lines 2730--2730
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 2728--2728
+Overfull \hbox (75.0pt too wide) in paragraph at lines 2730--2730
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
@@ -1751,43 +1753,43 @@ Chapter 6.
 [79
 
 ] [80] [81]
-Overfull \hbox (185.25pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (185.25pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 nh_adults %>% select(Sex, Race, Education, PhysActive, Smoke
 100, SleepTrouble, HealthGen, MaritalStatus)[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (75.0pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (75.0pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (75.0pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 
-Overfull \hbox (40.0pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (40.0pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 lowest : 8th Grade      9 - 11th Grade High School    Some C
 ollege   College Grad[] 
  []
 
 
-Overfull \hbox (41.75pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (41.75pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 highest: 8th Grade      9 - 11th Grade High School    Some C
 ollege   College Grad[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (75.0pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
@@ -1796,43 +1798,43 @@ Overfull \hbox (75.0pt too wide) in paragraph at lines 3002--3002
 Underfull \vbox (badness 1983) has occurred while \output is active []
 
 [82]
-Overfull \hbox (75.0pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (75.0pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (75.0pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (75.0pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 
-Overfull \hbox (75.0pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (75.0pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 
-Overfull \hbox (8.5pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (8.5pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 Value          Divorced  LivePartner      Married NeverMarri
 ed    Separated[] 
  []
 
 [83]
-Overfull \hbox (75.0pt too wide) in paragraph at lines 3002--3002
+Overfull \hbox (75.0pt too wide) in paragraph at lines 3004--3004
 []\EU1/lmtt/m/n/10 ------------------------------------------------------------
 --------------------[] 
  []
 
 [84] [85]
-Overfull \hbox (139.72012pt too wide) in paragraph at lines 3131--3150
+Overfull \hbox (139.72012pt too wide) in paragraph at lines 3133--3152
 [][] 
  []
 
@@ -1841,24 +1843,24 @@ Underfull \vbox (badness 1708) has occurred while \output is active []
 
 [86] [87] [88] [89] (C:\Users\Thomas\Dropbox\2020-431\431-notes\431-notes.bbl [
 90])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3428.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3430.
 [91
 
 ]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 3428.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 3430.
 (C:\Users\Thomas\Dropbox\2020-431\431-notes\431-notes.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 3428.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 3428.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 3430.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 3430.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3428.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3430.
  ) 
 Here is how much of TeX's memory you used:
- 29260 strings out of 428790
- 510999 string characters out of 3163802
+ 29262 strings out of 428790
+ 511033 string characters out of 3163802
  661751 words of memory out of 3000000
- 32243 multiletter control sequences out of 15000+200000
+ 32244 multiletter control sequences out of 15000+200000
  10049 words of font info for 76 fonts, out of 3000000 for 9000
  1096 hyphenation exceptions out of 8191
  58i,9n,103p,10404b,545s stack positions out of 5000i,500n,10000p,200000b,50000s

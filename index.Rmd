@@ -25,6 +25,10 @@ description: "This book describes some fundamental approaches to doing biostatis
 
 The **main web page** for the 431 course in Fall 2020 is https://thomaselove.github.io/431/. Go there for all information related to the course.
 
+```{r iconlogo-fig, echo = FALSE, fig.align = "center", out.width = '80%'}
+knitr::include_graphics("figures/431_foot2.PNG")
+```
+
 ## What You'll Find Here {-}
 
 These Notes provide a series of examples using R to work through issues that are likely to come up in PQHS/CRSP/MPHP 431. What you will mostly find are brief explanations of a key idea or summary, accompanied (most of the time) by R code and a demonstration of the results of applying that code. 
