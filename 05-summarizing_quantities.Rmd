@@ -177,13 +177,13 @@ $$
 
 Why almost? It would be the mean of the squared deviations only if we divided the sum by $n$, but instead we divide by $n-1$ because doing so produces an estimate of the true (population) variance that is *unbiased*^[When we divide by n-1 as we calculate the sample variance, the average of the sample variances for all possible samples is equal to the population variance. If we instead divided by n, the average sample variance across all possible samples would be a little smaller than the population variance.]. If you're looking for a more intuitive explanation, [this Stack Exchange link](http://stats.stackexchange.com/questions/3931/intuitive-explanation-for-dividing-by-n-1-when-calculating-standard-deviation) awaits your attention. 
 
-- To return to the original units of measurement, we take the square root of $s^2$, and instead work with $s$, the **standard deviation**.
+- To return to the original units of measurement, we take the square root of $s^2$, and instead work with $s$, the **standard deviation**, also abbreviated SD.
 
 $$
 \mbox{Standard Deviation} = s = \sqrt{\frac{\Sigma (y - \bar{y})^2}{n-1}}
 $$
 
-### Empirical Rule Interpretation of the Standard Deviation
+### Interpreting the SD when the data are Normally distributed
 
 For a set of measurements that follow a Normal distribution, the interval:
 
@@ -193,7 +193,7 @@ For a set of measurements that follow a Normal distribution, the interval:
 
 We often refer to the population or process mean of a distribution with $\mu$ and the standard deviation with $\sigma$, leading to the Figure below.
 
-```{r EmpRule-fig, echo = FALSE, out.width = '90%', fig.cap = "The Normal Distribution and the Empirical Rule"}
+```{r EmpRule-fig1, echo = FALSE, out.width = '90%', fig.cap = "The Normal Distribution and the Empirical Rule"}
 knitr::include_graphics("figures/Empirical_Rule.PNG")
 ```
 
@@ -313,7 +313,7 @@ The additional statistics presented here are:
 - a measure of `kurtosis`, which refers to how outlier-prone, or heavy-tailed the shape of the distribution is, mainly as compared to a Normal distribution. 
 - `se` = the standard error of the sample mean, equal to the sample sd divided by the square root of the sample size.
 
-### `describe` in the `Hmisc` package
+### The `Hmisc` package's version of `describe`
 
 ```{r Hmisc-describe-nh_adults}
 Hmisc::describe(nh_adults %>% select(Age, BMI, SBP, DBP, Pulse))

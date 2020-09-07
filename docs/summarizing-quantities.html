@@ -212,7 +212,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.3.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-variance-and-the-standard-deviation"><i class="fa fa-check"></i><b>5.3.2</b> The Variance and the Standard Deviation</a></li>
 <li class="chapter" data-level="5.3.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#obtaining-the-variance-and-standard-deviation-in-r"><i class="fa fa-check"></i><b>5.3.3</b> Obtaining the Variance and Standard Deviation in R</a></li>
 <li class="chapter" data-level="5.3.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#defining-the-variance-and-standard-deviation"><i class="fa fa-check"></i><b>5.3.4</b> Defining the Variance and Standard Deviation</a></li>
-<li class="chapter" data-level="5.3.5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#empirical-rule-interpretation-of-the-standard-deviation"><i class="fa fa-check"></i><b>5.3.5</b> Empirical Rule Interpretation of the Standard Deviation</a></li>
+<li class="chapter" data-level="5.3.5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#interpreting-the-sd-when-the-data-are-normally-distributed"><i class="fa fa-check"></i><b>5.3.5</b> Interpreting the SD when the data are Normally distributed</a></li>
 <li class="chapter" data-level="5.3.6" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#chebyshevs-inequality-one-interpretation-of-the-standard-deviation"><i class="fa fa-check"></i><b>5.3.6</b> Chebyshev’s Inequality: One Interpretation of the Standard Deviation</a></li>
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-shape-of-a-distribution"><i class="fa fa-check"></i><b>5.4</b> Measuring the Shape of a Distribution</a><ul>
@@ -223,7 +223,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#more-detailed-numerical-summaries-for-quantitative-variables"><i class="fa fa-check"></i><b>5.5</b> More Detailed Numerical Summaries for Quantitative Variables</a><ul>
 <li class="chapter" data-level="5.5.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#favstats-in-the-mosaic-package"><i class="fa fa-check"></i><b>5.5.1</b> <code>favstats</code> in the <code>mosaic</code> package</a></li>
 <li class="chapter" data-level="5.5.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#describe-in-the-psych-package"><i class="fa fa-check"></i><b>5.5.2</b> <code>describe</code> in the <code>psych</code> package</a></li>
-<li class="chapter" data-level="5.5.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#describe-in-the-hmisc-package"><i class="fa fa-check"></i><b>5.5.3</b> <code>describe</code> in the <code>Hmisc</code> package</a></li>
+<li class="chapter" data-level="5.5.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-hmisc-packages-version-of-describe"><i class="fa fa-check"></i><b>5.5.3</b> The <code>Hmisc</code> package’s version of <code>describe</code></a></li>
 <li class="chapter" data-level="5.5.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#other-options"><i class="fa fa-check"></i><b>5.5.4</b> Other options</a></li>
 </ul></li>
 </ul></li>
@@ -231,7 +231,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#the-summary-function-for-categorical-data"><i class="fa fa-check"></i><b>6.1</b> The <code>summary</code> function for Categorical data</a></li>
 <li class="chapter" data-level="6.2" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#tables-to-describe-one-categorical-variable"><i class="fa fa-check"></i><b>6.2</b> Tables to describe One Categorical Variable</a></li>
 <li class="chapter" data-level="6.3" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#the-mode-of-a-categorical-variable"><i class="fa fa-check"></i><b>6.3</b> The Mode of a Categorical Variable</a></li>
-<li class="chapter" data-level="6.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#describe-in-the-hmisc-package"><i class="fa fa-check"></i><b>6.4</b> <code>describe</code> in the <code>Hmisc</code> package</a></li>
+<li class="chapter" data-level="6.4" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#describe-in-the-hmisc-package"><i class="fa fa-check"></i><b>6.4</b> <code>describe</code> in the <code>Hmisc</code> package</a></li>
 <li class="chapter" data-level="6.5" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#cross-tabulations"><i class="fa fa-check"></i><b>6.5</b> Cross-Tabulations</a><ul>
 <li class="chapter" data-level="6.5.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#cross-classifying-three-categorical-variables"><i class="fa fa-check"></i><b>6.5.1</b> Cross-Classifying Three Categorical Variables</a></li>
 </ul></li>
@@ -287,11 +287,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.13" data-path="NYFS-Study.html"><a href="NYFS-Study.html#assessing-kurtosis-heavy-tailedness"><i class="fa fa-check"></i><b>7.13</b> Assessing Kurtosis (Heavy-Tailedness)</a><ul>
 <li class="chapter" data-level="7.13.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-standard-error-of-the-sample-mean"><i class="fa fa-check"></i><b>7.13.1</b> The Standard Error of the Sample Mean</a></li>
 </ul></li>
-<li class="chapter" data-level="7.14" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-describe-function-in-the-hmisc-library"><i class="fa fa-check"></i><b>7.14</b> The <code>describe</code> function in the <code>Hmisc</code> library</a></li>
+<li class="chapter" data-level="7.14" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-describe-function-in-the-hmisc-package"><i class="fa fa-check"></i><b>7.14</b> The <code>describe</code> function in the <code>Hmisc</code> package</a></li>
 <li class="chapter" data-level="7.15" data-path="NYFS-Study.html"><a href="NYFS-Study.html#what-summaries-to-report"><i class="fa fa-check"></i><b>7.15</b> What Summaries to Report</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="assessing-normality.html"><a href="assessing-normality.html"><i class="fa fa-check"></i><b>8</b> Assessing Normality</a><ul>
-<li class="chapter" data-level="8.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#empirical-rule-interpretation-of-the-standard-deviation"><i class="fa fa-check"></i><b>8.1</b> Empirical Rule Interpretation of the Standard Deviation</a></li>
+<li class="chapter" data-level="8.1" data-path="assessing-normality.html"><a href="assessing-normality.html#empirical-rule-interpretation-of-the-standard-deviation"><i class="fa fa-check"></i><b>8.1</b> Empirical Rule Interpretation of the Standard Deviation</a></li>
 <li class="chapter" data-level="8.2" data-path="assessing-normality.html"><a href="assessing-normality.html#describing-outlying-values-with-z-scores"><i class="fa fa-check"></i><b>8.2</b> Describing Outlying Values with Z Scores</a><ul>
 <li class="chapter" data-level="8.2.1" data-path="assessing-normality.html"><a href="assessing-normality.html#fences-and-z-scores"><i class="fa fa-check"></i><b>8.2.1</b> Fences and Z Scores</a></li>
 </ul></li>
@@ -582,14 +582,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 \]</span></p>
 <p>Why almost? It would be the mean of the squared deviations only if we divided the sum by <span class="math inline">\(n\)</span>, but instead we divide by <span class="math inline">\(n-1\)</span> because doing so produces an estimate of the true (population) variance that is <em>unbiased</em><a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a>. If you’re looking for a more intuitive explanation, <a href="http://stats.stackexchange.com/questions/3931/intuitive-explanation-for-dividing-by-n-1-when-calculating-standard-deviation">this Stack Exchange link</a> awaits your attention.</p>
 <ul>
-<li>To return to the original units of measurement, we take the square root of <span class="math inline">\(s^2\)</span>, and instead work with <span class="math inline">\(s\)</span>, the <strong>standard deviation</strong>.</li>
+<li>To return to the original units of measurement, we take the square root of <span class="math inline">\(s^2\)</span>, and instead work with <span class="math inline">\(s\)</span>, the <strong>standard deviation</strong>, also abbreviated SD.</li>
 </ul>
 <p><span class="math display">\[
 \mbox{Standard Deviation} = s = \sqrt{\frac{\Sigma (y - \bar{y})^2}{n-1}}
 \]</span></p>
 </div>
-<div id="empirical-rule-interpretation-of-the-standard-deviation" class="section level3">
-<h3><span class="header-section-number">5.3.5</span> Empirical Rule Interpretation of the Standard Deviation</h3>
+<div id="interpreting-the-sd-when-the-data-are-normally-distributed" class="section level3">
+<h3><span class="header-section-number">5.3.5</span> Interpreting the SD when the data are Normally distributed</h3>
 <p>For a set of measurements that follow a Normal distribution, the interval:</p>
 <ul>
 <li>Mean <span class="math inline">\(\pm\)</span> Standard Deviation contains approximately 68% of the measurements;</li>
@@ -597,7 +597,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Mean <span class="math inline">\(\pm\)</span> 3(Standard Deviation) contains approximately all (99.7%) of the measurements.</li>
 </ul>
 <p>We often refer to the population or process mean of a distribution with <span class="math inline">\(\mu\)</span> and the standard deviation with <span class="math inline">\(\sigma\)</span>, leading to the Figure below.</p>
-<div class="figure"><span id="fig:EmpRule-fig"></span>
+<div class="figure"><span id="fig:EmpRule-fig1"></span>
 <img src="figures/Empirical_Rule.PNG" alt="The Normal Distribution and the Empirical Rule" width="90%" />
 <p class="caption">
 Figure 5.1: The Normal Distribution and the Empirical Rule
@@ -743,8 +743,8 @@ Pulse     0.15 0.55</code></pre>
 <li><code>se</code> = the standard error of the sample mean, equal to the sample sd divided by the square root of the sample size.</li>
 </ul>
 </div>
-<div id="describe-in-the-hmisc-package" class="section level3">
-<h3><span class="header-section-number">5.5.3</span> <code>describe</code> in the <code>Hmisc</code> package</h3>
+<div id="the-hmisc-packages-version-of-describe" class="section level3">
+<h3><span class="header-section-number">5.5.3</span> The <code>Hmisc</code> package’s version of <code>describe</code></h3>
 <div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="summarizing-quantities.html#cb137-1"></a>Hmisc<span class="op">::</span><span class="kw">describe</span>(nh_adults <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Age, BMI, SBP, DBP, Pulse))</span></code></pre></div>
 <pre><code>nh_adults %&gt;% select(Age, BMI, SBP, DBP, Pulse) 
 

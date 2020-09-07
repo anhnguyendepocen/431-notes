@@ -641,9 +641,9 @@ sd(nnyfs$energy)/sqrt(length(nnyfs$energy))
 ```
 
 
-## The `describe` function in the `Hmisc` library
+## The `describe` function in the `Hmisc` package
 
-The `Hmisc` library has lots of useful functions. It's named for its main developer, Frank Harrell. The `describe` function in `Hmisc` knows enough to separate numerical from categorical variables, and give you separate (and detailed) summaries for each.
+The `Hmisc` package has lots of useful functions. It's named for its main developer, Frank Harrell. The `describe` function in `Hmisc` knows enough to separate numerical from categorical variables, and give you separate (and detailed) summaries for each.
 
 - For a categorical variable, it provides counts of total observations (n), the number of missing values, and the number of unique categories, along with counts and percentages falling in each category.
 - For a numerical variable, it provides:
@@ -655,7 +655,7 @@ The `Hmisc` library has lots of useful functions. It's named for its main develo
 + either a complete table of all observed values, with counts and percentages (if there are a modest number of unique values), or
 + a table of the five smallest and five largest values in the data set, which is useful for range checking
 
-```{r Hmisc_nnyfs_numerical_summaries}
+```{r Hmisc_nnyfs_num_describe}
 nnyfs %>% 
   select(waist, energy, bmi) %>%
   Hmisc::describe()
