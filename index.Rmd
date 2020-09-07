@@ -93,6 +93,7 @@ I have deliberately set up this list of loaded packages to be relatively small, 
 Some packages need to be installed on the user's system, but do not need to be loaded by R in order to run the code presented in this set of notes. These additional packages include the following.
 
 ```
+aplpack
 car
 Epi
 gt
