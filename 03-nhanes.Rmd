@@ -336,7 +336,7 @@ We can compare the distribution of Pulse rate across groups by the subject's sel
 ggplot(data = nh_dat3, aes(x = HealthGen, y = Pulse, fill = HealthGen)) + 
     geom_boxplot() +
     labs(title = "Pulse by Self-Reported Overall Health for NHANES ages 21-79",
-         x = "Pulse Rate") + 
+         x = "Self-Reported Overall Health", y = "Pulse Rate") + 
     guides(fill = FALSE) 
 ```    
 
@@ -355,11 +355,11 @@ nh_dat3 %>%
 ggplot(data = nh_dat3, aes(x = SBP, y = Pulse)) +
     geom_point() +
     geom_smooth(method = "loess") +
-    labs(title = "SBP vs. Pulse rate for NHANES subjects, ages 21-79")
+    labs(title = "Pulse Rate vs. SBP for NHANES subjects, ages 21-79")
 ```
 
 
-### Sleep Troubls vs. No Sleep Trouble?
+### Sleep Trouble vs. No Sleep Trouble?
 
 Could we see whether subjects who have described `SleepTrouble` show different SBP-pulse rate patterns than the subjects who haven't? 
 
@@ -371,7 +371,7 @@ ggplot(data = nh_dat3,
            color = SleepTrouble, shape = SleepTrouble)) +
     geom_point() +
     geom_smooth(method = "loess") +
-    labs(title = "SBP vs. Pulse rate for NHANES subjects, ages 21-79")
+    labs(title = "Pulse Rate vs. SBP for NHANES subjects, ages 21-79")
 ```
 
 This plot might be easier to interpret if we faceted by `SleepTrouble`, as well.
@@ -382,7 +382,7 @@ ggplot(data = nh_dat3,
            color = SleepTrouble, shape = SleepTrouble)) +
     geom_point() +
     geom_smooth(method = "loess") +
-    labs(title = "SBP vs. Pulse rate for NHANES subjects, ages 21-79") +
+    labs(title = "Pulse Rate vs. SBP for NHANES subjects, ages 21-79") +
     facet_wrap(~ SleepTrouble, labeller = "label_both")
 ```
 
@@ -452,7 +452,6 @@ Or, we can really go crazy...
 ```{r HealthGengraph3-fig}
 nh_dat3 %>%
     count(HealthGen) %>%
-    ungroup() %>%
     mutate(pct = round(prop.table(n) * 100, 1)) %>%
     ggplot(aes(x = HealthGen, y = pct, fill = HealthGen)) + 
     geom_bar(stat = "identity", position = "dodge") +
@@ -537,11 +536,11 @@ nh_dat3 %>%
 
 We'll build a panel of boxplots to try to understand the relationships between Systolic Blood Pressure, General Health Status and Physical Activity. Note the use of `coord_flip` to rotate the graph 90 degrees, and the use of `labeller` within `facet_wrap` to include both the name of the (Physical Activity) variable and its value.
 
-```{r nh_dat3_bmibyhealthbysex1-fig}
+```{r}
 ggplot(data = nh_dat3, aes(x = HealthGen, y = SBP, fill = HealthGen)) + 
     geom_boxplot() + 
     labs(title = "SBP by Health Status, Overall Health for NHANES ages 21-79",
-         y = "Body-mass index", x = "Self-Reported Overall Health") + 
+         y = "Systolic BP", x = "Self-Reported Overall Health") + 
     guides(fill = FALSE) +
     facet_wrap(~ PhysActive, labeller = "label_both") + 
     coord_flip()
@@ -551,11 +550,11 @@ ggplot(data = nh_dat3, aes(x = HealthGen, y = SBP, fill = HealthGen)) +
 
 Here's a plot of faceted histograms, which might be used to address similar questions related to the relationship between Overall Health, Systolic Blood Pressure and Sex.
 
-```{r nh_dat3_bmibyhealthbysex2-fig}
+```{r}
 ggplot(data = nh_dat3, aes(x = SBP, fill = Sex)) + 
     geom_histogram(color = "white", bins = 20) + 
     labs(title = "SBP by Sex, Overall Health for NHANES ages 21-79",
-         x = "Body-mass index") + 
+         x = "Systolic BP") + 
     guides(fill = FALSE) +
     facet_grid(HealthGen ~ Sex)
 ```

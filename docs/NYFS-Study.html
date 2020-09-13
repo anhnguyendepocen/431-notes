@@ -24,7 +24,7 @@
 <meta name="author" content="Thomas E. Love" />
 
 
-<meta name="date" content="2020-09-07" />
+<meta name="date" content="2020-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -178,7 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.8.2" data-path="dataviz.html"><a href="dataviz.html#pulse-by-sleeping-trouble"><i class="fa fa-check"></i><b>3.8.2</b> Pulse by Sleeping Trouble</a></li>
 <li class="chapter" data-level="3.8.3" data-path="dataviz.html"><a href="dataviz.html#pulse-and-healthgen"><i class="fa fa-check"></i><b>3.8.3</b> Pulse and HealthGen</a></li>
 <li class="chapter" data-level="3.8.4" data-path="dataviz.html"><a href="dataviz.html#pulse-rate-and-systolic-blood-pressure"><i class="fa fa-check"></i><b>3.8.4</b> Pulse Rate and Systolic Blood Pressure</a></li>
-<li class="chapter" data-level="3.8.5" data-path="dataviz.html"><a href="dataviz.html#sleep-troubls-vs.-no-sleep-trouble"><i class="fa fa-check"></i><b>3.8.5</b> Sleep Troubls vs. No Sleep Trouble?</a></li>
+<li class="chapter" data-level="3.8.5" data-path="dataviz.html"><a href="dataviz.html#sleep-trouble-vs.-no-sleep-trouble"><i class="fa fa-check"></i><b>3.8.5</b> Sleep Trouble vs. No Sleep Trouble?</a></li>
 </ul></li>
 <li class="chapter" data-level="3.9" data-path="dataviz.html"><a href="dataviz.html#general-health-status"><i class="fa fa-check"></i><b>3.9</b> General Health Status</a><ul>
 <li class="chapter" data-level="3.9.1" data-path="dataviz.html"><a href="dataviz.html#bar-chart-for-categorical-data"><i class="fa fa-check"></i><b>3.9.1</b> Bar Chart for Categorical Data</a></li>
@@ -974,7 +974,7 @@ So, what do we have, exactly?</p>
 <div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="NYFS-Study.html#cb193-1"></a><span class="kw">ggplot</span>(nnyfs, <span class="kw">aes</span>(<span class="dt">x =</span> income_pov)) <span class="op">+</span></span>
 <span id="cb193-2"><a href="NYFS-Study.html#cb193-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">30</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
 <pre><code>Warning: Removed 89 rows containing non-finite values (stat_bin).</code></pre>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-29-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
 <p>The histogram shows us that the values are truncated at 5, so that children whose actual family income is above 5 times the poverty line are listed as 5. We also see a message reminding us that some of the data are missing for this variable.</p>
 <p>Is there a relationship between <code>income_pov</code> and <code>race_eth</code> in these data?</p>
 <div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="NYFS-Study.html#cb195-1"></a>mosaic<span class="op">::</span><span class="kw">favstats</span>(income_pov <span class="op">~</span><span class="st"> </span>race_eth, <span class="dt">data =</span> nnyfs) <span class="op">%&gt;%</span></span>
@@ -1049,7 +1049,7 @@ So, what do we have, exactly?</p>
 <div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="NYFS-Study.html#cb196-1"></a><span class="kw">ggplot</span>(nnyfs, <span class="kw">aes</span>(<span class="dt">x =</span> race_eth, <span class="dt">y =</span> income_pov)) <span class="op">+</span></span>
 <span id="cb196-2"><a href="NYFS-Study.html#cb196-2"></a><span class="st">  </span><span class="kw">geom_boxplot</span>()</span></code></pre></div>
 <pre><code>Warning: Removed 89 rows containing non-finite values (stat_boxplot).</code></pre>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-31-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
 </div>
 <div id="bmi" class="section level3">
 <h3><span class="header-section-number">7.2.6</span> <code>bmi</code></h3>
@@ -1183,7 +1183,7 @@ So, what do we have, exactly?</p>
 <div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="NYFS-Study.html#cb209-1"></a><span class="kw">ggplot</span>(nnyfs, <span class="kw">aes</span>(<span class="dt">x =</span> waist)) <span class="op">+</span></span>
 <span id="cb209-2"><a href="NYFS-Study.html#cb209-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">25</span>, <span class="dt">fill =</span> <span class="st">&quot;tomato&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;cyan&quot;</span>)</span></code></pre></div>
 <pre><code>Warning: Removed 6 rows containing non-finite values (stat_bin).</code></pre>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 </div>
 <div id="triceps_skinfold" class="section level3">
 <h3><span class="header-section-number">7.2.9</span> <code>triceps_skinfold</code></h3>
@@ -1195,7 +1195,7 @@ So, what do we have, exactly?</p>
 <div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="NYFS-Study.html#cb213-1"></a><span class="kw">ggplot</span>(nnyfs, <span class="kw">aes</span>(<span class="dt">x =</span> triceps_skinfold)) <span class="op">+</span></span>
 <span id="cb213-2"><a href="NYFS-Study.html#cb213-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">25</span>, <span class="dt">fill =</span> <span class="st">&quot;cyan&quot;</span>, <span class="dt">color =</span> <span class="st">&quot;tomato&quot;</span>)</span></code></pre></div>
 <pre><code>Warning: Removed 21 rows containing non-finite values (stat_bin).</code></pre>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-34-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
 <p>OK. We’ve seen a few variables, and we’ll move on now to look more seriously at the data.</p>
 </div>
 </div>
@@ -1278,7 +1278,7 @@ h = \frac{2*IQR}{n^{1/3}}
 <span id="cb228-2"><a href="NYFS-Study.html#cb228-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">20</span>, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
 <span id="cb228-3"><a href="NYFS-Study.html#cb228-3"></a><span class="st">  </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span></span>
 <span id="cb228-4"><a href="NYFS-Study.html#cb228-4"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>diet_yesterday)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <p>We don’t really need the legend here, and perhaps we should restrict the plot to participants who responded to the <code>diet_yesterday</code> question, and put in a title and better axis labels?</p>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="NYFS-Study.html#cb229-1"></a>nnyfs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(energy, diet_yesterday)) <span class="op">%&gt;%</span></span>
 <span id="cb229-2"><a href="NYFS-Study.html#cb229-2"></a><span class="st">  </span><span class="kw">ggplot</span>(<span class="dt">data =</span> ., <span class="kw">aes</span>(<span class="dt">x =</span> energy, <span class="dt">fill =</span> diet_yesterday)) <span class="op">+</span></span>
@@ -1289,7 +1289,7 @@ h = \frac{2*IQR}{n^{1/3}}
 <span id="cb229-7"><a href="NYFS-Study.html#cb229-7"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Energy consumed, in kcal&quot;</span>,</span>
 <span id="cb229-8"><a href="NYFS-Study.html#cb229-8"></a>       <span class="dt">title =</span> <span class="st">&quot;Energy Consumption and How Typical Was Yesterday&#39;s Eating&quot;</span>,</span>
 <span id="cb229-9"><a href="NYFS-Study.html#cb229-9"></a>       <span class="dt">subtitle =</span> <span class="st">&quot;NHANES National Youth Fitness Survey, no survey weighting&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
 </div>
 </div>
 <div id="the-dot-plot-to-display-a-distribution" class="section level2">

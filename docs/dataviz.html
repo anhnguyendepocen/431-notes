@@ -24,7 +24,7 @@
 <meta name="author" content="Thomas E. Love" />
 
 
-<meta name="date" content="2020-09-07" />
+<meta name="date" content="2020-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -178,7 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.8.2" data-path="dataviz.html"><a href="dataviz.html#pulse-by-sleeping-trouble"><i class="fa fa-check"></i><b>3.8.2</b> Pulse by Sleeping Trouble</a></li>
 <li class="chapter" data-level="3.8.3" data-path="dataviz.html"><a href="dataviz.html#pulse-and-healthgen"><i class="fa fa-check"></i><b>3.8.3</b> Pulse and HealthGen</a></li>
 <li class="chapter" data-level="3.8.4" data-path="dataviz.html"><a href="dataviz.html#pulse-rate-and-systolic-blood-pressure"><i class="fa fa-check"></i><b>3.8.4</b> Pulse Rate and Systolic Blood Pressure</a></li>
-<li class="chapter" data-level="3.8.5" data-path="dataviz.html"><a href="dataviz.html#sleep-troubls-vs.-no-sleep-trouble"><i class="fa fa-check"></i><b>3.8.5</b> Sleep Troubls vs. No Sleep Trouble?</a></li>
+<li class="chapter" data-level="3.8.5" data-path="dataviz.html"><a href="dataviz.html#sleep-trouble-vs.-no-sleep-trouble"><i class="fa fa-check"></i><b>3.8.5</b> Sleep Trouble vs. No Sleep Trouble?</a></li>
 </ul></li>
 <li class="chapter" data-level="3.9" data-path="dataviz.html"><a href="dataviz.html#general-health-status"><i class="fa fa-check"></i><b>3.9</b> General Health Status</a><ul>
 <li class="chapter" data-level="3.9.1" data-path="dataviz.html"><a href="dataviz.html#bar-chart-for-categorical-data"><i class="fa fa-check"></i><b>3.9.1</b> Bar Chart for Categorical Data</a></li>
@@ -728,7 +728,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="dataviz.html#cb52-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> nh_dat3, <span class="kw">aes</span>(<span class="dt">x =</span> HealthGen, <span class="dt">y =</span> Pulse, <span class="dt">fill =</span> HealthGen)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb52-2"><a href="dataviz.html#cb52-2"></a><span class="st">    </span><span class="kw">geom_boxplot</span>() <span class="op">+</span></span>
 <span id="cb52-3"><a href="dataviz.html#cb52-3"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Pulse by Self-Reported Overall Health for NHANES ages 21-79&quot;</span>,</span>
-<span id="cb52-4"><a href="dataviz.html#cb52-4"></a>         <span class="dt">x =</span> <span class="st">&quot;Pulse Rate&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb52-4"><a href="dataviz.html#cb52-4"></a>         <span class="dt">x =</span> <span class="st">&quot;Self-Reported Overall Health&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Pulse Rate&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb52-5"><a href="dataviz.html#cb52-5"></a><span class="st">    </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="ot">FALSE</span>) </span></code></pre></div>
 <p><img src="431-notes_files/figure-html/nh_dat3_pulsebyhealthgen1-fig-1.png" width="672" /></p>
 <p>How many people fall into each of these <code>HealthGen</code> categories, and what is their “average” Pulse rate?</p>
@@ -785,12 +785,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="dataviz.html#cb55-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> nh_dat3, <span class="kw">aes</span>(<span class="dt">x =</span> SBP, <span class="dt">y =</span> Pulse)) <span class="op">+</span></span>
 <span id="cb55-2"><a href="dataviz.html#cb55-2"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb55-3"><a href="dataviz.html#cb55-3"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="op">+</span></span>
-<span id="cb55-4"><a href="dataviz.html#cb55-4"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;SBP vs. Pulse rate for NHANES subjects, ages 21-79&quot;</span>)</span></code></pre></div>
+<span id="cb55-4"><a href="dataviz.html#cb55-4"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Pulse Rate vs. SBP for NHANES subjects, ages 21-79&quot;</span>)</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="431-notes_files/figure-html/nh_dat3_pulsevssbp-fig-1.png" width="672" /></p>
 </div>
-<div id="sleep-troubls-vs.-no-sleep-trouble" class="section level3">
-<h3><span class="header-section-number">3.8.5</span> Sleep Troubls vs. No Sleep Trouble?</h3>
+<div id="sleep-trouble-vs.-no-sleep-trouble" class="section level3">
+<h3><span class="header-section-number">3.8.5</span> Sleep Trouble vs. No Sleep Trouble?</h3>
 <p>Could we see whether subjects who have described <code>SleepTrouble</code> show different SBP-pulse rate patterns than the subjects who haven’t?</p>
 <ul>
 <li>Let’s try doing this by changing the shape <em>and</em> the color of the points based on <code>SleepTrouble</code>.</li>
@@ -800,7 +800,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb57-3"><a href="dataviz.html#cb57-3"></a>           <span class="dt">color =</span> SleepTrouble, <span class="dt">shape =</span> SleepTrouble)) <span class="op">+</span></span>
 <span id="cb57-4"><a href="dataviz.html#cb57-4"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb57-5"><a href="dataviz.html#cb57-5"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="op">+</span></span>
-<span id="cb57-6"><a href="dataviz.html#cb57-6"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;SBP vs. Pulse rate for NHANES subjects, ages 21-79&quot;</span>)</span></code></pre></div>
+<span id="cb57-6"><a href="dataviz.html#cb57-6"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Pulse Rate vs. SBP for NHANES subjects, ages 21-79&quot;</span>)</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="431-notes_files/figure-html/nh_dat3_sbpvspulsewithsleep-fig-1.png" width="672" /></p>
 <p>This plot might be easier to interpret if we faceted by <code>SleepTrouble</code>, as well.</p>
@@ -809,7 +809,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb59-3"><a href="dataviz.html#cb59-3"></a>           <span class="dt">color =</span> SleepTrouble, <span class="dt">shape =</span> SleepTrouble)) <span class="op">+</span></span>
 <span id="cb59-4"><a href="dataviz.html#cb59-4"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
 <span id="cb59-5"><a href="dataviz.html#cb59-5"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="op">+</span></span>
-<span id="cb59-6"><a href="dataviz.html#cb59-6"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;SBP vs. Pulse rate for NHANES subjects, ages 21-79&quot;</span>) <span class="op">+</span></span>
+<span id="cb59-6"><a href="dataviz.html#cb59-6"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Pulse Rate vs. SBP for NHANES subjects, ages 21-79&quot;</span>) <span class="op">+</span></span>
 <span id="cb59-7"><a href="dataviz.html#cb59-7"></a><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>SleepTrouble, <span class="dt">labeller =</span> <span class="st">&quot;label_both&quot;</span>)</span></code></pre></div>
 <pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
 <p><img src="431-notes_files/figure-html/nh_dat3_sbpvspulsewithsleepfacets-fig-1.png" width="672" /></p>
@@ -879,20 +879,19 @@ Excellent     Vgood      Good      Fair      Poor
 <p>Or, we can really go crazy…</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="dataviz.html#cb71-1"></a>nh_dat3 <span class="op">%&gt;%</span></span>
 <span id="cb71-2"><a href="dataviz.html#cb71-2"></a><span class="st">    </span><span class="kw">count</span>(HealthGen) <span class="op">%&gt;%</span></span>
-<span id="cb71-3"><a href="dataviz.html#cb71-3"></a><span class="st">    </span><span class="kw">ungroup</span>() <span class="op">%&gt;%</span></span>
-<span id="cb71-4"><a href="dataviz.html#cb71-4"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pct =</span> <span class="kw">round</span>(<span class="kw">prop.table</span>(n) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>, <span class="dv">1</span>)) <span class="op">%&gt;%</span></span>
-<span id="cb71-5"><a href="dataviz.html#cb71-5"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> HealthGen, <span class="dt">y =</span> pct, <span class="dt">fill =</span> HealthGen)) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb71-6"><a href="dataviz.html#cb71-6"></a><span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="op">+</span></span>
-<span id="cb71-7"><a href="dataviz.html#cb71-7"></a><span class="st">    </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span></span>
-<span id="cb71-8"><a href="dataviz.html#cb71-8"></a><span class="st">    </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
-<span id="cb71-9"><a href="dataviz.html#cb71-9"></a><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pct <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,    <span class="co"># nudge above top of bar</span></span>
-<span id="cb71-10"><a href="dataviz.html#cb71-10"></a>                  <span class="dt">label =</span> <span class="kw">paste0</span>(pct, <span class="st">&#39;%&#39;</span>)),  <span class="co"># prettify</span></span>
-<span id="cb71-11"><a href="dataviz.html#cb71-11"></a>              <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">.9</span>), </span>
-<span id="cb71-12"><a href="dataviz.html#cb71-12"></a>              <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></span>
-<span id="cb71-13"><a href="dataviz.html#cb71-13"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Self-Reported Health Status&quot;</span>,</span>
-<span id="cb71-14"><a href="dataviz.html#cb71-14"></a>         <span class="dt">y =</span> <span class="st">&quot;Percentage of NHANES subjects&quot;</span>,</span>
-<span id="cb71-15"><a href="dataviz.html#cb71-15"></a>         <span class="dt">title =</span> <span class="st">&quot;Self-Reported Health Status in NHANES subjects ages 21-79&quot;</span>) <span class="op">+</span></span>
-<span id="cb71-16"><a href="dataviz.html#cb71-16"></a><span class="st">    </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<span id="cb71-3"><a href="dataviz.html#cb71-3"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">pct =</span> <span class="kw">round</span>(<span class="kw">prop.table</span>(n) <span class="op">*</span><span class="st"> </span><span class="dv">100</span>, <span class="dv">1</span>)) <span class="op">%&gt;%</span></span>
+<span id="cb71-4"><a href="dataviz.html#cb71-4"></a><span class="st">    </span><span class="kw">ggplot</span>(<span class="kw">aes</span>(<span class="dt">x =</span> HealthGen, <span class="dt">y =</span> pct, <span class="dt">fill =</span> HealthGen)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb71-5"><a href="dataviz.html#cb71-5"></a><span class="st">    </span><span class="kw">geom_bar</span>(<span class="dt">stat =</span> <span class="st">&quot;identity&quot;</span>, <span class="dt">position =</span> <span class="st">&quot;dodge&quot;</span>) <span class="op">+</span></span>
+<span id="cb71-6"><a href="dataviz.html#cb71-6"></a><span class="st">    </span><span class="kw">scale_fill_viridis_d</span>() <span class="op">+</span></span>
+<span id="cb71-7"><a href="dataviz.html#cb71-7"></a><span class="st">    </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb71-8"><a href="dataviz.html#cb71-8"></a><span class="st">    </span><span class="kw">geom_text</span>(<span class="kw">aes</span>(<span class="dt">y =</span> pct <span class="op">+</span><span class="st"> </span><span class="dv">1</span>,    <span class="co"># nudge above top of bar</span></span>
+<span id="cb71-9"><a href="dataviz.html#cb71-9"></a>                  <span class="dt">label =</span> <span class="kw">paste0</span>(pct, <span class="st">&#39;%&#39;</span>)),  <span class="co"># prettify</span></span>
+<span id="cb71-10"><a href="dataviz.html#cb71-10"></a>              <span class="dt">position =</span> <span class="kw">position_dodge</span>(<span class="dt">width =</span> <span class="fl">.9</span>), </span>
+<span id="cb71-11"><a href="dataviz.html#cb71-11"></a>              <span class="dt">size =</span> <span class="dv">4</span>) <span class="op">+</span></span>
+<span id="cb71-12"><a href="dataviz.html#cb71-12"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">x =</span> <span class="st">&quot;Self-Reported Health Status&quot;</span>,</span>
+<span id="cb71-13"><a href="dataviz.html#cb71-13"></a>         <span class="dt">y =</span> <span class="st">&quot;Percentage of NHANES subjects&quot;</span>,</span>
+<span id="cb71-14"><a href="dataviz.html#cb71-14"></a>         <span class="dt">title =</span> <span class="st">&quot;Self-Reported Health Status in NHANES subjects ages 21-79&quot;</span>) <span class="op">+</span></span>
+<span id="cb71-15"><a href="dataviz.html#cb71-15"></a><span class="st">    </span><span class="kw">theme_bw</span>()</span></code></pre></div>
 <p><img src="431-notes_files/figure-html/HealthGengraph3-fig-1.png" width="672" /></p>
 </div>
 <div id="working-with-tables" class="section level3">
@@ -1104,11 +1103,11 @@ Excellent     Vgood      Good      Fair      Poor
 <div class="sourceCode" id="cb80"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb80-1"><a href="dataviz.html#cb80-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> nh_dat3, <span class="kw">aes</span>(<span class="dt">x =</span> HealthGen, <span class="dt">y =</span> SBP, <span class="dt">fill =</span> HealthGen)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb80-2"><a href="dataviz.html#cb80-2"></a><span class="st">    </span><span class="kw">geom_boxplot</span>() <span class="op">+</span><span class="st"> </span></span>
 <span id="cb80-3"><a href="dataviz.html#cb80-3"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;SBP by Health Status, Overall Health for NHANES ages 21-79&quot;</span>,</span>
-<span id="cb80-4"><a href="dataviz.html#cb80-4"></a>         <span class="dt">y =</span> <span class="st">&quot;Body-mass index&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Self-Reported Overall Health&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb80-4"><a href="dataviz.html#cb80-4"></a>         <span class="dt">y =</span> <span class="st">&quot;Systolic BP&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Self-Reported Overall Health&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb80-5"><a href="dataviz.html#cb80-5"></a><span class="st">    </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
 <span id="cb80-6"><a href="dataviz.html#cb80-6"></a><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>PhysActive, <span class="dt">labeller =</span> <span class="st">&quot;label_both&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb80-7"><a href="dataviz.html#cb80-7"></a><span class="st">    </span><span class="kw">coord_flip</span>()</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/nh_dat3_bmibyhealthbysex1-fig-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 </div>
 <div id="sbp-by-sleep-trouble-and-general-health-status" class="section level3">
 <h3><span class="header-section-number">3.9.5</span> SBP by Sleep Trouble and General Health Status</h3>
@@ -1116,10 +1115,10 @@ Excellent     Vgood      Good      Fair      Poor
 <div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="dataviz.html#cb81-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> nh_dat3, <span class="kw">aes</span>(<span class="dt">x =</span> SBP, <span class="dt">fill =</span> Sex)) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb81-2"><a href="dataviz.html#cb81-2"></a><span class="st">    </span><span class="kw">geom_histogram</span>(<span class="dt">color =</span> <span class="st">&quot;white&quot;</span>, <span class="dt">bins =</span> <span class="dv">20</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb81-3"><a href="dataviz.html#cb81-3"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;SBP by Sex, Overall Health for NHANES ages 21-79&quot;</span>,</span>
-<span id="cb81-4"><a href="dataviz.html#cb81-4"></a>         <span class="dt">x =</span> <span class="st">&quot;Body-mass index&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb81-4"><a href="dataviz.html#cb81-4"></a>         <span class="dt">x =</span> <span class="st">&quot;Systolic BP&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb81-5"><a href="dataviz.html#cb81-5"></a><span class="st">    </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
 <span id="cb81-6"><a href="dataviz.html#cb81-6"></a><span class="st">    </span><span class="kw">facet_grid</span>(HealthGen <span class="op">~</span><span class="st"> </span>Sex)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/nh_dat3_bmibyhealthbysex2-fig-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 </div>
 </div>
 <div id="conclusions" class="section level2">

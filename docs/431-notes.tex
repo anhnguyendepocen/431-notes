@@ -120,7 +120,7 @@
 
 \title{Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431}
 \author{Thomas E. Love}
-\date{2020-09-07}
+\date{2020-09-13}
 
 \begin{document}
 \maketitle
@@ -1174,7 +1174,7 @@ We can compare the distribution of Pulse rate across groups by the subject's sel
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ nh_dat3, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ HealthGen, }\DataTypeTok{y =}\NormalTok{ Pulse, }\DataTypeTok{fill =}\NormalTok{ HealthGen)) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{geom_boxplot}\NormalTok{() }\OperatorTok{+}
 \StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Pulse by Self-Reported Overall Health for NHANES ages 21-79"}\NormalTok{,}
-         \DataTypeTok{x =} \StringTok{"Pulse Rate"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+         \DataTypeTok{x =} \StringTok{"Self-Reported Overall Health"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Pulse Rate"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \OtherTok{FALSE}\NormalTok{) }
 \end{Highlighting}
 \end{Shaded}
@@ -1220,7 +1220,7 @@ Poor & 22 & 79.09 & 77\\
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ nh_dat3, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ SBP, }\DataTypeTok{y =}\NormalTok{ Pulse)) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"SBP vs. Pulse rate for NHANES subjects, ages 21-79"}\NormalTok{)}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Pulse Rate vs. SBP for NHANES subjects, ages 21-79"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1230,8 +1230,8 @@ Poor & 22 & 79.09 & 77\\
 
 \includegraphics{431-notes_files/figure-latex/nh_dat3_pulsevssbp-fig-1.pdf}
 
-\hypertarget{sleep-troubls-vs.-no-sleep-trouble}{%
-\subsection{Sleep Troubls vs.~No Sleep Trouble?}\label{sleep-troubls-vs.-no-sleep-trouble}}
+\hypertarget{sleep-trouble-vs.-no-sleep-trouble}{%
+\subsection{Sleep Trouble vs.~No Sleep Trouble?}\label{sleep-trouble-vs.-no-sleep-trouble}}
 
 Could we see whether subjects who have described \texttt{SleepTrouble} show different SBP-pulse rate patterns than the subjects who haven't?
 
@@ -1248,7 +1248,7 @@ Could we see whether subjects who have described \texttt{SleepTrouble} show diff
            \DataTypeTok{color =}\NormalTok{ SleepTrouble, }\DataTypeTok{shape =}\NormalTok{ SleepTrouble)) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"SBP vs. Pulse rate for NHANES subjects, ages 21-79"}\NormalTok{)}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Pulse Rate vs. SBP for NHANES subjects, ages 21-79"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -1267,7 +1267,7 @@ This plot might be easier to interpret if we faceted by \texttt{SleepTrouble}, a
            \DataTypeTok{color =}\NormalTok{ SleepTrouble, }\DataTypeTok{shape =}\NormalTok{ SleepTrouble)) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"SBP vs. Pulse rate for NHANES subjects, ages 21-79"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Pulse Rate vs. SBP for NHANES subjects, ages 21-79"}\NormalTok{) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{SleepTrouble, }\DataTypeTok{labeller =} \StringTok{"label_both"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
@@ -1398,7 +1398,6 @@ Or, we can really go crazy\ldots{}
 \begin{Highlighting}[]
 \NormalTok{nh_dat3 }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{count}\NormalTok{(HealthGen) }\OperatorTok{%>%}
-\StringTok{    }\KeywordTok{ungroup}\NormalTok{() }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{pct =} \KeywordTok{round}\NormalTok{(}\KeywordTok{prop.table}\NormalTok{(n) }\OperatorTok{*}\StringTok{ }\DecValTok{100}\NormalTok{, }\DecValTok{1}\NormalTok{)) }\OperatorTok{%>%}
 \StringTok{    }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ HealthGen, }\DataTypeTok{y =}\NormalTok{ pct, }\DataTypeTok{fill =}\NormalTok{ HealthGen)) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{geom_bar}\NormalTok{(}\DataTypeTok{stat =} \StringTok{"identity"}\NormalTok{, }\DataTypeTok{position =} \StringTok{"dodge"}\NormalTok{) }\OperatorTok{+}
@@ -1568,14 +1567,14 @@ We'll build a panel of boxplots to try to understand the relationships between S
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ nh_dat3, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ HealthGen, }\DataTypeTok{y =}\NormalTok{ SBP, }\DataTypeTok{fill =}\NormalTok{ HealthGen)) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{geom_boxplot}\NormalTok{() }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"SBP by Health Status, Overall Health for NHANES ages 21-79"}\NormalTok{,}
-         \DataTypeTok{y =} \StringTok{"Body-mass index"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"Self-Reported Overall Health"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+         \DataTypeTok{y =} \StringTok{"Systolic BP"}\NormalTok{, }\DataTypeTok{x =} \StringTok{"Self-Reported Overall Health"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{PhysActive, }\DataTypeTok{labeller =} \StringTok{"label_both"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{coord_flip}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/nh_dat3_bmibyhealthbysex1-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-16-1.pdf}
 
 \hypertarget{sbp-by-sleep-trouble-and-general-health-status}{%
 \subsection{SBP by Sleep Trouble and General Health Status}\label{sbp-by-sleep-trouble-and-general-health-status}}
@@ -1587,13 +1586,13 @@ Here's a plot of faceted histograms, which might be used to address similar ques
 \KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ nh_dat3, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ SBP, }\DataTypeTok{fill =}\NormalTok{ Sex)) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{color =} \StringTok{"white"}\NormalTok{, }\DataTypeTok{bins =} \DecValTok{20}\NormalTok{) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"SBP by Sex, Overall Health for NHANES ages 21-79"}\NormalTok{,}
-         \DataTypeTok{x =} \StringTok{"Body-mass index"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+         \DataTypeTok{x =} \StringTok{"Systolic BP"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{facet_grid}\NormalTok{(HealthGen }\OperatorTok{~}\StringTok{ }\NormalTok{Sex)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/nh_dat3_bmibyhealthbysex2-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-17-1.pdf}
 
 \hypertarget{conclusions}{%
 \section{Conclusions}\label{conclusions}}
@@ -4015,7 +4014,7 @@ We see there is some missing data here. Let's ignore that for the moment and con
 Warning: Removed 89 rows containing non-finite values (stat_bin).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-29-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-31-1.pdf}
 
 The histogram shows us that the values are truncated at 5, so that children whose actual family income is above 5 times the poverty line are listed as 5. We also see a message reminding us that some of the data are missing for this variable.
 
@@ -4055,7 +4054,7 @@ This deserves a picture. Let's try a boxplot.
 Warning: Removed 89 rows containing non-finite values (stat_boxplot).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-31-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-33-1.pdf}
 
 \hypertarget{bmi}{%
 \subsection{\texorpdfstring{\texttt{bmi}}{bmi}}\label{bmi}}
@@ -4205,7 +4204,7 @@ Here's a histogram of the waist circumference data.
 Warning: Removed 6 rows containing non-finite values (stat_bin).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-33-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-35-1.pdf}
 
 \hypertarget{triceps_skinfold}{%
 \subsection{\texorpdfstring{\texttt{triceps\_skinfold}}{triceps\_skinfold}}\label{triceps_skinfold}}
@@ -4236,7 +4235,7 @@ And here's a histogram of the triceps skinfold data, with the fill and color fli
 Warning: Removed 21 rows containing non-finite values (stat_bin).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-34-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-36-1.pdf}
 
 OK. We've seen a few variables, and we'll move on now to look more seriously at the data.
 
@@ -4408,7 +4407,7 @@ Here's a comparison of several histograms, looking at \texttt{energy} consumed a
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-36-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-38-1.pdf}
 
 We don't really need the legend here, and perhaps we should restrict the plot to participants who responded to the \texttt{diet\_yesterday} question, and put in a title and better axis labels?
 
@@ -4426,7 +4425,7 @@ We don't really need the legend here, and perhaps we should restrict the plot to
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-37-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-39-1.pdf}
 
 \hypertarget{the-dot-plot-to-display-a-distribution}{%
 \section{The Dot Plot to display a distribution}\label{the-dot-plot-to-display-a-distribution}}
@@ -5026,7 +5025,7 @@ But first, we'll demonstrate an approach to building a histogram of counts (rath
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-40-1.pdf}
 
 \hypertarget{does-a-normal-model-work-well-for-the-waist-circumference}{%
 \section{\texorpdfstring{Does a Normal model work well for the \texttt{waist} circumference?}{Does a Normal model work well for the waist circumference?}}\label{does-a-normal-model-work-well-for-the-waist-circumference}}
@@ -5058,7 +5057,7 @@ Now, suppose we instead look at the \texttt{waist} data, remembering to filter t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-39-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-41-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5410,7 +5409,7 @@ The \texttt{energy} data we've been studying shows meaningful signs of right ske
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-41-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-43-1.pdf}
 
 \begin{itemize}
 \tightlist
@@ -5446,7 +5445,7 @@ What if we plotted not the original \texttt{energy} values (all of which are pos
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-42-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-44-1.pdf}
 
 \begin{itemize}
 \tightlist
@@ -5500,7 +5499,7 @@ The effect of taking the square root may be clearer from the histograms below, w
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-43-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-45-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5610,7 +5609,7 @@ Here are the protein consumption (in grams) results from the NNYFS data.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-45-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-47-1.pdf}
 
 The key point here is that we see several signs of meaningful right skew, and we'll want to consider a transformation that might make a Normal model more plausible.
 
@@ -5659,7 +5658,7 @@ For me, the slickest approach to composing how a series of plots are placed toge
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-46-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-48-1.pdf}
 
 For more on the \texttt{patchwork} package, check out its repository at \url{https://github.com/thomasp85/patchwork}.
 
@@ -5713,7 +5712,7 @@ Would a square root applied to the protein data help alleviate that right skew?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-47-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-49-1.pdf}
 
 That looks like a more symmetric distribution, certainly, although we still have some outliers on the right side of the distribution. Should we take another step down the ladder?
 
@@ -5762,7 +5761,7 @@ We might also try a logarithm of the energy circumference data. We can use eithe
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-48-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-50-1.pdf}
 
 Now, it looks like we may have gone too far in the other direction. It looks like the square root is a sensible choice to try to improve the fit of a Normal model to the protein consumption data.
 
@@ -5848,7 +5847,7 @@ In this course, we will assume the use of natural logarithms unless we specify o
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-49-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-51-1.pdf}
 
 The square root still appears to be the best choice of transformation here, even after we consider all 8 transformation of the raw data.
 
@@ -5904,7 +5903,7 @@ If we'd like to transform these data so as to better approximate a Normal distri
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-51-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-53-1.pdf}
 
 Given the left skew in the data, it looks like a step up in the ladder is warranted, perhaps by looking at the square of the data?
 
@@ -5948,7 +5947,7 @@ Given the left skew in the data, it looks like a step up in the ladder is warran
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-52-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-54-1.pdf}
 
 Looks like at best a modest improvement. How about cubing the data, instead?
 
@@ -5992,7 +5991,7 @@ Looks like at best a modest improvement. How about cubing the data, instead?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-53-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-55-1.pdf}
 
 The newly transformed (cube of the) data appears more symmetric, although somewhat light-tailed. Perhaps a Normal model would be more appropriate now, although the standard deviation is likely to overstate the variation we see in the data due to the light tails. Again, I wouldn't be thrilled using a cube in practical work, as it is so hard to interpret, but it does look like a reasonable choice here.
 
@@ -6062,7 +6061,7 @@ The newly transformed (cube of the) data appears more symmetric, although somewh
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-54-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-56-1.pdf}
 
 Again, either the cube or the square looks like best choice here, in terms of creating a more symmetric (albeit light-tailed) distribution.
 
@@ -6167,7 +6166,7 @@ It looks like the children in the ``Much more than usual'' category consumed mor
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-58-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-60-1.pdf}
 
 We can see that there is considerable overlap in these distributions, regardless of what we're measuring.
 
@@ -6269,7 +6268,7 @@ While patients in the heavier groups generally had higher waist circumferences, 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-62-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-64-1.pdf}
 
 The data transformation with dplyr cheat sheet found under the Help menu in RStudio is a great resource. And, of course, for more details, visit \citet{R4DS}.
 
@@ -6292,7 +6291,7 @@ Boxplots are much more useful when comparing samples of data. For instance, cons
 Warning: Removed 21 rows containing non-finite values (stat_boxplot).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-63-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-65-1.pdf}
 
 Again, we probably want to omit those missing values (both in \texttt{bmi\_cat} and \texttt{triceps\_skinfold}) and also eliminate the repetitive legend (guides) on the right.
 
@@ -6312,7 +6311,7 @@ Again, we probably want to omit those missing values (both in \texttt{bmi\_cat} 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-64-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-66-1.pdf}
 
 As always, the boxplot shows the five-number summary (minimum, 25th percentile, median, 75th percentile and maximum) in addition to highlighting candidate outliers.
 
@@ -6339,7 +6338,7 @@ Often, we want to augment such a plot, perhaps by adding a little diamond to sho
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-65-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-67-1.pdf}
 
 \hypertarget{building-a-violin-plot}{%
 \subsection{Building a Violin Plot}\label{building-a-violin-plot}}
@@ -6359,7 +6358,7 @@ There are a number of other plots which compare distributions of data sets. An i
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-66-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-68-1.pdf}
 
 Traditionally, these plots are shown with overlaid boxplots and a white dot at the median, like this example, now looking at waist circumference again.
 
@@ -6380,7 +6379,7 @@ Traditionally, these plots are shown with overlaid boxplots and a white dot at t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-67-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-69-1.pdf}
 
 \hypertarget{adding-notches-to-a-boxplot}{%
 \subsection{Adding Notches to a Boxplot}\label{adding-notches-to-a-boxplot}}
@@ -6403,7 +6402,7 @@ Traditionally, these plots are shown with overlaid boxplots and a white dot at t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-68-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-70-1.pdf}
 
 There is no overlap between the notches for each of the four categories, so we might reasonably conclude that the true median triceps skinfold values across the four categories are statistically significantly different.
 
@@ -6424,7 +6423,7 @@ For an example where the notches do overlap, consider the comparison of plank ti
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-69-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-71-1.pdf}
 
 The overlap in the notches (for instance between Underweight and Normal) suggests that the median plank times in the population of interest don't necessarily differ in a meaningful way by BMI category, other than perhaps the Obese group which may have a shorter time.
 
@@ -6445,7 +6444,7 @@ These data are somewhat right skewed. Would a logarithmic transformation in the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-70-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-72-1.pdf}
 
 \hypertarget{using-multiple-histograms-to-make-comparisons}{%
 \section{Using Multiple Histograms to Make Comparisons}\label{using-multiple-histograms-to-make-comparisons}}
@@ -6465,7 +6464,7 @@ We can make an array of histograms to describe multiple groups of data, using \t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-71-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-73-1.pdf}
 
 \hypertarget{using-multiple-density-plots-to-make-comparisons}{%
 \section{Using Multiple Density Plots to Make Comparisons}\label{using-multiple-density-plots-to-make-comparisons}}
@@ -6485,7 +6484,7 @@ Or, we can make a series of density plots to describe multiple groups of data.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-72-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-74-1.pdf}
 
 Or, we can plot all of the densities on top of each other with semi-transparent fills.
 
@@ -6500,7 +6499,7 @@ Or, we can plot all of the densities on top of each other with semi-transparent 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-73-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-75-1.pdf}
 
 This really works better when we are comparing only two groups, like females to males.
 
@@ -6514,7 +6513,7 @@ This really works better when we are comparing only two groups, like females to 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-74-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-76-1.pdf}
 
 \hypertarget{a-ridgeline-plot}{%
 \section{A Ridgeline Plot}\label{a-ridgeline-plot}}
@@ -6537,7 +6536,7 @@ Some people don't like violin plots - for example, see \url{https://simplystatis
 Picking joint bandwidth of 3.47
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-75-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-77-1.pdf}
 
 And here's a ridgeline plot for the triceps skinfolds. We'll start by sorting the subgroups by the median value of our outcome (triceps skinfold) in this case, though it turns out not to matter. We'll also add some color.
 
@@ -6563,7 +6562,7 @@ And here's a ridgeline plot for the triceps skinfolds. We'll start by sorting th
 Picking joint bandwidth of 1.37
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-76-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-78-1.pdf}
 
 For one last example, we'll look at age by BMI category, so that sorting the BMI subgroups by the median matters, and we'll try an alternate color scheme, and a theme specially designed for the ridgeline plot.
 
@@ -6586,7 +6585,7 @@ For one last example, we'll look at age by BMI category, so that sorting the BMI
 Picking joint bandwidth of 1.15
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-77-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-79-1.pdf}
 
   \bibliography{book.bib,packages.bib}
 

@@ -24,7 +24,7 @@
 <meta name="author" content="Thomas E. Love" />
 
 
-<meta name="date" content="2020-09-07" />
+<meta name="date" content="2020-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -178,7 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.8.2" data-path="dataviz.html"><a href="dataviz.html#pulse-by-sleeping-trouble"><i class="fa fa-check"></i><b>3.8.2</b> Pulse by Sleeping Trouble</a></li>
 <li class="chapter" data-level="3.8.3" data-path="dataviz.html"><a href="dataviz.html#pulse-and-healthgen"><i class="fa fa-check"></i><b>3.8.3</b> Pulse and HealthGen</a></li>
 <li class="chapter" data-level="3.8.4" data-path="dataviz.html"><a href="dataviz.html#pulse-rate-and-systolic-blood-pressure"><i class="fa fa-check"></i><b>3.8.4</b> Pulse Rate and Systolic Blood Pressure</a></li>
-<li class="chapter" data-level="3.8.5" data-path="dataviz.html"><a href="dataviz.html#sleep-troubls-vs.-no-sleep-trouble"><i class="fa fa-check"></i><b>3.8.5</b> Sleep Troubls vs. No Sleep Trouble?</a></li>
+<li class="chapter" data-level="3.8.5" data-path="dataviz.html"><a href="dataviz.html#sleep-trouble-vs.-no-sleep-trouble"><i class="fa fa-check"></i><b>3.8.5</b> Sleep Trouble vs. No Sleep Trouble?</a></li>
 </ul></li>
 <li class="chapter" data-level="3.9" data-path="dataviz.html"><a href="dataviz.html#general-health-status"><i class="fa fa-check"></i><b>3.9</b> General Health Status</a><ul>
 <li class="chapter" data-level="3.9.1" data-path="dataviz.html"><a href="dataviz.html#bar-chart-for-categorical-data"><i class="fa fa-check"></i><b>3.9.1</b> Bar Chart for Categorical Data</a></li>
@@ -446,7 +446,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb273-14"><a href="using-transformations-to-normalize-distributions.html#cb273-14"></a>         <span class="dt">y =</span> <span class="st">&quot;Protein Consumption (g)&quot;</span>)</span>
 <span id="cb273-15"><a href="using-transformations-to-normalize-distributions.html#cb273-15"></a></span>
 <span id="cb273-16"><a href="using-transformations-to-normalize-distributions.html#cb273-16"></a>p1 <span class="op">+</span><span class="st"> </span>p2</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
 <p>The key point here is that we see several signs of meaningful right skew, and we’ll want to consider a transformation that might make a Normal model more plausible.</p>
 <div id="using-patchwork-to-compose-plots" class="section level3">
 <h3><span class="header-section-number">9.3.1</span> Using <code>patchwork</code> to compose plots</h3>
@@ -486,7 +486,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb274-33"><a href="using-transformations-to-normalize-distributions.html#cb274-33"></a></span>
 <span id="cb274-34"><a href="using-transformations-to-normalize-distributions.html#cb274-34"></a>p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">-</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>)) <span class="op">+</span></span>
 <span id="cb274-35"><a href="using-transformations-to-normalize-distributions.html#cb274-35"></a><span class="st">    </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;NNYFS Protein Consumption&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-46-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
 <p>For more on the <code>patchwork</code> package, check out its repository at <a href="https://github.com/thomasp85/patchwork" class="uri">https://github.com/thomasp85/patchwork</a>.</p>
 </div>
 </div>
@@ -531,7 +531,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb275-33"><a href="using-transformations-to-normalize-distributions.html#cb275-33"></a></span>
 <span id="cb275-34"><a href="using-transformations-to-normalize-distributions.html#cb275-34"></a>p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">-</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>)) <span class="op">+</span></span>
 <span id="cb275-35"><a href="using-transformations-to-normalize-distributions.html#cb275-35"></a><span class="st">    </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Square Root of NNYFS Protein Consumption&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-47-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
 <p>That looks like a more symmetric distribution, certainly, although we still have some outliers on the right side of the distribution. Should we take another step down the ladder?</p>
 </div>
 <div id="the-logarithm" class="section level3">
@@ -572,7 +572,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb276-33"><a href="using-transformations-to-normalize-distributions.html#cb276-33"></a></span>
 <span id="cb276-34"><a href="using-transformations-to-normalize-distributions.html#cb276-34"></a>p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">-</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>)) <span class="op">+</span></span>
 <span id="cb276-35"><a href="using-transformations-to-normalize-distributions.html#cb276-35"></a><span class="st">    </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Logarithm of NNYFS Protein Consumption&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-48-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-50-1.png" width="672" /></p>
 <p>Now, it looks like we may have gone too far in the other direction. It looks like the square root is a sensible choice to try to improve the fit of a Normal model to the protein consumption data.</p>
 </div>
 <div id="this-course-uses-natural-logarithms-unless-otherwise-specified" class="section level3">
@@ -651,7 +651,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb277-67"><a href="using-transformations-to-normalize-distributions.html#cb277-67"></a>p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span>p4 <span class="op">+</span><span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span>p7 <span class="op">+</span><span class="st"> </span>p8 <span class="op">+</span><span class="st"> </span>p9 <span class="op">+</span></span>
 <span id="cb277-68"><a href="using-transformations-to-normalize-distributions.html#cb277-68"></a><span class="st">    </span><span class="kw">plot_layout</span>(<span class="dt">nrow =</span> <span class="dv">3</span>) <span class="op">+</span></span>
 <span id="cb277-69"><a href="using-transformations-to-normalize-distributions.html#cb277-69"></a><span class="st">    </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Transformations of NNYFS Protein Consumption&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-49-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
 <p>The square root still appears to be the best choice of transformation here, even after we consider all 8 transformation of the raw data.</p>
 </div>
 <div id="a-simulated-data-set" class="section level2">
@@ -694,7 +694,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb279-33"><a href="using-transformations-to-normalize-distributions.html#cb279-33"></a></span>
 <span id="cb279-34"><a href="using-transformations-to-normalize-distributions.html#cb279-34"></a>p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">-</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>)) <span class="op">+</span></span>
 <span id="cb279-35"><a href="using-transformations-to-normalize-distributions.html#cb279-35"></a><span class="st">    </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Simulated Data&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-51-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
 <p>Given the left skew in the data, it looks like a step up in the ladder is warranted, perhaps by looking at the square of the data?</p>
 <div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="using-transformations-to-normalize-distributions.html#cb280-1"></a>res &lt;-<span class="st"> </span>mosaic<span class="op">::</span><span class="kw">favstats</span>(<span class="op">~</span><span class="st"> </span>sample2<span class="op">^</span><span class="dv">2</span>, <span class="dt">data =</span> data2)</span>
 <span id="cb280-2"><a href="using-transformations-to-normalize-distributions.html#cb280-2"></a>bin_w &lt;-<span class="st"> </span><span class="dv">600</span> <span class="co"># specify binwidth</span></span>
@@ -731,7 +731,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb280-33"><a href="using-transformations-to-normalize-distributions.html#cb280-33"></a></span>
 <span id="cb280-34"><a href="using-transformations-to-normalize-distributions.html#cb280-34"></a>p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">-</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>)) <span class="op">+</span></span>
 <span id="cb280-35"><a href="using-transformations-to-normalize-distributions.html#cb280-35"></a><span class="st">    </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Squared Simulated Data&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-52-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
 <p>Looks like at best a modest improvement. How about cubing the data, instead?</p>
 <div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="using-transformations-to-normalize-distributions.html#cb281-1"></a>res &lt;-<span class="st"> </span>mosaic<span class="op">::</span><span class="kw">favstats</span>(<span class="op">~</span><span class="st"> </span>sample2<span class="op">^</span><span class="dv">3</span>, <span class="dt">data =</span> data2)</span>
 <span id="cb281-2"><a href="using-transformations-to-normalize-distributions.html#cb281-2"></a>bin_w &lt;-<span class="st"> </span><span class="dv">100000</span> <span class="co"># specify binwidth</span></span>
@@ -768,7 +768,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb281-33"><a href="using-transformations-to-normalize-distributions.html#cb281-33"></a></span>
 <span id="cb281-34"><a href="using-transformations-to-normalize-distributions.html#cb281-34"></a>p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">-</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">ncol =</span> <span class="dv">1</span>, <span class="dt">height =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">1</span>)) <span class="op">+</span></span>
 <span id="cb281-35"><a href="using-transformations-to-normalize-distributions.html#cb281-35"></a><span class="st">    </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Cubed Simulated Data&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-53-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-55-1.png" width="672" /></p>
 <p>The newly transformed (cube of the) data appears more symmetric, although somewhat light-tailed. Perhaps a Normal model would be more appropriate now, although the standard deviation is likely to overstate the variation we see in the data due to the light tails. Again, I wouldn’t be thrilled using a cube in practical work, as it is so hard to interpret, but it does look like a reasonable choice here.</p>
 </div>
 <div id="what-if-we-considered-all-9-available-transformations-1" class="section level2">
@@ -831,7 +831,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb282-56"><a href="using-transformations-to-normalize-distributions.html#cb282-56"></a>p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span>p4 <span class="op">+</span><span class="st"> </span>p5 <span class="op">+</span><span class="st"> </span>p6 <span class="op">+</span><span class="st"> </span>p7 <span class="op">+</span><span class="st"> </span>p8 <span class="op">+</span><span class="st"> </span>p9 <span class="op">+</span></span>
 <span id="cb282-57"><a href="using-transformations-to-normalize-distributions.html#cb282-57"></a><span class="st">    </span><span class="kw">plot_layout</span>(<span class="dt">nrow =</span> <span class="dv">3</span>) <span class="op">+</span></span>
 <span id="cb282-58"><a href="using-transformations-to-normalize-distributions.html#cb282-58"></a><span class="st">    </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Transformations of Simulated Sample&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-54-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-56-1.png" width="672" /></p>
 <p>Again, either the cube or the square looks like best choice here, in terms of creating a more symmetric (albeit light-tailed) distribution.</p>
 <div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="using-transformations-to-normalize-distributions.html#cb283-1"></a><span class="kw">rm</span>(p1, p2, p3, p4, p5, p6, p7, p8, p9, res, bin_w, data2)</span></code></pre></div>
 

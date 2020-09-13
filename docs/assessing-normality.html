@@ -24,7 +24,7 @@
 <meta name="author" content="Thomas E. Love" />
 
 
-<meta name="date" content="2020-09-07" />
+<meta name="date" content="2020-09-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -178,7 +178,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.8.2" data-path="dataviz.html"><a href="dataviz.html#pulse-by-sleeping-trouble"><i class="fa fa-check"></i><b>3.8.2</b> Pulse by Sleeping Trouble</a></li>
 <li class="chapter" data-level="3.8.3" data-path="dataviz.html"><a href="dataviz.html#pulse-and-healthgen"><i class="fa fa-check"></i><b>3.8.3</b> Pulse and HealthGen</a></li>
 <li class="chapter" data-level="3.8.4" data-path="dataviz.html"><a href="dataviz.html#pulse-rate-and-systolic-blood-pressure"><i class="fa fa-check"></i><b>3.8.4</b> Pulse Rate and Systolic Blood Pressure</a></li>
-<li class="chapter" data-level="3.8.5" data-path="dataviz.html"><a href="dataviz.html#sleep-troubls-vs.-no-sleep-trouble"><i class="fa fa-check"></i><b>3.8.5</b> Sleep Troubls vs. No Sleep Trouble?</a></li>
+<li class="chapter" data-level="3.8.5" data-path="dataviz.html"><a href="dataviz.html#sleep-trouble-vs.-no-sleep-trouble"><i class="fa fa-check"></i><b>3.8.5</b> Sleep Trouble vs. No Sleep Trouble?</a></li>
 </ul></li>
 <li class="chapter" data-level="3.9" data-path="dataviz.html"><a href="dataviz.html#general-health-status"><i class="fa fa-check"></i><b>3.9</b> General Health Status</a><ul>
 <li class="chapter" data-level="3.9.1" data-path="dataviz.html"><a href="dataviz.html#bar-chart-for-categorical-data"><i class="fa fa-check"></i><b>3.9.1</b> Bar Chart for Categorical Data</a></li>
@@ -451,7 +451,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb254-16"><a href="assessing-normality.html#cb254-16"></a>              <span class="dt">color=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb254-17"><a href="assessing-normality.html#cb254-17"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Histogram of energy, with Normal Model&quot;</span>, </span>
 <span id="cb254-18"><a href="assessing-normality.html#cb254-18"></a>         <span class="dt">x =</span> <span class="st">&quot;Energy consumed (kcal)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;# of subjects&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
 </div>
 </div>
 <div id="does-a-normal-model-work-well-for-the-waist-circumference" class="section level2">
@@ -477,7 +477,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb255-18"><a href="assessing-normality.html#cb255-18"></a>              <span class="dt">color=</span><span class="st">&quot;darkred&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
 <span id="cb255-19"><a href="assessing-normality.html#cb255-19"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Histogram of waist, with Normal Model&quot;</span>, </span>
 <span id="cb255-20"><a href="assessing-normality.html#cb255-20"></a>         <span class="dt">x =</span> <span class="st">&quot;Waist Circumference (cm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;# of subjects&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
 <div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="assessing-normality.html#cb256-1"></a>mosaic<span class="op">::</span><span class="kw">favstats</span>(<span class="op">~</span><span class="st"> </span>waist, <span class="dt">data =</span> nnyfs)</span></code></pre></div>
 <pre><code>  min   Q1 median   Q3   max     mean       sd    n missing
  42.5 55.6   64.8 76.6 144.7 67.70536 15.19809 1512       6</code></pre>
@@ -730,7 +730,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb267-24"><a href="assessing-normality.html#cb267-24"></a></span>
 <span id="cb267-25"><a href="assessing-normality.html#cb267-25"></a></span>
 <span id="cb267-26"><a href="assessing-normality.html#cb267-26"></a>p1 <span class="op">+</span><span class="st"> </span>p2</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
 <ul>
 <li>Skewness is indicated by the curve in the Normal Q-Q plot. Curving up and away from the line in both tails suggests right skew, as does the histogram.</li>
 </ul>
@@ -753,7 +753,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb268-13"><a href="assessing-normality.html#cb268-13"></a>         <span class="dt">y =</span> <span class="st">&quot;Sorted Square Root of Energy&quot;</span>)</span>
 <span id="cb268-14"><a href="assessing-normality.html#cb268-14"></a></span>
 <span id="cb268-15"><a href="assessing-normality.html#cb268-15"></a>p1 <span class="op">+</span><span class="st"> </span>p2</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-44-1.png" width="672" /></p>
 <ul>
 <li>The left plot shows substantial <strong>right</strong> or <em>positive</em> skew</li>
 <li>The right plot shows there’s much less skew after the square root has been taken.</li>
@@ -795,7 +795,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb269-33"><a href="assessing-normality.html#cb269-33"></a></span>
 <span id="cb269-34"><a href="assessing-normality.html#cb269-34"></a></span>
 <span id="cb269-35"><a href="assessing-normality.html#cb269-35"></a>p1 <span class="op">+</span><span class="st"> </span>p2 <span class="op">+</span><span class="st"> </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Comparing energy to sqrt(energy)&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-43-1.png" width="672" /></p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-45-1.png" width="672" /></p>
 <div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="assessing-normality.html#cb270-1"></a><span class="kw">rm</span>(p1, p2, bin_w, bin_w2, res, res2) <span class="co"># cleanup</span></span></code></pre></div>
 <p>When we are confronted with a variable that is not Normally distributed but that we wish was Normally distributed, it is sometimes useful to consider whether working with a <strong>transformation</strong> of the data will yield a more helpful result, as the square root does in this instance.</p>
 <p>The next Chapter provides some guidance about choosing from a class of power transformations that can reduce the impact of non-Normality in unimodal data.</p>
