@@ -2591,6 +2591,10 @@ When we have a unimodal distribution that is symmetric, we will often be interes
 \end{Highlighting}
 \end{Shaded}
 
+\begin{verbatim}
+Warning: Removed 2 rows containing missing values (geom_bar).
+\end{verbatim}
+
 \includegraphics{431-notes_files/figure-latex/unnamed-chunk-24-1.pdf}
 
 Graphical tools are in most cases the best way to identify issues related to kurtosis.
@@ -6960,8 +6964,8 @@ Suppose we have \(n\) observations on two variables, called \(X\) and \(Y\), whe
 r_{XY} = \frac{1}{n-1} \sum\limits_{i=1}^n (\frac{x_i - \bar{x}}{s_x}) (\frac{y_i - \bar{y}}{s_y}) 
 \]
 
-\hypertarget{a-simulated-example}{%
-\section{A simulated example}\label{a-simulated-example}}
+\hypertarget{studying-correlation-through-6-examples}{%
+\section{Studying Correlation through 6 Examples}\label{studying-correlation-through-6-examples}}
 
 The \texttt{correx1} data file contains six different sets of (x,y) points, identified by the \texttt{set} variable.
 
@@ -7009,7 +7013,7 @@ Let's start by working with the \textbf{Alex} data set.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/correx1a-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-93-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7020,7 +7024,7 @@ Let's start by working with the \textbf{Alex} data set.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/correx1a2-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-94-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7038,7 +7042,7 @@ Let's start by working with the \textbf{Alex} data set.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/correx1a3-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-95-1.pdf}
 
 \hypertarget{data-set-bonnie}{%
 \subsection{Data Set Bonnie}\label{data-set-bonnie}}
@@ -7053,7 +7057,7 @@ Let's start by working with the \textbf{Alex} data set.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/correx1b-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-96-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7070,7 +7074,7 @@ Let's start by working with the \textbf{Alex} data set.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/correx1b2-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-97-1.pdf}
 
 \hypertarget{correlations-for-all-six-data-sets-in-the-correx1-example}{%
 \subsection{Correlations for All Six Data Sets in the Correx1 Example}\label{correlations-for-all-six-data-sets-in-the-correx1-example}}
@@ -7129,7 +7133,7 @@ It looks like the picture for Colin should be very similar (in terms of scatter)
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/correx1bc-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-99-1.pdf}
 
 Uh, oh. It looks like the point in Colin at the top right is twisting what would otherwise be a very straight regression model with an extremely strong negative correlation. There's no better way to look for outliers than to examine the scatterplot.
 
@@ -7147,7 +7151,7 @@ We've seen that Danielle, Earl and Fiona all show Pearson correlations of essent
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/correx1-all1-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-100-1.pdf}
 
 When we learn that the correlation is zero, we tend to assume we have a picture like the Danielle data set. If Danielle were our real data, we might well think that x would be of little use in predicting y.
 
@@ -7228,7 +7232,7 @@ Here is a plot of the 11 data sets, showing the increase in correlation from 0.0
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/correx2a-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-103-1.pdf}
 
 Note that R will allow you to fit a straight line model to any of these relationships, no matter how appropriate it might be to do so.
 
@@ -7242,7 +7246,7 @@ Note that R will allow you to fit a straight line model to any of these relation
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/correx2b-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-104-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7254,7 +7258,7 @@ Note that R will allow you to fit a straight line model to any of these relation
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/correx2c-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-105-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7266,7 +7270,7 @@ Note that R will allow you to fit a straight line model to any of these relation
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/correx2d-fig-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-106-1.pdf}
 
 Note that the same 10 points are used in each of the data sets. It's always possible that a lurking subgroup of the data within a scatterplot follows a very strong linear relationship. This is why it's so important (and difficult) not to go searching for such a thing without a strong foundation of logic, theory and prior empirical evidence.
 
@@ -8268,7 +8272,7 @@ Consider the question of whether the distribution of the systolic blood pressure
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-102-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-115-1.pdf}
 
 Since the data contain both \texttt{sbp} and \texttt{lnsbp} (its natural logarithm), let's compare them. Note that in preparing the graph, we'll need to change the location for the text annotation.
 
@@ -8292,7 +8296,7 @@ Since the data contain both \texttt{sbp} and \texttt{lnsbp} (its natural logarit
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-103-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-116-1.pdf}
 
 We can also look at Normal Q-Q plots, for instance\ldots{}
 
@@ -8338,7 +8342,7 @@ It looks like there's an outlier (or a series of them) in the SBP data.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-104-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-117-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8493,7 +8497,7 @@ Let's build a scatter plot of SBP (Outcome) by Weight (Predictor), rather than b
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-107-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-120-1.pdf}
 
 \begin{itemize}
 \tightlist
@@ -8569,7 +8573,7 @@ Let's build a version of the \texttt{wcgs} data that eliminates all missing data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-109-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-122-1.pdf}
 
 \hypertarget{linear-model-for-sbp-weight-relationship-subjects-without-arcus-senilis}{%
 \section{Linear Model for SBP-Weight Relationship: subjects without Arcus Senilis}\label{linear-model-for-sbp-weight-relationship-subjects-without-arcus-senilis}}
@@ -8852,7 +8856,7 @@ We can use facets in \texttt{ggplot2} to show scatterplots across the levels of 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-113-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-126-1.pdf}
 
 \hypertarget{scatterplot-and-correlation-matrices}{%
 \section{Scatterplot and Correlation Matrices}\label{scatterplot-and-correlation-matrices}}
@@ -8865,7 +8869,7 @@ A \textbf{scatterplot matrix} can be very helpful in understanding relationships
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-114-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-127-1.pdf}
 
 \hypertarget{displaying-a-correlation-matrix}{%
 \subsection{Displaying a Correlation Matrix}\label{displaying-a-correlation-matrix}}
@@ -8901,7 +8905,7 @@ The \texttt{ggpairs} function provides a density plot on each diagonal, Pearson 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-116-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-129-1.pdf}
 
 \hypertarget{re-expression-tukeys-ladder-box-cox-plot}{%
 \chapter{Re-Expression, Tukey's Ladder \& Box-Cox Plot}\label{re-expression-tukeys-ladder-box-cox-plot}}
@@ -8967,22 +8971,16 @@ The \textbf{Box-Cox plot}, from the \texttt{boxCox} function in the \texttt{car}
 \KeywordTok{ggplot}\NormalTok{(scatter1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{shape =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{3}\NormalTok{) }\OperatorTok{+}
 \StringTok{    }\CommentTok{## add loess smooth}
-\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"dodgerblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }
+                \DataTypeTok{col =} \StringTok{"dodgerblue"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x) }\OperatorTok{+}
 \StringTok{    }\CommentTok{## then add linear fit}
-\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }
+                \DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Simulated scatter1 example: Y vs. X"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-`geom_smooth()` using method = 'loess' and formula 'y ~ x'
-\end{verbatim}
-
-\begin{verbatim}
-`geom_smooth()` using formula 'y ~ x'
-\end{verbatim}
-
-\begin{center}\includegraphics{431-notes_files/figure-latex/simul1a-1} \end{center}
+\begin{center}\includegraphics{431-notes_files/figure-latex/unnamed-chunk-130-1} \end{center}
 
 Having simulated data that produces a curved scatterplot, I will now use the Box-Cox plot to lead my choice of an appropriate power transformation for Y in order to ``linearize'' the association of Y and X.
 
@@ -8993,7 +8991,7 @@ Having simulated data that produces a curved scatterplot, I will now use the Box
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/simul1b-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-131-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9024,21 +9022,25 @@ If we use \(\lambda\) = 0.5, on Tukey's ladder of power transformations, it sugg
 \begin{Highlighting}[]
 \NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(scatter1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{2}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"dodgerblue"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }
+                \DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{col =} \StringTok{"dodgerblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }
+                \DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"scatter1: Y vs. X"}\NormalTok{)}
 
 \NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(scatter1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =} \KeywordTok{sqrt}\NormalTok{(y))) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{2}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"dodgerblue"}\NormalTok{) }\OperatorTok{+}
-\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }
+                \DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{col =} \StringTok{"dodgerblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }
+                \DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\OperatorTok{+}
 \StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"scatter1: Square Root of Y vs. X"}\NormalTok{)}
 
 \NormalTok{p1 }\OperatorTok{+}\StringTok{ }\NormalTok{p2}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/simul1c-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-132-1.pdf}
 
 By eye, I think the square root plot better matches the linear fit.
 
@@ -9161,7 +9163,7 @@ We can fit the regression models, obtain plots of residuals against fitted value
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/check1c-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-135-1.pdf}
 
 What we're looking for in such a plot is the absence of a curve, among other things, we want to see ``fuzzy football'' shapes.
 
@@ -9260,7 +9262,7 @@ Next, we'll do a more thorough graphical summary of our outcome, recovery score.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-117-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-136-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9773,7 +9775,7 @@ To save the residuals and predicted (fitted) values from this simple regression 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-122-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-141-1.pdf}
 
 We can also obtain a plot of residuals vs.~fitted values for \texttt{m1} using the following code from base R.
 
@@ -9783,7 +9785,7 @@ We can also obtain a plot of residuals vs.~fitted values for \texttt{m1} using t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-123-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-142-1.pdf}
 
 We hope in this plot to see a generally random scatter of points, perhaps looking like a ``fuzzy football''. Since we only have seven possible \texttt{dose} values, we obtain only seven distinct predicted values, which explains the seven vertical lines in the plot. Here, the smooth red line indicates a gentle curve, but no evidence of a strong curve, or any other regular pattern in this residual plot.
 

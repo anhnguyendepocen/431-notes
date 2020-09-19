@@ -27,7 +27,7 @@ The **Box-Cox plot**, from the `boxCox` function in the `car` package, sifts thr
 
 ## A Simulated Example
 
-```{r simul1a, fig.height = 4.5, fig.width = 5, fig.align = "center"}
+```{r, fig.height = 4.5, fig.width = 5, fig.align = "center"}
 set.seed(999); x.rand <- rbeta(80, 2, 5) * 20 + 3
 set.seed(1000); y.rand <- abs(50 + 0.75*x.rand^(3) - 0.65*x.rand + rnorm(80, 0, 200))
 scatter1 <- data.frame(x = x.rand, y = y.rand) %>% tbl_df
@@ -36,15 +36,17 @@ rm(x.rand, y.rand)
 ggplot(scatter1, aes(x = x, y = y)) +
     geom_point(shape = 1, size = 3) +
     ## add loess smooth
-    geom_smooth(se = FALSE, col = "dodgerblue") +
+    geom_smooth(method = "loess", se = FALSE, 
+                col = "dodgerblue", formula = y ~ x) +
     ## then add linear fit
-    geom_smooth(method = "lm", se = FALSE, col = "red", linetype = "dashed") +
+    geom_smooth(method = "lm", se = FALSE, 
+                col = "red", formula = y ~ x, linetype = "dashed") +
     labs(title = "Simulated scatter1 example: Y vs. X")
 ```
 
 Having simulated data that produces a curved scatterplot, I will now use the Box-Cox plot to lead my choice of an appropriate power transformation for Y in order to "linearize" the association of Y and X.
 
-```{r simul1b, message = FALSE} 
+```{r, message = FALSE} 
 library(car)
 boxCox(scatter1$y ~ scatter1$x) 
 powerTransform(scatter1$y ~ scatter1$x)
@@ -58,17 +60,21 @@ Transformation | 1/y^2^ | 1/y | 1/$\sqrt{y}$ | log y | $\sqrt{y}$ | y | y^2^
 
 If we use $\lambda$ = 0.5, on Tukey's ladder of power transformations, it suggests we look at the relationship between the square root of Y and X, as shown next.
 
-```{r simul1c, message = FALSE}
+```{r, message = FALSE}
 p1 <- ggplot(scatter1, aes(x = x, y = y)) +
     geom_point(size = 2) +
-    geom_smooth(se = FALSE, col = "dodgerblue") +
-    geom_smooth(method = "lm", se = FALSE, col = "red", linetype = "dashed") +
+    geom_smooth(method = "loess", se = FALSE, 
+                formula = y ~ x, col = "dodgerblue") +
+    geom_smooth(method = "lm", se = FALSE, 
+                formula = y ~ x, col = "red", linetype = "dashed") +
     labs(title = "scatter1: Y vs. X")
 
 p2 <- ggplot(scatter1, aes(x = x, y = sqrt(y))) +
     geom_point(size = 2) +
-    geom_smooth(se = FALSE, col = "dodgerblue") +
-    geom_smooth(method = "lm", se = FALSE, col = "red", linetype = "dashed") +
+    geom_smooth(method = "loess", se = FALSE, 
+                formula = y ~ x, col = "dodgerblue") +
+    geom_smooth(method = "lm", se = FALSE, 
+                formula = y ~ x, col = "red", linetype = "dashed") +
     labs(title = "scatter1: Square Root of Y vs. X")
 
 p1 + p2
@@ -90,7 +96,7 @@ Option 3 is by far the most important in practice, and it's the one we'll focus 
 
 Here, we calculate the correlation of original and re-expressed associations. 
 
-```{r check1a}
+```{r}
 cor(scatter1$y, scatter1$x)
 cor(sqrt(scatter1$y), scatter1$x)
 ```
@@ -101,7 +107,7 @@ The Pearson correlation is a little stronger after the transformation. as we'd e
 
 Here, we use the `testTransform` function (also from the `car` package) to compare the optimal choice determined by the powerTransform function (here $\lambda$ = 0.44) to $\lambda$ = 0 (logarithm), 0.5 (square root) and 1 (no transformation). 
 
-```{r check1b, message = FALSE}
+```{r, message = FALSE}
 testTransform(powerTransform(scatter1$y ~ scatter1$x), 0)
 testTransform(powerTransform(scatter1$y ~ scatter1$x), 0.5)
 testTransform(powerTransform(scatter1$y ~ scatter1$x), 1)
@@ -114,7 +120,7 @@ testTransform(powerTransform(scatter1$y ~ scatter1$x), 1)
 
 We can fit the regression models, obtain plots of residuals against fitted values, and compare them to see which one has less indication of a curve in the residuals.
 
-```{r check1c, fig.height = 4}
+```{r, fig.height = 4}
 model.orig <- lm(scatter1$y ~ scatter1$x)
 model.sqrt <- lm(sqrt(scatter1$y) ~ scatter1$x)
 

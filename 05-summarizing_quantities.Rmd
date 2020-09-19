@@ -251,7 +251,7 @@ When we have a unimodal distribution that is symmetric, we will often be interes
 - A leptokurtic distribution is a thinner, more slender distribution, with heavier tails than we'd expect from a Normal distribution. One example is the t distribution.
 - A platykurtic distribution is a broader, flatter distribution, with thinner tails than we'd expect from a Normal distribution. One example is a uniform distribution.
 
-```{r, warning = FALSE}
+```{r}
 set.seed(431)
 sims_kurt <- tibble(meso = rnorm(n = 300, mean = 0, sd = 1),
                     lepto = rt(n = 300, df = 4),

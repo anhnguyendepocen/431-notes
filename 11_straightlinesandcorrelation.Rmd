@@ -183,7 +183,7 @@ $$
 r_{XY} = \frac{1}{n-1} \sum\limits_{i=1}^n (\frac{x_i - \bar{x}}{s_x}) (\frac{y_i - \bar{y}}{s_y}) 
 $$
 
-## A simulated example
+## Studying Correlation through 6 Examples
 
 The `correx1` data file contains six different sets of (x,y) points, identified by the `set` variable.
 
@@ -197,7 +197,7 @@ summary(correx1)
 
 Let's start by working with the **Alex** data set.
 
-```{r correx1a-fig}
+```{r}
 ggplot(filter(correx1, set == "Alex"), aes(x = x, y = y)) + 
     geom_point() +
     labs(title = "correx1: Data Set Alex")
@@ -205,7 +205,7 @@ ggplot(filter(correx1, set == "Alex"), aes(x = x, y = y)) +
 
 
 
-```{r correx1a2-fig, message = FALSE}
+```{r, message = FALSE}
 ggplot(filter(correx1, set == "Alex"), aes(x = x, y = y)) + 
     geom_point() +
     geom_smooth(col = "blue") +
@@ -214,7 +214,7 @@ ggplot(filter(correx1, set == "Alex"), aes(x = x, y = y)) +
 
 
 
-```{r correx1a3-fig, message = FALSE}
+```{r, message = FALSE}
 setA <- filter(correx1, set == "Alex")
 
 ggplot(setA, aes(x = x, y = y)) + 
@@ -233,7 +233,7 @@ ggplot(setA, aes(x = x, y = y)) +
 
 ### Data Set Bonnie
 
-```{r correx1b-fig}
+```{r}
 setB <- dplyr::filter(correx1, set == "Bonnie")
 
 ggplot(setB, aes(x = x, y = y)) + 
@@ -243,7 +243,7 @@ ggplot(setB, aes(x = x, y = y)) +
 
 
 
-```{r correx1b2-fig, message = FALSE}
+```{r, message = FALSE}
 ggplot(setB, aes(x = x, y = y)) + 
     geom_point() +
     geom_smooth(method = "lm", col = "red") +
@@ -260,7 +260,7 @@ ggplot(setB, aes(x = x, y = y)) +
 
 Let's look at the Pearson correlations associated with each of the six data sets contained in the `correx1` example.
 
-```{r table of correlation coefficients for correx1}
+```{r}
 tab1 <- correx1 %>%
     group_by(set) %>%
     summarise("Pearson r" = round(cor(x, y, use="complete"),2))
@@ -273,7 +273,7 @@ knitr::kable(tab1)
 
 It looks like the picture for Colin should be very similar (in terms of scatter) to the picture for Bonnie, except that Colin will have a negative slope, rather than the positive one Bonnie has. Is that how this plays out?
     
-```{r correx1bc-fig, message = FALSE}
+```{r, message = FALSE}
 setBC <- filter(correx1, set == "Bonnie" | set == "Colin")
 
 ggplot(setBC, aes(x = x, y = y)) + 
@@ -288,7 +288,7 @@ Uh, oh. It looks like the point in Colin at the top right is twisting what would
 
 We've seen that Danielle, Earl and Fiona all show Pearson correlations of essentially zero. However, the three data sets look very different in a scatterplot.
 
-```{r correx1-all1-fig, message = FALSE}
+```{r, message = FALSE}
 ggplot(correx1, aes(x = x, y = y)) +
     geom_point() +
     geom_smooth(method = "loess") +
@@ -310,7 +310,7 @@ rm(setA, setB, setBC, tab1)
 
 The correx2 data set is designed to help you calibrate yourself a bit in terms of estimating a correlation from a scatterplot. There are 11 data sets buried within the correx2 example, and they are labeled by their Pearson correlation coefficients, ranging from r = 0.01 to r = 0.999
 
-```{r correlation example 2}
+```{r}
 correx2 <- read_csv("data/correx2.csv")
 
 correx2 %>%
@@ -320,7 +320,7 @@ correx2 %>%
 
 Here is a plot of the 11 data sets, showing the increase in correlation from 0.01 (in Set 01) to 0.999 (in Set 999).
 
-```{r correx2a-fig}
+```{r}
 ggplot(correx2, aes(x = x, y = y)) +
     geom_point() + 
     facet_wrap(~ set) +
@@ -329,7 +329,7 @@ ggplot(correx2, aes(x = x, y = y)) +
 
 Note that R will allow you to fit a straight line model to any of these relationships, no matter how appropriate it might be to do so.
 
-```{r correx2b-fig, message = FALSE}
+```{r, message = FALSE}
 ggplot(correx2, aes(x = x, y = y)) +
     geom_point() + 
     geom_smooth(method = "lm", col = "red") +
@@ -339,7 +339,7 @@ ggplot(correx2, aes(x = x, y = y)) +
 
 
 
-```{r correx2c-fig, message = FALSE}
+```{r, message = FALSE}
 ggplot(correx2, aes(x = x, y = y)) +
     geom_point() + 
     geom_smooth(col = "blue") +
@@ -349,7 +349,7 @@ ggplot(correx2, aes(x = x, y = y)) +
 
 
 
-```{r correx2d-fig, message = FALSE}
+```{r, message = FALSE}
 ggplot(correx2, aes(x = x, y = y, color = factor(group))) +
     geom_point() + 
     guides(color = "none") +
