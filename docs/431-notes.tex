@@ -2530,14 +2530,68 @@ When we have a unimodal distribution that is symmetric, we will often be interes
 \item
   A mesokurtic distribution has similar tail behavior to what we would expect from a Normal distribution.
 \item
-  A leptokurtic distribution is a thinner distribution, with lighter tails (fewer observations far from the center) than we'd expect from a Normal distribution.
+  A leptokurtic distribution is a thinner, more slender distribution, with heavier tails than we'd expect from a Normal distribution. One example is the t distribution.
 \item
-  A platykurtic distribution is a flatter distribution, with heavier tails (more observations far from the center) than we'd expect from a Normal distribution.
+  A platykurtic distribution is a broader, flatter distribution, with thinner tails than we'd expect from a Normal distribution. One example is a uniform distribution.
 \end{itemize}
 
-\begin{figure}
-\includegraphics[width=0.9\linewidth]{figures/kurtosis} \caption{The Impact of Kurtosis}\label{fig:kurtosis-fig}
-\end{figure}
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{431}\NormalTok{)}
+\NormalTok{sims_kurt <-}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{meso =} \KeywordTok{rnorm}\NormalTok{(}\DataTypeTok{n =} \DecValTok{300}\NormalTok{, }\DataTypeTok{mean =} \DecValTok{0}\NormalTok{, }\DataTypeTok{sd =} \DecValTok{1}\NormalTok{),}
+                    \DataTypeTok{lepto =} \KeywordTok{rt}\NormalTok{(}\DataTypeTok{n =} \DecValTok{300}\NormalTok{, }\DataTypeTok{df =} \DecValTok{4}\NormalTok{),}
+                    \DataTypeTok{platy =} \KeywordTok{runif}\NormalTok{(}\DataTypeTok{n =} \DecValTok{300}\NormalTok{, }\DataTypeTok{min =} \DecValTok{-2}\NormalTok{, }\DataTypeTok{max =} \DecValTok{2}\NormalTok{))}
+
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(sims_kurt, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ meso)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =} \KeywordTok{stat}\NormalTok{(density)), }
+                 \DataTypeTok{bins =} \DecValTok{25}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"royalblue"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{stat_function}\NormalTok{(}\DataTypeTok{fun =}\NormalTok{ dnorm, }
+                \DataTypeTok{args =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(sims_kurt}\OperatorTok{$}\NormalTok{meso), }
+                            \DataTypeTok{sd =} \KeywordTok{sd}\NormalTok{(sims_kurt}\OperatorTok{$}\NormalTok{meso)),}
+                \DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Normal (mesokurtic)"}\NormalTok{)}
+
+\NormalTok{p1a <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(sims_kurt, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ meso, }\DataTypeTok{y =} \StringTok{""}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_violin}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"royalblue"}\NormalTok{, }\DataTypeTok{outlier.color =} \StringTok{"royalblue"}\NormalTok{, }\DataTypeTok{width =} \FloatTok{0.3}\NormalTok{)}
+
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(sims_kurt, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ lepto)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =} \KeywordTok{stat}\NormalTok{(density)), }
+                 \DataTypeTok{bins =} \DecValTok{25}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"tomato"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{stat_function}\NormalTok{(}\DataTypeTok{fun =}\NormalTok{ dnorm, }
+                \DataTypeTok{args =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(sims_kurt}\OperatorTok{$}\NormalTok{lepto), }
+                            \DataTypeTok{sd =} \KeywordTok{sd}\NormalTok{(sims_kurt}\OperatorTok{$}\NormalTok{lepto)),}
+                \DataTypeTok{col =} \StringTok{"royalblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"t (leptokurtic)"}\NormalTok{)}
+
+\NormalTok{p2a <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(sims_kurt, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ lepto, }\DataTypeTok{y =} \StringTok{""}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_violin}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"tomato"}\NormalTok{, }\DataTypeTok{outlier.color =} \StringTok{"tomato"}\NormalTok{, }\DataTypeTok{width =} \FloatTok{0.3}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{y =} \StringTok{""}\NormalTok{, }\DataTypeTok{x =} \StringTok{"t (slender with heavy tails)"}\NormalTok{)}
+
+\NormalTok{p3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(sims_kurt, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ platy)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =} \KeywordTok{stat}\NormalTok{(density)), }
+                 \DataTypeTok{bins =} \DecValTok{25}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"yellow"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"black"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{stat_function}\NormalTok{(}\DataTypeTok{fun =}\NormalTok{ dnorm, }
+                \DataTypeTok{args =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(sims_kurt}\OperatorTok{$}\NormalTok{platy), }
+                            \DataTypeTok{sd =} \KeywordTok{sd}\NormalTok{(sims_kurt}\OperatorTok{$}\NormalTok{platy)),}
+                \DataTypeTok{col =} \StringTok{"royalblue"}\NormalTok{, }\DataTypeTok{lwd =} \FloatTok{1.5}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{xlim}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Uniform (platykurtic)"}\NormalTok{)}
+
+\NormalTok{p3a <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(sims_kurt, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ platy, }\DataTypeTok{y =} \StringTok{""}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_violin}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"yellow"}\NormalTok{, }\DataTypeTok{width =} \FloatTok{0.3}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{xlim}\NormalTok{(}\OperatorTok{-}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{y =} \StringTok{""}\NormalTok{, }\DataTypeTok{x =} \StringTok{"Uniform (broad with thin tails)"}\NormalTok{)}
+
+
+\NormalTok{(p1 }\OperatorTok{+}\StringTok{ }\NormalTok{p2 }\OperatorTok{+}\StringTok{ }\NormalTok{p3) }\OperatorTok{/}\StringTok{ }\NormalTok{(p1a }\OperatorTok{+}\StringTok{ }\NormalTok{p2a }\OperatorTok{+}\StringTok{ }\NormalTok{p3a) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{plot_layout}\NormalTok{(}\DataTypeTok{heights =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-24-1.pdf}
 
 Graphical tools are in most cases the best way to identify issues related to kurtosis.
 
@@ -2671,7 +2725,7 @@ The additional statistics presented here are:
 \item
   a measure of \texttt{skew}, which refers to how much asymmetry is present in the shape of the distribution. The measure is not the same as the \emph{nonparametric skew} measure that we will usually prefer. The {[}Wikipedia page on skewness{]}{[}\url{https://en.wikipedia.org/wiki/Skewness}{]} is very detailed.
 \item
-  a measure of \texttt{kurtosis}, which refers to how outlier-prone, or heavy-tailed the shape of the distribution is, mainly as compared to a Normal distribution.
+  a measure of excess \texttt{kurtosis}, which refers to how outlier-prone, or heavy-tailed the shape of the distribution is, as compared to a Normal distribution.
 \item
   \texttt{se} = the standard error of the sample mean, equal to the sample sd divided by the square root of the sample size.
 \end{itemize}
@@ -4017,7 +4071,7 @@ We see there is some missing data here. Let's ignore that for the moment and con
 Warning: Removed 89 rows containing non-finite values (stat_bin).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-31-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-32-1.pdf}
 
 The histogram shows us that the values are truncated at 5, so that children whose actual family income is above 5 times the poverty line are listed as 5. We also see a message reminding us that some of the data are missing for this variable.
 
@@ -4057,7 +4111,7 @@ This deserves a picture. Let's try a boxplot.
 Warning: Removed 89 rows containing non-finite values (stat_boxplot).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-33-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-34-1.pdf}
 
 \hypertarget{bmi}{%
 \subsection{\texorpdfstring{\texttt{bmi}}{bmi}}\label{bmi}}
@@ -4207,7 +4261,7 @@ Here's a histogram of the waist circumference data.
 Warning: Removed 6 rows containing non-finite values (stat_bin).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-35-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-36-1.pdf}
 
 \hypertarget{triceps_skinfold}{%
 \subsection{\texorpdfstring{\texttt{triceps\_skinfold}}{triceps\_skinfold}}\label{triceps_skinfold}}
@@ -4238,7 +4292,7 @@ And here's a histogram of the triceps skinfold data, with the fill and color fli
 Warning: Removed 21 rows containing non-finite values (stat_bin).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-36-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-37-1.pdf}
 
 OK. We've seen a few variables, and we'll move on now to look more seriously at the data.
 
@@ -4410,7 +4464,7 @@ Here's a comparison of several histograms, looking at \texttt{energy} consumed a
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-38-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-39-1.pdf}
 
 We don't really need the legend here, and perhaps we should restrict the plot to participants who responded to the \texttt{diet\_yesterday} question, and put in a title and better axis labels?
 
@@ -4428,7 +4482,7 @@ We don't really need the legend here, and perhaps we should restrict the plot to
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-39-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-40-1.pdf}
 
 \hypertarget{the-dot-plot-to-display-a-distribution}{%
 \section{The Dot Plot to display a distribution}\label{the-dot-plot-to-display-a-distribution}}
@@ -5028,7 +5082,7 @@ But first, we'll demonstrate an approach to building a histogram of counts (rath
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-40-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-41-1.pdf}
 
 \hypertarget{does-a-normal-model-work-well-for-the-waist-circumference}{%
 \section{\texorpdfstring{Does a Normal model work well for the \texttt{waist} circumference?}{Does a Normal model work well for the waist circumference?}}\label{does-a-normal-model-work-well-for-the-waist-circumference}}
@@ -5060,7 +5114,7 @@ Now, suppose we instead look at the \texttt{waist} data, remembering to filter t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-41-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-42-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5412,7 +5466,7 @@ The \texttt{energy} data we've been studying shows meaningful signs of right ske
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-43-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-44-1.pdf}
 
 \begin{itemize}
 \tightlist
@@ -5448,7 +5502,7 @@ What if we plotted not the original \texttt{energy} values (all of which are pos
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-44-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-45-1.pdf}
 
 \begin{itemize}
 \tightlist
@@ -5502,7 +5556,7 @@ The effect of taking the square root may be clearer from the histograms below, w
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-45-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-46-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5612,7 +5666,7 @@ Here are the protein consumption (in grams) results from the NNYFS data.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-47-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-48-1.pdf}
 
 The key point here is that we see several signs of meaningful right skew, and we'll want to consider a transformation that might make a Normal model more plausible.
 
@@ -5661,7 +5715,7 @@ For me, the slickest approach to composing how a series of plots are placed toge
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-48-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-49-1.pdf}
 
 For more on the \texttt{patchwork} package, check out its repository at \url{https://github.com/thomasp85/patchwork}.
 
@@ -5715,7 +5769,7 @@ Would a square root applied to the protein data help alleviate that right skew?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-49-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-50-1.pdf}
 
 That looks like a more symmetric distribution, certainly, although we still have some outliers on the right side of the distribution. Should we take another step down the ladder?
 
@@ -5764,7 +5818,7 @@ We might also try a logarithm of the energy circumference data. We can use eithe
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-50-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-51-1.pdf}
 
 Now, it looks like we may have gone too far in the other direction. It looks like the square root is a sensible choice to try to improve the fit of a Normal model to the protein consumption data.
 
@@ -5850,7 +5904,7 @@ In this course, we will assume the use of natural logarithms unless we specify o
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-51-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-52-1.pdf}
 
 The square root still appears to be the best choice of transformation here, even after we consider all 8 transformation of the raw data.
 
@@ -5906,7 +5960,7 @@ If we'd like to transform these data so as to better approximate a Normal distri
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-53-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-54-1.pdf}
 
 Given the left skew in the data, it looks like a step up in the ladder is warranted, perhaps by looking at the square of the data?
 
@@ -5950,7 +6004,7 @@ Given the left skew in the data, it looks like a step up in the ladder is warran
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-54-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-55-1.pdf}
 
 Looks like at best a modest improvement. How about cubing the data, instead?
 
@@ -5994,7 +6048,7 @@ Looks like at best a modest improvement. How about cubing the data, instead?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-55-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-56-1.pdf}
 
 The newly transformed (cube of the) data appears more symmetric, although somewhat light-tailed. Perhaps a Normal model would be more appropriate now, although the standard deviation is likely to overstate the variation we see in the data due to the light tails. Again, I wouldn't be thrilled using a cube in practical work, as it is so hard to interpret, but it does look like a reasonable choice here.
 
@@ -6064,7 +6118,7 @@ The newly transformed (cube of the) data appears more symmetric, although somewh
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-56-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-57-1.pdf}
 
 Again, either the cube or the square looks like best choice here, in terms of creating a more symmetric (albeit light-tailed) distribution.
 
@@ -6169,7 +6223,7 @@ It looks like the children in the ``Much more than usual'' category consumed mor
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-60-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-61-1.pdf}
 
 We can see that there is considerable overlap in these distributions, regardless of what we're measuring.
 
@@ -6271,7 +6325,7 @@ While patients in the heavier groups generally had higher waist circumferences, 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-64-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-65-1.pdf}
 
 The data transformation with dplyr cheat sheet found under the Help menu in RStudio is a great resource. And, of course, for more details, visit \citet{R4DS}.
 
@@ -6294,7 +6348,7 @@ Boxplots are much more useful when comparing samples of data. For instance, cons
 Warning: Removed 21 rows containing non-finite values (stat_boxplot).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-65-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-66-1.pdf}
 
 Again, we probably want to omit those missing values (both in \texttt{bmi\_cat} and \texttt{triceps\_skinfold}) and also eliminate the repetitive legend (guides) on the right.
 
@@ -6314,7 +6368,7 @@ Again, we probably want to omit those missing values (both in \texttt{bmi\_cat} 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-66-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-67-1.pdf}
 
 As always, the boxplot shows the five-number summary (minimum, 25th percentile, median, 75th percentile and maximum) in addition to highlighting candidate outliers.
 
@@ -6341,7 +6395,7 @@ Often, we want to augment such a plot, perhaps by adding a little diamond to sho
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-67-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-68-1.pdf}
 
 \hypertarget{building-a-violin-plot}{%
 \subsection{Building a Violin Plot}\label{building-a-violin-plot}}
@@ -6361,7 +6415,7 @@ There are a number of other plots which compare distributions of data sets. An i
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-68-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-69-1.pdf}
 
 Traditionally, these plots are shown with overlaid boxplots and a white dot at the median, like this example, now looking at waist circumference again.
 
@@ -6382,7 +6436,7 @@ Traditionally, these plots are shown with overlaid boxplots and a white dot at t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-69-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-70-1.pdf}
 
 \hypertarget{adding-notches-to-a-boxplot}{%
 \subsection{Adding Notches to a Boxplot}\label{adding-notches-to-a-boxplot}}
@@ -6405,7 +6459,7 @@ Traditionally, these plots are shown with overlaid boxplots and a white dot at t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-70-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-71-1.pdf}
 
 There is no overlap between the notches for each of the four categories, so we might reasonably conclude that the true median triceps skinfold values across the four categories are statistically significantly different.
 
@@ -6426,7 +6480,7 @@ For an example where the notches do overlap, consider the comparison of plank ti
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-71-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-72-1.pdf}
 
 The overlap in the notches (for instance between Underweight and Normal) suggests that the median plank times in the population of interest don't necessarily differ in a meaningful way by BMI category, other than perhaps the Obese group which may have a shorter time.
 
@@ -6447,7 +6501,7 @@ These data are somewhat right skewed. Would a logarithmic transformation in the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-72-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-73-1.pdf}
 
 \hypertarget{using-multiple-histograms-to-make-comparisons}{%
 \section{Using Multiple Histograms to Make Comparisons}\label{using-multiple-histograms-to-make-comparisons}}
@@ -6467,7 +6521,7 @@ We can make an array of histograms to describe multiple groups of data, using \t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-73-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-74-1.pdf}
 
 \hypertarget{using-multiple-density-plots-to-make-comparisons}{%
 \section{Using Multiple Density Plots to Make Comparisons}\label{using-multiple-density-plots-to-make-comparisons}}
@@ -6487,7 +6541,7 @@ Or, we can make a series of density plots to describe multiple groups of data.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-74-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-75-1.pdf}
 
 Or, we can plot all of the densities on top of each other with semi-transparent fills.
 
@@ -6502,7 +6556,7 @@ Or, we can plot all of the densities on top of each other with semi-transparent 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-75-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-76-1.pdf}
 
 This really works better when we are comparing only two groups, like females to males.
 
@@ -6516,7 +6570,7 @@ This really works better when we are comparing only two groups, like females to 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-76-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-77-1.pdf}
 
 \hypertarget{a-ridgeline-plot}{%
 \section{A Ridgeline Plot}\label{a-ridgeline-plot}}
@@ -6539,7 +6593,7 @@ Some people don't like violin plots - for example, see \url{https://simplystatis
 Picking joint bandwidth of 3.47
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-77-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-78-1.pdf}
 
 And here's a ridgeline plot for the triceps skinfolds. We'll start by sorting the subgroups by the median value of our outcome (triceps skinfold) in this case, though it turns out not to matter. We'll also add some color.
 
@@ -6565,7 +6619,7 @@ And here's a ridgeline plot for the triceps skinfolds. We'll start by sorting th
 Picking joint bandwidth of 1.37
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-78-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-79-1.pdf}
 
 For one last example, we'll look at age by BMI category, so that sorting the BMI subgroups by the median matters, and we'll try an alternate color scheme, and a theme specially designed for the ridgeline plot.
 
@@ -6588,7 +6642,7 @@ For one last example, we'll look at age by BMI category, so that sorting the BMI
 Picking joint bandwidth of 1.15
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-79-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-80-1.pdf}
 
 \hypertarget{straight-line-models-and-correlation}{%
 \chapter{Straight Line Models and Correlation}\label{straight-line-models-and-correlation}}
@@ -6618,7 +6672,7 @@ We'll begin our investigation, as we always should, by drawing a relevant pictur
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-81-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-82-1.pdf}
 
 Here, I've arbitrarily decided to place \texttt{fat} on the vertical axis, and \texttt{protein} on the horizontal. Fitting a prediction model to this scatterplot will then require that we predict \texttt{fat} on the basis of \texttt{protein}.
 
@@ -6660,7 +6714,7 @@ Consider the subject with protein consumption close to 200 g, whose fat consumpt
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-82-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-83-1.pdf}
 
 While this subject is hardly the only unusual point in the data set, it is one of the more unusual ones, in terms of its vertical distance from the regression line. We can identify the subject by printing (part of) the tibble we created.
 
@@ -6698,7 +6752,7 @@ Next, we'll use the \textbf{loess} procedure to fit a smooth curve to the data, 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-84-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-85-1.pdf}
 
 This ``loess'' smooth curve is fairly close to the straight line fit, indicating that perhaps a linear regression model might fit the data well.
 
@@ -6737,7 +6791,7 @@ In addition to the curve, smoothing procedures can also provide confidence inter
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-85-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-86-1.pdf}
 
 By reducing the size of the span, the plot on the right shows a somewhat less ``smooth'' function than the plot on the left.
 
@@ -8214,7 +8268,7 @@ Consider the question of whether the distribution of the systolic blood pressure
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-101-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-102-1.pdf}
 
 Since the data contain both \texttt{sbp} and \texttt{lnsbp} (its natural logarithm), let's compare them. Note that in preparing the graph, we'll need to change the location for the text annotation.
 
@@ -8238,7 +8292,7 @@ Since the data contain both \texttt{sbp} and \texttt{lnsbp} (its natural logarit
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-102-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-103-1.pdf}
 
 We can also look at Normal Q-Q plots, for instance\ldots{}
 
@@ -8284,7 +8338,7 @@ It looks like there's an outlier (or a series of them) in the SBP data.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-103-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-104-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8439,7 +8493,7 @@ Let's build a scatter plot of SBP (Outcome) by Weight (Predictor), rather than b
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-106-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-107-1.pdf}
 
 \begin{itemize}
 \tightlist
@@ -8515,7 +8569,7 @@ Let's build a version of the \texttt{wcgs} data that eliminates all missing data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-108-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-109-1.pdf}
 
 \hypertarget{linear-model-for-sbp-weight-relationship-subjects-without-arcus-senilis}{%
 \section{Linear Model for SBP-Weight Relationship: subjects without Arcus Senilis}\label{linear-model-for-sbp-weight-relationship-subjects-without-arcus-senilis}}
@@ -8798,7 +8852,7 @@ We can use facets in \texttt{ggplot2} to show scatterplots across the levels of 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-112-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-113-1.pdf}
 
 \hypertarget{scatterplot-and-correlation-matrices}{%
 \section{Scatterplot and Correlation Matrices}\label{scatterplot-and-correlation-matrices}}
@@ -8811,7 +8865,7 @@ A \textbf{scatterplot matrix} can be very helpful in understanding relationships
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-113-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-114-1.pdf}
 
 \hypertarget{displaying-a-correlation-matrix}{%
 \subsection{Displaying a Correlation Matrix}\label{displaying-a-correlation-matrix}}
@@ -8847,7 +8901,7 @@ The \texttt{ggpairs} function provides a density plot on each diagonal, Pearson 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-115-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-116-1.pdf}
 
 \hypertarget{re-expression-tukeys-ladder-box-cox-plot}{%
 \chapter{Re-Expression, Tukey's Ladder \& Box-Cox Plot}\label{re-expression-tukeys-ladder-box-cox-plot}}
@@ -9206,7 +9260,7 @@ Next, we'll do a more thorough graphical summary of our outcome, recovery score.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-116-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-117-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9719,7 +9773,7 @@ To save the residuals and predicted (fitted) values from this simple regression 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-121-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-122-1.pdf}
 
 We can also obtain a plot of residuals vs.~fitted values for \texttt{m1} using the following code from base R.
 
@@ -9729,7 +9783,7 @@ We can also obtain a plot of residuals vs.~fitted values for \texttt{m1} using t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-122-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-123-1.pdf}
 
 We hope in this plot to see a generally random scatter of points, perhaps looking like a ``fuzzy football''. Since we only have seven possible \texttt{dose} values, we obtain only seven distinct predicted values, which explains the seven vertical lines in the plot. Here, the smooth red line indicates a gentle curve, but no evidence of a strong curve, or any other regular pattern in this residual plot.
 
