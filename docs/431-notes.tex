@@ -120,7 +120,7 @@
 
 \title{Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431}
 \author{Thomas E. Love}
-\date{2020-09-13}
+\date{2020-09-19}
 
 \begin{document}
 \maketitle
@@ -241,6 +241,7 @@ To start, I'll present a series of commands I run at the beginning of these Note
 \KeywordTok{library}\NormalTok{(palmerpenguins)}
 \KeywordTok{library}\NormalTok{(patchwork)}
 \KeywordTok{library}\NormalTok{(rms)}
+\KeywordTok{library}\NormalTok{(tidymodels) }\CommentTok{# note: tidymodels includes the broom package}
 \KeywordTok{library}\NormalTok{(tidyverse) }\CommentTok{# note: tidyverse includes the dplyr and ggplot2 packages}
 \end{Highlighting}
 \end{Shaded}
@@ -261,7 +262,6 @@ psych
 modelsummary
 mosaic
 naniar
-tidymodels
 visdat
 \end{verbatim}
 
@@ -6586,6 +6586,1407 @@ Picking joint bandwidth of 1.15
 \end{verbatim}
 
 \includegraphics{431-notes_files/figure-latex/unnamed-chunk-79-1.pdf}
+
+\hypertarget{straight-line-models-and-correlation}{%
+\chapter{Straight Line Models and Correlation}\label{straight-line-models-and-correlation}}
+
+\hypertarget{assessing-a-scatterplot}{%
+\section{Assessing A Scatterplot}\label{assessing-a-scatterplot}}
+
+Let's consider the relationship of \texttt{protein} and \texttt{fat} consumption for children in the \texttt{nnyfs} data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nnyfs <-}\StringTok{ }\KeywordTok{readRDS}\NormalTok{(}\StringTok{"data/nnyfs.Rds"}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{as_tibble}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+We'll begin our investigation, as we always should, by drawing a relevant picture. For the association of two quantitative variables, a \textbf{scatterplot} is usually the right start. Each subject in the \texttt{nnyfs} data is represented by one of the points below. To the plot, I've also used \texttt{geom\_smooth} to add a straight line regression model, which we'll discuss later.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ nnyfs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ protein, }\DataTypeTok{y =}\NormalTok{ fat)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{shape =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \StringTok{"sienna"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"steelblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Protein vs. Fat consumption"}\NormalTok{,}
+         \DataTypeTok{subtitle =} \StringTok{"Children in the NNYFS data, with fitted straight line regression model"}\NormalTok{,}
+         \DataTypeTok{x =} \StringTok{"Protein (in g)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Fat (in g)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-81-1.pdf}
+
+Here, I've arbitrarily decided to place \texttt{fat} on the vertical axis, and \texttt{protein} on the horizontal. Fitting a prediction model to this scatterplot will then require that we predict \texttt{fat} on the basis of \texttt{protein}.
+
+In this case, the pattern appears to be:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{direct}, or positive, in that the values of the \(x\) variable (\texttt{protein}) increase, so do the values of the \(y\) variable (\texttt{fat}). Essentially, it appears that subjects who consumed more protein also consumed more fat, but we don't know cause and effect here.
+\item
+  fairly \textbf{linear} in that most of the points cluster around what appears to be a pattern which is well-fitted by a straight line.
+\item
+  moderately \textbf{strong} in that the range of values for \texttt{fat} associated with any particular value of \texttt{protein} is fairly tight. If we know someone's protein consumption, that should meaningfully improve our ability to predict their fat consumption, among the subjects in these data.
+\item
+  that we see some unusual or \textbf{outlier} values, further away from the general pattern of most subjects shown in the data.
+\end{enumerate}
+
+\hypertarget{highlighting-an-unusual-point}{%
+\subsection{Highlighting an unusual point}\label{highlighting-an-unusual-point}}
+
+Consider the subject with protein consumption close to 200 g, whose fat consumption is below 100 g. That's well below the prediction of the linear model for example. We can identify the subject because it is the only person with \texttt{protein} \textgreater{} 190 and \texttt{fat} \textless{} 100 with BMI \textgreater{} 35 and waist.circ \textless{} 70. So I'll create a subset of the \texttt{nnyfs} data containing the point that meets that standard, and then add a red point and a label to the plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# identify outlier and place it in data frame s1 }
+\NormalTok{s1 <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(nnyfs, protein }\OperatorTok{>}\StringTok{ }\DecValTok{190} \OperatorTok{&}\StringTok{ }\NormalTok{fat }\OperatorTok{<}\StringTok{ }\DecValTok{100}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ nnyfs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ protein, }\DataTypeTok{y =}\NormalTok{ fat)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{shape =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \StringTok{"sienna"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{col =} \StringTok{"steelblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ s1, }\DataTypeTok{size =} \DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_text}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ s1, }\DataTypeTok{label =}\NormalTok{ s1}\OperatorTok{$}\NormalTok{SEQN, }
+              \DataTypeTok{vjust =} \DecValTok{-1}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Protein vs. Fat consumption in NNYFS"}\NormalTok{,}
+         \DataTypeTok{subtitle =} \StringTok{"with regression line, and an outlier labeled by SEQN"}\NormalTok{,}
+         \DataTypeTok{x =} \StringTok{"Protein (in g)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Fat (in g)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-82-1.pdf}
+
+While this subject is hardly the only unusual point in the data set, it is one of the more unusual ones, in terms of its vertical distance from the regression line. We can identify the subject by printing (part of) the tibble we created.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s1 }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(SEQN, sex, race_eth, age_child, protein, fat) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{r|l|l|r|r|r}
+\hline
+SEQN & sex & race\_eth & age\_child & protein & fat\\
+\hline
+71919 & Female & 2\_White Non-Hispanic & 14 & 199.33 & 86.08\\
+\hline
+\end{tabular}
+
+Now, does it seem to you like a straight line model will describe this \texttt{protein}-\texttt{fat} relationship well?
+
+\hypertarget{adding-a-scatterplot-smooth-using-loess}{%
+\subsection{Adding a Scatterplot Smooth using loess}\label{adding-a-scatterplot-smooth-using-loess}}
+
+Next, we'll use the \textbf{loess} procedure to fit a smooth curve to the data, which attempts to capture the general pattern.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ nnyfs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ protein, }\DataTypeTok{y =}\NormalTok{ fat)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{shape =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \StringTok{"sienna"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{col =} \StringTok{"steelblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Protein vs. Fat consumption in NNYFS"}\NormalTok{,}
+         \DataTypeTok{subtitle =} \StringTok{"with loess smooth (red) and linear fit (blue)"}\NormalTok{,}
+         \DataTypeTok{x =} \StringTok{"Protein (in g)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Fat (in g)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-84-1.pdf}
+
+This ``loess'' smooth curve is fairly close to the straight line fit, indicating that perhaps a linear regression model might fit the data well.
+
+A \textbf{loess smooth} is a method of fitting a local polynomial regression model that R uses as its default smooth for scatterplots with fewer than 1000 observations. Think of the loess as a way of fitting a curve to data by tracking (at point x) the points within a neighborhood of point x, with more emphasis given to points near x. It can be adjusted by tweaking two specific parameters, in particular:
+
+\begin{itemize}
+\tightlist
+\item
+  a \texttt{span} parameter (defaults to 0.75) which is also called \(\alpha\) in the literature, that controls the degree of smoothing (essentially, how larger the neighborhood should be), and
+\item
+  a \texttt{degree} parameter (defaults to 2) which specifies the degree of polynomial to be used. Normally, this is either 1 or 2 - more complex functions are rarely needed for simple scatterplot smoothing.
+\end{itemize}
+
+In addition to the curve, smoothing procedures can also provide confidence intervals around their main fitted line. Consider the following plot, which adjusts the span and also adds in the confidence intervals.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ nnyfs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ protein, }\DataTypeTok{y =}\NormalTok{ fat)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{shape =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \StringTok{"sienna"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{span =} \FloatTok{0.75}\NormalTok{, }\DataTypeTok{se =} \OtherTok{TRUE}\NormalTok{, }
+                \DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"loess smooth (span = 0.75)"}\NormalTok{,}
+         \DataTypeTok{x =} \StringTok{"Protein (in g)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Fat (in g)"}\NormalTok{)}
+
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ nnyfs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ protein, }\DataTypeTok{y =}\NormalTok{ fat)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{shape =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \StringTok{"sienna"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{span =} \FloatTok{0.2}\NormalTok{, }\DataTypeTok{se =} \OtherTok{TRUE}\NormalTok{, }
+                \DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"loess smooth (span = 0.2)"}\NormalTok{,}
+         \DataTypeTok{x =} \StringTok{"Protein (in g)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Fat (in g)"}\NormalTok{)}
+
+\NormalTok{p1 }\OperatorTok{+}\StringTok{ }\NormalTok{p2 }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{plot_annotation}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Impact of adjusting loess smooth span: NNYFS"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-85-1.pdf}
+
+By reducing the size of the span, the plot on the right shows a somewhat less ``smooth'' function than the plot on the left.
+
+\hypertarget{what-line-does-r-fit}{%
+\subsection{What Line Does R Fit?}\label{what-line-does-r-fit}}
+
+Returning to the linear regrssion model, how can we, mathematically, characterize that line? As with any straight line, our model equation requires us to specify two parameters: a slope and an intercept (sometimes called the y-intercept.)
+
+To identify the equation R used to fit this line (using the method of least squares), we use the \texttt{lm} command
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lm}\NormalTok{(fat }\OperatorTok{~}\StringTok{ }\NormalTok{protein, }\DataTypeTok{data =}\NormalTok{ nnyfs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = fat ~ protein, data = nnyfs)
+
+Coefficients:
+(Intercept)      protein  
+    18.8945       0.7251  
+\end{verbatim}
+
+So the fitted line is specified as
+
+\[
+\mbox{fat} = 18.8945 + 0.7251 \mbox{ protein }
+\]
+
+A detailed summary of the fitted linear regression model is also available.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(fat }\OperatorTok{~}\StringTok{ }\NormalTok{protein, }\DataTypeTok{data =}\NormalTok{ nnyfs))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = fat ~ protein, data = nnyfs)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-77.798 -14.841  -2.449  13.601 110.597 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  18.8945     1.5330   12.32   <2e-16 ***
+protein       0.7251     0.0208   34.87   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 25.08 on 1516 degrees of freedom
+Multiple R-squared:  0.4451,	Adjusted R-squared:  0.4447 
+F-statistic:  1216 on 1 and 1516 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+The way we'll usually summarize the estimated coefficients of a linear model is to use the \texttt{broom} package's \texttt{tidy} function to put the coefficient estimates into a tibble.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tidy}\NormalTok{(}\KeywordTok{lm}\NormalTok{(fat }\OperatorTok{~}\StringTok{ }\NormalTok{protein, }\DataTypeTok{data =}\NormalTok{ nnyfs),}
+            \DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.95}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value & conf.low & conf.high\\
+\hline
+(Intercept) & 18.895 & 1.533 & 12.325 & 0 & 15.887 & 21.902\\
+\hline
+protein & 0.725 & 0.021 & 34.868 & 0 & 0.684 & 0.766\\
+\hline
+\end{tabular}
+
+We can also summarize the quality of fit in a linear model using the \texttt{broom} package's \texttt{glance} function. For now, we'll focus our attention on just one of the many summaries available for a linear model from \texttt{glance}: the R-squared value.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glance}\NormalTok{(}\KeywordTok{lm}\NormalTok{(fat }\OperatorTok{~}\StringTok{ }\NormalTok{protein, }\DataTypeTok{data =}\NormalTok{ nnyfs)) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(r.squared) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{r}
+\hline
+r.squared\\
+\hline
+0.445\\
+\hline
+\end{tabular}
+
+We'll spend a lot of time working with these regression summaries in this course.
+
+For now, it will suffice to understand the following:
+
+\begin{itemize}
+\tightlist
+\item
+  The outcome variable in this model is \textbf{fat}, and the predictor variable is \textbf{protein}.
+\item
+  The straight line model for these data fitted by least squares is \texttt{fat} = 18.9 + 0.725 \texttt{protein}
+\item
+  The slope of \texttt{protein} is positive, which indicates that as \texttt{protein} increases, we expect that \texttt{fat} will also increase. Specifically, we expect that for every additional gram of protein consumed, the fat consumption will be 0.725 gram larger.
+\item
+  The multiple R-squared (squared correlation coefficient) is 0.445, which implies that 44.5\% of the variation in \texttt{fat} is explained using this linear model with \texttt{protein}.
+\item
+  This also implies that the Pearson correlation between \texttt{fat} and \texttt{protein} is the square root of 0.445, or 0.667. More on the Pearson correlation soon.
+\end{itemize}
+
+So, if we plan to use a simple (least squares) linear regression model to describe fat consumption as a function of protein consumption in the NNYFS data, does it look like a least squares (or linear regression) model will be an effective choice?
+
+\hypertarget{correlation-coefficients}{%
+\section{Correlation Coefficients}\label{correlation-coefficients}}
+
+Two different correlation measures are worth our immediate attention.
+
+\begin{itemize}
+\tightlist
+\item
+  The one most often used is called the \emph{Pearson} correlation coefficient, and is symbolized with the letter r or sometimes the Greek letter rho (\(\rho\)).
+\item
+  Another tool is the Spearman rank correlation coefficient, also occasionally symbolized by \(\rho\).
+\end{itemize}
+
+For the \texttt{nnyfs} data, the Pearson correlation of \texttt{fat} and \texttt{protein} can be found using the \texttt{cor()} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nnyfs }\OperatorTok{%$%}\StringTok{ }\KeywordTok{cor}\NormalTok{(fat, protein)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.6671209
+\end{verbatim}
+
+Note that the correlation of any variable with itself is 1, and that the correlation of \texttt{fat} with \texttt{protein} is the same regardless of whether you enter \texttt{fat} first or \texttt{protein} first.
+
+\hypertarget{the-pearson-correlation-coefficient}{%
+\section{The Pearson Correlation Coefficient}\label{the-pearson-correlation-coefficient}}
+
+Suppose we have \(n\) observations on two variables, called X and Y. The Pearson correlation coefficient assesses how well the relationship between X and Y can be described using a linear function.
+
+\begin{itemize}
+\tightlist
+\item
+  The Pearson correlation is \textbf{dimension-free}.
+\item
+  It falls between -1 and +1, with the extremes corresponding to situations where all the points in a scatterplot fall exactly on a straight line with negative and positive slopes, respectively.
+\item
+  A Pearson correlation of zero corresponds to the situation where there is no linear association.
+\item
+  Unlike the estimated slope in a regression line, the sample correlation coefficient is symmetric in X and Y, so it does not depend on labeling one of them (Y) the response variable, and one of them (X) the predictor.
+\end{itemize}
+
+Suppose we have \(n\) observations on two variables, called \(X\) and \(Y\), where \(\bar{X}\) is the sample mean of \(X\) and \(s_x\) is the standard deviation of \(X\). The \textbf{Pearson} correlation coefficient \(r_{XY}\) is:
+
+\[
+r_{XY} = \frac{1}{n-1} \sum\limits_{i=1}^n (\frac{x_i - \bar{x}}{s_x}) (\frac{y_i - \bar{y}}{s_y}) 
+\]
+
+\hypertarget{a-simulated-example}{%
+\section{A simulated example}\label{a-simulated-example}}
+
+The \texttt{correx1} data file contains six different sets of (x,y) points, identified by the \texttt{set} variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{correx1 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/correx1.csv"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Parsed with column specification:
+cols(
+  set = col_character(),
+  x = col_double(),
+  y = col_double()
+)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(correx1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     set                  x                y         
+ Length:277         Min.   : 5.897   Min.   : 7.308  
+ Class :character   1st Qu.:29.487   1st Qu.:30.385  
+ Mode  :character   Median :46.154   Median :46.923  
+                    Mean   :46.529   Mean   :49.061  
+                    3rd Qu.:63.333   3rd Qu.:68.077  
+                    Max.   :98.205   Max.   :95.385  
+\end{verbatim}
+
+\hypertarget{data-set-alex}{%
+\subsection{Data Set Alex}\label{data-set-alex}}
+
+Let's start by working with the \textbf{Alex} data set.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{filter}\NormalTok{(correx1, set }\OperatorTok{==}\StringTok{ "Alex"}\NormalTok{), }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"correx1: Data Set Alex"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/correx1a-fig-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{filter}\NormalTok{(correx1, set }\OperatorTok{==}\StringTok{ "Alex"}\NormalTok{), }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"correx1: Alex, with loess smooth"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/correx1a2-fig-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{setA <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(correx1, set }\OperatorTok{==}\StringTok{ "Alex"}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{(setA, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"correx1: Alex, with Fitted Linear Model"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\DataTypeTok{x =} \DecValTok{75}\NormalTok{, }\DataTypeTok{y =} \DecValTok{75}\NormalTok{, }\DataTypeTok{col =} \StringTok{"purple"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{6}\NormalTok{,}
+             \DataTypeTok{label =} \KeywordTok{paste}\NormalTok{(}\StringTok{"Pearson r = "}\NormalTok{, }\KeywordTok{signif}\NormalTok{(}\KeywordTok{cor}\NormalTok{(setA}\OperatorTok{$}\NormalTok{x, setA}\OperatorTok{$}\NormalTok{y),}\DecValTok{3}\NormalTok{))) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\DataTypeTok{x =} \DecValTok{50}\NormalTok{, }\DataTypeTok{y =} \DecValTok{15}\NormalTok{,  }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{5}\NormalTok{,}
+             \DataTypeTok{label =} \KeywordTok{paste}\NormalTok{(}\StringTok{"y = "}\NormalTok{, }\KeywordTok{signif}\NormalTok{(}\KeywordTok{coef}\NormalTok{(}\KeywordTok{lm}\NormalTok{(setA}\OperatorTok{$}\NormalTok{y }\OperatorTok{~}\StringTok{ }\NormalTok{setA}\OperatorTok{$}\NormalTok{x))[}\DecValTok{1}\NormalTok{],}\DecValTok{3}\NormalTok{), }
+                           \KeywordTok{signif}\NormalTok{(}\KeywordTok{coef}\NormalTok{(}\KeywordTok{lm}\NormalTok{(setA}\OperatorTok{$}\NormalTok{y }\OperatorTok{~}\StringTok{ }\NormalTok{setA}\OperatorTok{$}\NormalTok{x))[}\DecValTok{2}\NormalTok{],}\DecValTok{2}\NormalTok{), }\StringTok{"x"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/correx1a3-fig-1.pdf}
+
+\hypertarget{data-set-bonnie}{%
+\subsection{Data Set Bonnie}\label{data-set-bonnie}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{setB <-}\StringTok{ }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{filter}\NormalTok{(correx1, set }\OperatorTok{==}\StringTok{ "Bonnie"}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{(setB, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"correx1: Data Set Bonnie"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/correx1b-fig-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(setB, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"correx1: Bonnie, with Fitted Linear Model"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\DataTypeTok{x =} \DecValTok{25}\NormalTok{, }\DataTypeTok{y =} \DecValTok{65}\NormalTok{, }\DataTypeTok{col =} \StringTok{"purple"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{6}\NormalTok{,}
+             \DataTypeTok{label =} \KeywordTok{paste}\NormalTok{(}\StringTok{"Pearson r = "}\NormalTok{, }\KeywordTok{signif}\NormalTok{(}\KeywordTok{cor}\NormalTok{(setB}\OperatorTok{$}\NormalTok{x, setB}\OperatorTok{$}\NormalTok{y),}\DecValTok{2}\NormalTok{))) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\DataTypeTok{x =} \DecValTok{50}\NormalTok{, }\DataTypeTok{y =} \DecValTok{15}\NormalTok{,  }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{size =} \DecValTok{5}\NormalTok{,}
+             \DataTypeTok{label =} \KeywordTok{paste}\NormalTok{(}\StringTok{"y = "}\NormalTok{, }\KeywordTok{signif}\NormalTok{(}\KeywordTok{coef}\NormalTok{(}\KeywordTok{lm}\NormalTok{(setB}\OperatorTok{$}\NormalTok{y }\OperatorTok{~}\StringTok{ }\NormalTok{setB}\OperatorTok{$}\NormalTok{x))[}\DecValTok{1}\NormalTok{],}\DecValTok{3}\NormalTok{), }
+                           \StringTok{" + "}\NormalTok{,}
+                           \KeywordTok{signif}\NormalTok{(}\KeywordTok{coef}\NormalTok{(}\KeywordTok{lm}\NormalTok{(setB}\OperatorTok{$}\NormalTok{y }\OperatorTok{~}\StringTok{ }\NormalTok{setB}\OperatorTok{$}\NormalTok{x))[}\DecValTok{2}\NormalTok{],}\DecValTok{2}\NormalTok{), }\StringTok{"x"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/correx1b2-fig-1.pdf}
+
+\hypertarget{correlations-for-all-six-data-sets-in-the-correx1-example}{%
+\subsection{Correlations for All Six Data Sets in the Correx1 Example}\label{correlations-for-all-six-data-sets-in-the-correx1-example}}
+
+Let's look at the Pearson correlations associated with each of the six data sets contained in the \texttt{correx1} example.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tab1 <-}\StringTok{ }\NormalTok{correx1 }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(set) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\StringTok{"Pearson r"}\NormalTok{ =}\StringTok{ }\KeywordTok{round}\NormalTok{(}\KeywordTok{cor}\NormalTok{(x, y, }\DataTypeTok{use=}\StringTok{"complete"}\NormalTok{),}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` ungrouping output (override with `.groups` argument)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(tab1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r}
+\hline
+set & Pearson r\\
+\hline
+Alex & -0.97\\
+\hline
+Bonnie & 0.80\\
+\hline
+Colin & -0.80\\
+\hline
+Danielle & 0.00\\
+\hline
+Earl & -0.01\\
+\hline
+Fiona & 0.00\\
+\hline
+\end{tabular}
+
+\hypertarget{data-set-colin}{%
+\subsection{Data Set Colin}\label{data-set-colin}}
+
+It looks like the picture for Colin should be very similar (in terms of scatter) to the picture for Bonnie, except that Colin will have a negative slope, rather than the positive one Bonnie has. Is that how this plays out?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{setBC <-}\StringTok{ }\KeywordTok{filter}\NormalTok{(correx1, set }\OperatorTok{==}\StringTok{ "Bonnie"} \OperatorTok{|}\StringTok{ }\NormalTok{set }\OperatorTok{==}\StringTok{ "Colin"}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{(setBC, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{set)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/correx1bc-fig-1.pdf}
+
+Uh, oh. It looks like the point in Colin at the top right is twisting what would otherwise be a very straight regression model with an extremely strong negative correlation. There's no better way to look for outliers than to examine the scatterplot.
+
+\hypertarget{draw-the-picture}{%
+\subsection{Draw the Picture!}\label{draw-the-picture}}
+
+We've seen that Danielle, Earl and Fiona all show Pearson correlations of essentially zero. However, the three data sets look very different in a scatterplot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(correx1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{set)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/correx1-all1-fig-1.pdf}
+
+When we learn that the correlation is zero, we tend to assume we have a picture like the Danielle data set. If Danielle were our real data, we might well think that x would be of little use in predicting y.
+
+\begin{itemize}
+\tightlist
+\item
+  But what if our data looked like Earl? In the Earl data set, x is incredibly helpful in predicting y, but we can't use a straight line model - instead, we need a non-linear modeling approach.
+\item
+  You'll recall that the Fiona data set also had a Pearson correlation of zero. But here, the picture is rather more interesting.
+\end{itemize}
+
+So, remember, draw the appropriate scatterplot whenever you make use of a correlation coefficient.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rm}\NormalTok{(setA, setB, setBC, tab1)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{estimating-correlation-from-scatterplots}{%
+\section{Estimating Correlation from Scatterplots}\label{estimating-correlation-from-scatterplots}}
+
+The correx2 data set is designed to help you calibrate yourself a bit in terms of estimating a correlation from a scatterplot. There are 11 data sets buried within the correx2 example, and they are labeled by their Pearson correlation coefficients, ranging from r = 0.01 to r = 0.999
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{correx2 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/correx2.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Parsed with column specification:
+cols(
+  set = col_character(),
+  x = col_double(),
+  y = col_double(),
+  group = col_double()
+)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{correx2 }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(set) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{cor =} \KeywordTok{round}\NormalTok{(}\KeywordTok{cor}\NormalTok{(x, y, }\DataTypeTok{use=}\StringTok{"complete"}\NormalTok{),}\DecValTok{3}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` ungrouping output (override with `.groups` argument)
+\end{verbatim}
+
+\begin{verbatim}
+# A tibble: 11 x 2
+   set       cor
+   <chr>   <dbl>
+ 1 Set 01  0.01 
+ 2 Set 10  0.102
+ 3 Set 20  0.202
+ 4 Set 30  0.301
+ 5 Set 40  0.403
+ 6 Set 50  0.499
+ 7 Set 60  0.603
+ 8 Set 70  0.702
+ 9 Set 80  0.799
+10 Set 90  0.902
+11 Set 999 0.999
+\end{verbatim}
+
+Here is a plot of the 11 data sets, showing the increase in correlation from 0.01 (in Set 01) to 0.999 (in Set 999).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(correx2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{set) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Pearson Correlations from 0.01 to 0.999"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/correx2a-fig-1.pdf}
+
+Note that R will allow you to fit a straight line model to any of these relationships, no matter how appropriate it might be to do so.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(correx2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{set) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"R will fit a straight line to anything."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/correx2b-fig-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(correx2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{set) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Even if a loess smooth suggests non-linearity."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/correx2c-fig-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(correx2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y, }\DataTypeTok{color =} \KeywordTok{factor}\NormalTok{(group))) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{color =} \StringTok{"none"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{set) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Note: The same 10 points (in red) are in each plot."}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/correx2d-fig-1.pdf}
+
+Note that the same 10 points are used in each of the data sets. It's always possible that a lurking subgroup of the data within a scatterplot follows a very strong linear relationship. This is why it's so important (and difficult) not to go searching for such a thing without a strong foundation of logic, theory and prior empirical evidence.
+
+\hypertarget{the-spearman-rank-correlation}{%
+\section{The Spearman Rank Correlation}\label{the-spearman-rank-correlation}}
+
+The Spearman rank correlation coefficient is a rank-based measure of statistical dependence that assesses how well the relationship between X and Y can be described using a \textbf{monotone function} even if that relationship is not linear.
+
+\begin{itemize}
+\tightlist
+\item
+  A monotone function preserves order, that is, Y must either be strictly increasing as X increases, or strictly decreasing as X increases.
+\item
+  A Spearman correlation of 1.0 indicates simply that as X increases, Y always increases.
+\item
+  Like the Pearson correlation, the Spearman correlation is dimension-free, and falls between -1 and +1.
+\item
+  A positive Spearman correlation corresponds to an increasing (but not necessarily linear) association between X and Y, while a negative Spearman correlation corresponds to a decreasing (but again not necessarily linear) association.
+\end{itemize}
+
+\hypertarget{spearman-formula}{%
+\subsection{Spearman Formula}\label{spearman-formula}}
+
+To calculate the Spearman rank correlation, we take the ranks of the X and Y data, and then apply the usual Pearson correlation. To find the ranks, sort X and Y into ascending order, and then number them from 1 (smallest) to n (largest). In the event of a tie, assign the average rank to the tied subjects.
+
+\hypertarget{comparing-pearson-and-spearman-correlations}{%
+\subsection{Comparing Pearson and Spearman Correlations}\label{comparing-pearson-and-spearman-correlations}}
+
+Let's look at the \texttt{nnyfs} data again.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nnyfs }\OperatorTok{%$%}\StringTok{ }\KeywordTok{cor}\NormalTok{(fat, protein)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.6671209
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{nnyfs }\OperatorTok{%$%}\StringTok{ }\KeywordTok{cor}\NormalTok{(fat, protein, }\DataTypeTok{method =} \StringTok{"spearman"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.6577489
+\end{verbatim}
+
+The Spearman and Pearson correlations are not especially different in this case.
+
+\hypertarget{spearman-vs.-pearson-example-1}{%
+\subsection{Spearman vs.~Pearson Example 1}\label{spearman-vs.-pearson-example-1}}
+
+The next few plots describe relationships where we anticipate the Pearson and Spearman correlations might differ in their conclusions.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spear1 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/spear1.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Parsed with column specification:
+cols(
+  x = col_double(),
+  y = col_double()
+)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spear2 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/spear2.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Parsed with column specification:
+cols(
+  x = col_double(),
+  y = col_double()
+)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spear3 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/spear3.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Parsed with column specification:
+cols(
+  x = col_double(),
+  y = col_double()
+)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{spear4 <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/spear4.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Parsed with column specification:
+cols(
+  x = col_double(),
+  y = col_double()
+)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# these are just toy examples with}
+\CommentTok{# two columns per data set and no row numbering}
+\end{Highlighting}
+\end{Shaded}
+
+Example 1 shows a function where the Pearson correlation is 0.925 (a strong but not perfect linear relation), but the Spearman correlation is 1 because the relationship is monotone, even though it is not perfectly linear.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(spear1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Spearman vs. Pearson, Example 1"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\DataTypeTok{x =} \DecValTok{-10}\NormalTok{, }\DataTypeTok{y =} \DecValTok{20}\NormalTok{, }
+             \DataTypeTok{label =} \KeywordTok{paste}\NormalTok{(}\StringTok{"Pearson r = "}\NormalTok{, }
+                 \KeywordTok{signif}\NormalTok{(}\KeywordTok{cor}\NormalTok{(spear1}\OperatorTok{$}\NormalTok{x, spear1}\OperatorTok{$}\NormalTok{y),}\DecValTok{2}\NormalTok{),}
+                 \StringTok{", Spearman r = "}\NormalTok{, }
+                 \KeywordTok{signif}\NormalTok{(}\KeywordTok{cor}\NormalTok{(spear1}\OperatorTok{$}\NormalTok{x, spear1}\OperatorTok{$}\NormalTok{y, }\DataTypeTok{method =} \StringTok{"spearman"}\NormalTok{),}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/spearex1-fig-1.pdf}
+
+So, a positive Spearman correlation corresponds to an increasing (but not necessarily linear) association between x and y.
+
+\hypertarget{spearman-vs.-pearson-example-2}{%
+\subsection{Spearman vs.~Pearson Example 2}\label{spearman-vs.-pearson-example-2}}
+
+Example 2 shows that a negative Spearman correlation corresponds to a decreasing (but, again, not necessarily linear) association between x and y.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(spear2, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{col =} \StringTok{"purple"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Spearman vs. Pearson, Example 2"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\DataTypeTok{x =} \DecValTok{10}\NormalTok{, }\DataTypeTok{y =} \DecValTok{20}\NormalTok{, }\DataTypeTok{col =} \StringTok{"purple"}\NormalTok{,}
+             \DataTypeTok{label =} \KeywordTok{paste}\NormalTok{(}\StringTok{"Pearson r = "}\NormalTok{, }
+                    \KeywordTok{signif}\NormalTok{(}\KeywordTok{cor}\NormalTok{(spear2}\OperatorTok{$}\NormalTok{x, spear2}\OperatorTok{$}\NormalTok{y),}\DecValTok{2}\NormalTok{),}
+                    \StringTok{", Spearman r = "}\NormalTok{, }
+                    \KeywordTok{signif}\NormalTok{(}\KeywordTok{cor}\NormalTok{(spear2}\OperatorTok{$}\NormalTok{x, spear2}\OperatorTok{$}\NormalTok{y, }\DataTypeTok{method =} \StringTok{"spearman"}\NormalTok{),}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/spearex2-fig-1.pdf}
+
+\hypertarget{spearman-vs.-pearson-example-3}{%
+\subsection{Spearman vs.~Pearson Example 3}\label{spearman-vs.-pearson-example-3}}
+
+The Spearman correlation is less sensitive than the Pearson correlation is to strong outliers that are unusual on either the X or Y axis, or both. That is because the Spearman rank coefficient limits the outlier to the value of its rank.
+
+In Example 3, for instance, the Spearman correlation reacts much less to the outliers around X = 12 than does the Pearson correlation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(spear3, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Spearman vs. Pearson, Example 3"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\DataTypeTok{x =} \DecValTok{5}\NormalTok{, }\DataTypeTok{y =} \DecValTok{-15}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{,}
+             \DataTypeTok{label =} \KeywordTok{paste}\NormalTok{(}\StringTok{"Pearson r = "}\NormalTok{, }
+                \KeywordTok{signif}\NormalTok{(}\KeywordTok{cor}\NormalTok{(spear3}\OperatorTok{$}\NormalTok{x, spear3}\OperatorTok{$}\NormalTok{y),}\DecValTok{2}\NormalTok{),}
+                \StringTok{", Spearman r = "}\NormalTok{, }
+                \KeywordTok{signif}\NormalTok{(}\KeywordTok{cor}\NormalTok{(spear3}\OperatorTok{$}\NormalTok{x, spear3}\OperatorTok{$}\NormalTok{y, }\DataTypeTok{method =} \StringTok{"spearman"}\NormalTok{),}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/spearex3-fig-1.pdf}
+
+\hypertarget{spearman-vs.-pearson-example-4}{%
+\subsection{Spearman vs.~Pearson Example 4}\label{spearman-vs.-pearson-example-4}}
+
+The use of a Spearman correlation is no substitute for looking at the data. For non-monotone data like what we see in Example 4, neither the Spearman nor the Pearson correlation alone provides much guidance, and just because they are (essentially) telling you the same thing, that doesn't mean what they're telling you is all that helpful.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(spear4, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{col =} \StringTok{"purple"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Spearman vs. Pearson, Example 4"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\DataTypeTok{x =} \DecValTok{10}\NormalTok{, }\DataTypeTok{y =} \DecValTok{20}\NormalTok{, }\DataTypeTok{col =} \StringTok{"purple"}\NormalTok{,}
+             \DataTypeTok{label =} \KeywordTok{paste}\NormalTok{(}\StringTok{"Pearson r = "}\NormalTok{, }
+                 \KeywordTok{signif}\NormalTok{(}\KeywordTok{cor}\NormalTok{(spear4}\OperatorTok{$}\NormalTok{x, spear4}\OperatorTok{$}\NormalTok{y),}\DecValTok{2}\NormalTok{),}
+                 \StringTok{", Spearman r = "}\NormalTok{, }
+                 \KeywordTok{signif}\NormalTok{(}\KeywordTok{cor}\NormalTok{(spear4}\OperatorTok{$}\NormalTok{x, spear4}\OperatorTok{$}\NormalTok{y, }\DataTypeTok{method =} \StringTok{"spearman"}\NormalTok{),}\DecValTok{2}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/spearex4-fig-1.pdf}
+
+\hypertarget{studying-crab-claws-crabs}{%
+\chapter{\texorpdfstring{Studying Crab Claws (\texttt{crabs})}{Studying Crab Claws (crabs)}}\label{studying-crab-claws-crabs}}
+
+For our next example, we'll consider a study from zoology, specifically carcinology - the study of crustaceans. My source for these data is Chapter 7 in \citet{RamseySchafer} which drew the data from a figure in \citet{Yamada1998}.
+
+The available data are the mean closing forces (in Newtons) and the propodus heights (mm) of the claws on 38 crabs that came from three different species. The \emph{propodus} is the segment of the crab's clawed leg with an immovable finger and palm.
+
+\begin{figure}
+\includegraphics[width=0.7\linewidth]{figures/crabanat} \caption{Source: http://txmarspecies.tamug.edu/crustglossary.cfm}\label{fig:crab1-fig}
+\end{figure}
+
+This was part of a study of the effects that predatory intertidal crab species have on populations of snails. The three crab species under study are:
+
+\begin{itemize}
+\tightlist
+\item
+  14 Hemigraspus nudus, also called the \href{https://en.wikipedia.org/wiki/Purple_shore_crab}{purple shore crab} (14 crabs)
+\item
+  12 Lophopanopeus bellus, also called the \href{https://inverts.wallawalla.edu/Arthropoda/Crustacea/Malacostraca/Eumalacostraca/Eucarida/Decapoda/Brachyura/Family_Xanthidae/Lophopanopeus_bellus_bellus.html}{black-clawed pebble crab}, and
+\item
+  12 Cancer productus, one of several species of \href{https://en.wikipedia.org/wiki/Cancer_productus}{red rock crabs} (12)
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{crabs <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/crabs.csv"}\NormalTok{) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Parsed with column specification:
+cols(
+  crab = col_double(),
+  species = col_character(),
+  force = col_double(),
+  height = col_double()
+)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{crabs}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 38 x 4
+    crab species              force height
+   <dbl> <chr>                <dbl>  <dbl>
+ 1     1 Hemigraspus nudus      4      8  
+ 2     2 Lophopanopeus bellus  15.1    7.9
+ 3     3 Cancer productus       5      6.7
+ 4     4 Lophopanopeus bellus   2.9    6.6
+ 5     5 Hemigraspus nudus      3.2    5  
+ 6     6 Hemigraspus nudus      9.5    7.9
+ 7     7 Cancer productus      22.5    9.4
+ 8     8 Hemigraspus nudus      7.4    8.3
+ 9     9 Cancer productus      14.6   11.2
+10    10 Lophopanopeus bellus   8.7    8.6
+# ... with 28 more rows
+\end{verbatim}
+
+The \texttt{species} information is stored here as a character variable. How many different crabs are we talking about in each \texttt{species}?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{crabs }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tabyl}\NormalTok{(species)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+              species  n   percent
+     Cancer productus 12 0.3157895
+    Hemigraspus nudus 14 0.3684211
+ Lophopanopeus bellus 12 0.3157895
+\end{verbatim}
+
+As it turns out, we're going to want to treat the \texttt{species} information as a \textbf{factor} with three levels, rather than as a character variable.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{crabs <-}\StringTok{ }\NormalTok{crabs }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{species =} \KeywordTok{factor}\NormalTok{(species))}
+\end{Highlighting}
+\end{Shaded}
+
+Here's a quick summary of the data. Take care to note the useless results for the first two variables. At least the function flags with a \texttt{*} those variables it thinks are non-numeric.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{psych}\OperatorTok{::}\KeywordTok{describe}\NormalTok{(crabs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+         vars  n  mean    sd median trimmed   mad min  max range skew kurtosis
+crab        1 38 19.50 11.11  19.50   19.50 14.08   1 38.0  37.0 0.00    -1.30
+species*    2 38  2.00  0.81   2.00    2.00  1.48   1  3.0   2.0 0.00    -1.50
+force       3 38 12.13  8.98   8.70   11.53  9.04   2 29.4  27.4 0.47    -1.25
+height      4 38  8.81  2.23   8.25    8.78  2.52   5 13.1   8.1 0.19    -1.14
+           se
+crab     1.80
+species* 0.13
+force    1.46
+height   0.36
+\end{verbatim}
+
+Actually, we're more interested in these results after grouping by species.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{crabs }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{group_by}\NormalTok{(species) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{summarise}\NormalTok{(}\DataTypeTok{n =} \KeywordTok{n}\NormalTok{(), }\KeywordTok{median}\NormalTok{(force), }\KeywordTok{median}\NormalTok{(height))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`summarise()` ungrouping output (override with `.groups` argument)
+\end{verbatim}
+
+\begin{verbatim}
+# A tibble: 3 x 4
+  species                  n `median(force)` `median(height)`
+  <fct>                <int>           <dbl>            <dbl>
+1 Cancer productus        12            19.7            11.0 
+2 Hemigraspus nudus       14             3.7             7.9 
+3 Lophopanopeus bellus    12            14.8             8.15
+\end{verbatim}
+
+\hypertarget{association-of-size-and-force}{%
+\section{Association of Size and Force}\label{association-of-size-and-force}}
+
+Suppose we want to describe force on the basis of height, across all 38 crabs. We'll add titles and identify the three species of crab, using shape and color.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(crabs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ height, }\DataTypeTok{y =}\NormalTok{ force, }\DataTypeTok{color =}\NormalTok{ species, }\DataTypeTok{shape =}\NormalTok{ species)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{3}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Crab Claw Force by Size"}\NormalTok{, }
+         \DataTypeTok{x =} \StringTok{"Claw's propodus height (mm)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Mean closing force (N)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/crabsscatter1-fig-1.pdf}
+
+A faceted plot for each species really highlights the difference in force between the \emph{Hemigraspus nudus} and the other two species of crab.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(crabs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ height, }\DataTypeTok{y =}\NormalTok{ force, }\DataTypeTok{color =}\NormalTok{ species)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{3}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{species) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{color =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Crab Claw Force by Size"}\NormalTok{, }
+         \DataTypeTok{x =} \StringTok{"Claw's propodus height (mm)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Mean closing force (N)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/crabsscatter2-fig-1.pdf}
+
+\hypertarget{loess_smooth}{%
+\section{\texorpdfstring{The \texttt{loess} smooth}{The loess smooth}}\label{loess_smooth}}
+
+We can obtain a smoothed curve (using several different approaches) to summarize the pattern presented by the data in any scatterplot. For instance, we might build such a plot for the complete set of 38 crabs, adding in a non-linear smooth function (called a loess smooth.)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(crabs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ height, }\DataTypeTok{y =}\NormalTok{ force)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Crab Claw Force by Size"}\NormalTok{, }
+         \DataTypeTok{x =} \StringTok{"Claw's propodus height (mm)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Mean closing force (N)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`geom_smooth()` using formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{431-notes_files/figure-latex/crabsscatter4-fig-1.pdf}
+
+As we have discussed previously, a \textbf{loess smooth} fits a curve to data by tracking (at point x) the points within a neighborhood of point x, with more emphasis given to points near x. It can be adjusted by tweaking the \texttt{span} and \texttt{degree} parameters.
+
+In addition to the curve, smoothing procedures can also provide confidence intervals around their main fitted line. Consider the following plot of the \texttt{crabs} information, which adjusts the span (from its default of 0.75) and also adds in the confidence intervals.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(crabs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ height, }\DataTypeTok{y =}\NormalTok{ force)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{span =} \FloatTok{0.5}\NormalTok{, }\DataTypeTok{se =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Crab Claw Force by Size"}\NormalTok{, }
+         \DataTypeTok{x =} \StringTok{"Claw's propodus height (mm)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Mean closing force (N)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/crabsscatter5-fig-1.pdf}
+
+By reducing the size of the span, our resulting picture shows a much less smooth function that we generated previously.
+
+\hypertarget{smoothing-within-species}{%
+\subsection{Smoothing within Species}\label{smoothing-within-species}}
+
+We can, of course, produce the plot above with separate smooths for each of the three species of crab.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(crabs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ height, }\DataTypeTok{y =}\NormalTok{ force, }\DataTypeTok{group =}\NormalTok{ species, }\DataTypeTok{color =}\NormalTok{ species)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{3}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Crab Claw Force by Size"}\NormalTok{, }
+         \DataTypeTok{x =} \StringTok{"Claw's propodus height (mm)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Mean closing force (N)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/crabsscatter6-fig-1.pdf}
+
+If we want to add in the confidence intervals (here I'll show them at 90\% rather than the default of 95\%) then this plot should be faceted. Note that by default, what is displayed when \texttt{se\ =\ TRUE} are 95\% prediction intervals - the \texttt{level} function in \texttt{stat\_smooth} {[}which can be used in place of \texttt{geom\_smooth}{]} is used here to change the coverage percentage from 95\% to 90\%.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(crabs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ height, }\DataTypeTok{y =}\NormalTok{ force, }\DataTypeTok{group =}\NormalTok{ species, }\DataTypeTok{color =}\NormalTok{ species)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{stat_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{level =} \FloatTok{0.90}\NormalTok{, }\DataTypeTok{se =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{color =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Crab Claw Force by Size"}\NormalTok{, }
+         \DataTypeTok{caption =} \StringTok{"with loess smooths and 90% confidence intervals"}\NormalTok{,}
+         \DataTypeTok{x =} \StringTok{"Claw's propodus height (mm)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Mean closing force (N)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{species)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/crabsscatter7-fig-1.pdf}
+
+More on these and other confidence intervals later, especially in part B.
+
+\hypertarget{fitting-a-linear-regression-model}{%
+\section{Fitting a Linear Regression Model}\label{fitting-a-linear-regression-model}}
+
+Suppose we plan to use a simple (least squares) linear regression model to describe force as a function of height. Is a least squares model likely to be an effective choice here?
+
+The plot below shows the regression line predicting closing force as a function of propodus height. Here we annotate the plot to show the actual fitted regression line, which required fitting it with the \texttt{lm} statement prior to developing the graph.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mod <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(force }\OperatorTok{~}\StringTok{ }\NormalTok{height, }\DataTypeTok{data =}\NormalTok{ crabs)}
+
+\KeywordTok{ggplot}\NormalTok{(crabs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ height, }\DataTypeTok{y =}\NormalTok{ force)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x,  }\DataTypeTok{color =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Crab Claw Force by Size with Linear Regression Model"}\NormalTok{, }
+         \DataTypeTok{x =} \StringTok{"Claw's propodus height (mm)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Mean closing force (N)"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\DataTypeTok{x =} \DecValTok{11}\NormalTok{, }\DataTypeTok{y =} \DecValTok{0}\NormalTok{, }\DataTypeTok{color =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{fontface =} \StringTok{"italic"}\NormalTok{,}
+             \DataTypeTok{label =} \KeywordTok{paste}\NormalTok{( }\StringTok{"Force - "}\NormalTok{, }\KeywordTok{signif}\NormalTok{(}\KeywordTok{coef}\NormalTok{(mod)[}\DecValTok{1}\NormalTok{],}\DecValTok{3}\NormalTok{), }\StringTok{" + "}\NormalTok{, }
+                            \KeywordTok{signif}\NormalTok{(}\KeywordTok{coef}\NormalTok{(mod)[}\DecValTok{2}\NormalTok{],}\DecValTok{3}\NormalTok{), }\StringTok{" Height"}\NormalTok{ ))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/crabsscatter8-fig-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rm}\NormalTok{(mod)}
+\end{Highlighting}
+\end{Shaded}
+
+The \textbf{lm} function, again, specifies the linear model we fit to predict force using height. Here's the summary.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(force }\OperatorTok{~}\StringTok{ }\NormalTok{height, }\DataTypeTok{data =}\NormalTok{ crabs))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = force ~ height, data = crabs)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-16.7945  -3.8113  -0.2394   4.1444  16.8814 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -11.0869     4.6224  -2.399   0.0218 *  
+height        2.6348     0.5089   5.177 8.73e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.892 on 36 degrees of freedom
+Multiple R-squared:  0.4268,	Adjusted R-squared:  0.4109 
+F-statistic:  26.8 on 1 and 36 DF,  p-value: 8.73e-06
+\end{verbatim}
+
+Again, the key things to realize are:
+
+\begin{itemize}
+\tightlist
+\item
+  The outcome variable in this model is \textbf{force}, and the predictor variable is \textbf{height}.
+\item
+  The straight line model for these data fitted by least squares is force = -11.1 + 2.63 height.
+\item
+  The slope of height is positive, which indicates that as height increases, we expect that force will also increase. Specifically, we expect that for every additional mm of height, the force will increase by 2.63 Newtons.
+\item
+  The multiple R-squared (squared correlation coefficient) is 0.427, which implies that 42.7\% of the variation in force is explained using this linear model with height. It also implies that the Pearson correlation between force and height is the square root of 0.427, or 0.653.
+\end{itemize}
+
+\hypertarget{is-a-linear-model-appropriate}{%
+\section{Is a Linear Model Appropriate?}\label{is-a-linear-model-appropriate}}
+
+The zoology (at least as described in \citet{RamseySchafer}) suggests that the actual nature of the relationship would be represented by a log-log relationship, where the log of force is predicted by the log of height.
+
+This log-log model is an appropriate model when we think that percentage increases in X (height, here) lead to constant percentage increases in Y (here, force).
+
+To see the log-log model in action, we plot the log of force against the log of height. We could use either base 10 (log10 in R) or natural (log in R) logarithms.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(crabs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \KeywordTok{log}\NormalTok{(height), }\DataTypeTok{y =} \KeywordTok{log}\NormalTok{(force))) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Log-Log Model for Crabs data"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/crabs_loglog_model1-fig-1.pdf}
+
+The correlations between the raw force and height and between their logarithms turn out to be quite similar, and because the log transformation is monotone in these data, there's actually no change at all in the Spearman correlations.
+
+\begin{longtable}[]{@{}ccc@{}}
+\toprule
+Correlation of & Pearson r & Spearman r\tabularnewline
+\midrule
+\endhead
+force and height & 0.653 & 0.657\tabularnewline
+log(force) and log(height) & 0.662 & 0.657\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{the-log-log-model}{%
+\subsection{The log-log model}\label{the-log-log-model}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{crab_loglog <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\KeywordTok{log}\NormalTok{(force) }\OperatorTok{~}\StringTok{ }\KeywordTok{log}\NormalTok{(height), }\DataTypeTok{data =}\NormalTok{ crabs)}
+
+\KeywordTok{summary}\NormalTok{(crab_loglog)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = log(force) ~ log(height), data = crabs)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.5657 -0.4450  0.1884  0.4798  1.2422 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  -2.7104     0.9251  -2.930  0.00585 ** 
+log(height)   2.2711     0.4284   5.302 5.96e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.6748 on 36 degrees of freedom
+Multiple R-squared:  0.4384,	Adjusted R-squared:  0.4228 
+F-statistic: 28.11 on 1 and 36 DF,  p-value: 5.96e-06
+\end{verbatim}
+
+Our regression equation is log(force) = -2.71 + 2.27 log(height).
+
+So, for example, if we found a crab with propodus height = 10 mm, our prediction for that crab's claw force (in Newtons) based on this log-log model would be\ldots{}
+
+\begin{itemize}
+\tightlist
+\item
+  log(force) = -2.71 + 2.27 log(10)
+\item
+  log(force) = -2.71 + 2.27 x 2.3025851
+\item
+  log(force) = 2.5190953
+\item
+  and so predicted force = exp(2.5190953) = 12.4173582 Newtons, which, naturally, we would round to 12.4 Newtons to match the data set's level of precision.
+\end{itemize}
+
+\hypertarget{how-does-this-compare-to-our-original-linear-model}{%
+\subsection{How does this compare to our original linear model?}\label{how-does-this-compare-to-our-original-linear-model}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{crab_linear <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(force }\OperatorTok{~}\StringTok{ }\NormalTok{height, }\DataTypeTok{data =}\NormalTok{ crabs)}
+
+\KeywordTok{summary}\NormalTok{(crab_linear)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = force ~ height, data = crabs)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-16.7945  -3.8113  -0.2394   4.1444  16.8814 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept) -11.0869     4.6224  -2.399   0.0218 *  
+height        2.6348     0.5089   5.177 8.73e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 6.892 on 36 degrees of freedom
+Multiple R-squared:  0.4268,	Adjusted R-squared:  0.4109 
+F-statistic:  26.8 on 1 and 36 DF,  p-value: 8.73e-06
+\end{verbatim}
+
+The linear regression equation is force = -11.1 + 2.63 height.
+
+So, for example, if we found a crab with propodus height = 10 mm, our prediction for that crab's claw force (in Newtons) based on this linear model would be\ldots{}
+
+\begin{itemize}
+\tightlist
+\item
+  force = -11.0869025 + 2.6348232 x 10
+\item
+  force = -11.0869025 + 26.3482321
+\item
+  so predicted force = 15.2613297, which we would round to 15.3 Newtons.
+\end{itemize}
+
+So, it looks like the two models give meaningfully different predictions.
+
+\hypertarget{making-predictions-with-a-model}{%
+\section{Making Predictions with a Model}\label{making-predictions-with-a-model}}
+
+The \texttt{broom} package's \texttt{augment} function provides us with a consistent method for obtaining predictions (also called fitted values) for a new crab or for our original data. Suppose we want to predict the \texttt{force} level for two new crabs: one with height = 10 mm, and another with height = 12 mm.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{newcrab <-}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{crab =} \KeywordTok{c}\NormalTok{(}\StringTok{"Crab_A"}\NormalTok{, }\StringTok{"Crab_B"}\NormalTok{), }\DataTypeTok{height =} \KeywordTok{c}\NormalTok{(}\DecValTok{10}\NormalTok{, }\DecValTok{12}\NormalTok{))}
+
+\KeywordTok{augment}\NormalTok{(crab_linear, }\DataTypeTok{newdata =}\NormalTok{ newcrab)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 2 x 3
+  crab   height .fitted
+  <chr>   <dbl>   <dbl>
+1 Crab_A     10    15.3
+2 Crab_B     12    20.5
+\end{verbatim}
+
+Should we want to obtain a prediction interval, we can use the \texttt{predict} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{predict}\NormalTok{(crab_linear, }\DataTypeTok{newdata =}\NormalTok{ newcrab, }\DataTypeTok{interval =} \StringTok{"prediction"}\NormalTok{, }\DataTypeTok{level =} \FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       fit      lwr      upr
+1 15.26133 1.048691 29.47397
+2 20.53098 5.994208 35.06774
+\end{verbatim}
+
+We'd interpret this result as saying that the linear model's predicted force associated with a single new crab claw with propodus height 10 mm is 15.3 Newtons, and that a 95\% prediction interval for the true value of such a force for such a claw is between 1.0 and 29.5 Newtons. More on prediction intervals later.
+
+\hypertarget{predictions-after-a-transformation}{%
+\subsection{Predictions After a Transformation}\label{predictions-after-a-transformation}}
+
+We can also get predictions from the log-log model. The default choice is a 95\% prediction interval.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{predict}\NormalTok{(crab_loglog, }\DataTypeTok{newdata =}\NormalTok{ newcrab, }\DataTypeTok{interval =} \StringTok{"prediction"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       fit      lwr      upr
+1 2.519095 1.125900 3.912291
+2 2.933174 1.515548 4.350800
+\end{verbatim}
+
+Of course, these predictions describe the \texttt{log(force)} for such a crab claw. To get the prediction in terms of simple force, we'd need to back out of the logarithm, by exponentiating our point estimate and the prediction interval endpoints.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{exp}\NormalTok{(}\KeywordTok{predict}\NormalTok{(crab_loglog, }\DataTypeTok{newdata =}\NormalTok{ newcrab, }\DataTypeTok{interval =} \StringTok{"prediction"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       fit      lwr      upr
+1 12.41736 3.082989 50.01341
+2 18.78716 4.551916 77.54044
+\end{verbatim}
+
+We'd interpret this result as saying, for the first new crab, that the log-log model's predicted force associated with a single new crab claw with propodus height 10 mm is 12.4 Newtons, and that a 95\% prediction interval for the true value of such a force for such a claw is between 3.1 and 50.0 Newtons.
+
+\hypertarget{comparing-model-predictions}{%
+\subsection{Comparing Model Predictions}\label{comparing-model-predictions}}
+
+Suppose we wish to build a plot of force vs height with a straight line for the linear model's predictions, and a new curve for the log-log model's predictions, so that we can compare and contrast the implications of the two models on a common scale. The \texttt{predict} function, when not given a new data frame, will use the existing predictor values that are in our \texttt{crabs} data. Such predictions are often called fitted values.
+
+To put the two sets of predictions on the same scale despite the differing outcomes in the two models, we'll exponentiate the results of the log-log model, and build a little data frame containing the heights and the predicted forces from that model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{loglogdat <-}\StringTok{ }\KeywordTok{tibble}\NormalTok{(}\DataTypeTok{height =}\NormalTok{ crabs}\OperatorTok{$}\NormalTok{height, }\DataTypeTok{force =} \KeywordTok{exp}\NormalTok{(}\KeywordTok{predict}\NormalTok{(crab_loglog)))}
+\end{Highlighting}
+\end{Shaded}
+
+A cleaner way to do this might be to use the \texttt{augment} function directly from \texttt{broom}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{augment}\NormalTok{(crab_loglog)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 38 x 7
+   `log(force)` `log(height)` .fitted .std.resid   .hat .sigma  .cooksd
+          <dbl>         <dbl>   <dbl>      <dbl>  <dbl>  <dbl>    <dbl>
+ 1         1.39          2.08   2.01   -0.941    0.0280  0.676 1.28e- 2
+ 2         2.71          2.07   1.98    1.10     0.0287  0.673 1.79e- 2
+ 3         1.61          1.90   1.61   -0.000175 0.0499  0.684 8.06e-10
+ 4         1.06          1.89   1.58   -0.778    0.0530  0.679 1.69e- 2
+ 5         1.16          1.61   0.945   0.349    0.142   0.683 1.01e- 2
+ 6         2.25          2.07   1.98    0.402    0.0287  0.683 2.39e- 3
+ 7         3.11          2.24   2.38    1.11     0.0301  0.673 1.90e- 2
+ 8         2.00          2.12   2.10   -0.142    0.0266  0.684 2.75e- 4
+ 9         2.68          2.42   2.78   -0.146    0.0561  0.684 6.30e- 4
+10         2.16          2.15   2.18   -0.0199   0.0263  0.684 5.34e- 6
+# ... with 28 more rows
+\end{verbatim}
+
+Now, we're ready to use the \texttt{geom\_smooth} approach to plot the linear fit, and \texttt{geom\_line} (which also fits curves) to display the log-log fit.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(crabs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ height, }\DataTypeTok{y =}\NormalTok{ force)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col=}\StringTok{"blue"}\NormalTok{, }\DataTypeTok{linetype =} \DecValTok{2}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ loglogdat, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{linetype =} \DecValTok{2}\NormalTok{, }\DataTypeTok{size =} \DecValTok{1}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\DecValTok{7}\NormalTok{, }\DecValTok{12}\NormalTok{, }\DataTypeTok{label =} \StringTok{"Linear Model"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{annotate}\NormalTok{(}\StringTok{"text"}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{8}\NormalTok{, }\DataTypeTok{label =} \StringTok{"Log-Log Model"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Comparing the Linear and Log-Log Models for Crab Claw data"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`geom_smooth()` using formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{431-notes_files/figure-latex/crabsmodelcompare-fig-1.pdf}
+
+Based on these 38 crabs, we see some modest differences between the predictions of the two models, with the log-log model predicting generally lower closing force for a given propodus height than would be predicted by a linear model.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{rm}\NormalTok{(loglogdat, crab_linear, crab_loglog)}
+\end{Highlighting}
+\end{Shaded}
 
   \bibliography{book.bib,packages.bib}
 

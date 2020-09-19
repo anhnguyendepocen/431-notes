@@ -83,6 +83,7 @@ library(NHANES)
 library(palmerpenguins)
 library(patchwork)
 library(rms)
+library(tidymodels) # note: tidymodels includes the broom package
 library(tidyverse) # note: tidyverse includes the dplyr and ggplot2 packages
 ```
 
@@ -100,7 +101,6 @@ psych
 modelsummary
 mosaic
 naniar
-tidymodels
 visdat
 ```
 

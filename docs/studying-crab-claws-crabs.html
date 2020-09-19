@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 Studying Crab Claws (crabs) | Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431</title>
+  <meta name="description" content="This book describes some fundamental approaches to doing biostatistical and data science in research." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 12 Studying Crab Claws (crabs) | Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book describes some fundamental approaches to doing biostatistical and data science in research." />
+  <meta name="github-repo" content="thomaselove/431-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 12 Studying Crab Claws (crabs) | Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431" />
+  
+  <meta name="twitter:description" content="This book describes some fundamental approaches to doing biostatistical and data science in research." />
+  
+
+<meta name="author" content="Thomas E. Love" />
+
+
+<meta name="date" content="2020-09-19" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="straight-line-models-and-correlation.html"/>
+<link rel="next" href="references.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Dr. Love's Notes for 431</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Working with These Notes</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-431-course-online"><i class="fa fa-check"></i>The 431 Course online</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-youll-find-here"><i class="fa fa-check"></i>What You’ll Find Here</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#setting-up-r"><i class="fa fa-check"></i>Setting Up R</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#initial-setup-of-r-packages"><i class="fa fa-check"></i>Initial Setup of R Packages</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#additional-r-packages-installed-for-this-book"><i class="fa fa-check"></i>Additional R Packages installed for this book</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>1</b> Data Science</a><ul>
+<li class="chapter" data-level="1.1" data-path="data-science.html"><a href="data-science.html#data-science-project-cycle"><i class="fa fa-check"></i><b>1.1</b> Data Science Project Cycle</a></li>
+<li class="chapter" data-level="1.2" data-path="data-science.html"><a href="data-science.html#data-science-and-the-431-course"><i class="fa fa-check"></i><b>1.2</b> Data Science and the 431 Course</a></li>
+<li class="chapter" data-level="1.3" data-path="data-science.html"><a href="data-science.html#what-the-course-is-and-isnt"><i class="fa fa-check"></i><b>1.3</b> What The Course Is and Isn’t</a></li>
+</ul></li>
+<li class="part"><span><b>Part A. Exploring Data</b></span></li>
+<li class="chapter" data-level="2" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html"><i class="fa fa-check"></i><b>2</b> Looking at the Palmer Penguins</a><ul>
+<li class="chapter" data-level="2.1" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#package-loading-then-dealing-with-missing-data"><i class="fa fa-check"></i><b>2.1</b> Package Loading, then Dealing with Missing Data</a></li>
+<li class="chapter" data-level="2.2" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#counting-things-and-making-tables"><i class="fa fa-check"></i><b>2.2</b> Counting Things and Making Tables</a></li>
+<li class="chapter" data-level="2.3" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#visualizing-the-data-in-a-graph-or-a-few"><i class="fa fa-check"></i><b>2.3</b> Visualizing the Data in a Graph (or a few…)</a></li>
+<li class="chapter" data-level="2.4" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#six-ways-to-improve-this-graph"><i class="fa fa-check"></i><b>2.4</b> Six Ways To “Improve” This Graph</a></li>
+<li class="chapter" data-level="2.5" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#a-little-reflection"><i class="fa fa-check"></i><b>2.5</b> A Little Reflection</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dataviz.html"><a href="dataviz.html"><i class="fa fa-check"></i><b>3</b> NHANES: Initial Exploring</a><ul>
+<li class="chapter" data-level="3.1" data-path="dataviz.html"><a href="dataviz.html#the-nhanes-data-collecting-a-sample"><i class="fa fa-check"></i><b>3.1</b> The NHANES data: Collecting a Sample</a></li>
+<li class="chapter" data-level="3.2" data-path="dataviz.html"><a href="dataviz.html#age-and-height"><i class="fa fa-check"></i><b>3.2</b> Age and Height</a></li>
+<li class="chapter" data-level="3.3" data-path="dataviz.html"><a href="dataviz.html#subset-of-subjects-with-known-age-and-height"><i class="fa fa-check"></i><b>3.3</b> Subset of Subjects with Known Age and Height</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="dataviz.html"><a href="dataviz.html#the-distinction-between-gender-and-sex"><i class="fa fa-check"></i><b>3.3.1</b> The Distinction between <code>Gender</code> and <code>Sex</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="dataviz.html"><a href="dataviz.html#age-height-and-sex"><i class="fa fa-check"></i><b>3.4</b> Age-Height and Sex?</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="dataviz.html"><a href="dataviz.html#can-we-show-the-female-and-male-relationships-in-separate-panels"><i class="fa fa-check"></i><b>3.4.1</b> Can we show the Female and Male relationships in separate panels?</a></li>
+<li class="chapter" data-level="3.4.2" data-path="dataviz.html"><a href="dataviz.html#can-we-add-a-smooth-curve-to-show-the-relationship-in-each-plot"><i class="fa fa-check"></i><b>3.4.2</b> Can we add a smooth curve to show the relationship in each plot?</a></li>
+<li class="chapter" data-level="3.4.3" data-path="dataviz.html"><a href="dataviz.html#what-if-we-want-to-assume-straight-line-relationships"><i class="fa fa-check"></i><b>3.4.3</b> What if we want to assume straight line relationships?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="dataviz.html"><a href="dataviz.html#creating-a-new-subset-ages-21-79"><i class="fa fa-check"></i><b>3.5</b> Creating A New Subset: Ages 21-79</a></li>
+<li class="chapter" data-level="3.6" data-path="dataviz.html"><a href="dataviz.html#distribution-of-heights"><i class="fa fa-check"></i><b>3.6</b> Distribution of Heights</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="dataviz.html"><a href="dataviz.html#changing-a-histograms-fill-and-color"><i class="fa fa-check"></i><b>3.6.1</b> Changing a Histogram’s Fill and Color</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="dataviz.html"><a href="dataviz.html#height-and-sex"><i class="fa fa-check"></i><b>3.7</b> Height and Sex</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="dataviz.html"><a href="dataviz.html#a-boxplot-of-height-by-sex"><i class="fa fa-check"></i><b>3.7.1</b> A Boxplot of Height by Sex</a></li>
+<li class="chapter" data-level="3.7.2" data-path="dataviz.html"><a href="dataviz.html#histograms-of-height-by-sex"><i class="fa fa-check"></i><b>3.7.2</b> Histograms of Height by Sex</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="dataviz.html"><a href="dataviz.html#looking-at-pulse-rate"><i class="fa fa-check"></i><b>3.8</b> Looking at Pulse Rate</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="dataviz.html"><a href="dataviz.html#pulse-rate-and-physical-activity"><i class="fa fa-check"></i><b>3.8.1</b> Pulse Rate and Physical Activity</a></li>
+<li class="chapter" data-level="3.8.2" data-path="dataviz.html"><a href="dataviz.html#pulse-by-sleeping-trouble"><i class="fa fa-check"></i><b>3.8.2</b> Pulse by Sleeping Trouble</a></li>
+<li class="chapter" data-level="3.8.3" data-path="dataviz.html"><a href="dataviz.html#pulse-and-healthgen"><i class="fa fa-check"></i><b>3.8.3</b> Pulse and HealthGen</a></li>
+<li class="chapter" data-level="3.8.4" data-path="dataviz.html"><a href="dataviz.html#pulse-rate-and-systolic-blood-pressure"><i class="fa fa-check"></i><b>3.8.4</b> Pulse Rate and Systolic Blood Pressure</a></li>
+<li class="chapter" data-level="3.8.5" data-path="dataviz.html"><a href="dataviz.html#sleep-trouble-vs.-no-sleep-trouble"><i class="fa fa-check"></i><b>3.8.5</b> Sleep Trouble vs. No Sleep Trouble?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="dataviz.html"><a href="dataviz.html#general-health-status"><i class="fa fa-check"></i><b>3.9</b> General Health Status</a><ul>
+<li class="chapter" data-level="3.9.1" data-path="dataviz.html"><a href="dataviz.html#bar-chart-for-categorical-data"><i class="fa fa-check"></i><b>3.9.1</b> Bar Chart for Categorical Data</a></li>
+<li class="chapter" data-level="3.9.2" data-path="dataviz.html"><a href="dataviz.html#working-with-tables"><i class="fa fa-check"></i><b>3.9.2</b> Working with Tables</a></li>
+<li class="chapter" data-level="3.9.3" data-path="dataviz.html"><a href="dataviz.html#sbp-by-general-health-status"><i class="fa fa-check"></i><b>3.9.3</b> SBP by General Health Status</a></li>
+<li class="chapter" data-level="3.9.4" data-path="dataviz.html"><a href="dataviz.html#sbp-by-physical-activity-and-general-health-status"><i class="fa fa-check"></i><b>3.9.4</b> SBP by Physical Activity and General Health Status</a></li>
+<li class="chapter" data-level="3.9.5" data-path="dataviz.html"><a href="dataviz.html#sbp-by-sleep-trouble-and-general-health-status"><i class="fa fa-check"></i><b>3.9.5</b> SBP by Sleep Trouble and General Health Status</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="dataviz.html"><a href="dataviz.html#conclusions"><i class="fa fa-check"></i><b>3.10</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html"><i class="fa fa-check"></i><b>4</b> Data Structures and Types of Variables</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#data-require-structure-and-context"><i class="fa fa-check"></i><b>4.1</b> Data require structure and context</a></li>
+<li class="chapter" data-level="4.2" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#newNHANES"><i class="fa fa-check"></i><b>4.2</b> A New NHANES Adult Sample</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#summarizing-the-datas-structure"><i class="fa fa-check"></i><b>4.2.1</b> Summarizing the Data’s Structure</a></li>
+<li class="chapter" data-level="4.2.2" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#what-are-the-variables"><i class="fa fa-check"></i><b>4.2.2</b> What are the variables?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#quantitative-variables"><i class="fa fa-check"></i><b>4.3</b> Quantitative Variables</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#a-look-at-bmi-body-mass-index"><i class="fa fa-check"></i><b>4.3.1</b> A look at BMI (Body-Mass Index)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#qualitative-categorical-variables"><i class="fa fa-check"></i><b>4.4</b> Qualitative (Categorical) Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html"><i class="fa fa-check"></i><b>5</b> Summarizing Quantitative Variables</a><ul>
+<li class="chapter" data-level="5.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-summary-function-for-quantitative-data"><i class="fa fa-check"></i><b>5.1</b> The <code>summary</code> function for Quantitative data</a></li>
+<li class="chapter" data-level="5.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-center-of-a-distribution"><i class="fa fa-check"></i><b>5.2</b> Measuring the Center of a Distribution</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-mean-and-the-median"><i class="fa fa-check"></i><b>5.2.1</b> The Mean and The Median</a></li>
+<li class="chapter" data-level="5.2.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#dealing-with-missingness"><i class="fa fa-check"></i><b>5.2.2</b> Dealing with Missingness</a></li>
+<li class="chapter" data-level="5.2.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-mode-of-a-quantitative-variable"><i class="fa fa-check"></i><b>5.2.3</b> The Mode of a Quantitative Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-spread-of-a-distribution"><i class="fa fa-check"></i><b>5.3</b> Measuring the Spread of a Distribution</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#rangeandiqr"><i class="fa fa-check"></i><b>5.3.1</b> The Range and the Interquartile Range (IQR)</a></li>
+<li class="chapter" data-level="5.3.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-variance-and-the-standard-deviation"><i class="fa fa-check"></i><b>5.3.2</b> The Variance and the Standard Deviation</a></li>
+<li class="chapter" data-level="5.3.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#obtaining-the-variance-and-standard-deviation-in-r"><i class="fa fa-check"></i><b>5.3.3</b> Obtaining the Variance and Standard Deviation in R</a></li>
+<li class="chapter" data-level="5.3.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#defining-the-variance-and-standard-deviation"><i class="fa fa-check"></i><b>5.3.4</b> Defining the Variance and Standard Deviation</a></li>
+<li class="chapter" data-level="5.3.5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#interpreting-the-sd-when-the-data-are-normally-distributed"><i class="fa fa-check"></i><b>5.3.5</b> Interpreting the SD when the data are Normally distributed</a></li>
+<li class="chapter" data-level="5.3.6" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#chebyshevs-inequality-one-interpretation-of-the-standard-deviation"><i class="fa fa-check"></i><b>5.3.6</b> Chebyshev’s Inequality: One Interpretation of the Standard Deviation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-shape-of-a-distribution"><i class="fa fa-check"></i><b>5.4</b> Measuring the Shape of a Distribution</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#multimodal-vs.-unimodal-distributions"><i class="fa fa-check"></i><b>5.4.1</b> Multimodal vs. Unimodal distributions</a></li>
+<li class="chapter" data-level="5.4.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#skew"><i class="fa fa-check"></i><b>5.4.2</b> Skew</a></li>
+<li class="chapter" data-level="5.4.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#kurtosis"><i class="fa fa-check"></i><b>5.4.3</b> Kurtosis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#more-detailed-numerical-summaries-for-quantitative-variables"><i class="fa fa-check"></i><b>5.5</b> More Detailed Numerical Summaries for Quantitative Variables</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#favstats-in-the-mosaic-package"><i class="fa fa-check"></i><b>5.5.1</b> <code>favstats</code> in the <code>mosaic</code> package</a></li>
+<li class="chapter" data-level="5.5.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#describe-in-the-psych-package"><i class="fa fa-check"></i><b>5.5.2</b> <code>describe</code> in the <code>psych</code> package</a></li>
+<li class="chapter" data-level="5.5.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-hmisc-packages-version-of-describe"><i class="fa fa-check"></i><b>5.5.3</b> The <code>Hmisc</code> package’s version of <code>describe</code></a></li>
+<li class="chapter" data-level="5.5.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#other-options"><i class="fa fa-check"></i><b>5.5.4</b> Other options</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html"><i class="fa fa-check"></i><b>6</b> Summarizing Categorical Variables</a><ul>
+<li class="chapter" data-level="6.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#the-summary-function-for-categorical-data"><i class="fa fa-check"></i><b>6.1</b> The <code>summary</code> function for Categorical data</a></li>
+<li class="chapter" data-level="6.2" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#tables-to-describe-one-categorical-variable"><i class="fa fa-check"></i><b>6.2</b> Tables to describe One Categorical Variable</a></li>
+<li class="chapter" data-level="6.3" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#the-mode-of-a-categorical-variable"><i class="fa fa-check"></i><b>6.3</b> The Mode of a Categorical Variable</a></li>
+<li class="chapter" data-level="6.4" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#describe-in-the-hmisc-package"><i class="fa fa-check"></i><b>6.4</b> <code>describe</code> in the <code>Hmisc</code> package</a></li>
+<li class="chapter" data-level="6.5" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#cross-tabulations"><i class="fa fa-check"></i><b>6.5</b> Cross-Tabulations</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#cross-classifying-three-categorical-variables"><i class="fa fa-check"></i><b>6.5.1</b> Cross-Classifying Three Categorical Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#constructing-tables-well"><i class="fa fa-check"></i><b>6.6</b> Constructing Tables Well</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#alabama-first"><i class="fa fa-check"></i><b>6.6.1</b> Alabama First!</a></li>
+<li class="chapter" data-level="6.6.2" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#order-rows-and-columns-sensibly"><i class="fa fa-check"></i><b>6.6.2</b> Order rows and columns sensibly</a></li>
+<li class="chapter" data-level="6.6.3" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#round---a-lot"><i class="fa fa-check"></i><b>6.6.3</b> Round - a lot!</a></li>
+<li class="chapter" data-level="6.6.4" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#all-is-different-and-important"><i class="fa fa-check"></i><b>6.6.4</b> ALL is different and important</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#gaining-control-over-tables-in-r-the-gt-package"><i class="fa fa-check"></i><b>6.7</b> Gaining Control over Tables in R: the <code>gt</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="NYFS-Study.html"><a href="NYFS-Study.html"><i class="fa fa-check"></i><b>7</b> NHANES National Youth Fitness Survey (<code>nnyfs</code>)</a><ul>
+<li class="chapter" data-level="7.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-variables-included-in-nnyfs"><i class="fa fa-check"></i><b>7.1</b> The Variables included in <code>nnyfs</code></a><ul>
+<li class="chapter" data-level="7.1.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#from-the-nnyfs-demographic-component"><i class="fa fa-check"></i><b>7.1.1</b> From the <span>NNYFS Demographic Component</span></a></li>
+<li class="chapter" data-level="7.1.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#from-the-nnyfs-dietary-component"><i class="fa fa-check"></i><b>7.1.2</b> From the <span>NNYFS Dietary Component</span></a></li>
+<li class="chapter" data-level="7.1.3" data-path="NYFS-Study.html"><a href="NYFS-Study.html#from-the-nnyfs-examination-component"><i class="fa fa-check"></i><b>7.1.3</b> From the <span>NNYFS Examination Component</span></a></li>
+<li class="chapter" data-level="7.1.4" data-path="NYFS-Study.html"><a href="NYFS-Study.html#from-the-nnyfs-questionnaire-component"><i class="fa fa-check"></i><b>7.1.4</b> From the <span>NNYFS Questionnaire Component</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#looking-over-a-few-variables"><i class="fa fa-check"></i><b>7.2</b> Looking over A Few Variables</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#seqn"><i class="fa fa-check"></i><b>7.2.1</b> <code>SEQN</code></a></li>
+<li class="chapter" data-level="7.2.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#sex"><i class="fa fa-check"></i><b>7.2.2</b> <code>sex</code></a></li>
+<li class="chapter" data-level="7.2.3" data-path="NYFS-Study.html"><a href="NYFS-Study.html#age_child"><i class="fa fa-check"></i><b>7.2.3</b> <code>age_child</code></a></li>
+<li class="chapter" data-level="7.2.4" data-path="NYFS-Study.html"><a href="NYFS-Study.html#race_eth"><i class="fa fa-check"></i><b>7.2.4</b> <code>race_eth</code></a></li>
+<li class="chapter" data-level="7.2.5" data-path="NYFS-Study.html"><a href="NYFS-Study.html#income_pov"><i class="fa fa-check"></i><b>7.2.5</b> <code>income_pov</code></a></li>
+<li class="chapter" data-level="7.2.6" data-path="NYFS-Study.html"><a href="NYFS-Study.html#bmi"><i class="fa fa-check"></i><b>7.2.6</b> <code>bmi</code></a></li>
+<li class="chapter" data-level="7.2.7" data-path="NYFS-Study.html"><a href="NYFS-Study.html#bmi_cat"><i class="fa fa-check"></i><b>7.2.7</b> <code>bmi_cat</code></a></li>
+<li class="chapter" data-level="7.2.8" data-path="NYFS-Study.html"><a href="NYFS-Study.html#waist"><i class="fa fa-check"></i><b>7.2.8</b> <code>waist</code></a></li>
+<li class="chapter" data-level="7.2.9" data-path="NYFS-Study.html"><a href="NYFS-Study.html#triceps_skinfold"><i class="fa fa-check"></i><b>7.2.9</b> <code>triceps_skinfold</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="NYFS-Study.html"><a href="NYFS-Study.html#additional-numeric-summaries"><i class="fa fa-check"></i><b>7.3</b> Additional Numeric Summaries</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-five-number-summary-quantiles-and-iqr"><i class="fa fa-check"></i><b>7.3.1</b> The Five Number Summary, Quantiles and IQR</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="NYFS-Study.html"><a href="NYFS-Study.html#additional-summaries-from-favstats"><i class="fa fa-check"></i><b>7.4</b> Additional Summaries from <code>favstats</code></a></li>
+<li class="chapter" data-level="7.5" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-histogram"><i class="fa fa-check"></i><b>7.5</b> The Histogram</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#freedman-diaconis-rule-to-select-bin-width"><i class="fa fa-check"></i><b>7.5.1</b> Freedman-Diaconis Rule to select bin width</a></li>
+<li class="chapter" data-level="7.5.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#a-note-on-colors"><i class="fa fa-check"></i><b>7.5.2</b> A Note on Colors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-dot-plot-to-display-a-distribution"><i class="fa fa-check"></i><b>7.6</b> The Dot Plot to display a distribution</a></li>
+<li class="chapter" data-level="7.7" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-frequency-polygon"><i class="fa fa-check"></i><b>7.7</b> The Frequency Polygon</a></li>
+<li class="chapter" data-level="7.8" data-path="NYFS-Study.html"><a href="NYFS-Study.html#plotting-the-probability-density-function"><i class="fa fa-check"></i><b>7.8</b> Plotting the Probability Density Function</a></li>
+<li class="chapter" data-level="7.9" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-boxplot"><i class="fa fa-check"></i><b>7.9</b> The Boxplot</a><ul>
+<li class="chapter" data-level="7.9.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#drawing-a-boxplot-for-one-variable-in-ggplot2"><i class="fa fa-check"></i><b>7.9.1</b> Drawing a Boxplot for One Variable in <code>ggplot2</code></a></li>
+<li class="chapter" data-level="7.9.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#about-the-boxplot"><i class="fa fa-check"></i><b>7.9.2</b> About the Boxplot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="NYFS-Study.html"><a href="NYFS-Study.html#a-simple-comparison-boxplot"><i class="fa fa-check"></i><b>7.10</b> A Simple Comparison Boxplot</a></li>
+<li class="chapter" data-level="7.11" data-path="NYFS-Study.html"><a href="NYFS-Study.html#using-describe-in-the-psych-library"><i class="fa fa-check"></i><b>7.11</b> Using <code>describe</code> in the <code>psych</code> library</a><ul>
+<li class="chapter" data-level="7.11.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-trimmed-mean"><i class="fa fa-check"></i><b>7.11.1</b> The Trimmed Mean</a></li>
+<li class="chapter" data-level="7.11.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-median-absolute-deviation"><i class="fa fa-check"></i><b>7.11.2</b> The Median Absolute Deviation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.12" data-path="NYFS-Study.html"><a href="NYFS-Study.html#assessing-skew"><i class="fa fa-check"></i><b>7.12</b> Assessing Skew</a><ul>
+<li class="chapter" data-level="7.12.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#non-parametric-skewness"><i class="fa fa-check"></i><b>7.12.1</b> Non-parametric Skewness</a></li>
+</ul></li>
+<li class="chapter" data-level="7.13" data-path="NYFS-Study.html"><a href="NYFS-Study.html#assessing-kurtosis-heavy-tailedness"><i class="fa fa-check"></i><b>7.13</b> Assessing Kurtosis (Heavy-Tailedness)</a><ul>
+<li class="chapter" data-level="7.13.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-standard-error-of-the-sample-mean"><i class="fa fa-check"></i><b>7.13.1</b> The Standard Error of the Sample Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="7.14" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-describe-function-in-the-hmisc-package"><i class="fa fa-check"></i><b>7.14</b> The <code>describe</code> function in the <code>Hmisc</code> package</a></li>
+<li class="chapter" data-level="7.15" data-path="NYFS-Study.html"><a href="NYFS-Study.html#what-summaries-to-report"><i class="fa fa-check"></i><b>7.15</b> What Summaries to Report</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="assessing-normality.html"><a href="assessing-normality.html"><i class="fa fa-check"></i><b>8</b> Assessing Normality</a><ul>
+<li class="chapter" data-level="8.1" data-path="assessing-normality.html"><a href="assessing-normality.html#empirical-rule-interpretation-of-the-standard-deviation"><i class="fa fa-check"></i><b>8.1</b> Empirical Rule Interpretation of the Standard Deviation</a></li>
+<li class="chapter" data-level="8.2" data-path="assessing-normality.html"><a href="assessing-normality.html#describing-outlying-values-with-z-scores"><i class="fa fa-check"></i><b>8.2</b> Describing Outlying Values with Z Scores</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="assessing-normality.html"><a href="assessing-normality.html#fences-and-z-scores"><i class="fa fa-check"></i><b>8.2.1</b> Fences and Z Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="assessing-normality.html"><a href="assessing-normality.html#comparing-a-histogram-to-a-normal-distribution"><i class="fa fa-check"></i><b>8.3</b> Comparing a Histogram to a Normal Distribution</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="assessing-normality.html"><a href="assessing-normality.html#histogram-of-energy-with-normal-model-with-counts"><i class="fa fa-check"></i><b>8.3.1</b> Histogram of <code>energy</code> with Normal model (with Counts)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="assessing-normality.html"><a href="assessing-normality.html#does-a-normal-model-work-well-for-the-waist-circumference"><i class="fa fa-check"></i><b>8.4</b> Does a Normal model work well for the <code>waist</code> circumference?</a></li>
+<li class="chapter" data-level="8.5" data-path="assessing-normality.html"><a href="assessing-normality.html#the-normal-q-q-plot"><i class="fa fa-check"></i><b>8.5</b> The Normal Q-Q Plot</a></li>
+<li class="chapter" data-level="8.6" data-path="assessing-normality.html"><a href="assessing-normality.html#interpreting-the-normal-q-q-plot"><i class="fa fa-check"></i><b>8.6</b> Interpreting the Normal Q-Q Plot</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="assessing-normality.html"><a href="assessing-normality.html#data-from-a-normal-distribution-shows-up-as-a-straight-line-in-a-normal-q-q-plot"><i class="fa fa-check"></i><b>8.6.1</b> Data from a Normal distribution shows up as a straight line in a Normal Q-Q plot</a></li>
+<li class="chapter" data-level="8.6.2" data-path="assessing-normality.html"><a href="assessing-normality.html#skew-is-indicated-by-monotonic-curves-in-the-normal-q-q-plot"><i class="fa fa-check"></i><b>8.6.2</b> Skew is indicated by monotonic curves in the Normal Q-Q plot</a></li>
+<li class="chapter" data-level="8.6.3" data-path="assessing-normality.html"><a href="assessing-normality.html#direction-of-skew"><i class="fa fa-check"></i><b>8.6.3</b> Direction of Skew</a></li>
+<li class="chapter" data-level="8.6.4" data-path="assessing-normality.html"><a href="assessing-normality.html#outlier-proneness-is-indicated-by-s-shaped-curves-in-a-normal-q-q-plot"><i class="fa fa-check"></i><b>8.6.4</b> Outlier-proneness is indicated by “s-shaped” curves in a Normal Q-Q plot</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="assessing-normality.html"><a href="assessing-normality.html#can-a-normal-distribution-fit-the-nnyfs-energy-data-well"><i class="fa fa-check"></i><b>8.7</b> Can a Normal Distribution Fit the <code>nnyfs</code> <code>energy</code> data Well?</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html"><i class="fa fa-check"></i><b>9</b> Using Transformations to “Normalize” Distributions</a><ul>
+<li class="chapter" data-level="9.1" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#the-ladder-of-power-transformations"><i class="fa fa-check"></i><b>9.1</b> The Ladder of Power Transformations</a></li>
+<li class="chapter" data-level="9.2" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#using-the-ladder"><i class="fa fa-check"></i><b>9.2</b> Using the Ladder</a></li>
+<li class="chapter" data-level="9.3" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#protein-consumption-in-the-nnyfs-data"><i class="fa fa-check"></i><b>9.3</b> Protein Consumption in the NNYFS data</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#using-patchwork-to-compose-plots"><i class="fa fa-check"></i><b>9.3.1</b> Using <code>patchwork</code> to compose plots</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#can-we-transform-the-protein-data"><i class="fa fa-check"></i><b>9.4</b> Can we transform the <code>protein</code> data?</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#the-square-root"><i class="fa fa-check"></i><b>9.4.1</b> The Square Root</a></li>
+<li class="chapter" data-level="9.4.2" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#the-logarithm"><i class="fa fa-check"></i><b>9.4.2</b> The Logarithm</a></li>
+<li class="chapter" data-level="9.4.3" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#this-course-uses-natural-logarithms-unless-otherwise-specified"><i class="fa fa-check"></i><b>9.4.3</b> This course uses Natural Logarithms, unless otherwise specified</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#what-if-we-considered-all-9-available-transformations"><i class="fa fa-check"></i><b>9.5</b> What if we considered all 9 available transformations?</a></li>
+<li class="chapter" data-level="9.6" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#a-simulated-data-set"><i class="fa fa-check"></i><b>9.6</b> A Simulated Data Set</a></li>
+<li class="chapter" data-level="9.7" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#what-if-we-considered-all-9-available-transformations-1"><i class="fa fa-check"></i><b>9.7</b> What if we considered all 9 available transformations?</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html"><i class="fa fa-check"></i><b>10</b> Summarizing data within subgroups</a><ul>
+<li class="chapter" data-level="10.1" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#using-dplyr-and-summarise-to-build-a-tibble-of-summary-information"><i class="fa fa-check"></i><b>10.1</b> Using dplyr and summarise to build a tibble of summary information</a></li>
+<li class="chapter" data-level="10.2" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#another-example"><i class="fa fa-check"></i><b>10.2</b> Another Example</a></li>
+<li class="chapter" data-level="10.3" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#boxplots-to-relate-an-outcome-to-a-categorical-predictor"><i class="fa fa-check"></i><b>10.3</b> Boxplots to Relate an Outcome to a Categorical Predictor</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#augmenting-the-boxplot-with-the-sample-mean"><i class="fa fa-check"></i><b>10.3.1</b> Augmenting the Boxplot with the Sample Mean</a></li>
+<li class="chapter" data-level="10.3.2" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#building-a-violin-plot"><i class="fa fa-check"></i><b>10.3.2</b> Building a Violin Plot</a></li>
+<li class="chapter" data-level="10.3.3" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#adding-notches-to-a-boxplot"><i class="fa fa-check"></i><b>10.3.3</b> Adding Notches to a Boxplot</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#using-multiple-histograms-to-make-comparisons"><i class="fa fa-check"></i><b>10.4</b> Using Multiple Histograms to Make Comparisons</a></li>
+<li class="chapter" data-level="10.5" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#using-multiple-density-plots-to-make-comparisons"><i class="fa fa-check"></i><b>10.5</b> Using Multiple Density Plots to Make Comparisons</a></li>
+<li class="chapter" data-level="10.6" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#a-ridgeline-plot"><i class="fa fa-check"></i><b>10.6</b> A Ridgeline Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html"><i class="fa fa-check"></i><b>11</b> Straight Line Models and Correlation</a><ul>
+<li class="chapter" data-level="11.1" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#assessing-a-scatterplot"><i class="fa fa-check"></i><b>11.1</b> Assessing A Scatterplot</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#highlighting-an-unusual-point"><i class="fa fa-check"></i><b>11.1.1</b> Highlighting an unusual point</a></li>
+<li class="chapter" data-level="11.1.2" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#adding-a-scatterplot-smooth-using-loess"><i class="fa fa-check"></i><b>11.1.2</b> Adding a Scatterplot Smooth using loess</a></li>
+<li class="chapter" data-level="11.1.3" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#what-line-does-r-fit"><i class="fa fa-check"></i><b>11.1.3</b> What Line Does R Fit?</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#correlation-coefficients"><i class="fa fa-check"></i><b>11.2</b> Correlation Coefficients</a></li>
+<li class="chapter" data-level="11.3" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#the-pearson-correlation-coefficient"><i class="fa fa-check"></i><b>11.3</b> The Pearson Correlation Coefficient</a></li>
+<li class="chapter" data-level="11.4" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#a-simulated-example"><i class="fa fa-check"></i><b>11.4</b> A simulated example</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#data-set-alex"><i class="fa fa-check"></i><b>11.4.1</b> Data Set Alex</a></li>
+<li class="chapter" data-level="11.4.2" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#data-set-bonnie"><i class="fa fa-check"></i><b>11.4.2</b> Data Set Bonnie</a></li>
+<li class="chapter" data-level="11.4.3" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#correlations-for-all-six-data-sets-in-the-correx1-example"><i class="fa fa-check"></i><b>11.4.3</b> Correlations for All Six Data Sets in the Correx1 Example</a></li>
+<li class="chapter" data-level="11.4.4" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#data-set-colin"><i class="fa fa-check"></i><b>11.4.4</b> Data Set Colin</a></li>
+<li class="chapter" data-level="11.4.5" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#draw-the-picture"><i class="fa fa-check"></i><b>11.4.5</b> Draw the Picture!</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#estimating-correlation-from-scatterplots"><i class="fa fa-check"></i><b>11.5</b> Estimating Correlation from Scatterplots</a></li>
+<li class="chapter" data-level="11.6" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#the-spearman-rank-correlation"><i class="fa fa-check"></i><b>11.6</b> The Spearman Rank Correlation</a><ul>
+<li class="chapter" data-level="11.6.1" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-formula"><i class="fa fa-check"></i><b>11.6.1</b> Spearman Formula</a></li>
+<li class="chapter" data-level="11.6.2" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#comparing-pearson-and-spearman-correlations"><i class="fa fa-check"></i><b>11.6.2</b> Comparing Pearson and Spearman Correlations</a></li>
+<li class="chapter" data-level="11.6.3" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-vs.-pearson-example-1"><i class="fa fa-check"></i><b>11.6.3</b> Spearman vs. Pearson Example 1</a></li>
+<li class="chapter" data-level="11.6.4" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-vs.-pearson-example-2"><i class="fa fa-check"></i><b>11.6.4</b> Spearman vs. Pearson Example 2</a></li>
+<li class="chapter" data-level="11.6.5" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-vs.-pearson-example-3"><i class="fa fa-check"></i><b>11.6.5</b> Spearman vs. Pearson Example 3</a></li>
+<li class="chapter" data-level="11.6.6" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-vs.-pearson-example-4"><i class="fa fa-check"></i><b>11.6.6</b> Spearman vs. Pearson Example 4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html"><i class="fa fa-check"></i><b>12</b> Studying Crab Claws (<code>crabs</code>)</a><ul>
+<li class="chapter" data-level="12.1" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#association-of-size-and-force"><i class="fa fa-check"></i><b>12.1</b> Association of Size and Force</a></li>
+<li class="chapter" data-level="12.2" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#loess_smooth"><i class="fa fa-check"></i><b>12.2</b> The <code>loess</code> smooth</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#smoothing-within-species"><i class="fa fa-check"></i><b>12.2.1</b> Smoothing within Species</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#fitting-a-linear-regression-model"><i class="fa fa-check"></i><b>12.3</b> Fitting a Linear Regression Model</a></li>
+<li class="chapter" data-level="12.4" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#is-a-linear-model-appropriate"><i class="fa fa-check"></i><b>12.4</b> Is a Linear Model Appropriate?</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#the-log-log-model"><i class="fa fa-check"></i><b>12.4.1</b> The log-log model</a></li>
+<li class="chapter" data-level="12.4.2" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#how-does-this-compare-to-our-original-linear-model"><i class="fa fa-check"></i><b>12.4.2</b> How does this compare to our original linear model?</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#making-predictions-with-a-model"><i class="fa fa-check"></i><b>12.5</b> Making Predictions with a Model</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#predictions-after-a-transformation"><i class="fa fa-check"></i><b>12.5.1</b> Predictions After a Transformation</a></li>
+<li class="chapter" data-level="12.5.2" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#comparing-model-predictions"><i class="fa fa-check"></i><b>12.5.2</b> Comparing Model Predictions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="studying-crab-claws-crabs" class="section level1">
+<h1><span class="header-section-number">Chapter 12</span> Studying Crab Claws (<code>crabs</code>)</h1>
+<p>For our next example, we’ll consider a study from zoology, specifically carcinology - the study of crustaceans. My source for these data is Chapter 7 in <span class="citation">Ramsey and Schafer (<a href="#ref-RamseySchafer" role="doc-biblioref">2002</a>)</span> which drew the data from a figure in <span class="citation">Yamada and Boulding (<a href="#ref-Yamada1998" role="doc-biblioref">1998</a>)</span>.</p>
+<p>The available data are the mean closing forces (in Newtons) and the propodus heights (mm) of the claws on 38 crabs that came from three different species. The <em>propodus</em> is the segment of the crab’s clawed leg with an immovable finger and palm.</p>
+<div class="figure"><span id="fig:crab1-fig"></span>
+<img src="figures/crabanat.jpg" alt="Source: http://txmarspecies.tamug.edu/crustglossary.cfm" width="70%" />
+<p class="caption">
+Figure 12.1: Source: <a href="http://txmarspecies.tamug.edu/crustglossary.cfm" class="uri">http://txmarspecies.tamug.edu/crustglossary.cfm</a>
+</p>
+</div>
+<p>This was part of a study of the effects that predatory intertidal crab species have on populations of snails. The three crab species under study are:</p>
+<ul>
+<li>14 Hemigraspus nudus, also called the <a href="https://en.wikipedia.org/wiki/Purple_shore_crab">purple shore crab</a> (14 crabs)</li>
+<li>12 Lophopanopeus bellus, also called the <a href="https://inverts.wallawalla.edu/Arthropoda/Crustacea/Malacostraca/Eumalacostraca/Eucarida/Decapoda/Brachyura/Family_Xanthidae/Lophopanopeus_bellus_bellus.html">black-clawed pebble crab</a>, and</li>
+<li>12 Cancer productus, one of several species of <a href="https://en.wikipedia.org/wiki/Cancer_productus">red rock crabs</a> (12)</li>
+</ul>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="studying-crab-claws-crabs.html#cb371-1"></a>crabs &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/crabs.csv&quot;</span>) </span></code></pre></div>
+<pre><code>Parsed with column specification:
+cols(
+  crab = col_double(),
+  species = col_character(),
+  force = col_double(),
+  height = col_double()
+)</code></pre>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="studying-crab-claws-crabs.html#cb373-1"></a>crabs</span></code></pre></div>
+<pre><code># A tibble: 38 x 4
+    crab species              force height
+   &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;  &lt;dbl&gt;
+ 1     1 Hemigraspus nudus      4      8  
+ 2     2 Lophopanopeus bellus  15.1    7.9
+ 3     3 Cancer productus       5      6.7
+ 4     4 Lophopanopeus bellus   2.9    6.6
+ 5     5 Hemigraspus nudus      3.2    5  
+ 6     6 Hemigraspus nudus      9.5    7.9
+ 7     7 Cancer productus      22.5    9.4
+ 8     8 Hemigraspus nudus      7.4    8.3
+ 9     9 Cancer productus      14.6   11.2
+10    10 Lophopanopeus bellus   8.7    8.6
+# ... with 28 more rows</code></pre>
+<p>The <code>species</code> information is stored here as a character variable. How many different crabs are we talking about in each <code>species</code>?</p>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="studying-crab-claws-crabs.html#cb375-1"></a>crabs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">tabyl</span>(species)</span></code></pre></div>
+<pre><code>              species  n   percent
+     Cancer productus 12 0.3157895
+    Hemigraspus nudus 14 0.3684211
+ Lophopanopeus bellus 12 0.3157895</code></pre>
+<p>As it turns out, we’re going to want to treat the <code>species</code> information as a <strong>factor</strong> with three levels, rather than as a character variable.</p>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="studying-crab-claws-crabs.html#cb377-1"></a>crabs &lt;-<span class="st"> </span>crabs <span class="op">%&gt;%</span></span>
+<span id="cb377-2"><a href="studying-crab-claws-crabs.html#cb377-2"></a><span class="st">    </span><span class="kw">mutate</span>(<span class="dt">species =</span> <span class="kw">factor</span>(species))</span></code></pre></div>
+<p>Here’s a quick summary of the data. Take care to note the useless results for the first two variables. At least the function flags with a <code>*</code> those variables it thinks are non-numeric.</p>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="studying-crab-claws-crabs.html#cb378-1"></a>psych<span class="op">::</span><span class="kw">describe</span>(crabs)</span></code></pre></div>
+<pre><code>         vars  n  mean    sd median trimmed   mad min  max range skew kurtosis
+crab        1 38 19.50 11.11  19.50   19.50 14.08   1 38.0  37.0 0.00    -1.30
+species*    2 38  2.00  0.81   2.00    2.00  1.48   1  3.0   2.0 0.00    -1.50
+force       3 38 12.13  8.98   8.70   11.53  9.04   2 29.4  27.4 0.47    -1.25
+height      4 38  8.81  2.23   8.25    8.78  2.52   5 13.1   8.1 0.19    -1.14
+           se
+crab     1.80
+species* 0.13
+force    1.46
+height   0.36</code></pre>
+<p>Actually, we’re more interested in these results after grouping by species.</p>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="studying-crab-claws-crabs.html#cb380-1"></a>crabs <span class="op">%&gt;%</span></span>
+<span id="cb380-2"><a href="studying-crab-claws-crabs.html#cb380-2"></a><span class="st">    </span><span class="kw">group_by</span>(species) <span class="op">%&gt;%</span></span>
+<span id="cb380-3"><a href="studying-crab-claws-crabs.html#cb380-3"></a><span class="st">    </span><span class="kw">summarise</span>(<span class="dt">n =</span> <span class="kw">n</span>(), <span class="kw">median</span>(force), <span class="kw">median</span>(height))</span></code></pre></div>
+<pre><code>`summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code># A tibble: 3 x 4
+  species                  n `median(force)` `median(height)`
+  &lt;fct&gt;                &lt;int&gt;           &lt;dbl&gt;            &lt;dbl&gt;
+1 Cancer productus        12            19.7            11.0 
+2 Hemigraspus nudus       14             3.7             7.9 
+3 Lophopanopeus bellus    12            14.8             8.15</code></pre>
+<div id="association-of-size-and-force" class="section level2">
+<h2><span class="header-section-number">12.1</span> Association of Size and Force</h2>
+<p>Suppose we want to describe force on the basis of height, across all 38 crabs. We’ll add titles and identify the three species of crab, using shape and color.</p>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="studying-crab-claws-crabs.html#cb383-1"></a><span class="kw">ggplot</span>(crabs, <span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> force, <span class="dt">color =</span> species, <span class="dt">shape =</span> species)) <span class="op">+</span></span>
+<span id="cb383-2"><a href="studying-crab-claws-crabs.html#cb383-2"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb383-3"><a href="studying-crab-claws-crabs.html#cb383-3"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Crab Claw Force by Size&quot;</span>, </span>
+<span id="cb383-4"><a href="studying-crab-claws-crabs.html#cb383-4"></a>         <span class="dt">x =</span> <span class="st">&quot;Claw&#39;s propodus height (mm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Mean closing force (N)&quot;</span>) <span class="op">+</span></span>
+<span id="cb383-5"><a href="studying-crab-claws-crabs.html#cb383-5"></a><span class="st">    </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="431-notes_files/figure-html/crabsscatter1-fig-1.png" width="672" /></p>
+<p>A faceted plot for each species really highlights the difference in force between the <em>Hemigraspus nudus</em> and the other two species of crab.</p>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="studying-crab-claws-crabs.html#cb384-1"></a><span class="kw">ggplot</span>(crabs, <span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> force, <span class="dt">color =</span> species)) <span class="op">+</span></span>
+<span id="cb384-2"><a href="studying-crab-claws-crabs.html#cb384-2"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb384-3"><a href="studying-crab-claws-crabs.html#cb384-3"></a><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>species) <span class="op">+</span></span>
+<span id="cb384-4"><a href="studying-crab-claws-crabs.html#cb384-4"></a><span class="st">    </span><span class="kw">guides</span>(<span class="dt">color =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb384-5"><a href="studying-crab-claws-crabs.html#cb384-5"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Crab Claw Force by Size&quot;</span>, </span>
+<span id="cb384-6"><a href="studying-crab-claws-crabs.html#cb384-6"></a>         <span class="dt">x =</span> <span class="st">&quot;Claw&#39;s propodus height (mm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Mean closing force (N)&quot;</span>) <span class="op">+</span></span>
+<span id="cb384-7"><a href="studying-crab-claws-crabs.html#cb384-7"></a><span class="st">    </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="431-notes_files/figure-html/crabsscatter2-fig-1.png" width="672" /></p>
+</div>
+<div id="loess_smooth" class="section level2">
+<h2><span class="header-section-number">12.2</span> The <code>loess</code> smooth</h2>
+<p>We can obtain a smoothed curve (using several different approaches) to summarize the pattern presented by the data in any scatterplot. For instance, we might build such a plot for the complete set of 38 crabs, adding in a non-linear smooth function (called a loess smooth.)</p>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="studying-crab-claws-crabs.html#cb385-1"></a><span class="kw">ggplot</span>(crabs, <span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> force)) <span class="op">+</span></span>
+<span id="cb385-2"><a href="studying-crab-claws-crabs.html#cb385-2"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb385-3"><a href="studying-crab-claws-crabs.html#cb385-3"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb385-4"><a href="studying-crab-claws-crabs.html#cb385-4"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Crab Claw Force by Size&quot;</span>, </span>
+<span id="cb385-5"><a href="studying-crab-claws-crabs.html#cb385-5"></a>         <span class="dt">x =</span> <span class="st">&quot;Claw&#39;s propodus height (mm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Mean closing force (N)&quot;</span>)</span></code></pre></div>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="431-notes_files/figure-html/crabsscatter4-fig-1.png" width="672" /></p>
+<p>As we have discussed previously, a <strong>loess smooth</strong> fits a curve to data by tracking (at point x) the points within a neighborhood of point x, with more emphasis given to points near x. It can be adjusted by tweaking the <code>span</code> and <code>degree</code> parameters.</p>
+<p>In addition to the curve, smoothing procedures can also provide confidence intervals around their main fitted line. Consider the following plot of the <code>crabs</code> information, which adjusts the span (from its default of 0.75) and also adds in the confidence intervals.</p>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="studying-crab-claws-crabs.html#cb387-1"></a><span class="kw">ggplot</span>(crabs, <span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> force)) <span class="op">+</span></span>
+<span id="cb387-2"><a href="studying-crab-claws-crabs.html#cb387-2"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb387-3"><a href="studying-crab-claws-crabs.html#cb387-3"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x, <span class="dt">span =</span> <span class="fl">0.5</span>, <span class="dt">se =</span> <span class="ot">TRUE</span>) <span class="op">+</span></span>
+<span id="cb387-4"><a href="studying-crab-claws-crabs.html#cb387-4"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Crab Claw Force by Size&quot;</span>, </span>
+<span id="cb387-5"><a href="studying-crab-claws-crabs.html#cb387-5"></a>         <span class="dt">x =</span> <span class="st">&quot;Claw&#39;s propodus height (mm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Mean closing force (N)&quot;</span>)</span></code></pre></div>
+<p><img src="431-notes_files/figure-html/crabsscatter5-fig-1.png" width="672" /></p>
+<p>By reducing the size of the span, our resulting picture shows a much less smooth function that we generated previously.</p>
+<div id="smoothing-within-species" class="section level3">
+<h3><span class="header-section-number">12.2.1</span> Smoothing within Species</h3>
+<p>We can, of course, produce the plot above with separate smooths for each of the three species of crab.</p>
+<div class="sourceCode" id="cb388"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb388-1"><a href="studying-crab-claws-crabs.html#cb388-1"></a><span class="kw">ggplot</span>(crabs, <span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> force, <span class="dt">group =</span> species, <span class="dt">color =</span> species)) <span class="op">+</span></span>
+<span id="cb388-2"><a href="studying-crab-claws-crabs.html#cb388-2"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span></span>
+<span id="cb388-3"><a href="studying-crab-claws-crabs.html#cb388-3"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x, <span class="dt">se =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb388-4"><a href="studying-crab-claws-crabs.html#cb388-4"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Crab Claw Force by Size&quot;</span>, </span>
+<span id="cb388-5"><a href="studying-crab-claws-crabs.html#cb388-5"></a>         <span class="dt">x =</span> <span class="st">&quot;Claw&#39;s propodus height (mm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Mean closing force (N)&quot;</span>)</span></code></pre></div>
+<p><img src="431-notes_files/figure-html/crabsscatter6-fig-1.png" width="672" /></p>
+<p>If we want to add in the confidence intervals (here I’ll show them at 90% rather than the default of 95%) then this plot should be faceted. Note that by default, what is displayed when <code>se = TRUE</code> are 95% prediction intervals - the <code>level</code> function in <code>stat_smooth</code> [which can be used in place of <code>geom_smooth</code>] is used here to change the coverage percentage from 95% to 90%.</p>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="studying-crab-claws-crabs.html#cb389-1"></a><span class="kw">ggplot</span>(crabs, <span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> force, <span class="dt">group =</span> species, <span class="dt">color =</span> species)) <span class="op">+</span></span>
+<span id="cb389-2"><a href="studying-crab-claws-crabs.html#cb389-2"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb389-3"><a href="studying-crab-claws-crabs.html#cb389-3"></a><span class="st">    </span><span class="kw">stat_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x, <span class="dt">level =</span> <span class="fl">0.90</span>, <span class="dt">se =</span> <span class="ot">TRUE</span>) <span class="op">+</span></span>
+<span id="cb389-4"><a href="studying-crab-claws-crabs.html#cb389-4"></a><span class="st">    </span><span class="kw">guides</span>(<span class="dt">color =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb389-5"><a href="studying-crab-claws-crabs.html#cb389-5"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Crab Claw Force by Size&quot;</span>, </span>
+<span id="cb389-6"><a href="studying-crab-claws-crabs.html#cb389-6"></a>         <span class="dt">caption =</span> <span class="st">&quot;with loess smooths and 90% confidence intervals&quot;</span>,</span>
+<span id="cb389-7"><a href="studying-crab-claws-crabs.html#cb389-7"></a>         <span class="dt">x =</span> <span class="st">&quot;Claw&#39;s propodus height (mm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Mean closing force (N)&quot;</span>) <span class="op">+</span></span>
+<span id="cb389-8"><a href="studying-crab-claws-crabs.html#cb389-8"></a><span class="st">    </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>species)</span></code></pre></div>
+<p><img src="431-notes_files/figure-html/crabsscatter7-fig-1.png" width="672" /></p>
+<p>More on these and other confidence intervals later, especially in part B.</p>
+</div>
+</div>
+<div id="fitting-a-linear-regression-model" class="section level2">
+<h2><span class="header-section-number">12.3</span> Fitting a Linear Regression Model</h2>
+<p>Suppose we plan to use a simple (least squares) linear regression model to describe force as a function of height. Is a least squares model likely to be an effective choice here?</p>
+<p>The plot below shows the regression line predicting closing force as a function of propodus height. Here we annotate the plot to show the actual fitted regression line, which required fitting it with the <code>lm</code> statement prior to developing the graph.</p>
+<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="studying-crab-claws-crabs.html#cb390-1"></a>mod &lt;-<span class="st"> </span><span class="kw">lm</span>(force <span class="op">~</span><span class="st"> </span>height, <span class="dt">data =</span> crabs)</span>
+<span id="cb390-2"><a href="studying-crab-claws-crabs.html#cb390-2"></a></span>
+<span id="cb390-3"><a href="studying-crab-claws-crabs.html#cb390-3"></a><span class="kw">ggplot</span>(crabs, <span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> force)) <span class="op">+</span></span>
+<span id="cb390-4"><a href="studying-crab-claws-crabs.html#cb390-4"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb390-5"><a href="studying-crab-claws-crabs.html#cb390-5"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x,  <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb390-6"><a href="studying-crab-claws-crabs.html#cb390-6"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Crab Claw Force by Size with Linear Regression Model&quot;</span>, </span>
+<span id="cb390-7"><a href="studying-crab-claws-crabs.html#cb390-7"></a>         <span class="dt">x =</span> <span class="st">&quot;Claw&#39;s propodus height (mm)&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;Mean closing force (N)&quot;</span>) <span class="op">+</span></span>
+<span id="cb390-8"><a href="studying-crab-claws-crabs.html#cb390-8"></a><span class="st">    </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dt">x =</span> <span class="dv">11</span>, <span class="dt">y =</span> <span class="dv">0</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">fontface =</span> <span class="st">&quot;italic&quot;</span>,</span>
+<span id="cb390-9"><a href="studying-crab-claws-crabs.html#cb390-9"></a>             <span class="dt">label =</span> <span class="kw">paste</span>( <span class="st">&quot;Force - &quot;</span>, <span class="kw">signif</span>(<span class="kw">coef</span>(mod)[<span class="dv">1</span>],<span class="dv">3</span>), <span class="st">&quot; + &quot;</span>, </span>
+<span id="cb390-10"><a href="studying-crab-claws-crabs.html#cb390-10"></a>                            <span class="kw">signif</span>(<span class="kw">coef</span>(mod)[<span class="dv">2</span>],<span class="dv">3</span>), <span class="st">&quot; Height&quot;</span> ))</span></code></pre></div>
+<p><img src="431-notes_files/figure-html/crabsscatter8-fig-1.png" width="672" /></p>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="studying-crab-claws-crabs.html#cb391-1"></a><span class="kw">rm</span>(mod)</span></code></pre></div>
+<p>The <strong>lm</strong> function, again, specifies the linear model we fit to predict force using height. Here’s the summary.</p>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="studying-crab-claws-crabs.html#cb392-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(force <span class="op">~</span><span class="st"> </span>height, <span class="dt">data =</span> crabs))</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = force ~ height, data = crabs)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-16.7945  -3.8113  -0.2394   4.1444  16.8814 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -11.0869     4.6224  -2.399   0.0218 *  
+height        2.6348     0.5089   5.177 8.73e-06 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 6.892 on 36 degrees of freedom
+Multiple R-squared:  0.4268,	Adjusted R-squared:  0.4109 
+F-statistic:  26.8 on 1 and 36 DF,  p-value: 8.73e-06</code></pre>
+<p>Again, the key things to realize are:</p>
+<ul>
+<li>The outcome variable in this model is <strong>force</strong>, and the predictor variable is <strong>height</strong>.</li>
+<li>The straight line model for these data fitted by least squares is force = -11.1 + 2.63 height.</li>
+<li>The slope of height is positive, which indicates that as height increases, we expect that force will also increase. Specifically, we expect that for every additional mm of height, the force will increase by 2.63 Newtons.</li>
+<li>The multiple R-squared (squared correlation coefficient) is 0.427, which implies that 42.7% of the variation in force is explained using this linear model with height. It also implies that the Pearson correlation between force and height is the square root of 0.427, or 0.653.</li>
+</ul>
+</div>
+<div id="is-a-linear-model-appropriate" class="section level2">
+<h2><span class="header-section-number">12.4</span> Is a Linear Model Appropriate?</h2>
+<p>The zoology (at least as described in <span class="citation">Ramsey and Schafer (<a href="#ref-RamseySchafer" role="doc-biblioref">2002</a>)</span>) suggests that the actual nature of the relationship would be represented by a log-log relationship, where the log of force is predicted by the log of height.</p>
+<p>This log-log model is an appropriate model when we think that percentage increases in X (height, here) lead to constant percentage increases in Y (here, force).</p>
+<p>To see the log-log model in action, we plot the log of force against the log of height. We could use either base 10 (log10 in R) or natural (log in R) logarithms.</p>
+<div class="sourceCode" id="cb394"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb394-1"><a href="studying-crab-claws-crabs.html#cb394-1"></a><span class="kw">ggplot</span>(crabs, <span class="kw">aes</span>(<span class="dt">x =</span> <span class="kw">log</span>(height), <span class="dt">y =</span> <span class="kw">log</span>(force))) <span class="op">+</span></span>
+<span id="cb394-2"><a href="studying-crab-claws-crabs.html#cb394-2"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb394-3"><a href="studying-crab-claws-crabs.html#cb394-3"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">formula =</span> y <span class="op">~</span><span class="st"> </span>x) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb394-4"><a href="studying-crab-claws-crabs.html#cb394-4"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Log-Log Model for Crabs data&quot;</span>)</span></code></pre></div>
+<p><img src="431-notes_files/figure-html/crabs_loglog_model1-fig-1.png" width="672" /></p>
+<p>The correlations between the raw force and height and between their logarithms turn out to be quite similar, and because the log transformation is monotone in these data, there’s actually no change at all in the Spearman correlations.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Correlation of</th>
+<th align="center">Pearson r</th>
+<th align="center">Spearman r</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">force and height</td>
+<td align="center">0.653</td>
+<td align="center">0.657</td>
+</tr>
+<tr class="even">
+<td align="center">log(force) and log(height)</td>
+<td align="center">0.662</td>
+<td align="center">0.657</td>
+</tr>
+</tbody>
+</table>
+<div id="the-log-log-model" class="section level3">
+<h3><span class="header-section-number">12.4.1</span> The log-log model</h3>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="studying-crab-claws-crabs.html#cb395-1"></a>crab_loglog &lt;-<span class="st"> </span><span class="kw">lm</span>(<span class="kw">log</span>(force) <span class="op">~</span><span class="st"> </span><span class="kw">log</span>(height), <span class="dt">data =</span> crabs)</span>
+<span id="cb395-2"><a href="studying-crab-claws-crabs.html#cb395-2"></a></span>
+<span id="cb395-3"><a href="studying-crab-claws-crabs.html#cb395-3"></a><span class="kw">summary</span>(crab_loglog)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = log(force) ~ log(height), data = crabs)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-1.5657 -0.4450  0.1884  0.4798  1.2422 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -2.7104     0.9251  -2.930  0.00585 ** 
+log(height)   2.2711     0.4284   5.302 5.96e-06 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 0.6748 on 36 degrees of freedom
+Multiple R-squared:  0.4384,	Adjusted R-squared:  0.4228 
+F-statistic: 28.11 on 1 and 36 DF,  p-value: 5.96e-06</code></pre>
+<p>Our regression equation is log(force) = -2.71 + 2.27 log(height).</p>
+<p>So, for example, if we found a crab with propodus height = 10 mm, our prediction for that crab’s claw force (in Newtons) based on this log-log model would be…</p>
+<ul>
+<li>log(force) = -2.71 + 2.27 log(10)</li>
+<li>log(force) = -2.71 + 2.27 x 2.3025851</li>
+<li>log(force) = 2.5190953</li>
+<li>and so predicted force = exp(2.5190953) = 12.4173582 Newtons, which, naturally, we would round to 12.4 Newtons to match the data set’s level of precision.</li>
+</ul>
+</div>
+<div id="how-does-this-compare-to-our-original-linear-model" class="section level3">
+<h3><span class="header-section-number">12.4.2</span> How does this compare to our original linear model?</h3>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="studying-crab-claws-crabs.html#cb397-1"></a>crab_linear &lt;-<span class="st"> </span><span class="kw">lm</span>(force <span class="op">~</span><span class="st"> </span>height, <span class="dt">data =</span> crabs)</span>
+<span id="cb397-2"><a href="studying-crab-claws-crabs.html#cb397-2"></a></span>
+<span id="cb397-3"><a href="studying-crab-claws-crabs.html#cb397-3"></a><span class="kw">summary</span>(crab_linear)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = force ~ height, data = crabs)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-16.7945  -3.8113  -0.2394   4.1444  16.8814 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -11.0869     4.6224  -2.399   0.0218 *  
+height        2.6348     0.5089   5.177 8.73e-06 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 6.892 on 36 degrees of freedom
+Multiple R-squared:  0.4268,	Adjusted R-squared:  0.4109 
+F-statistic:  26.8 on 1 and 36 DF,  p-value: 8.73e-06</code></pre>
+<p>The linear regression equation is force = -11.1 + 2.63 height.</p>
+<p>So, for example, if we found a crab with propodus height = 10 mm, our prediction for that crab’s claw force (in Newtons) based on this linear model would be…</p>
+<ul>
+<li>force = -11.0869025 + 2.6348232 x 10</li>
+<li>force = -11.0869025 + 26.3482321</li>
+<li>so predicted force = 15.2613297, which we would round to 15.3 Newtons.</li>
+</ul>
+<p>So, it looks like the two models give meaningfully different predictions.</p>
+</div>
+</div>
+<div id="making-predictions-with-a-model" class="section level2">
+<h2><span class="header-section-number">12.5</span> Making Predictions with a Model</h2>
+<p>The <code>broom</code> package’s <code>augment</code> function provides us with a consistent method for obtaining predictions (also called fitted values) for a new crab or for our original data. Suppose we want to predict the <code>force</code> level for two new crabs: one with height = 10 mm, and another with height = 12 mm.</p>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="studying-crab-claws-crabs.html#cb399-1"></a>newcrab &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">crab =</span> <span class="kw">c</span>(<span class="st">&quot;Crab_A&quot;</span>, <span class="st">&quot;Crab_B&quot;</span>), <span class="dt">height =</span> <span class="kw">c</span>(<span class="dv">10</span>, <span class="dv">12</span>))</span>
+<span id="cb399-2"><a href="studying-crab-claws-crabs.html#cb399-2"></a></span>
+<span id="cb399-3"><a href="studying-crab-claws-crabs.html#cb399-3"></a><span class="kw">augment</span>(crab_linear, <span class="dt">newdata =</span> newcrab)</span></code></pre></div>
+<pre><code># A tibble: 2 x 3
+  crab   height .fitted
+  &lt;chr&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 Crab_A     10    15.3
+2 Crab_B     12    20.5</code></pre>
+<p>Should we want to obtain a prediction interval, we can use the <code>predict</code> function:</p>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="studying-crab-claws-crabs.html#cb401-1"></a><span class="kw">predict</span>(crab_linear, <span class="dt">newdata =</span> newcrab, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>, <span class="dt">level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>       fit      lwr      upr
+1 15.26133 1.048691 29.47397
+2 20.53098 5.994208 35.06774</code></pre>
+<p>We’d interpret this result as saying that the linear model’s predicted force associated with a single new crab claw with propodus height 10 mm is 15.3 Newtons, and that a 95% prediction interval for the true value of such a force for such a claw is between 1.0 and 29.5 Newtons. More on prediction intervals later.</p>
+<div id="predictions-after-a-transformation" class="section level3">
+<h3><span class="header-section-number">12.5.1</span> Predictions After a Transformation</h3>
+<p>We can also get predictions from the log-log model. The default choice is a 95% prediction interval.</p>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="studying-crab-claws-crabs.html#cb403-1"></a><span class="kw">predict</span>(crab_loglog, <span class="dt">newdata =</span> newcrab, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span></code></pre></div>
+<pre><code>       fit      lwr      upr
+1 2.519095 1.125900 3.912291
+2 2.933174 1.515548 4.350800</code></pre>
+<p>Of course, these predictions describe the <code>log(force)</code> for such a crab claw. To get the prediction in terms of simple force, we’d need to back out of the logarithm, by exponentiating our point estimate and the prediction interval endpoints.</p>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="studying-crab-claws-crabs.html#cb405-1"></a><span class="kw">exp</span>(<span class="kw">predict</span>(crab_loglog, <span class="dt">newdata =</span> newcrab, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>))</span></code></pre></div>
+<pre><code>       fit      lwr      upr
+1 12.41736 3.082989 50.01341
+2 18.78716 4.551916 77.54044</code></pre>
+<p>We’d interpret this result as saying, for the first new crab, that the log-log model’s predicted force associated with a single new crab claw with propodus height 10 mm is 12.4 Newtons, and that a 95% prediction interval for the true value of such a force for such a claw is between 3.1 and 50.0 Newtons.</p>
+</div>
+<div id="comparing-model-predictions" class="section level3">
+<h3><span class="header-section-number">12.5.2</span> Comparing Model Predictions</h3>
+<p>Suppose we wish to build a plot of force vs height with a straight line for the linear model’s predictions, and a new curve for the log-log model’s predictions, so that we can compare and contrast the implications of the two models on a common scale. The <code>predict</code> function, when not given a new data frame, will use the existing predictor values that are in our <code>crabs</code> data. Such predictions are often called fitted values.</p>
+<p>To put the two sets of predictions on the same scale despite the differing outcomes in the two models, we’ll exponentiate the results of the log-log model, and build a little data frame containing the heights and the predicted forces from that model.</p>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="studying-crab-claws-crabs.html#cb407-1"></a>loglogdat &lt;-<span class="st"> </span><span class="kw">tibble</span>(<span class="dt">height =</span> crabs<span class="op">$</span>height, <span class="dt">force =</span> <span class="kw">exp</span>(<span class="kw">predict</span>(crab_loglog)))</span></code></pre></div>
+<p>A cleaner way to do this might be to use the <code>augment</code> function directly from <code>broom</code>:</p>
+<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="studying-crab-claws-crabs.html#cb408-1"></a><span class="kw">augment</span>(crab_loglog)</span></code></pre></div>
+<pre><code># A tibble: 38 x 7
+   `log(force)` `log(height)` .fitted .std.resid   .hat .sigma  .cooksd
+          &lt;dbl&gt;         &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;    &lt;dbl&gt;
+ 1         1.39          2.08   2.01   -0.941    0.0280  0.676 1.28e- 2
+ 2         2.71          2.07   1.98    1.10     0.0287  0.673 1.79e- 2
+ 3         1.61          1.90   1.61   -0.000175 0.0499  0.684 8.06e-10
+ 4         1.06          1.89   1.58   -0.778    0.0530  0.679 1.69e- 2
+ 5         1.16          1.61   0.945   0.349    0.142   0.683 1.01e- 2
+ 6         2.25          2.07   1.98    0.402    0.0287  0.683 2.39e- 3
+ 7         3.11          2.24   2.38    1.11     0.0301  0.673 1.90e- 2
+ 8         2.00          2.12   2.10   -0.142    0.0266  0.684 2.75e- 4
+ 9         2.68          2.42   2.78   -0.146    0.0561  0.684 6.30e- 4
+10         2.16          2.15   2.18   -0.0199   0.0263  0.684 5.34e- 6
+# ... with 28 more rows</code></pre>
+<p>Now, we’re ready to use the <code>geom_smooth</code> approach to plot the linear fit, and <code>geom_line</code> (which also fits curves) to display the log-log fit.</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="studying-crab-claws-crabs.html#cb410-1"></a><span class="kw">ggplot</span>(crabs, <span class="kw">aes</span>(<span class="dt">x =</span> height, <span class="dt">y =</span> force)) <span class="op">+</span></span>
+<span id="cb410-2"><a href="studying-crab-claws-crabs.html#cb410-2"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb410-3"><a href="studying-crab-claws-crabs.html#cb410-3"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">col=</span><span class="st">&quot;blue&quot;</span>, <span class="dt">linetype =</span> <span class="dv">2</span>) <span class="op">+</span></span>
+<span id="cb410-4"><a href="studying-crab-claws-crabs.html#cb410-4"></a><span class="st">    </span><span class="kw">geom_line</span>(<span class="dt">data =</span> loglogdat, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">linetype =</span> <span class="dv">2</span>, <span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span></span>
+<span id="cb410-5"><a href="studying-crab-claws-crabs.html#cb410-5"></a><span class="st">    </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dv">7</span>, <span class="dv">12</span>, <span class="dt">label =</span> <span class="st">&quot;Linear Model&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span></span>
+<span id="cb410-6"><a href="studying-crab-claws-crabs.html#cb410-6"></a><span class="st">    </span><span class="kw">annotate</span>(<span class="st">&quot;text&quot;</span>, <span class="dv">10</span>, <span class="dv">8</span>, <span class="dt">label =</span> <span class="st">&quot;Log-Log Model&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span></span>
+<span id="cb410-7"><a href="studying-crab-claws-crabs.html#cb410-7"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Comparing the Linear and Log-Log Models for Crab Claw data&quot;</span>)</span></code></pre></div>
+<pre><code>`geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="431-notes_files/figure-html/crabsmodelcompare-fig-1.png" width="672" /></p>
+<p>Based on these 38 crabs, we see some modest differences between the predictions of the two models, with the log-log model predicting generally lower closing force for a given propodus height than would be predicted by a linear model.</p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="studying-crab-claws-crabs.html#cb412-1"></a><span class="kw">rm</span>(loglogdat, crab_linear, crab_loglog)</span></code></pre></div>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-RamseySchafer">
+<p>Ramsey, Fred L., and Daniel W. Schafer. 2002. <em>The Statistical Sleuth: A Course in Methods of Data Analysis</em>. Second. Pacific Grove, CA: Duxbury.</p>
+</div>
+<div id="ref-Yamada1998">
+<p>Yamada, SB, and EG Boulding. 1998. “Claw Morphology, Prey Size Selection and Foraging Efficiency in Generalist and Specialist Shell-Breaking Crabs.” <em>Journal of Experimental Marine Biology and Ecology</em> 220: 191–211. <a href="http://www.science.oregonstate.edu/~yamadas/SylviaCV/BehrensYamada_Boulding1998.pdf">http://www.science.oregonstate.edu/~yamadas/SylviaCV/BehrensYamada_Boulding1998.pdf</a>.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="straight-line-models-and-correlation.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="references.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/12_thecrabsexample.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["431-notes.pdf", "431-notes.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
