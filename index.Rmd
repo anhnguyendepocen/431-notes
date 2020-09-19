@@ -85,6 +85,8 @@ library(patchwork)
 library(rms)
 library(tidymodels) # note: tidymodels includes the broom package
 library(tidyverse) # note: tidyverse includes the dplyr and ggplot2 packages
+
+theme_set(theme_bw())
 ```
 
 I have deliberately set up this list of loaded packages to be relatively small, and will add some others later in these Notes. You only need to install a package once, but you need to reload it every time you start a new session.
@@ -96,6 +98,7 @@ Some packages need to be installed on the user's system, but do not need to be l
 ```
 car
 Epi
+GGally
 gt
 psych
 modelsummary

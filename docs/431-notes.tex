@@ -243,6 +243,8 @@ To start, I'll present a series of commands I run at the beginning of these Note
 \KeywordTok{library}\NormalTok{(rms)}
 \KeywordTok{library}\NormalTok{(tidymodels) }\CommentTok{# note: tidymodels includes the broom package}
 \KeywordTok{library}\NormalTok{(tidyverse) }\CommentTok{# note: tidyverse includes the dplyr and ggplot2 packages}
+
+\KeywordTok{theme_set}\NormalTok{(}\KeywordTok{theme_bw}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
@@ -257,6 +259,7 @@ Some packages need to be installed on the user's system, but do not need to be l
 \begin{verbatim}
 car
 Epi
+GGally
 gt
 psych
 modelsummary
@@ -7987,6 +7990,1841 @@ Based on these 38 crabs, we see some modest differences between the predictions 
 \KeywordTok{rm}\NormalTok{(loglogdat, crab_linear, crab_loglog)}
 \end{Highlighting}
 \end{Shaded}
+
+\hypertarget{WCGS-Study}{%
+\chapter{The Western Collaborative Group Study}\label{WCGS-Study}}
+
+\hypertarget{the-western-collaborative-group-study-wcgs-data-set}{%
+\section{\texorpdfstring{The Western Collaborative Group Study (\texttt{wcgs}) data set}{The Western Collaborative Group Study (wcgs) data set}}\label{the-western-collaborative-group-study-wcgs-data-set}}
+
+\citet{Vittinghoff} explore data from the Western Collaborative Group Study (WCGS) in great detail\footnote{For more on the WCGS, you might look at \url{http://www.epi.umn.edu/cvdepi/study-synopsis/western-collaborative-group-study/}}. We'll touch lightly on some key issues in this Chapter.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wcgs <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/wcgs.csv"}\NormalTok{)}
+
+\NormalTok{wcgs}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 3,154 x 22
+      id   age agec  height weight lnwght wghtcat   bmi   sbp lnsbp   dbp  chol
+   <dbl> <dbl> <chr>  <dbl>  <dbl>  <dbl> <chr>   <dbl> <dbl> <dbl> <dbl> <dbl>
+ 1  2343    50 46-50     67    200   5.30 170-200  31.3   132  4.88    90   249
+ 2  3656    51 51-55     73    192   5.26 170-200  25.3   120  4.79    74   194
+ 3  3526    59 56-60     70    200   5.30 170-200  28.7   158  5.06    94   258
+ 4 22057    51 51-55     69    150   5.01 140-170  22.1   126  4.84    80   173
+ 5 12927    44 41-45     71    160   5.08 140-170  22.3   126  4.84    80   214
+ 6 16029    47 46-50     64    158   5.06 140-170  27.1   116  4.75    76   206
+ 7  3894    40 35-40     70    162   5.09 140-170  23.2   122  4.80    78   190
+ 8 11389    41 41-45     70    160   5.08 140-170  23.0   130  4.87    84   212
+ 9 12681    50 46-50     71    195   5.27 170-200  27.2   112  4.72    70   130
+10 10005    43 41-45     68    187   5.23 170-200  28.4   120  4.79    80   233
+# ... with 3,144 more rows, and 10 more variables: behpat <chr>, dibpat <chr>,
+#   smoke <chr>, ncigs <dbl>, arcus <dbl>, chd69 <chr>, typchd69 <dbl>,
+#   time169 <dbl>, t1 <dbl>, uni <dbl>
+\end{verbatim}
+
+Here, we have 3154 rows (subjects) and 22 columns (variables). Since I used \texttt{read.csv} to import the data, and then converted to a tibble, all variables containing character data will appear as factors.
+
+\hypertarget{structure-of-wcgs}{%
+\subsection{\texorpdfstring{Structure of \texttt{wcgs}}{Structure of wcgs}}\label{structure-of-wcgs}}
+
+We can specify the (sometimes terrible) variable names, through the \texttt{names} function, or we can add other elements of the structure, so that we can identify elements of particular interest.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{str}\NormalTok{(wcgs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+tibble [3,154 x 22] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ id      : num [1:3154] 2343 3656 3526 22057 12927 ...
+ $ age     : num [1:3154] 50 51 59 51 44 47 40 41 50 43 ...
+ $ agec    : chr [1:3154] "46-50" "51-55" "56-60" "51-55" ...
+ $ height  : num [1:3154] 67 73 70 69 71 64 70 70 71 68 ...
+ $ weight  : num [1:3154] 200 192 200 150 160 158 162 160 195 187 ...
+ $ lnwght  : num [1:3154] 5.3 5.26 5.3 5.01 5.08 ...
+ $ wghtcat : chr [1:3154] "170-200" "170-200" "170-200" "140-170" ...
+ $ bmi     : num [1:3154] 31.3 25.3 28.7 22.1 22.3 ...
+ $ sbp     : num [1:3154] 132 120 158 126 126 116 122 130 112 120 ...
+ $ lnsbp   : num [1:3154] 4.88 4.79 5.06 4.84 4.84 ...
+ $ dbp     : num [1:3154] 90 74 94 80 80 76 78 84 70 80 ...
+ $ chol    : num [1:3154] 249 194 258 173 214 206 190 212 130 233 ...
+ $ behpat  : chr [1:3154] "A1" "A1" "A1" "A1" ...
+ $ dibpat  : chr [1:3154] "Type A" "Type A" "Type A" "Type A" ...
+ $ smoke   : chr [1:3154] "Yes" "Yes" "No" "No" ...
+ $ ncigs   : num [1:3154] 25 25 0 0 0 80 0 25 0 25 ...
+ $ arcus   : num [1:3154] 1 0 1 1 0 0 0 0 1 0 ...
+ $ chd69   : chr [1:3154] "No" "No" "No" "No" ...
+ $ typchd69: num [1:3154] 0 0 0 0 0 0 0 0 0 0 ...
+ $ time169 : num [1:3154] 1367 2991 2960 3069 3081 ...
+ $ t1      : num [1:3154] -1.63 -4.06 0.64 1.12 2.43 ...
+ $ uni     : num [1:3154] 0.486 0.186 0.728 0.624 0.379 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   id = col_double(),
+  ..   age = col_double(),
+  ..   agec = col_character(),
+  ..   height = col_double(),
+  ..   weight = col_double(),
+  ..   lnwght = col_double(),
+  ..   wghtcat = col_character(),
+  ..   bmi = col_double(),
+  ..   sbp = col_double(),
+  ..   lnsbp = col_double(),
+  ..   dbp = col_double(),
+  ..   chol = col_double(),
+  ..   behpat = col_character(),
+  ..   dibpat = col_character(),
+  ..   smoke = col_character(),
+  ..   ncigs = col_double(),
+  ..   arcus = col_double(),
+  ..   chd69 = col_character(),
+  ..   typchd69 = col_double(),
+  ..   time169 = col_double(),
+  ..   t1 = col_double(),
+  ..   uni = col_double()
+  .. )
+\end{verbatim}
+
+\hypertarget{codebook-for-wcgs}{%
+\subsection{\texorpdfstring{Codebook for \texttt{wcgs}}{Codebook for wcgs}}\label{codebook-for-wcgs}}
+
+This table was lovingly hand-crafted, and involved a lot of typing. We'll look for better ways in 432.
+
+\begin{longtable}[]{@{}rccl@{}}
+\toprule
+Name & Stored As & Type & Details (units, levels, etc.)\tabularnewline
+\midrule
+\endhead
+\texttt{id} & integer & (nominal) & ID \#, nominal and uninteresting\tabularnewline
+\texttt{age} & integer & quantitative & age, in years - no decimal places\tabularnewline
+\texttt{agec} & factor (5) & (ordinal) & age: 35-40, 41-45, 46-50, 51-55, 56-60\tabularnewline
+\texttt{height} & integer & quantitative & height, in inches\tabularnewline
+\texttt{weight} & integer & quantitative & weight, in pounds\tabularnewline
+\texttt{lnwght} & number & quantitative & natural logarithm of weight\tabularnewline
+\texttt{wghtcat} & factor (4) & (ordinal) & wt: \textless{} 140, 140-170, 170-200, \textgreater{} 200\tabularnewline
+\texttt{bmi} & number & quantitative & body-mass index:\tabularnewline
+& & & 703 * weight in lb / (height in in)\textsuperscript{2}\tabularnewline
+\texttt{sbp} & integer & quantitative & systolic blood pressure, in mm Hg\tabularnewline
+\texttt{lnsbp} & number & quantitative & natural logarithm of sbp\tabularnewline
+\texttt{dbp} & integer & quantitative & diastolic blood pressure, mm Hg\tabularnewline
+\texttt{chol} & integer & quantitative & total cholesterol, mg/dL\tabularnewline
+\texttt{behpat} & factor (4) & (nominal) & behavioral pattern: A1, A2, B3 or B4\tabularnewline
+\texttt{dibpat} & factor (2) & (binary) & behavioral pattern: A or B\tabularnewline
+\texttt{smoke} & factor (2) & (binary) & cigarette smoker: Yes or No\tabularnewline
+\texttt{ncigs} & integer & quantitative & number of cigarettes smoked per day\tabularnewline
+\texttt{arcus} & integer & (nominal) & arcus senilis present (1) or absent (0)\tabularnewline
+\texttt{chd69} & factor (2) & (binary) & CHD event: Yes or No\tabularnewline
+\texttt{typchd69} & integer & (4 levels) & event: 0 = no CHD, 1 = MI or SD,\tabularnewline
+& & & 2 = silent MI, 3 = angina\tabularnewline
+\texttt{time169} & integer & quantitative & follow-up time in days\tabularnewline
+\texttt{t1} & number & quantitative & heavy-tailed (random draws)\tabularnewline
+\texttt{uni} & number & quantitative & light-tailed (random draws)\tabularnewline
+\bottomrule
+\end{longtable}
+
+\hypertarget{quick-summary}{%
+\subsection{Quick Summary}\label{quick-summary}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(wcgs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       id             age            agec               height     
+ Min.   : 2001   Min.   :39.00   Length:3154        Min.   :60.00  
+ 1st Qu.: 3741   1st Qu.:42.00   Class :character   1st Qu.:68.00  
+ Median :11406   Median :45.00   Mode  :character   Median :70.00  
+ Mean   :10478   Mean   :46.28                      Mean   :69.78  
+ 3rd Qu.:13115   3rd Qu.:50.00                      3rd Qu.:72.00  
+ Max.   :22101   Max.   :59.00                      Max.   :78.00  
+                                                                   
+     weight        lnwght        wghtcat               bmi       
+ Min.   : 78   Min.   :4.357   Length:3154        Min.   :11.19  
+ 1st Qu.:155   1st Qu.:5.043   Class :character   1st Qu.:22.96  
+ Median :170   Median :5.136   Mode  :character   Median :24.39  
+ Mean   :170   Mean   :5.128                      Mean   :24.52  
+ 3rd Qu.:182   3rd Qu.:5.204                      3rd Qu.:25.84  
+ Max.   :320   Max.   :5.768                      Max.   :38.95  
+                                                                 
+      sbp            lnsbp            dbp              chol      
+ Min.   : 98.0   Min.   :4.585   Min.   : 58.00   Min.   :103.0  
+ 1st Qu.:120.0   1st Qu.:4.787   1st Qu.: 76.00   1st Qu.:197.2  
+ Median :126.0   Median :4.836   Median : 80.00   Median :223.0  
+ Mean   :128.6   Mean   :4.850   Mean   : 82.02   Mean   :226.4  
+ 3rd Qu.:136.0   3rd Qu.:4.913   3rd Qu.: 86.00   3rd Qu.:253.0  
+ Max.   :230.0   Max.   :5.438   Max.   :150.00   Max.   :645.0  
+                                                  NA's   :12     
+    behpat             dibpat             smoke               ncigs     
+ Length:3154        Length:3154        Length:3154        Min.   : 0.0  
+ Class :character   Class :character   Class :character   1st Qu.: 0.0  
+ Mode  :character   Mode  :character   Mode  :character   Median : 0.0  
+                                                          Mean   :11.6  
+                                                          3rd Qu.:20.0  
+                                                          Max.   :99.0  
+                                                                        
+     arcus           chd69              typchd69         time169    
+ Min.   :0.0000   Length:3154        Min.   :0.0000   Min.   :  18  
+ 1st Qu.:0.0000   Class :character   1st Qu.:0.0000   1st Qu.:2842  
+ Median :0.0000   Mode  :character   Median :0.0000   Median :2942  
+ Mean   :0.2985                      Mean   :0.1363   Mean   :2684  
+ 3rd Qu.:1.0000                      3rd Qu.:0.0000   3rd Qu.:3037  
+ Max.   :1.0000                      Max.   :3.0000   Max.   :3430  
+ NA's   :2                                                          
+       t1                 uni           
+ Min.   :-47.43147   Min.   :0.0007097  
+ 1st Qu.: -1.00337   1st Qu.:0.2573755  
+ Median :  0.00748   Median :0.5157779  
+ Mean   : -0.03336   Mean   :0.5052159  
+ 3rd Qu.:  0.97575   3rd Qu.:0.7559902  
+ Max.   : 47.01623   Max.   :0.9994496  
+ NA's   :39                             
+\end{verbatim}
+
+For a more detailed description, we might consider \texttt{Hmisc::describe}, \texttt{psych::describe}, \texttt{mosaic::favstats}, etc.
+
+\hypertarget{are-the-sbps-normally-distributed}{%
+\section{Are the SBPs Normally Distributed?}\label{are-the-sbps-normally-distributed}}
+
+Consider the question of whether the distribution of the systolic blood pressure results is well-approximated by the Normal.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res <-}\StringTok{ }\NormalTok{mosaic}\OperatorTok{::}\KeywordTok{favstats}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{sbp, }\DataTypeTok{data =}\NormalTok{ wcgs)}
+\NormalTok{bin_w <-}\StringTok{ }\DecValTok{5} \CommentTok{# specify binwidth}
+
+\KeywordTok{ggplot}\NormalTok{(wcgs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ sbp)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{binwidth =}\NormalTok{ bin_w, }
+                   \DataTypeTok{fill =} \StringTok{"orchid"}\NormalTok{, }
+                   \DataTypeTok{col =} \StringTok{"blue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{stat_function}\NormalTok{(}
+        \DataTypeTok{fun =} \ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{dnorm}\NormalTok{(x, }\DataTypeTok{mean =}\NormalTok{ res}\OperatorTok{$}\NormalTok{mean, }
+                                \DataTypeTok{sd =}\NormalTok{ res}\OperatorTok{$}\NormalTok{sd) }\OperatorTok{*}\StringTok{ }
+\StringTok{            }\NormalTok{res}\OperatorTok{$}\NormalTok{n }\OperatorTok{*}\StringTok{ }\NormalTok{bin_w,}
+        \DataTypeTok{col =} \StringTok{"navy"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Systolic BP for `wcgs` subjects"}\NormalTok{,}
+     \DataTypeTok{x =} \StringTok{"Systolic BP (mm Hg)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{""}\NormalTok{,}
+     \DataTypeTok{caption =} \StringTok{"Superimposed Normal model"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-101-1.pdf}
+
+Since the data contain both \texttt{sbp} and \texttt{lnsbp} (its natural logarithm), let's compare them. Note that in preparing the graph, we'll need to change the location for the text annotation.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res <-}\StringTok{ }\NormalTok{mosaic}\OperatorTok{::}\KeywordTok{favstats}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{lnsbp, }\DataTypeTok{data =}\NormalTok{ wcgs)}
+\NormalTok{bin_w <-}\StringTok{ }\FloatTok{0.05} \CommentTok{# specify binwidth}
+
+\KeywordTok{ggplot}\NormalTok{(wcgs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ lnsbp)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{binwidth =}\NormalTok{ bin_w, }
+                   \DataTypeTok{fill =} \StringTok{"orange"}\NormalTok{, }
+                   \DataTypeTok{col =} \StringTok{"blue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{stat_function}\NormalTok{(}
+        \DataTypeTok{fun =} \ControlFlowTok{function}\NormalTok{(x) }\KeywordTok{dnorm}\NormalTok{(x, }\DataTypeTok{mean =}\NormalTok{ res}\OperatorTok{$}\NormalTok{mean, }
+                                \DataTypeTok{sd =}\NormalTok{ res}\OperatorTok{$}\NormalTok{sd) }\OperatorTok{*}\StringTok{ }
+\StringTok{            }\NormalTok{res}\OperatorTok{$}\NormalTok{n }\OperatorTok{*}\StringTok{ }\NormalTok{bin_w,}
+        \DataTypeTok{col =} \StringTok{"navy"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"ln(Systolic BP) for `wcgs` subjects"}\NormalTok{,}
+     \DataTypeTok{x =} \StringTok{"ln(Systolic BP)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{""}\NormalTok{,}
+     \DataTypeTok{caption =} \StringTok{"Superimposed Normal model"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-102-1.pdf}
+
+We can also look at Normal Q-Q plots, for instance\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(wcgs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{sample =}\NormalTok{ sbp)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_qq}\NormalTok{(}\DataTypeTok{color =} \StringTok{"orchid"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_qq_line}\NormalTok{(}\DataTypeTok{color =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{y =} \StringTok{"Ordered SBP"}\NormalTok{, }\DataTypeTok{title =} \StringTok{"sbp in wcgs"}\NormalTok{)}
+
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(wcgs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{sample =}\NormalTok{ lnsbp)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_qq}\NormalTok{(}\DataTypeTok{color =} \StringTok{"orange"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_qq_line}\NormalTok{(}\DataTypeTok{color =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{y =} \StringTok{"Ordered ln(SBP)"}\NormalTok{, }\DataTypeTok{title =} \StringTok{"ln(sbp) in wcgs"}\NormalTok{)}
+
+\CommentTok{## next step requires library(patchwork)}
+
+\NormalTok{p1 }\OperatorTok{+}\StringTok{ }\NormalTok{p2 }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{plot_annotation}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Normal Q-Q plots of SBP and ln(SBP) in wcgs"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/wcgs_qqplotsforsbpandlnsbpfromggplot-fig-1.pdf}
+
+There's at best a small improvement from \texttt{sbp} to \texttt{lnsbp} in terms of approximation by a Normal distribution.
+
+\hypertarget{identifying-and-describing-sbp-outliers}{%
+\section{Identifying and Describing SBP outliers}\label{identifying-and-describing-sbp-outliers}}
+
+It looks like there's an outlier (or a series of them) in the SBP data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(wcgs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =} \StringTok{""}\NormalTok{, }\DataTypeTok{y =}\NormalTok{ sbp)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_violin}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.3}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"royalblue"}\NormalTok{, }
+                 \DataTypeTok{outlier.color =} \StringTok{"royalblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Boxplot with Violin of SBP in `wcgs` data"}\NormalTok{,}
+         \DataTypeTok{y =} \StringTok{"Systolic Blood Pressure (mm Hg)"}\NormalTok{, }
+         \DataTypeTok{x =} \StringTok{""}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_light}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{coord_flip}\NormalTok{() }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-103-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wcgs }\OperatorTok{%$%}\StringTok{ }\NormalTok{Hmisc}\OperatorTok{::}\KeywordTok{describe}\NormalTok{(sbp)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+sbp 
+       n  missing distinct     Info     Mean      Gmd      .05      .10 
+    3154        0       62    0.996    128.6    16.25      110      112 
+     .25      .50      .75      .90      .95 
+     120      126      136      148      156 
+
+lowest :  98 100 102 104 106, highest: 200 208 210 212 230
+\end{verbatim}
+
+The maximum value here is 230, and is clearly the most extreme value in the data set. One way to gauge this is to describe that observation's \textbf{Z score}, the number of standard deviations away from the mean that the observation falls. Here, the maximum value, 230 is 6.71 standard deviations above the mean, and thus has a Z score of 6.7.
+
+A negative Z score would indicate a point below the mean, while a positive Z score indicates, as we've seen, a point above the mean. The minimum systolic blood pressure, 98 is 2.03 standard deviations \emph{below} the mean, so it has a Z score of -2.
+
+Recall that the Empirical Rule suggests that if a variable follows a Normal distribution, it would have approximately 95\% of its observations falling inside a Z score of (-2, 2), and 99.74\% falling inside a Z score range of (-3, 3). Do the systolic blood pressures appear Normally distributed?
+
+\hypertarget{does-weight-category-relate-to-sbp}{%
+\section{Does Weight Category Relate to SBP?}\label{does-weight-category-relate-to-sbp}}
+
+The data are collected into four groups based on the subject's weight (in pounds).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(wcgs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wghtcat, }\DataTypeTok{y =}\NormalTok{ sbp)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_violin}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_boxplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill =}\NormalTok{ wghtcat), }\DataTypeTok{width =} \FloatTok{0.3}\NormalTok{, }\DataTypeTok{notch =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_fill_viridis_d}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Boxplot of Systolic BP by Weight Category in WCGS"}\NormalTok{, }
+         \DataTypeTok{x =} \StringTok{"Weight Category"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Systolic Blood Pressure"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/wcgssbpbyweightbox-fig-1.pdf}
+
+\hypertarget{re-leveling-a-factor}{%
+\section{Re-Leveling a Factor}\label{re-leveling-a-factor}}
+
+Well, that's not so good. We really want those weight categories (the \emph{levels}) to be ordered more sensibly.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wcgs }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tabyl}\NormalTok{(wghtcat)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ wghtcat    n    percent
+   < 140  232 0.07355739
+   > 200  213 0.06753329
+ 140-170 1538 0.48763475
+ 170-200 1171 0.37127457
+\end{verbatim}
+
+Like all \emph{factor} variables in R, the categories are specified as levels. We want to change the order of the levels in a new version of this factor variable so they make sense. There are multiple ways to do this, but I prefer the \texttt{fct\_relevel} function from the \texttt{forcats} package (part of the tidyverse.) Which order is more appropriate?
+
+I'll add a new variable to the \texttt{wcgs} data called \texttt{weight\_f} that relevels the \texttt{wghtcat} data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wcgs <-}\StringTok{ }\NormalTok{wcgs }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{weight_f =} \KeywordTok{fct_relevel}\NormalTok{(wghtcat, }\StringTok{"< 140"}\NormalTok{, }\StringTok{"140-170"}\NormalTok{, }\StringTok{"170-200"}\NormalTok{, }\StringTok{"> 200"}\NormalTok{))}
+
+\NormalTok{wcgs }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tabyl}\NormalTok{(weight_f)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ weight_f    n    percent
+    < 140  232 0.07355739
+  140-170 1538 0.48763475
+  170-200 1171 0.37127457
+    > 200  213 0.06753329
+\end{verbatim}
+
+For more on the \texttt{forcats} package, check out \citet{R4DS}, especially the Section on Factors.
+
+\hypertarget{sbp-by-weight-category}{%
+\subsection{SBP by Weight Category}\label{sbp-by-weight-category}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(wcgs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ weight_f, }\DataTypeTok{y =}\NormalTok{ sbp, }\DataTypeTok{fill =}\NormalTok{ weight_f)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{notch =} \OtherTok{TRUE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_fill_viridis_d}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Systolic Blood Pressure by Reordered Weight Category in WCGS"}\NormalTok{, }
+         \DataTypeTok{x =} \StringTok{"Weight Category"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Systolic Blood Pressure"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/wcgssbpbyweightboxrevised-fig-1.pdf}
+
+We might see some details well with a \textbf{ridgeline plot}, too.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wcgs }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ sbp, }\DataTypeTok{y =}\NormalTok{ weight_f, }\DataTypeTok{fill =}\NormalTok{ weight_f, }\DataTypeTok{height =}\NormalTok{ ..density..)) }\OperatorTok{+}
+\StringTok{    }\NormalTok{ggridges}\OperatorTok{::}\KeywordTok{geom_density_ridges}\NormalTok{(}\DataTypeTok{scale =} \DecValTok{2}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_fill_viridis_d}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"SBP by Weight Category (wcgs)"}\NormalTok{,}
+         \DataTypeTok{x =} \StringTok{"Systolic Blood Pressure"}\NormalTok{,}
+         \DataTypeTok{y =} \StringTok{"Weight Category"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Picking joint bandwidth of 3.74
+\end{verbatim}
+
+\includegraphics{431-notes_files/figure-latex/wcgs_sbp_by_weight_f_ridgelineplot-1.pdf}
+
+As the plots suggest, patients in the heavier groups generally had higher systolic blood pressures.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mosaic}\OperatorTok{::}\KeywordTok{favstats}\NormalTok{(sbp }\OperatorTok{~}\StringTok{ }\NormalTok{weight_f, }\DataTypeTok{data =}\NormalTok{ wcgs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+  weight_f min  Q1 median  Q3 max     mean       sd    n missing
+1    < 140  98 112    120 130 196 123.1379 14.73394  232       0
+2  140-170 100 118    124 134 192 126.2939 13.65294 1538       0
+3  170-200 100 120    130 140 230 131.1136 15.57024 1171       0
+4    > 200 110 126    132 150 212 137.8685 16.75522  213       0
+\end{verbatim}
+
+\hypertarget{are-weight-and-sbp-linked}{%
+\section{Are Weight and SBP Linked?}\label{are-weight-and-sbp-linked}}
+
+Let's build a scatter plot of SBP (Outcome) by Weight (Predictor), rather than breaking down into categories.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(wcgs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ weight, }\DataTypeTok{y =}\NormalTok{ sbp)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size=}\DecValTok{3}\NormalTok{, }\DataTypeTok{shape=}\DecValTok{1}\NormalTok{, }\DataTypeTok{color=}\StringTok{"forestgreen"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\CommentTok{## default size = 2}
+\StringTok{    }\KeywordTok{stat_smooth}\NormalTok{(}\DataTypeTok{method=}\NormalTok{lm, }\DataTypeTok{color=}\StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\CommentTok{## add se=FALSE to hide conf. interval}
+\StringTok{    }\KeywordTok{stat_smooth}\NormalTok{(}\DataTypeTok{method=}\NormalTok{loess, }\DataTypeTok{se=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{color=}\StringTok{"blue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{ggtitle}\NormalTok{(}\StringTok{"SBP vs. Weight in 3,154 WCGS Subjects"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-106-1.pdf}
+
+\begin{itemize}
+\tightlist
+\item
+  The mass of the data is hidden from us - showing 3154 points in one plot can produce little more than a blur where there are lots of points on top of each other.
+\item
+  Here the least squares regression line (in red), and loess scatterplot smoother, (in blue) can help.
+\end{itemize}
+
+The relationship between systolic blood pressure and weight appears to be very close to linear, but of course there is considerable scatter around that generally linear relationship. It turns out that the Pearson correlation of these two variables is 0.253.
+
+\hypertarget{sbp-and-weight-by-arcus-senilis-groups}{%
+\section{SBP and Weight by Arcus Senilis groups?}\label{sbp-and-weight-by-arcus-senilis-groups}}
+
+An issue of interest to us will be to assess whether the SBP-Weight relationship we see above is similar among subjects who have arcus senilis and those who do not.
+
+\begin{quote}
+Arcus senilis is an old age syndrome where there is a white, grey, or blue opaque ring in the corneal margin (peripheral corneal opacity), or white ring in front of the periphery of the iris. It is present at birth but then fades; however, it is quite commonly present in the elderly. It can also appear earlier in life as a result of hypercholesterolemia.
+
+Wikipedia article on Arcus Senilis, retrieved 2017-08-15
+\end{quote}
+
+Let's start with a quick look at the \texttt{arcus} data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wcgs }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tabyl}\NormalTok{(arcus)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ arcus    n      percent valid_percent
+     0 2211 0.7010145847     0.7014594
+     1  941 0.2983512999     0.2985406
+    NA    2 0.0006341154            NA
+\end{verbatim}
+
+We have 2 missing values, so we probably want to do something about that before plotting the data, and we may also want to create a factor variable with more meaningful labels than 1 (which means yes, arcus senilis is present) and 0 (which means no, it isn't.)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wcgs <-}\StringTok{ }\NormalTok{wcgs }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{arcus_f =} \KeywordTok{fct_recode}\NormalTok{(}\KeywordTok{factor}\NormalTok{(arcus),}
+                                \StringTok{"Arcus senilis"}\NormalTok{ =}\StringTok{ "1"}\NormalTok{,}
+                                \StringTok{"No arcus senilis"}\NormalTok{ =}\StringTok{ "0"}\NormalTok{),}
+           \DataTypeTok{arcus_f =} \KeywordTok{fct_relevel}\NormalTok{(arcus_f, }\StringTok{"Arcus senilis"}\NormalTok{))}
+
+\NormalTok{wcgs }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tabyl}\NormalTok{(arcus_f, arcus)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+          arcus_f    0   1 NA_
+    Arcus senilis    0 941   0
+ No arcus senilis 2211   0   0
+             <NA>    0   0   2
+\end{verbatim}
+
+Let's build a version of the \texttt{wcgs} data that eliminates all missing data in the variables of immediate interest, and then plot the SBP-weight relationship in groups of patients with and without arcus senilis.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wcgs }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{filter}\NormalTok{(}\KeywordTok{complete.cases}\NormalTok{(arcus_f, sbp, weight)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ weight, }\DataTypeTok{y =}\NormalTok{ sbp, }\DataTypeTok{group =}\NormalTok{ arcus_f)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{shape =} \DecValTok{1}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{stat_smooth}\NormalTok{(}\DataTypeTok{method=}\NormalTok{lm, }\DataTypeTok{color=}\StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{stat_smooth}\NormalTok{(}\DataTypeTok{method=}\NormalTok{loess, }\DataTypeTok{se=}\OtherTok{FALSE}\NormalTok{, }\DataTypeTok{color=}\StringTok{"blue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"SBP vs. Weight by Arcus Senilis status"}\NormalTok{,}
+         \DataTypeTok{caption =} \StringTok{"3,152 Western Collaborative Group Study subjects with known arcus senilis status"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{arcus_f) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-108-1.pdf}
+
+\hypertarget{linear-model-for-sbp-weight-relationship-subjects-without-arcus-senilis}{%
+\section{Linear Model for SBP-Weight Relationship: subjects without Arcus Senilis}\label{linear-model-for-sbp-weight-relationship-subjects-without-arcus-senilis}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model.noarcus <-}\StringTok{ }
+\StringTok{    }\KeywordTok{lm}\NormalTok{(sbp }\OperatorTok{~}\StringTok{ }\NormalTok{weight, }\DataTypeTok{data =} \KeywordTok{filter}\NormalTok{(wcgs, arcus }\OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{))}
+
+\KeywordTok{tidy}\NormalTok{(model.noarcus) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 95.92 & 2.56 & 37.54 & 0\\
+\hline
+weight & 0.19 & 0.01 & 12.77 & 0\\
+\hline
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glance}\NormalTok{(model.noarcus) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(r.squared}\OperatorTok{:}\NormalTok{p.value, AIC) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{r|r|r|r|r|r}
+\hline
+r.squared & adj.r.squared & sigma & statistic & p.value & AIC\\
+\hline
+0.069 & 0.068 & 14.799 & 162.959 & 0 & 18193.78\\
+\hline
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(model.noarcus)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = sbp ~ weight, data = filter(wcgs, arcus == 0))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-29.011 -10.251  -2.447   7.553  99.848 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  95.9219     2.5552   37.54   <2e-16 ***
+weight        0.1902     0.0149   12.77   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14.8 on 2209 degrees of freedom
+Multiple R-squared:  0.0687,	Adjusted R-squared:  0.06828 
+F-statistic:   163 on 1 and 2209 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+The linear model for the 2211 patients without Arcus Senilis has R-squared = 6.87\%.
+
+\begin{itemize}
+\tightlist
+\item
+  The regression equation is 95.92 - 0.19 weight, for those patients without Arcus Senilis.
+\end{itemize}
+
+\hypertarget{linear-model-for-sbp-weight-relationship-subjects-with-arcus-senilis}{%
+\section{Linear Model for SBP-Weight Relationship: subjects with Arcus Senilis}\label{linear-model-for-sbp-weight-relationship-subjects-with-arcus-senilis}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model.witharcus <-}\StringTok{ }
+\StringTok{    }\KeywordTok{lm}\NormalTok{(sbp }\OperatorTok{~}\StringTok{ }\NormalTok{weight, }\DataTypeTok{data =} \KeywordTok{filter}\NormalTok{(wcgs, arcus }\OperatorTok{==}\StringTok{ }\DecValTok{1}\NormalTok{))}
+
+\KeywordTok{tidy}\NormalTok{(model.witharcus) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 101.88 & 3.76 & 27.13 & 0\\
+\hline
+weight & 0.16 & 0.02 & 7.39 & 0\\
+\hline
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glance}\NormalTok{(model.witharcus) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(r.squared}\OperatorTok{:}\NormalTok{p.value, AIC) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{r|r|r|r|r|r}
+\hline
+r.squared & adj.r.squared & sigma & statistic & p.value & AIC\\
+\hline
+0.055 & 0.054 & 14.192 & 54.583 & 0 & 7666.828\\
+\hline
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(model.witharcus)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = sbp ~ weight, data = filter(wcgs, arcus == 1))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-30.335  -9.636  -1.961   7.973  76.738 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 101.87847    3.75572  27.126  < 2e-16 ***
+weight        0.16261    0.02201   7.388 3.29e-13 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14.19 on 939 degrees of freedom
+Multiple R-squared:  0.05494,	Adjusted R-squared:  0.05393 
+F-statistic: 54.58 on 1 and 939 DF,  p-value: 3.29e-13
+\end{verbatim}
+
+The linear model for the 941 patients with Arcus Senilis has R-squared = 5.49\%.
+
+\begin{itemize}
+\tightlist
+\item
+  The regression equation is 101.88 - 0.163 weight, for those patients with Arcus Senilis.
+\end{itemize}
+
+\hypertarget{including-arcus-status-in-the-model}{%
+\section{Including Arcus Status in the model}\label{including-arcus-status-in-the-model}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model3 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(sbp }\OperatorTok{~}\StringTok{ }\NormalTok{weight }\OperatorTok{*}\StringTok{ }\NormalTok{arcus, }\DataTypeTok{data =} \KeywordTok{filter}\NormalTok{(wcgs, }\OperatorTok{!}\KeywordTok{is.na}\NormalTok{(arcus)))}
+
+\KeywordTok{tidy}\NormalTok{(model3) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 95.92 & 2.52 & 38.00 & 0.00\\
+\hline
+weight & 0.19 & 0.01 & 12.92 & 0.00\\
+\hline
+arcus & 5.96 & 4.62 & 1.29 & 0.20\\
+\hline
+weight:arcus & -0.03 & 0.03 & -1.02 & 0.31\\
+\hline
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glance}\NormalTok{(model3) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(r.squared}\OperatorTok{:}\NormalTok{p.value, AIC) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{r|r|r|r|r|r}
+\hline
+r.squared & adj.r.squared & sigma & statistic & p.value & AIC\\
+\hline
+0.066 & 0.065 & 14.62 & 74.094 & 0 & 25860.96\\
+\hline
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(model3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = sbp ~ weight * arcus, data = filter(wcgs, !is.na(arcus)))
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-30.335 -10.152  -2.349   7.669  99.848 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  95.92190    2.52440  37.998   <2e-16 ***
+weight        0.19017    0.01472  12.921   <2e-16 ***
+arcus         5.95657    4.61972   1.289    0.197    
+weight:arcus -0.02756    0.02703  -1.019    0.308    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 14.62 on 3148 degrees of freedom
+Multiple R-squared:  0.06595,	Adjusted R-squared:  0.06506 
+F-statistic: 74.09 on 3 and 3148 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+The actual regression equation in this setting includes both weight, and an indicator variable (1 = yes, 0 = no) for arcus senilis status, and the product of weight and that 1/0 indicator.
+
+\begin{itemize}
+\tightlist
+\item
+  Note the use of the product term \texttt{weight*arcus} in the setup of the model to allow both the slope of weight and the intercept term in the model to change depending on arcus senilis status.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    For a patient who has arcus, the regression equation is SBP = 95.92 + 0.19 weight + 5.96 (1) - 0.028 weight (1) = 101.88 + 0.162 weight.
+  \item
+    For a patient without arcus senilis, the regression equation is SBP = 95.92 + 0.19 weight + 5.96 (0) - 0.028 weight (0) = 95.92 + 0.19 weight.
+  \end{itemize}
+\end{itemize}
+
+The linear model including the interaction of weight and arcus to predict sbp for the 3152 patients with known Arcus Senilis status has R-squared = 6.6\%.
+
+\hypertarget{predictions-from-these-linear-models}{%
+\section{Predictions from these Linear Models}\label{predictions-from-these-linear-models}}
+
+What is our predicted SBP for a subject weighing 175 pounds?
+
+How does that change if our subject weighs 200 pounds?
+
+Recall that
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{Without} Arcus Senilis, linear model for SBP = 95.9 + 0.19 x weight
+\item
+  \emph{With} Arcus Senilis, linear model for SBP = 101.9 + 0.16 x weight
+\end{itemize}
+
+So the predictions for a 175 pound subject are:
+
+\begin{itemize}
+\item
+  95.9 + 0.19 x 175 = 129 mm Hg without Arcus Senilis, and
+\item
+  101.9 + 0.16 x 175 = 130 mm Hg with Arcus Senilis.
+\end{itemize}
+
+And thus, the predictions for a 200 pound subject are:
+
+\begin{itemize}
+\item
+  95.9 + 0.19 x 200 = 134 mm Hg without Arcus Senilis, and
+\item
+  101.9 + 0.16 x 200 = 134.4 mm Hg with Arcus Senilis.
+\end{itemize}
+
+\hypertarget{scatterplots-with-facets-across-a-categorical-variable}{%
+\section{Scatterplots with Facets Across a Categorical Variable}\label{scatterplots-with-facets-across-a-categorical-variable}}
+
+We can use facets in \texttt{ggplot2} to show scatterplots across the levels of a categorical variable, like \texttt{behpat}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(wcgs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ weight, }\DataTypeTok{y =}\NormalTok{ sbp, }\DataTypeTok{col =}\NormalTok{ behpat)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{behpat) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"black"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{color =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{strip.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{face=}\StringTok{"bold"}\NormalTok{, }\DataTypeTok{size=}\KeywordTok{rel}\NormalTok{(}\FloatTok{1.25}\NormalTok{), }\DataTypeTok{color=}\StringTok{"white"}\NormalTok{),}
+          \DataTypeTok{strip.background =} \KeywordTok{element_rect}\NormalTok{(}\DataTypeTok{fill=}\StringTok{"royalblue"}\NormalTok{)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Scatterplots of SBP vs. Weight within Behavior Pattern"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-112-1.pdf}
+
+\hypertarget{scatterplot-and-correlation-matrices}{%
+\section{Scatterplot and Correlation Matrices}\label{scatterplot-and-correlation-matrices}}
+
+A \textbf{scatterplot matrix} can be very helpful in understanding relationships between multiple variables simultaneously. There are several ways to build such a thing, including the \texttt{pairs} function\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{pairs}\NormalTok{ (}\OperatorTok{~}\StringTok{ }\NormalTok{sbp }\OperatorTok{+}\StringTok{ }\NormalTok{age }\OperatorTok{+}\StringTok{ }\NormalTok{weight }\OperatorTok{+}\StringTok{ }\NormalTok{height, }\DataTypeTok{data=}\NormalTok{wcgs, }\DataTypeTok{main=}\StringTok{"Simple Scatterplot Matrix"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-113-1.pdf}
+
+\hypertarget{displaying-a-correlation-matrix}{%
+\subsection{Displaying a Correlation Matrix}\label{displaying-a-correlation-matrix}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wcgs }\OperatorTok{%>%}
+\StringTok{    }\NormalTok{dplyr}\OperatorTok{::}\KeywordTok{select}\NormalTok{(sbp, age, weight, height) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{cor}\NormalTok{() }\OperatorTok{%>%}\StringTok{ }\CommentTok{# obtain correlation coefficients for this subgroup}
+\StringTok{    }\KeywordTok{signif}\NormalTok{(., }\DecValTok{3}\NormalTok{) }\CommentTok{# round them off to three significant figures before printing}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+          sbp     age  weight  height
+sbp    1.0000  0.1660  0.2530  0.0184
+age    0.1660  1.0000 -0.0344 -0.0954
+weight 0.2530 -0.0344  1.0000  0.5330
+height 0.0184 -0.0954  0.5330  1.0000
+\end{verbatim}
+
+\hypertarget{using-the-ggally-package}{%
+\subsection{\texorpdfstring{Using the \texttt{GGally} package}{Using the GGally package}}\label{using-the-ggally-package}}
+
+The \texttt{ggplot2} system doesn't have a built-in scatterplot system. There are some nice add-ins in the world, though. One option I sort of like is in the \texttt{GGally} package, which can produce both correlation matrices and scatterplot matrices.
+
+The \texttt{ggpairs} function provides a density plot on each diagonal, Pearson correlations on the upper right and scatterplots on the lower left of the matrix.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{GGally}\OperatorTok{::}\KeywordTok{ggpairs}\NormalTok{(wcgs }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(sbp, age, weight, height), }
+                \DataTypeTok{title =} \StringTok{"Scatterplot Matrix via ggpairs"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-115-1.pdf}
+
+\hypertarget{re-expression-tukeys-ladder-box-cox-plot}{%
+\chapter{Re-Expression, Tukey's Ladder \& Box-Cox Plot}\label{re-expression-tukeys-ladder-box-cox-plot}}
+
+\hypertarget{linearize-the-association-between-quantitative-variables}{%
+\section{``Linearize'' The Association between Quantitative Variables}\label{linearize-the-association-between-quantitative-variables}}
+
+Confronted with a scatterplot describing a monotone association between two quantitative variables, we may decide the data are not well approximated by a straight line, and thus, that a least squares regression may not be not sufficiently useful. In these circumstances, we have at least two options, which are not mutually exclusive:
+
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  Let the data be as they may, and summarize the scatterplot using tools like loess curves, polynomial functions, or cubic splines to model the relationship.
+\item
+  Consider re-expressing the data (often we start with re-expressions of the outcome data {[}the Y variable{]}) using a transformation so that the transformed data may be modeled effectively using a straight line.
+\end{enumerate}
+
+\hypertarget{a-new-tool-the-box-cox-plot}{%
+\section{A New Tool: the Box-Cox Plot}\label{a-new-tool-the-box-cox-plot}}
+
+As before, Tukey's ladder of power transformations can guide our exploration.
+
+\begin{longtable}[]{@{}cccccccc@{}}
+\toprule
+Power (\(\lambda\)) & -2 & -1 & -1/2 & 0 & 1/2 & 1 & 2\tabularnewline
+\midrule
+\endhead
+Transformation & 1/y\textsuperscript{2} & 1/y & 1/\(\sqrt{y}\) & log y & \(\sqrt{y}\) & y & y\textsuperscript{2}\tabularnewline
+\bottomrule
+\end{longtable}
+
+The \textbf{Box-Cox plot}, from the \texttt{boxCox} function in the \texttt{car} package, sifts through the ladder of options to suggest a transformation (for Y) to best linearize the outcome-predictor(s) relationship.
+
+\hypertarget{a-few-caveats}{%
+\subsection{A Few Caveats}\label{a-few-caveats}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  These methods work well with \emph{monotone} data, where a smooth function of Y is either strictly increasing, or strictly decreasing, as X increases.
+\item
+  Some of these transformations require the data to be positive. We can rescale the Y data by adding a constant to every observation in a data set without changing shape.
+\item
+  We can use a natural logarithm (\texttt{log} in R), a base 10 logarithm (\texttt{log10}) or even sometimes a base 2 logarithm (\texttt{log2}) to good effect in Tukey's ladder. All affect the association's shape in the same way, so we'll stick with \texttt{log} (base e).
+\item
+  Some re-expressions don't lead to easily interpretable results. Not many things that make sense in their original units also make sense in inverse square roots. There are times when we won't care, but often, we will.
+\item
+  If our primary interest is in making predictions, we'll generally be more interested in getting good predictions back on the original scale, and we can back-transform the point and interval estimates to accomplish this.
+\end{enumerate}
+
+\hypertarget{a-simulated-example}{%
+\section{A Simulated Example}\label{a-simulated-example}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{999}\NormalTok{); x.rand <-}\StringTok{ }\KeywordTok{rbeta}\NormalTok{(}\DecValTok{80}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{) }\OperatorTok{*}\StringTok{ }\DecValTok{20} \OperatorTok{+}\StringTok{ }\DecValTok{3}
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{1000}\NormalTok{); y.rand <-}\StringTok{ }\KeywordTok{abs}\NormalTok{(}\DecValTok{50} \OperatorTok{+}\StringTok{ }\FloatTok{0.75}\OperatorTok{*}\NormalTok{x.rand}\OperatorTok{^}\NormalTok{(}\DecValTok{3}\NormalTok{) }\OperatorTok{-}\StringTok{ }\FloatTok{0.65}\OperatorTok{*}\NormalTok{x.rand }\OperatorTok{+}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{80}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{200}\NormalTok{))}
+\NormalTok{scatter1 <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x.rand, }\DataTypeTok{y =}\NormalTok{ y.rand) }\OperatorTok{%>%}\StringTok{ }\NormalTok{tbl_df}
+\KeywordTok{rm}\NormalTok{(x.rand, y.rand)}
+
+\KeywordTok{ggplot}\NormalTok{(scatter1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{shape =} \DecValTok{1}\NormalTok{, }\DataTypeTok{size =} \DecValTok{3}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\CommentTok{## add loess smooth}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"dodgerblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\CommentTok{## then add linear fit}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Simulated scatter1 example: Y vs. X"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+`geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\begin{verbatim}
+`geom_smooth()` using formula 'y ~ x'
+\end{verbatim}
+
+\begin{center}\includegraphics{431-notes_files/figure-latex/simul1a-1} \end{center}
+
+Having simulated data that produces a curved scatterplot, I will now use the Box-Cox plot to lead my choice of an appropriate power transformation for Y in order to ``linearize'' the association of Y and X.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(car)}
+\KeywordTok{boxCox}\NormalTok{(scatter1}\OperatorTok{$}\NormalTok{y }\OperatorTok{~}\StringTok{ }\NormalTok{scatter1}\OperatorTok{$}\NormalTok{x) }
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/simul1b-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{powerTransform}\NormalTok{(scatter1}\OperatorTok{$}\NormalTok{y }\OperatorTok{~}\StringTok{ }\NormalTok{scatter1}\OperatorTok{$}\NormalTok{x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Estimated transformation parameter 
+       Y1 
+0.4368753 
+\end{verbatim}
+
+The Box-Cox plot peaks at the value \(\lambda\) = 0.44, which is pretty close to \(\lambda\) = 0.5. Now, 0.44 isn't on Tukey's ladder, but 0.5 is.
+
+\begin{longtable}[]{@{}cccccccc@{}}
+\toprule
+Power (\(\lambda\)) & -2 & -1 & -1/2 & 0 & 1/2 & 1 & 2\tabularnewline
+\midrule
+\endhead
+Transformation & 1/y\textsuperscript{2} & 1/y & 1/\(\sqrt{y}\) & log y & \(\sqrt{y}\) & y & y\textsuperscript{2}\tabularnewline
+\bottomrule
+\end{longtable}
+
+If we use \(\lambda\) = 0.5, on Tukey's ladder of power transformations, it suggests we look at the relationship between the square root of Y and X, as shown next.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(scatter1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =}\NormalTok{ y)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{2}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"dodgerblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"scatter1: Y vs. X"}\NormalTok{)}
+
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(scatter1, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ x, }\DataTypeTok{y =} \KeywordTok{sqrt}\NormalTok{(y))) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{2}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"dodgerblue"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{linetype =} \StringTok{"dashed"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"scatter1: Square Root of Y vs. X"}\NormalTok{)}
+
+\NormalTok{p1 }\OperatorTok{+}\StringTok{ }\NormalTok{p2}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/simul1c-1.pdf}
+
+By eye, I think the square root plot better matches the linear fit.
+
+\hypertarget{checking-on-a-transformation-or-re-expression}{%
+\section{Checking on a Transformation or Re-Expression}\label{checking-on-a-transformation-or-re-expression}}
+
+We can do three more things to check on our transformation.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  We can calculate the correlation of our original and re-expressed associations.
+\item
+  We can use the \texttt{testTransform} function in the \texttt{car} library in R to perform a statistical test comparing the optimal choice of power (\(\lambda\) = 0.44) to various other transformations.
+\item
+  We can go ahead and fit the regression models using each approach and compare the plots of studentized residuals against fitted values from the data to see if the re-expression reduces the curve in that residual plot, as well.
+\end{enumerate}
+
+Option 3 is by far the most important in practice, and it's the one we'll focus on going forward, but we'll demonstrate all three here.
+
+\hypertarget{checking-the-correlation-coefficients}{%
+\subsection{Checking the Correlation Coefficients}\label{checking-the-correlation-coefficients}}
+
+Here, we calculate the correlation of original and re-expressed associations.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor}\NormalTok{(scatter1}\OperatorTok{$}\NormalTok{y, scatter1}\OperatorTok{$}\NormalTok{x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.891198
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(scatter1}\OperatorTok{$}\NormalTok{y), scatter1}\OperatorTok{$}\NormalTok{x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.9144307
+\end{verbatim}
+
+The Pearson correlation is a little stronger after the transformation. as we'd expect.
+
+\hypertarget{using-the-testtransform-function}{%
+\subsection{\texorpdfstring{Using the \texttt{testTransform} function}{Using the testTransform function}}\label{using-the-testtransform-function}}
+
+Here, we use the \texttt{testTransform} function (also from the \texttt{car} package) to compare the optimal choice determined by the powerTransform function (here \(\lambda\) = 0.44) to \(\lambda\) = 0 (logarithm), 0.5 (square root) and 1 (no transformation).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{testTransform}\NormalTok{(}\KeywordTok{powerTransform}\NormalTok{(scatter1}\OperatorTok{$}\NormalTok{y }\OperatorTok{~}\StringTok{ }\NormalTok{scatter1}\OperatorTok{$}\NormalTok{x), }\DecValTok{0}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                           LRT df      pval
+LR test, lambda = (0) 46.17947  1 1.079e-11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{testTransform}\NormalTok{(}\KeywordTok{powerTransform}\NormalTok{(scatter1}\OperatorTok{$}\NormalTok{y }\OperatorTok{~}\StringTok{ }\NormalTok{scatter1}\OperatorTok{$}\NormalTok{x), }\FloatTok{0.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                             LRT df    pval
+LR test, lambda = (0.5) 1.024888  1 0.31136
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{testTransform}\NormalTok{(}\KeywordTok{powerTransform}\NormalTok{(scatter1}\OperatorTok{$}\NormalTok{y }\OperatorTok{~}\StringTok{ }\NormalTok{scatter1}\OperatorTok{$}\NormalTok{x), }\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                           LRT df       pval
+LR test, lambda = (1) 63.75953  1 1.4433e-15
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  It looks like only the square root (\(\lambda\) = 0.5) of these three options is not significantly worse by the log-likelihood criterion applied here than the optimal choice.
+\item
+  That's because it's the only one with a \emph{p} value larger than our usual standard for statistical significance, of 0.05.
+\end{itemize}
+
+\hypertarget{comparing-the-residual-plots}{%
+\subsection{Comparing the Residual Plots}\label{comparing-the-residual-plots}}
+
+We can fit the regression models, obtain plots of residuals against fitted values, and compare them to see which one has less indication of a curve in the residuals.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model.orig <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(scatter1}\OperatorTok{$}\NormalTok{y }\OperatorTok{~}\StringTok{ }\NormalTok{scatter1}\OperatorTok{$}\NormalTok{x)}
+\NormalTok{model.sqrt <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(}\KeywordTok{sqrt}\NormalTok{(scatter1}\OperatorTok{$}\NormalTok{y) }\OperatorTok{~}\StringTok{ }\NormalTok{scatter1}\OperatorTok{$}\NormalTok{x)}
+
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{augment}\NormalTok{(model.orig) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{(., }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ scatter1}\OperatorTok{$}\NormalTok{x, }\DataTypeTok{y =}\NormalTok{ .resid)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Y vs X Residual Plot"}\NormalTok{)}
+
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{augment}\NormalTok{(model.sqrt) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{(., }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ scatter1}\OperatorTok{$}\NormalTok{x, }\DataTypeTok{y =}\NormalTok{ .resid)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Square Root Model Residuals"}\NormalTok{)}
+
+\NormalTok{p1 }\OperatorTok{+}\StringTok{ }\NormalTok{p2}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/check1c-1.pdf}
+
+What we're looking for in such a plot is the absence of a curve, among other things, we want to see ``fuzzy football'' shapes.
+
+As compared to the original residual plot, the square root version, is a modest improvement in this regard. It does look a bit less curved, and a bit more like a random cluster of points, so that's nice.
+
+\hypertarget{dehydration-recovery-in-kids-a-small-study}{%
+\chapter{Dehydration Recovery in Kids: A Small Study}\label{dehydration-recovery-in-kids-a-small-study}}
+
+The \texttt{hydrate} data describe the degree of recovery that takes place 90 minutes following treatment of moderate to severe dehydration, for 36 children diagnosed at a hospital's main pediatric clinic.
+
+Upon diagnosis and study entry, patients were treated with an electrolytic solution at one of seven \texttt{dose} levels (0, 0.5, 1.0, 1.5, 2.0, 2.5, 3.0 mEq/l) in a frozen, flavored, ice popsicle. The degree of rehydration was determined using a subjective scale based on physical examination and parental input, converted to a 0 to 100 point scale, representing the percent of recovery (\texttt{recov.score}). Each child's \texttt{age} (in years) and \texttt{weight} (in pounds) are also available.
+
+First, we'll check ranges (and for missing data) in the \texttt{hydrate} file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{hydrate <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/hydrate.csv"}\NormalTok{)}
+
+\KeywordTok{summary}\NormalTok{(hydrate)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+       id         recov.score          dose            age        
+ Min.   : 1.00   Min.   : 44.00   Min.   :0.000   Min.   : 3.000  
+ 1st Qu.: 9.75   1st Qu.: 61.50   1st Qu.:1.000   1st Qu.: 5.000  
+ Median :18.50   Median : 71.50   Median :1.500   Median : 6.500  
+ Mean   :18.50   Mean   : 71.56   Mean   :1.569   Mean   : 6.667  
+ 3rd Qu.:27.25   3rd Qu.: 80.00   3rd Qu.:2.500   3rd Qu.: 8.000  
+ Max.   :36.00   Max.   :100.00   Max.   :3.000   Max.   :11.000  
+     weight     
+ Min.   :22.00  
+ 1st Qu.:34.50  
+ Median :47.50  
+ Mean   :46.89  
+ 3rd Qu.:57.25  
+ Max.   :76.00  
+\end{verbatim}
+
+There are no missing values, and all of the ranges make sense. There are no especially egregious problems to report.
+
+\hypertarget{a-scatterplot-matrix}{%
+\section{A Scatterplot Matrix}\label{a-scatterplot-matrix}}
+
+Next, we'll use a scatterplot matrix to summarize relationships between the outcome \texttt{recov.score} and the key predictor \texttt{dose} as well as the ancillary predictors \texttt{age} and \texttt{weight}, which are of less interest, but are expected to be related to our outcome. The one below uses the \texttt{ggpairs} function in the \texttt{GGally} package, as introduced in Part A of the Notes. We place the outcome in the bottom row, and the key predictor immediately above it, with \texttt{age} and \texttt{weight} in the top rows, using the \texttt{select} function within the `\texttt{ggpairs} call.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{GGally}\OperatorTok{::}\KeywordTok{ggpairs}\NormalTok{(dplyr}\OperatorTok{::}\KeywordTok{select}\NormalTok{(hydrate, age, weight, dose, recov.score), }
+                \DataTypeTok{title =} \StringTok{"Scatterplot Matrix for hydrate data"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/scatterplot_matrix_hydrate_fig-1.pdf}
+
+What can we conclude here?
+
+\begin{itemize}
+\tightlist
+\item
+  It looks like \texttt{recov.score} has a moderately strong negative relationship with both \texttt{age} and \texttt{weight} (with correlations in each case around -0.5), but a positive relationship with \texttt{dose} (correlation = 0.36).
+\item
+  The distribution of \texttt{recov.score} looks to be pretty close to Normal. No potential predictors (\texttt{age}, \texttt{weight} and \texttt{dose}) show substantial non-Normality.
+\item
+  \texttt{age} and \texttt{weight}, as we'd expect, show a very strong and positive linear relationship, with \emph{r} = 0.94
+\item
+  Neither \texttt{age} nor \texttt{weight} shows a meaningful relationship with \texttt{dose}. (\emph{r} = 0.16)
+\end{itemize}
+
+\hypertarget{are-the-recovery-scores-well-described-by-a-normal-model}{%
+\section{Are the recovery scores well described by a Normal model?}\label{are-the-recovery-scores-well-described-by-a-normal-model}}
+
+Next, we'll do a more thorough graphical summary of our outcome, recovery score.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(hydrate, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{sample =}\NormalTok{ recov.score)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_qq}\NormalTok{(}\DataTypeTok{col =} \StringTok{'#440154'}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_qq_line}\NormalTok{(}\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{aspect.ratio =} \DecValTok{1}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Normal Q-Q plot: hydrate"}\NormalTok{)}
+
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(hydrate, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ recov.score)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =} \KeywordTok{stat}\NormalTok{(density)), }
+                 \DataTypeTok{bins =} \DecValTok{10}\NormalTok{, }\DataTypeTok{fill =} \StringTok{'#440154'}\NormalTok{, }\DataTypeTok{col =} \StringTok{'#FDE725'}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{stat_function}\NormalTok{(}\DataTypeTok{fun =}\NormalTok{ dnorm, }
+                \DataTypeTok{args =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(hydrate}\OperatorTok{$}\NormalTok{recov.score), }
+                            \DataTypeTok{sd =} \KeywordTok{sd}\NormalTok{(hydrate}\OperatorTok{$}\NormalTok{recov.score)),}
+                \DataTypeTok{col =} \StringTok{"red"}\NormalTok{, }\DataTypeTok{lwd =} \FloatTok{1.5}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Density Function: hydrate"}\NormalTok{)}
+
+\NormalTok{p3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(hydrate, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ recov.score, }\DataTypeTok{y =} \StringTok{""}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{fill =} \StringTok{'#440154'}\NormalTok{, }\DataTypeTok{outlier.color =} \StringTok{'#440154'}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Boxplot: hydrate"}\NormalTok{, }\DataTypeTok{y =} \StringTok{""}\NormalTok{)}
+
+\NormalTok{p1 }\OperatorTok{+}\StringTok{ }\NormalTok{(p2 }\OperatorTok{/}\StringTok{ }\NormalTok{p3 }\OperatorTok{+}\StringTok{ }\KeywordTok{plot_layout}\NormalTok{(}\DataTypeTok{heights =} \KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-116-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mosaic}\OperatorTok{::}\KeywordTok{favstats}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{recov.score, }\DataTypeTok{data =}\NormalTok{ hydrate) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r|r|r|r|r}
+\hline
+  & min & Q1 & median & Q3 & max & mean & sd & n & missing\\
+\hline
+ & 44 & 61.5 & 71.5 & 80 & 100 & 71.6 & 12.9 & 36 & 0\\
+\hline
+\end{tabular}
+
+I see no serious problems with assuming Normality for these recovery scores. Our outcome variable doesn't in any way \emph{need} to follow a Normal distribution, but it's nice when it does, because summaries involving means and standard deviations make sense.
+
+\hypertarget{simple-regression-using-dose-to-predict-recovery}{%
+\section{Simple Regression: Using Dose to predict Recovery}\label{simple-regression-using-dose-to-predict-recovery}}
+
+To start, consider a simple (one predictor) regression model using \texttt{dose} alone to predict the \% Recovery (\texttt{recov.score}). Ignoring the \texttt{age} and \texttt{weight} covariates, what can we conclude about this relationship?
+
+\hypertarget{the-scatterplot-with-fitted-linear-model}{%
+\section{The Scatterplot, with fitted Linear Model}\label{the-scatterplot-with-fitted-linear-model}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(hydrate, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ dose, }\DataTypeTok{y =}\NormalTok{ recov.score)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{2}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Simple Regression model for the hydrate data"}\NormalTok{,}
+         \DataTypeTok{x =} \StringTok{"Dose (mEq/l)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Recovery Score (points)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/scatterplot_model_hydrate_1-1.pdf}
+
+\hypertarget{the-fitted-linear-model}{%
+\section{The Fitted Linear Model}\label{the-fitted-linear-model}}
+
+To obtain the fitted linear regression model, we use the \texttt{lm} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{m1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(recov.score }\OperatorTok{~}\StringTok{ }\NormalTok{dose, }\DataTypeTok{data =}\NormalTok{ hydrate)}
+
+\KeywordTok{tidy}\NormalTok{(m1) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value\\
+\hline
+(Intercept) & 63.90 & 3.97 & 16.09 & 0.00\\
+\hline
+dose & 4.88 & 2.17 & 2.25 & 0.03\\
+\hline
+\end{tabular}
+
+So, our fitted regression model (prediction model) is \texttt{recov.score} = 63.9 + 4.88 \texttt{dose}.
+
+\hypertarget{confidence-intervals}{%
+\subsection{Confidence Intervals}\label{confidence-intervals}}
+
+We can obtain confidence intervals around the coefficients of our fitted model with \texttt{tidy}, too.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tidy}\NormalTok{(m1, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value & conf.low & conf.high\\
+\hline
+(Intercept) & 63.90 & 3.97 & 16.09 & 0.00 & 57.18 & 70.61\\
+\hline
+dose & 4.88 & 2.17 & 2.25 & 0.03 & 1.21 & 8.55\\
+\hline
+\end{tabular}
+
+So, our 90\% confidence interval for the slope of \texttt{dose} ranges from 1.21 to 8.55.
+
+\hypertarget{the-summary-output}{%
+\section{The Summary Output}\label{the-summary-output}}
+
+To get a more complete understanding of the fitted model, we'll summarize it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(recov.score }\OperatorTok{~}\StringTok{ }\NormalTok{dose, }\DataTypeTok{data =}\NormalTok{ hydrate))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = recov.score ~ dose, data = hydrate)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-22.3360  -7.2763   0.0632   8.4233  23.9028 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   63.896      3.970  16.093   <2e-16 ***
+dose           4.881      2.172   2.247   0.0313 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 12.21 on 34 degrees of freedom
+Multiple R-squared:  0.1293,	Adjusted R-squared:  0.1037 
+F-statistic: 5.047 on 1 and 34 DF,  p-value: 0.03127
+\end{verbatim}
+
+\hypertarget{model-specification}{%
+\subsection{Model Specification}\label{model-specification}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The first part of the output specifies the model that has been fit.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Here, we have a simple regression model that predicts \texttt{recov.score} on the basis of \texttt{dose}.
+  \item
+    Notice that we're treating \texttt{dose} here as a quantitative variable. If we wanted \texttt{dose} to be treated as a factor, we'd have specified that in the model.
+  \end{itemize}
+\end{enumerate}
+
+\hypertarget{residual-summary}{%
+\subsection{Residual Summary}\label{residual-summary}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  The second part of the output summarizes the regression \textbf{residuals} across the subjects involved in fitting the model.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The \textbf{residual} is defined as the Actual value of our outcome minus the predicted value of that outcome fitted by the model.
+  \item
+    In our case, the residual for a given child is their actual \texttt{recov.score} minus the predicted \texttt{recov.score} according to our model, for that child.
+  \item
+    The residual summary gives us a sense of how ``incorrect'' our predictions are for the \texttt{hydrate} observations.
+
+    \begin{itemize}
+    \tightlist
+    \item
+      A positive residual means that the observed value was higher than the predicted value from the linear regression model, so the prediction was too low.
+    \item
+      A negative residual means that the observed value was lower than the predicted value from the linear regression model, so the prediction was too high.
+    \item
+      The residuals will center near 0 (the ordinary least squares model fitting process is designed so the mean of the residuals will always be zero)
+    \item
+      We hope to see the median of the residuals also be near zero, generally. In this case, the median prediction is 0.06 point too low.
+    \item
+      The minimum and maximum show us the largest prediction errors, made in the subjects used to fit this model.
+    \item
+      Here, we predicted a recovery score that was 22.3 points too high for one patient, and another of our predicted recovery scores was 23.9 points too low.
+    \item
+      The middle half of our predictions were between 8.4 points too low and 7.3 points too high.
+    \end{itemize}
+  \end{itemize}
+\end{enumerate}
+
+\hypertarget{coefficients-output}{%
+\subsection{Coefficients Output}\label{coefficients-output}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  The \textbf{Coefficients} output begins with a table of the estimated coefficients from the regression equation.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Generally, we write a simple regression model as \(y = \beta_0 + \beta_1 x\).
+  \item
+    In the \texttt{hydrate} model, we have \texttt{recov.score} = \(\beta_0\) + \(\beta_1\) \texttt{dose}.
+  \item
+    The first column of the table gives the estimated \(\beta\) coefficients for our model
+
+    \begin{itemize}
+    \tightlist
+    \item
+      Here the estimated intercept \(\hat{\beta_0} = 63.9\)
+    \item
+      The estimated slope of dose \(\hat{\beta_1} = 4.88\)
+    \item
+      Thus, our model is \texttt{recov.score}= 63.9 + 4.88 \texttt{dose}
+    \end{itemize}
+  \end{itemize}
+\end{enumerate}
+
+We interpret these coefficients as follows:
+
+\begin{itemize}
+\tightlist
+\item
+  The intercept (63.9) is the predicted \texttt{recov.score} for a patient receiving a \texttt{dose} of 0 mEq/l of the electrolytic solution.
+\item
+  The slope (4.88) of the \texttt{dose} is the predicted \emph{change} in \texttt{recov.score} associated with a 1 mEq/l increase in the dose of electrolytic solution.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Essentially, if we have two children like the ones studied here, and we give Roger a popsicle with dose X and Sarah a popsicle with dose X + 1, then this model predicts that Sarah will have a recovery score that is 4.88 points higher than will Roger.
+  \item
+    From the confidence interval output we saw previously with the function \texttt{confint(lm(recov.score\ \textasciitilde{}\ dose))}, we are 95\% confident that the true slope for \texttt{dose} is between (0.47, 9.30) mEq/l. We are also 95\% confident that the true intercept is between (55.8, 72.0).
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{correlation-and-slope}{%
+\subsection{Correlation and Slope}\label{correlation-and-slope}}
+
+If we like, we can use the \texttt{cor} function to specify the Pearson correlation of \texttt{recov.score} and \texttt{dose}, which turns out to be 0.36.
+- Note that the \textbf{slope} in a simple regression model will follow the sign of the Pearson correlation coefficient, in this case, both will be positive.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor}\NormalTok{(hydrate}\OperatorTok{$}\NormalTok{recov.score, hydrate}\OperatorTok{$}\NormalTok{dose)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 0.359528
+\end{verbatim}
+
+\hypertarget{coefficient-testing}{%
+\subsection{Coefficient Testing}\label{coefficient-testing}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(recov.score }\OperatorTok{~}\StringTok{ }\NormalTok{dose, }\DataTypeTok{data =}\NormalTok{ hydrate))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = recov.score ~ dose, data = hydrate)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-22.3360  -7.2763   0.0632   8.4233  23.9028 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   63.896      3.970  16.093   <2e-16 ***
+dose           4.881      2.172   2.247   0.0313 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 12.21 on 34 degrees of freedom
+Multiple R-squared:  0.1293,	Adjusted R-squared:  0.1037 
+F-statistic: 5.047 on 1 and 34 DF,  p-value: 0.03127
+\end{verbatim}
+
+Next to each coefficient in the summary regression table is its estimated standard error, followed by the coefficient's t value (the coefficient value divided by the standard error), and the associated two-tailed \emph{p} value for the test of:
+
+\begin{itemize}
+\tightlist
+\item
+  H0: This coefficient's \(\beta\) value = 0 vs.~
+\item
+  HA: This coefficient's \(\beta\) value \(\neq\) 0.
+\end{itemize}
+
+For the slope coefficient, we can interpret this choice as:
+
+\begin{itemize}
+\tightlist
+\item
+  H0: This predictor adds no predictive value to the model vs.~
+\item
+  HA: This predictor adds some predictive value to the model.
+\end{itemize}
+
+In the \texttt{hydrate} simple regression model, by running either \texttt{tidy} with or just the \texttt{confint} function shown below, we can establish a confidence interval for each of the estimated regression coefficients.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tidy}\NormalTok{(m1, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.95}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value & conf.low & conf.high\\
+\hline
+(Intercept) & 63.90 & 3.97 & 16.09 & 0.00 & 55.83 & 71.96\\
+\hline
+dose & 4.88 & 2.17 & 2.25 & 0.03 & 0.47 & 9.30\\
+\hline
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{confint}\NormalTok{(m1, }\DataTypeTok{level =} \FloatTok{.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                2.5 %    97.5 %
+(Intercept) 55.826922 71.964589
+dose         0.465695  9.295466
+\end{verbatim}
+
+If the slope of dose was in fact zero, then this would mean that knowing the dose information would be of no additional value in predicting the outcome over just guessing the mean of \texttt{recov.score} for every subject.
+
+So, since the confidence interval for the slope of dose does not include zero, it appears that there is at least some evidence that the model \texttt{m1} is more effective than a model that ignores the \texttt{dose} information (and simply predicts the mean of \texttt{recov.score} for each subject.) That's not saying much, actually.
+
+\hypertarget{summarizing-the-quality-of-fit}{%
+\subsection{Summarizing the Quality of Fit}\label{summarizing-the-quality-of-fit}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
+\item
+  The next part of the regression summary output is a summary of fit quality.
+\end{enumerate}
+
+The \textbf{residual standard error} estimates the standard deviation of the prediction errors made by the model.
+
+\begin{itemize}
+\tightlist
+\item
+  If assumptions hold, the model will produce residuals that follow a Normal distribution with mean 0 and standard deviation equal to this residual standard error.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    So we'd expect roughly 95\% of our residuals to fall between -2(12.21) and +2(12.21), or roughly -24.4 to +24.4 and that we'd see virtually no residuals outside the range of -3(12.21) to +3(12.21), or roughly -36.6 to +36.6.
+  \item
+    The output at the top of the summary tells us about the observed regression residuals, and that they actually range from -22 to +24.
+  \item
+    In context, it's hard to know whether or not we should be happy about this. On a scale from 0 to 100, rarely missing by more than 24 seems OK to me, but not terrific.
+  \end{itemize}
+\item
+  The \textbf{degrees of freedom} here are the same as the denominator degrees of freedom in the ANOVA to follow. The calculation is \(n - k\), where \(n\) = the number of observations and \(k\) is the number of coefficients estimated by the regression (including the intercept and any slopes).
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Here, there are 36 observations in the model, and we fit \emph{k} = 2 coefficients; the slope and the intercept, as in any simple regression model, so df = 36 - 2 = 34.
+  \end{itemize}
+\end{itemize}
+
+The multiple R-squared value is usually just referred to as R-squared.
+
+\begin{itemize}
+\tightlist
+\item
+  This is interpreted as the proportion of variation in the outcome variable that has been accounted for by our regression model.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Here, we've accounted for just under 13\% of the variation in \% Recovery using Dose.
+  \end{itemize}
+\item
+  The R in multiple R-squared is the Pearson correlation of \texttt{recov.score} and \texttt{dose}, which in this case is 0.3595.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Squaring this value gives the R-squared for this simple regression.
+  \item
+    (0.3595)\^{}2 = 0.129
+  \end{itemize}
+\end{itemize}
+
+R-squared is greedy.
+
+\begin{itemize}
+\tightlist
+\item
+  R-squared will always suggest that we make our models as big as possible, often including variables of dubious predictive value.
+\item
+  As a result, there are various methods for adjusting or penalizing R-squared so that we wind up with smaller models.
+\item
+  The \textbf{adjusted R-squared} is often a useful way to compare multiple models for the same response.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(R^2_{adj} = 1 - \frac{(1-R^2)(n - 1)}{n - k}\), where \(n\) = the number of observations and \(k\) is the number of coefficients estimated by the regression (including the intercept and any slopes).
+  \item
+    So, in this case, \(R^2_{adj} = 1 - \frac{(1 - 0.1293)(35)}{34} = 0.1037\)
+  \item
+    The adjusted R-squared value is not, technically, a proportion of anything, but it is comparable across models for the same outcome.
+  \item
+    The adjusted R-squared will always be less than the (unadjusted) R-squared.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{anova-f-test}{%
+\subsection{ANOVA F test}\label{anova-f-test}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  The last part of the standard summary of a regression model is the overall ANOVA F test.
+\end{enumerate}
+
+The hypotheses for this test are:
+
+\begin{itemize}
+\tightlist
+\item
+  H0: Each of the coefficients in the model (other than the intercept) has \(\beta\) = 0 vs.
+\item
+  HA: At least one regression slope has \(\beta \neq\) 0
+\end{itemize}
+
+Since we are doing a simple regression with just one predictor, the ANOVA F test hypotheses are exactly the same as the t test for dose:
+
+\begin{itemize}
+\tightlist
+\item
+  H0: The slope for \texttt{dose} has \(\beta\) = 0 vs.
+\item
+  HA: The slope for \texttt{dose} has \(\beta \neq\) 0
+\end{itemize}
+
+In this case, we have an F statistic of 5.05 on 1 and 34 degrees of freedom, yielding \emph{p} = 0.03
+
+This provides some evidence that ``something'' in our model (here, \texttt{dose} is the only predictor) predicts the outcome to a degree beyond that easily attributed to chance alone. This is not actually surprising, nor is it especially interesting. The confidence interval for the slope is definitely more interesting than this.
+
+\begin{itemize}
+\tightlist
+\item
+  In \emph{simple regression} (regression with only one predictor), the t test for the slope (\texttt{dose}) always provides the same p value as the ANOVA F test.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    The F test statistic in a \emph{simple regression} is always by definition just the square of the slope's t test statistic.
+  \item
+    Here, F = 5.047, and this is the square of t = 2.247 from the Coefficients output
+  \end{itemize}
+\end{itemize}
+
+This test is basically just a combination of the R-squared value (13\%) and the sample size. We don't learn much from it that's practically interesting or useful.
+
+\hypertarget{viewing-the-complete-anova-table}{%
+\section{Viewing the complete ANOVA table}\label{viewing-the-complete-anova-table}}
+
+We can obtain the complete ANOVA table associated with this particular model, and the details behind this F test using the \texttt{anova} function:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{anova}\NormalTok{(}\KeywordTok{lm}\NormalTok{(recov.score }\OperatorTok{~}\StringTok{ }\NormalTok{dose, }\DataTypeTok{data =}\NormalTok{ hydrate))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Analysis of Variance Table
+
+Response: recov.score
+          Df Sum Sq Mean Sq F value  Pr(>F)  
+dose       1  752.2  752.15  5.0473 0.03127 *
+Residuals 34 5066.7  149.02                  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  The R-squared for our regression model is equal to the \(\eta^2\) for this ANOVA model.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    If we divide SS(dose) = 752.2 by the total sum of squares (752.2 + 5066.7), we'll get the multiple R-squared {[}0.1293{]}
+  \end{itemize}
+\item
+  Note that this is \emph{not} the same ANOVA model we would get if we treated \texttt{dose} as a factor with seven levels, rather than as a quantitative variable.
+\end{itemize}
+
+\hypertarget{plotting-residuals-vs.-fitted-values}{%
+\section{Plotting Residuals vs.~Fitted Values}\label{plotting-residuals-vs.-fitted-values}}
+
+To save the residuals and predicted (fitted) values from this simple regression model, we can use the \texttt{resid} and \texttt{fitted} commands, respectively, or we can use the \texttt{augment} function in the \texttt{broom} package to obtain a tidy data set containing these objects and others.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{augment}\NormalTok{(m1) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{ggplot}\NormalTok{(., }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ .fitted, }\DataTypeTok{y =}\NormalTok{ .resid)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"loess"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{se =}\NormalTok{ F) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =} \StringTok{"lm"}\NormalTok{, }\DataTypeTok{formula =}\NormalTok{ y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{se =}\NormalTok{ F, }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Residuals vs. Fitted values for Model m1"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-121-1.pdf}
+
+We can also obtain a plot of residuals vs.~fitted values for \texttt{m1} using the following code from base R.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(m1, }\DataTypeTok{which =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-122-1.pdf}
+
+We hope in this plot to see a generally random scatter of points, perhaps looking like a ``fuzzy football''. Since we only have seven possible \texttt{dose} values, we obtain only seven distinct predicted values, which explains the seven vertical lines in the plot. Here, the smooth red line indicates a gentle curve, but no evidence of a strong curve, or any other regular pattern in this residual plot.
+
+\hypertarget{highlights-of-what-weve-seen-so-far}{%
+\chapter{Highlights of What We've Seen So Far}\label{highlights-of-what-weve-seen-so-far}}
+
+\hypertarget{key-graphical-descriptive-summaries-for-quantitative-data}{%
+\section{Key Graphical Descriptive Summaries for Quantitative Data}\label{key-graphical-descriptive-summaries-for-quantitative-data}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Histograms} and their variants, including smooth density curves, and normal density functions based on the sample mean and sample standard deviation
+\item
+  \textbf{Boxplots} and the like, including ridgeline plots and violin plots, that show more of the distribution in a compact format that is especially useful for comparisons
+\item
+  \textbf{Normal QQ Plots} which are plots of the ordered data (technically, the order statistics) against certain quantiles of the Normal distribution - show curves to indicate skew, and ``S'' shaped arcs to indicate seriously heavy- or light-tailed distributions compared to the Normal.
+\end{itemize}
+
+\hypertarget{key-numerical-descriptive-summaries-for-quantitative-data}{%
+\section{Key Numerical Descriptive Summaries for Quantitative Data}\label{key-numerical-descriptive-summaries-for-quantitative-data}}
+
+\begin{itemize}
+\tightlist
+\item
+  Measures of \emph{Location} (including Central Tendency), such as the \textbf{mean}, \textbf{median}, \textbf{quantiles} and even the \textbf{mode}.
+\item
+  Measures of \emph{Spread}, including the \textbf{range}, \textbf{IQR} (which measures the variability of points near the center of the distribution), \textbf{standard deviation} (which is less appropriate as a summary measure if the data show substantial skew or heavy-tailedness), \textbf{variance}, \textbf{standard error}, \textbf{median absolute deviation} (which is less affected by outlying values in the tails of the distribution than a standard deviation).
+\item
+  I'll mention the \textbf{coefficient of variation} (ratio of the standard deviation to the mean, expressed as a percentage, note that this is only appropriate for variables that take only positive values.)
+\item
+  One Key Measure of \emph{Shape} is nonparametric skew (skew1), which can be used to help confirm plot-based decisions about data shape.
+\end{itemize}
+
+\hypertarget{the-empirical-rule---interpreting-a-standard-deviation}{%
+\section{The Empirical Rule - Interpreting a Standard Deviation}\label{the-empirical-rule---interpreting-a-standard-deviation}}
+
+If the data are approximately Normally distributed, then the mean and median will be very similar, and there will be minimal skew and no large outlier problem.
+
+Should this be the case, the mean and standard deviation describe the distribution well, and the \textbf{Empirical Rule} will hold reasonably well.
+
+If the data are (approximately) Normally distributed, then
+
+\begin{itemize}
+\tightlist
+\item
+  About 68\% of the data will fall within one standard deviation of the mean
+\item
+  Approximately 95\% of the data will fall within two standard deviations of the mean
+\item
+  Approximately 99.7\% of the data will fall within three standard deviations of the mean.
+\end{itemize}
+
+\hypertarget{identifying-outliers-using-fences-andor-z-scores}{%
+\section{Identifying ``Outliers'' Using Fences and/or Z Scores}\label{identifying-outliers-using-fences-andor-z-scores}}
+
+\begin{itemize}
+\tightlist
+\item
+  Distributions can be symmetric, but still not Normally distributed, if they are either outlier-prone (heavy-tailed) or light-tailed.
+\item
+  Outliers can have an important impact on other descriptive measures.
+\item
+  John Tukey described \textbf{fences} which separated non-outlier from outlier values in a distribution. Generally, the fences are set 1.5 IQR away from the 25th and 75th percentiles in a boxplot.
+\item
+  Or, we can use \textbf{Z scores} to highlight the relationship between values and what we might expect if the data were normally distributed.
+\item
+  The Z score for an individual value is that value minus the data's mean, all divided by the data's standard deviation.
+\item
+  If the data are normally distributed, we'd expect all but 5\% of its observations to have Z scores between -2 and +2, for example.
+\end{itemize}
+
+\hypertarget{summarizing-bivariate-associations-scatterplots-and-regression-lines}{%
+\section{Summarizing Bivariate Associations: Scatterplots and Regression Lines}\label{summarizing-bivariate-associations-scatterplots-and-regression-lines}}
+
+\begin{itemize}
+\tightlist
+\item
+  The most important tools are various \textbf{scatterplots}, often accompanied by \textbf{regression lines} estimated by the method of least squares, and by (loess) \textbf{smooths} which permit local polynomial functions to display curved relationships.
+\item
+  In a multivariate setting, we will occasionally consider plots in the form of a \textbf{scatterplot matrix} to enable simultaneous comparisons of multiple two-way associations.
+\item
+  We fit linear models to our data using the \texttt{lm} function, and we evaluate the models in terms of their ability to effectively predict an outcome given a predictor, and through R-square, which is interpreted as the proportion of variation in the outcome accounted for by the model.
+\end{itemize}
+
+\hypertarget{summarizing-bivariate-associations-with-correlations}{%
+\section{Summarizing Bivariate Associations With Correlations}\label{summarizing-bivariate-associations-with-correlations}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Correlation coefficients,} of which by far the most commonly used is the \textbf{Pearson correlation}, which is a unitless (scale-free) measure of bivariate linear association for the variables X and Y, symbolized by r, and ranging from -1 to +1. The Pearson correlation is a function of the slope of the least squares regression line, divided by the product of the standard deviations of X and Y.
+\item
+  Also relevant to us is the \textbf{Spearman rank correlation coefficient}, which is obtained by using the usual formula for a Pearson correlation, but on the ranks (1 = minimum, n = maximum, with average ranks are applied to the ties) of the X and Y values. This approach (running a correlation of the orderings of the data) substantially reduces the effect of outliers. The result still ranges from -1 to +1, with 0 indicating no monotone association.
+\end{itemize}
 
   \bibliography{book.bib,packages.bib}
 
