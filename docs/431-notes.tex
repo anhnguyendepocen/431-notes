@@ -120,7 +120,7 @@
 
 \title{Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431}
 \author{Thomas E. Love}
-\date{2020-09-19}
+\date{2020-09-21}
 
 \begin{document}
 \maketitle
@@ -250,6 +250,18 @@ To start, I'll present a series of commands I run at the beginning of these Note
 
 I have deliberately set up this list of loaded packages to be relatively small, and will add some others later in these Notes. You only need to install a package once, but you need to reload it every time you start a new session.
 
+\hypertarget{the-love-boost.r-script}{%
+\section*{\texorpdfstring{The \texttt{Love-boost.R} script}{The Love-boost.R script}}\label{the-love-boost.r-script}}
+\addcontentsline{toc}{section}{The \texttt{Love-boost.R} script}
+
+Starting in October, we'll make use of a few scripts I've gathered for you.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{source}\NormalTok{(}\StringTok{"data/Love-boost.R"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
 \hypertarget{additional-r-packages-installed-for-this-book}{%
 \section*{Additional R Packages installed for this book}\label{additional-r-packages-installed-for-this-book}}
 \addcontentsline{toc}{section}{Additional R Packages installed for this book}
@@ -257,6 +269,7 @@ I have deliberately set up this list of loaded packages to be relatively small, 
 Some packages need to be installed on the user's system, but do not need to be loaded by R in order to run the code presented in this set of notes. These additional packages include the following.
 
 \begin{verbatim}
+boot
 car
 Epi
 GGally
@@ -491,7 +504,7 @@ Now, let's look at the other two variables of interest. Let's create a graph sho
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-6-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-7-1.pdf}
 
 Some of you may want to include a straight-line model (fit by a classical linear regression) to this plot. One way to do that in R involves the addition of a single line of code, like this:
 
@@ -503,7 +516,7 @@ Some of you may want to include a straight-line model (fit by a classical linear
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-7-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-8-1.pdf}
 
 Whenever we build a graph for ourselves, these default choices may be sufficient. But I'd like to see a prettier version if I was going to show it to someone else. So, I might use a different color for each species, and I might neaten up the theme (to get rid of the default grey background) and add a title, like this.
 
@@ -516,7 +529,7 @@ Whenever we build a graph for ourselves, these default choices may be sufficient
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-8-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-9-1.pdf}
 
 \hypertarget{six-ways-to-improve-this-graph}{%
 \section{Six Ways To ``Improve'' This Graph}\label{six-ways-to-improve-this-graph}}
@@ -555,7 +568,7 @@ Now, let's build a new graph. Here, I want to:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-9-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-10-1.pdf}
 
 \hypertarget{a-little-reflection}{%
 \section{A Little Reflection}\label{a-little-reflection}}
@@ -1577,7 +1590,7 @@ We'll build a panel of boxplots to try to understand the relationships between S
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-16-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-17-1.pdf}
 
 \hypertarget{sbp-by-sleep-trouble-and-general-health-status}{%
 \subsection{SBP by Sleep Trouble and General Health Status}\label{sbp-by-sleep-trouble-and-general-health-status}}
@@ -1595,7 +1608,7 @@ Here's a plot of faceted histograms, which might be used to address similar ques
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-17-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-18-1.pdf}
 
 \hypertarget{conclusions}{%
 \section{Conclusions}\label{conclusions}}
@@ -2595,7 +2608,7 @@ When we have a unimodal distribution that is symmetric, we will often be interes
 Warning: Removed 2 rows containing missing values (geom_bar).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-24-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-25-1.pdf}
 
 Graphical tools are in most cases the best way to identify issues related to kurtosis.
 
@@ -4075,7 +4088,7 @@ We see there is some missing data here. Let's ignore that for the moment and con
 Warning: Removed 89 rows containing non-finite values (stat_bin).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-32-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-33-1.pdf}
 
 The histogram shows us that the values are truncated at 5, so that children whose actual family income is above 5 times the poverty line are listed as 5. We also see a message reminding us that some of the data are missing for this variable.
 
@@ -4115,7 +4128,7 @@ This deserves a picture. Let's try a boxplot.
 Warning: Removed 89 rows containing non-finite values (stat_boxplot).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-34-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-35-1.pdf}
 
 \hypertarget{bmi}{%
 \subsection{\texorpdfstring{\texttt{bmi}}{bmi}}\label{bmi}}
@@ -4265,7 +4278,7 @@ Here's a histogram of the waist circumference data.
 Warning: Removed 6 rows containing non-finite values (stat_bin).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-36-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-37-1.pdf}
 
 \hypertarget{triceps_skinfold}{%
 \subsection{\texorpdfstring{\texttt{triceps\_skinfold}}{triceps\_skinfold}}\label{triceps_skinfold}}
@@ -4296,7 +4309,7 @@ And here's a histogram of the triceps skinfold data, with the fill and color fli
 Warning: Removed 21 rows containing non-finite values (stat_bin).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-37-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-38-1.pdf}
 
 OK. We've seen a few variables, and we'll move on now to look more seriously at the data.
 
@@ -4468,7 +4481,7 @@ Here's a comparison of several histograms, looking at \texttt{energy} consumed a
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-39-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-40-1.pdf}
 
 We don't really need the legend here, and perhaps we should restrict the plot to participants who responded to the \texttt{diet\_yesterday} question, and put in a title and better axis labels?
 
@@ -4486,7 +4499,7 @@ We don't really need the legend here, and perhaps we should restrict the plot to
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-40-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-41-1.pdf}
 
 \hypertarget{the-dot-plot-to-display-a-distribution}{%
 \section{The Dot Plot to display a distribution}\label{the-dot-plot-to-display-a-distribution}}
@@ -5086,7 +5099,7 @@ But first, we'll demonstrate an approach to building a histogram of counts (rath
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-41-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-42-1.pdf}
 
 \hypertarget{does-a-normal-model-work-well-for-the-waist-circumference}{%
 \section{\texorpdfstring{Does a Normal model work well for the \texttt{waist} circumference?}{Does a Normal model work well for the waist circumference?}}\label{does-a-normal-model-work-well-for-the-waist-circumference}}
@@ -5118,7 +5131,7 @@ Now, suppose we instead look at the \texttt{waist} data, remembering to filter t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-42-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-43-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5470,7 +5483,7 @@ The \texttt{energy} data we've been studying shows meaningful signs of right ske
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-44-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-45-1.pdf}
 
 \begin{itemize}
 \tightlist
@@ -5506,7 +5519,7 @@ What if we plotted not the original \texttt{energy} values (all of which are pos
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-45-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-46-1.pdf}
 
 \begin{itemize}
 \tightlist
@@ -5560,7 +5573,7 @@ The effect of taking the square root may be clearer from the histograms below, w
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-46-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-47-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5670,7 +5683,7 @@ Here are the protein consumption (in grams) results from the NNYFS data.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-48-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-49-1.pdf}
 
 The key point here is that we see several signs of meaningful right skew, and we'll want to consider a transformation that might make a Normal model more plausible.
 
@@ -5719,7 +5732,7 @@ For me, the slickest approach to composing how a series of plots are placed toge
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-49-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-50-1.pdf}
 
 For more on the \texttt{patchwork} package, check out its repository at \url{https://github.com/thomasp85/patchwork}.
 
@@ -5773,7 +5786,7 @@ Would a square root applied to the protein data help alleviate that right skew?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-50-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-51-1.pdf}
 
 That looks like a more symmetric distribution, certainly, although we still have some outliers on the right side of the distribution. Should we take another step down the ladder?
 
@@ -5822,7 +5835,7 @@ We might also try a logarithm of the energy circumference data. We can use eithe
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-51-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-52-1.pdf}
 
 Now, it looks like we may have gone too far in the other direction. It looks like the square root is a sensible choice to try to improve the fit of a Normal model to the protein consumption data.
 
@@ -5908,7 +5921,7 @@ In this course, we will assume the use of natural logarithms unless we specify o
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-52-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-53-1.pdf}
 
 The square root still appears to be the best choice of transformation here, even after we consider all 8 transformation of the raw data.
 
@@ -5964,7 +5977,7 @@ If we'd like to transform these data so as to better approximate a Normal distri
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-54-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-55-1.pdf}
 
 Given the left skew in the data, it looks like a step up in the ladder is warranted, perhaps by looking at the square of the data?
 
@@ -6008,7 +6021,7 @@ Given the left skew in the data, it looks like a step up in the ladder is warran
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-55-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-56-1.pdf}
 
 Looks like at best a modest improvement. How about cubing the data, instead?
 
@@ -6052,7 +6065,7 @@ Looks like at best a modest improvement. How about cubing the data, instead?
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-56-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-57-1.pdf}
 
 The newly transformed (cube of the) data appears more symmetric, although somewhat light-tailed. Perhaps a Normal model would be more appropriate now, although the standard deviation is likely to overstate the variation we see in the data due to the light tails. Again, I wouldn't be thrilled using a cube in practical work, as it is so hard to interpret, but it does look like a reasonable choice here.
 
@@ -6122,7 +6135,7 @@ The newly transformed (cube of the) data appears more symmetric, although somewh
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-57-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-58-1.pdf}
 
 Again, either the cube or the square looks like best choice here, in terms of creating a more symmetric (albeit light-tailed) distribution.
 
@@ -6227,7 +6240,7 @@ It looks like the children in the ``Much more than usual'' category consumed mor
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-61-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-62-1.pdf}
 
 We can see that there is considerable overlap in these distributions, regardless of what we're measuring.
 
@@ -6329,7 +6342,7 @@ While patients in the heavier groups generally had higher waist circumferences, 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-65-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-66-1.pdf}
 
 The data transformation with dplyr cheat sheet found under the Help menu in RStudio is a great resource. And, of course, for more details, visit \citet{R4DS}.
 
@@ -6352,7 +6365,7 @@ Boxplots are much more useful when comparing samples of data. For instance, cons
 Warning: Removed 21 rows containing non-finite values (stat_boxplot).
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-66-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-67-1.pdf}
 
 Again, we probably want to omit those missing values (both in \texttt{bmi\_cat} and \texttt{triceps\_skinfold}) and also eliminate the repetitive legend (guides) on the right.
 
@@ -6372,7 +6385,7 @@ Again, we probably want to omit those missing values (both in \texttt{bmi\_cat} 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-67-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-68-1.pdf}
 
 As always, the boxplot shows the five-number summary (minimum, 25th percentile, median, 75th percentile and maximum) in addition to highlighting candidate outliers.
 
@@ -6399,7 +6412,7 @@ Often, we want to augment such a plot, perhaps by adding a little diamond to sho
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-68-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-69-1.pdf}
 
 \hypertarget{building-a-violin-plot}{%
 \subsection{Building a Violin Plot}\label{building-a-violin-plot}}
@@ -6419,7 +6432,7 @@ There are a number of other plots which compare distributions of data sets. An i
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-69-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-70-1.pdf}
 
 Traditionally, these plots are shown with overlaid boxplots and a white dot at the median, like this example, now looking at waist circumference again.
 
@@ -6440,7 +6453,7 @@ Traditionally, these plots are shown with overlaid boxplots and a white dot at t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-70-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-71-1.pdf}
 
 \hypertarget{adding-notches-to-a-boxplot}{%
 \subsection{Adding Notches to a Boxplot}\label{adding-notches-to-a-boxplot}}
@@ -6463,7 +6476,7 @@ Traditionally, these plots are shown with overlaid boxplots and a white dot at t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-71-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-72-1.pdf}
 
 There is no overlap between the notches for each of the four categories, so we might reasonably conclude that the true median triceps skinfold values across the four categories are statistically significantly different.
 
@@ -6484,7 +6497,7 @@ For an example where the notches do overlap, consider the comparison of plank ti
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-72-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-73-1.pdf}
 
 The overlap in the notches (for instance between Underweight and Normal) suggests that the median plank times in the population of interest don't necessarily differ in a meaningful way by BMI category, other than perhaps the Obese group which may have a shorter time.
 
@@ -6505,7 +6518,7 @@ These data are somewhat right skewed. Would a logarithmic transformation in the 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-73-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-74-1.pdf}
 
 \hypertarget{using-multiple-histograms-to-make-comparisons}{%
 \section{Using Multiple Histograms to Make Comparisons}\label{using-multiple-histograms-to-make-comparisons}}
@@ -6525,7 +6538,7 @@ We can make an array of histograms to describe multiple groups of data, using \t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-74-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-75-1.pdf}
 
 \hypertarget{using-multiple-density-plots-to-make-comparisons}{%
 \section{Using Multiple Density Plots to Make Comparisons}\label{using-multiple-density-plots-to-make-comparisons}}
@@ -6545,7 +6558,7 @@ Or, we can make a series of density plots to describe multiple groups of data.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-75-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-76-1.pdf}
 
 Or, we can plot all of the densities on top of each other with semi-transparent fills.
 
@@ -6560,7 +6573,7 @@ Or, we can plot all of the densities on top of each other with semi-transparent 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-76-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-77-1.pdf}
 
 This really works better when we are comparing only two groups, like females to males.
 
@@ -6574,7 +6587,7 @@ This really works better when we are comparing only two groups, like females to 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-77-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-78-1.pdf}
 
 \hypertarget{a-ridgeline-plot}{%
 \section{A Ridgeline Plot}\label{a-ridgeline-plot}}
@@ -6597,7 +6610,7 @@ Some people don't like violin plots - for example, see \url{https://simplystatis
 Picking joint bandwidth of 3.47
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-78-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-79-1.pdf}
 
 And here's a ridgeline plot for the triceps skinfolds. We'll start by sorting the subgroups by the median value of our outcome (triceps skinfold) in this case, though it turns out not to matter. We'll also add some color.
 
@@ -6623,7 +6636,7 @@ And here's a ridgeline plot for the triceps skinfolds. We'll start by sorting th
 Picking joint bandwidth of 1.37
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-79-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-80-1.pdf}
 
 For one last example, we'll look at age by BMI category, so that sorting the BMI subgroups by the median matters, and we'll try an alternate color scheme, and a theme specially designed for the ridgeline plot.
 
@@ -6646,7 +6659,7 @@ For one last example, we'll look at age by BMI category, so that sorting the BMI
 Picking joint bandwidth of 1.15
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-80-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-81-1.pdf}
 
 \hypertarget{straight-line-models-and-correlation}{%
 \chapter{Straight Line Models and Correlation}\label{straight-line-models-and-correlation}}
@@ -6676,7 +6689,7 @@ We'll begin our investigation, as we always should, by drawing a relevant pictur
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-82-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-83-1.pdf}
 
 Here, I've arbitrarily decided to place \texttt{fat} on the vertical axis, and \texttt{protein} on the horizontal. Fitting a prediction model to this scatterplot will then require that we predict \texttt{fat} on the basis of \texttt{protein}.
 
@@ -6718,7 +6731,7 @@ Consider the subject with protein consumption close to 200 g, whose fat consumpt
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-83-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-84-1.pdf}
 
 While this subject is hardly the only unusual point in the data set, it is one of the more unusual ones, in terms of its vertical distance from the regression line. We can identify the subject by printing (part of) the tibble we created.
 
@@ -6756,7 +6769,7 @@ Next, we'll use the \textbf{loess} procedure to fit a smooth curve to the data, 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-85-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-86-1.pdf}
 
 This ``loess'' smooth curve is fairly close to the straight line fit, indicating that perhaps a linear regression model might fit the data well.
 
@@ -6765,7 +6778,7 @@ A \textbf{loess smooth} is a method of fitting a local polynomial regression mod
 \begin{itemize}
 \tightlist
 \item
-  a \texttt{span} parameter (defaults to 0.75) which is also called \(\alpha\) in the literature, that controls the degree of smoothing (essentially, how larger the neighborhood should be), and
+  a \texttt{span} parameter (defaults to 0.75) which is also called \(\alpha\) in the literature, that controls the degree of smoothing (essentially, how large the neighborhood should be), and
 \item
   a \texttt{degree} parameter (defaults to 2) which specifies the degree of polynomial to be used. Normally, this is either 1 or 2 - more complex functions are rarely needed for simple scatterplot smoothing.
 \end{itemize}
@@ -6795,7 +6808,7 @@ In addition to the curve, smoothing procedures can also provide confidence inter
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-86-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-87-1.pdf}
 
 By reducing the size of the span, the plot on the right shows a somewhat less ``smooth'' function than the plot on the left.
 
@@ -7013,7 +7026,7 @@ Let's start by working with the \textbf{Alex} data set.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-93-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-94-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7024,7 +7037,7 @@ Let's start by working with the \textbf{Alex} data set.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-94-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-95-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7042,7 +7055,7 @@ Let's start by working with the \textbf{Alex} data set.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-95-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-96-1.pdf}
 
 \hypertarget{data-set-bonnie}{%
 \subsection{Data Set Bonnie}\label{data-set-bonnie}}
@@ -7057,7 +7070,7 @@ Let's start by working with the \textbf{Alex} data set.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-96-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-97-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7074,7 +7087,7 @@ Let's start by working with the \textbf{Alex} data set.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-97-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-98-1.pdf}
 
 \hypertarget{correlations-for-all-six-data-sets-in-the-correx1-example}{%
 \subsection{Correlations for All Six Data Sets in the Correx1 Example}\label{correlations-for-all-six-data-sets-in-the-correx1-example}}
@@ -7133,7 +7146,7 @@ It looks like the picture for Colin should be very similar (in terms of scatter)
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-99-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-100-1.pdf}
 
 Uh, oh. It looks like the point in Colin at the top right is twisting what would otherwise be a very straight regression model with an extremely strong negative correlation. There's no better way to look for outliers than to examine the scatterplot.
 
@@ -7151,7 +7164,7 @@ We've seen that Danielle, Earl and Fiona all show Pearson correlations of essent
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-100-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-101-1.pdf}
 
 When we learn that the correlation is zero, we tend to assume we have a picture like the Danielle data set. If Danielle were our real data, we might well think that x would be of little use in predicting y.
 
@@ -7232,7 +7245,7 @@ Here is a plot of the 11 data sets, showing the increase in correlation from 0.0
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-103-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-104-1.pdf}
 
 Note that R will allow you to fit a straight line model to any of these relationships, no matter how appropriate it might be to do so.
 
@@ -7246,7 +7259,7 @@ Note that R will allow you to fit a straight line model to any of these relation
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-104-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-105-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7258,7 +7271,7 @@ Note that R will allow you to fit a straight line model to any of these relation
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-105-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-106-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -7270,7 +7283,7 @@ Note that R will allow you to fit a straight line model to any of these relation
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-106-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-107-1.pdf}
 
 Note that the same 10 points are used in each of the data sets. It's always possible that a lurking subgroup of the data within a scatterplot follows a very strong linear relationship. This is why it's so important (and difficult) not to go searching for such a thing without a strong foundation of logic, theory and prior empirical evidence.
 
@@ -8272,7 +8285,7 @@ Consider the question of whether the distribution of the systolic blood pressure
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-115-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-116-1.pdf}
 
 Since the data contain both \texttt{sbp} and \texttt{lnsbp} (its natural logarithm), let's compare them. Note that in preparing the graph, we'll need to change the location for the text annotation.
 
@@ -8296,7 +8309,7 @@ Since the data contain both \texttt{sbp} and \texttt{lnsbp} (its natural logarit
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-116-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-117-1.pdf}
 
 We can also look at Normal Q-Q plots, for instance\ldots{}
 
@@ -8342,7 +8355,7 @@ It looks like there's an outlier (or a series of them) in the SBP data.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-117-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-118-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8497,7 +8510,7 @@ Let's build a scatter plot of SBP (Outcome) by Weight (Predictor), rather than b
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-120-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-121-1.pdf}
 
 \begin{itemize}
 \tightlist
@@ -8573,7 +8586,7 @@ Let's build a version of the \texttt{wcgs} data that eliminates all missing data
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-122-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-123-1.pdf}
 
 \hypertarget{linear-model-for-sbp-weight-relationship-subjects-without-arcus-senilis}{%
 \section{Linear Model for SBP-Weight Relationship: subjects without Arcus Senilis}\label{linear-model-for-sbp-weight-relationship-subjects-without-arcus-senilis}}
@@ -8856,7 +8869,7 @@ We can use facets in \texttt{ggplot2} to show scatterplots across the levels of 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-126-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-127-1.pdf}
 
 \hypertarget{scatterplot-and-correlation-matrices}{%
 \section{Scatterplot and Correlation Matrices}\label{scatterplot-and-correlation-matrices}}
@@ -8869,7 +8882,7 @@ A \textbf{scatterplot matrix} can be very helpful in understanding relationships
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-127-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-128-1.pdf}
 
 \hypertarget{displaying-a-correlation-matrix}{%
 \subsection{Displaying a Correlation Matrix}\label{displaying-a-correlation-matrix}}
@@ -8905,7 +8918,7 @@ The \texttt{ggpairs} function provides a density plot on each diagonal, Pearson 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-129-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-130-1.pdf}
 
 \hypertarget{re-expression-tukeys-ladder-box-cox-plot}{%
 \chapter{Re-Expression, Tukey's Ladder \& Box-Cox Plot}\label{re-expression-tukeys-ladder-box-cox-plot}}
@@ -8980,7 +8993,7 @@ The \textbf{Box-Cox plot}, from the \texttt{boxCox} function in the \texttt{car}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics{431-notes_files/figure-latex/unnamed-chunk-130-1} \end{center}
+\begin{center}\includegraphics{431-notes_files/figure-latex/unnamed-chunk-131-1} \end{center}
 
 Having simulated data that produces a curved scatterplot, I will now use the Box-Cox plot to lead my choice of an appropriate power transformation for Y in order to ``linearize'' the association of Y and X.
 
@@ -8991,7 +9004,7 @@ Having simulated data that produces a curved scatterplot, I will now use the Box
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-131-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-132-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9040,7 +9053,7 @@ If we use \(\lambda\) = 0.5, on Tukey's ladder of power transformations, it sugg
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-132-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-133-1.pdf}
 
 By eye, I think the square root plot better matches the linear fit.
 
@@ -9163,7 +9176,7 @@ We can fit the regression models, obtain plots of residuals against fitted value
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-135-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-136-1.pdf}
 
 What we're looking for in such a plot is the absence of a curve, among other things, we want to see ``fuzzy football'' shapes.
 
@@ -9262,7 +9275,7 @@ Next, we'll do a more thorough graphical summary of our outcome, recovery score.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-136-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-137-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9775,7 +9788,7 @@ To save the residuals and predicted (fitted) values from this simple regression 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-141-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-142-1.pdf}
 
 We can also obtain a plot of residuals vs.~fitted values for \texttt{m1} using the following code from base R.
 
@@ -9785,7 +9798,7 @@ We can also obtain a plot of residuals vs.~fitted values for \texttt{m1} using t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-142-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-143-1.pdf}
 
 We hope in this plot to see a generally random scatter of points, perhaps looking like a ``fuzzy football''. Since we only have seven possible \texttt{dose} values, we obtain only seven distinct predicted values, which explains the seven vertical lines in the plot. Here, the smooth red line indicates a gentle curve, but no evidence of a strong curve, or any other regular pattern in this residual plot.
 
@@ -9881,6 +9894,1973 @@ If the data are (approximately) Normally distributed, then
 \item
   Also relevant to us is the \textbf{Spearman rank correlation coefficient}, which is obtained by using the usual formula for a Pearson correlation, but on the ranks (1 = minimum, n = maximum, with average ranks are applied to the ties) of the X and Y values. This approach (running a correlation of the orderings of the data) substantially reduces the effect of outliers. The result still ranges from -1 to +1, with 0 indicating no monotone association.
 \end{itemize}
+
+\hypertarget{confidence-intervals-for-a-mean}{%
+\chapter{Confidence Intervals for a Mean}\label{confidence-intervals-for-a-mean}}
+
+\hypertarget{love-boost.r-is-something-well-start-using-now}{%
+\section{\texorpdfstring{\texttt{Love-boost.R} is something we'll start using now}{Love-boost.R is something we'll start using now}}\label{love-boost.r-is-something-well-start-using-now}}
+
+In this part of the course, we'll make use of a few scripts I've gathered for you.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{source}\NormalTok{(}\StringTok{"data/Love-boost.R"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+The basic theory of estimation can be used to indicate the probable accuracy and potential for bias in estimating based on limited samples. A point estimate provides a single best guess as to the value of a population or process parameter.
+
+A confidence interval is a particularly useful way to convey to people just how much error one must allow for in a given estimate. In particular, a confidence interval allows us to quantify just how close we expect, for instance, the sample mean to be to the population or process mean. The computer will do the calculations; we need to interpret the results.
+
+The key things that we will need to trade off are cost vs.~precision, and precision vs.~confidence in the correctness of the statement. Often, if we are dissatisfied with the width of the confidence interval and want to make it smaller, we have little choice but to reconsider the sample -- larger samples produce shorter intervals.
+
+\hypertarget{this-chapters-goals}{%
+\section{This Chapter's Goals}\label{this-chapters-goals}}
+
+Suppose that we are interested in learning something about a population or process, from which we can obtain a sample that consists of a subset of potential results from that population or process. The main goal for many of the parametric models that are a large part of statistics is to estimate population parameters, like a population mean, or regression coefficient, on the basis of a sample. When we do this, we want to describe not only our best guess at the parameter (referred to as a \emph{point estimate}) but also say something useful about the uncertainty in our estimate, to let us more completely assess what the data have to tell us. A key tool for doing this is a \textbf{confidence interval}.
+
+Essentially every textbook on introductory statistics describes the development of a confidence interval, at least for a mean. Good supplemental resources are highlighted in the references I've provided in the course syllabus.
+
+We'll develop confidence intervals to compare parameters about two populations (either through matched pairs or independent samples) with confidence intervals soon. Here, we'll consider the problem of estimating a confidence interval to describe the mean (or median) of the population represented by a single sample of quantitative data.
+
+\hypertarget{serum-zinc-levels-in-462-teenage-males-serzinc}{%
+\section{\texorpdfstring{Serum Zinc Levels in 462 Teenage Males (\texttt{serzinc})}{Serum Zinc Levels in 462 Teenage Males (serzinc)}}\label{serum-zinc-levels-in-462-teenage-males-serzinc}}
+
+The \texttt{serzinc} data include serum zinc levels in micrograms per deciliter that have been gathered for a sample of 462 males aged 15-17, My source for these data is Appendix B1 of \citet{PaganoGauvreau}. Serum zinc deficiency has been associated with anemia, loss of strength and endurance, and it is thought that 25\% of the world's population is at risk of zinc deficiency. Such a deficiency can indicate poor nutrition, and can affect growth and vision, for instance. ``Typical'' values\footnote{Reference values for those over the age of 10 years at \url{http://www.mayomedicallaboratories.com/test-catalog/Clinical+and+Interpretive/8620} , visited 2019-09-17.} are said to be 0.66-1.10 mcg/ml, which is 66 - 110 micrograms per deciliter.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{serzinc <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/serzinc.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Parsed with column specification:
+cols(
+  ID = col_character(),
+  zinc = col_double()
+)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(serzinc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      ID                 zinc       
+ Length:462         Min.   : 50.00  
+ Class :character   1st Qu.: 76.00  
+ Mode  :character   Median : 86.00  
+                    Mean   : 87.94  
+                    3rd Qu.: 98.00  
+                    Max.   :153.00  
+\end{verbatim}
+
+\hypertarget{our-goal-a-confidence-interval-for-the-population-mean}{%
+\section{Our Goal: A Confidence Interval for the Population Mean}\label{our-goal-a-confidence-interval-for-the-population-mean}}
+
+After we assess the data a bit, and are satisfied that we understand it, our first inferential goal will be to produce a \textbf{confidence interval for the true (population) mean} of males age 15-17 based on this sample, assuming that these 462 males are a random sample from the population of interest, that each serum zinc level is drawn independently from an identical distribution describing that population.
+
+To do this, we will have several different procedures available, including:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  A confidence interval for the population mean based on a t distribution, when we assume that the data are drawn from an approximately Normal distribution, using the sample standard deviation. (Interval corresponding to a t test, and it will be a good choice when the data really are approximately Normally distributed.)
+\item
+  A resampling approach to generate a bootstrap confidence interval for the population mean, which does not require that we assume either that the population standard deviation is known, nor that the data are drawn from an approximately Normal distribution, but which has some other weaknesses.
+\item
+  A rank-based procedure called the Wilcoxon signed rank test can also be used to yield a confidence interval statement about the population pseudo-median, a measure of the population distribution's center (but not the population's mean).
+\end{enumerate}
+
+\hypertarget{exploratory-data-analysis-for-serum-zinc}{%
+\section{Exploratory Data Analysis for Serum Zinc}\label{exploratory-data-analysis-for-serum-zinc}}
+
+\hypertarget{graphical-summaries}{%
+\subsection{Graphical Summaries}\label{graphical-summaries}}
+
+The code presented below builds:
+
+\begin{itemize}
+\tightlist
+\item
+  a histogram (with Normal model superimposed),
+\item
+  a boxplot (with median notch) and
+\item
+  a Normal Q-Q plot (with guiding straight line through the quartiles)
+\end{itemize}
+
+for the \texttt{zinc} results from the \texttt{serzinc} tibble.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p1 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(serzinc, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{sample =}\NormalTok{ zinc)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_qq}\NormalTok{(}\DataTypeTok{col =} \StringTok{"dodgerblue"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_qq_line}\NormalTok{(}\DataTypeTok{col =} \StringTok{"navy"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{aspect.ratio =} \DecValTok{1}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Normal Q-Q plot"}\NormalTok{)}
+
+\NormalTok{p2 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(serzinc, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ zinc)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_histogram}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{y =} \KeywordTok{stat}\NormalTok{(density)), }
+                 \DataTypeTok{bins =} \DecValTok{10}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"dodgerblue"}\NormalTok{, }\DataTypeTok{col =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{stat_function}\NormalTok{(}\DataTypeTok{fun =}\NormalTok{ dnorm, }
+                \DataTypeTok{args =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{mean =} \KeywordTok{mean}\NormalTok{(serzinc}\OperatorTok{$}\NormalTok{zinc), }
+                            \DataTypeTok{sd =} \KeywordTok{sd}\NormalTok{(serzinc}\OperatorTok{$}\NormalTok{zinc)),}
+                \DataTypeTok{col =} \StringTok{"navy"}\NormalTok{, }\DataTypeTok{lwd =} \FloatTok{1.5}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Histogram and Normal Density"}\NormalTok{)}
+
+\NormalTok{p3 <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(serzinc, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ zinc, }\DataTypeTok{y =} \StringTok{""}\NormalTok{)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"dodgerblue"}\NormalTok{, }\DataTypeTok{outlier.color =} \StringTok{"dodgerblue"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Boxplot"}\NormalTok{, }\DataTypeTok{y =} \StringTok{""}\NormalTok{)}
+
+\NormalTok{p1 }\OperatorTok{+}\StringTok{ }\NormalTok{(p2 }\OperatorTok{/}\StringTok{ }\NormalTok{p3 }\OperatorTok{+}\StringTok{ }\KeywordTok{plot_layout}\NormalTok{(}\DataTypeTok{heights =} \KeywordTok{c}\NormalTok{(}\DecValTok{4}\NormalTok{,}\DecValTok{1}\NormalTok{))) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{plot_annotation}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Serum Zinc (micrograms per deciliter) for 462 Teenage Males"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-146-1.pdf}
+
+These results include some of the more useful plots and numerical summaries when assessing shape, center and spread. The \texttt{zinc} data in the \texttt{serzinc} data frame appear to be slightly right skewed, with five outlier values on the high end of the scale, in particular.
+
+\hypertarget{numerical-summaries}{%
+\subsection{Numerical Summaries}\label{numerical-summaries}}
+
+This section describes some numerical summaries of interest to augment the plots in summarizing the center, spread and shape of the distribution of serum zinc among these 462 teenage males.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mosaic}\OperatorTok{::}\KeywordTok{favstats}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{zinc, }\DataTypeTok{data =}\NormalTok{ serzinc) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r|r|r|r|r}
+\hline
+  & min & Q1 & median & Q3 & max & mean & sd & n & missing\\
+\hline
+ & 50 & 76 & 86 & 98 & 153 & 87.937 & 16.005 & 462 & 0\\
+\hline
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{serzinc }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{summarize}\NormalTok{(}\KeywordTok{mean}\NormalTok{(zinc), }\KeywordTok{median}\NormalTok{(zinc), }\KeywordTok{sd}\NormalTok{(zinc),}
+              \DataTypeTok{skew1 =}\NormalTok{ (}\KeywordTok{mean}\NormalTok{(zinc) }\OperatorTok{-}\StringTok{ }\KeywordTok{median}\NormalTok{(zinc))}\OperatorTok{/}\KeywordTok{sd}\NormalTok{(zinc)) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{r|r|r|r}
+\hline
+mean(zinc) & median(zinc) & sd(zinc) & skew1\\
+\hline
+87.937 & 86 & 16.005 & 0.121\\
+\hline
+\end{tabular}
+
+The skew1 value here (mean - median divided by the standard deviation) backs up our graphical assessment, that the data are slightly right skewed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{serzinc }\OperatorTok{%$%}\StringTok{ }\NormalTok{psych}\OperatorTok{::}\KeywordTok{describe}\NormalTok{(zinc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+   vars   n  mean sd median trimmed   mad min max range skew kurtosis   se
+X1    1 462 87.94 16     86   87.17 16.31  50 153   103 0.62     0.87 0.74
+\end{verbatim}
+
+Rounded to two decimal places, the standard deviation of the serum zinc data turns out to be 16, and so the standard error of the mean, shown as \texttt{se} in the \texttt{psych::describe} output, is 16 divided by the square root of the sample size, \emph{n} = 462. This standard error is about to become quite important to us in building statistical inferences about the mean of the entire population of teenage males based on this sample.
+
+\hypertarget{defining-a-confidence-interval}{%
+\section{Defining a Confidence Interval}\label{defining-a-confidence-interval}}
+
+A confidence interval for a population or process mean uses data from a sample (and perhaps some additional information) to identify a range of potential values for the population mean, which, if certain assumptions hold, can be assumed to provide a reasonable estimate for the true population mean. A confidence interval consists of:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  An interval estimate describing the population parameter of interest (here the population mean), and
+\item
+  A probability statement, expressed in terms of a confidence level.
+\end{enumerate}
+
+\hypertarget{estimating-the-population-mean-from-the-serum-zinc-data}{%
+\section{Estimating the Population Mean from the Serum Zinc data}\label{estimating-the-population-mean-from-the-serum-zinc-data}}
+
+As an example, suppose that we are willing to assume that the mean serum zinc level across the entire population of teenage males, \(\mu\), follows a Normal distribution (and so, summarizing it with a mean is a rational thing to do.) Suppose that we are also willing to assume that the 462 teenage males contained in the \texttt{serzinc} tibble are a random sample from that complete population. While we know the mean of the sample of 462 boys, we don't know \(\mu\), the mean across all teenage males. So we need to estimate it.
+
+Earlier we estimated that a 90\% confidence interval for the mean serum zinc level (\(\mu\)) across the entire population of teenage males was (86.71, 89.16) micrograms per deciliter. How should we interpret this result?
+
+\begin{itemize}
+\tightlist
+\item
+  Some people think this means that there is a 90\% chance that the true mean of the population, \(\mu\), falls between 86.71 and 89.16 micrograms per deciliter. That's not correct.
+\item
+  The population mean is a constant \textbf{parameter} of the population of interest. That constant is not a random variable, and does not change. So the actual probability of the population mean falling inside that range is either 0 or 1.
+\item
+  Our confidence is in our process.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It's in the sampling method (random sampling) used to generate the data, and in the assumption that the population follows a Normal distribution.
+  \item
+    It's captured in our accounting for one particular type of error (called \emph{sampling error}) in developing our interval estimate, while assuming all other potential sources of error are negligible.
+  \end{itemize}
+\end{itemize}
+
+So, what's closer to the truth is:
+
+\begin{itemize}
+\tightlist
+\item
+  If we used this same method to sample data from the true population of teenage males, and built 100 such 90\% confidence intervals, then about 90 of them would contain the true population mean.
+\end{itemize}
+
+\hypertarget{confidence-vs.-significance-level}{%
+\section{Confidence vs.~Significance Level}\label{confidence-vs.-significance-level}}
+
+We've estimated a 90\% confidence interval for the population mean serum zinc level among teenage boys using the \texttt{serzinc} data.
+
+\begin{itemize}
+\tightlist
+\item
+  We call 100(1-\(\alpha\))\%, here, 90\%, or 0.90, the \emph{confidence} level, and
+\item
+  \(\alpha\) = 10\%, or 0.10 is called the \emph{significance} level.
+\end{itemize}
+
+If we had instead built a series of 100 different 95\% confidence intervals, then about 95 of them would contain the true value of \(\mu\).
+
+Let's look more closely at the issue of estimating a population \textbf{mean} based on a sample of observations. We will need three critical pieces - the sample, the confidence level, and the margin of error, which is based on the standard error of a sample mean, when we are estimating a population mean.
+
+\hypertarget{the-standard-error-of-a-sample-mean}{%
+\section{The Standard Error of a Sample Mean}\label{the-standard-error-of-a-sample-mean}}
+
+The standard error, generally, is the name we give to the standard deviation associated with any particular parameter estimate.
+
+\begin{itemize}
+\item
+  If we are using a sample mean based on a sample of size \(n\) to estimate a population mean, the \textbf{standard error of that sample mean} is the standard deviation of the measurements in the population, divided by the square root of the sample size.
+\item
+  We often estimate this particular standard error with \(s\) (the sample standard deviation) divided by the square root of the sample size.
+\item
+  Other statistics have different standard errors.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(\sqrt{p (1-p) / n}\) is the standard error of the sample proportion \(p\) estimated using a sample of size \(n\).
+  \item
+    \(\sqrt{\frac{1-r^2}{n-2}}\) is the standard error of the sample Pearson correlation \(r\) estimated using \(n\) pairs of observations.
+  \item
+    \(\sqrt{\frac{SD_1^2}{n_1} + \frac{SD_2^2}{n_2}}\) is the standard error of the difference between two means \(\bar{x}_1\) and \(\bar{x}_2\), estimated using samples of sizes \(n_1\) and \(n_2\) with sample standard devistions \(SD_1\) and \(SD_2\), respectively.
+  \end{itemize}
+\end{itemize}
+
+In developing a confidence interval for a population mean, we may be willing to assume that the data in our sample are drawn from a Normally distributed population. If so, the most common and useful means of building a confidence interval makes use of the t distribution (sometimes called Student's t) and the notion of a \emph{standard error}.
+
+\hypertarget{the-t-distribution-and-cis-for-a-mean}{%
+\section{The t distribution and CIs for a Mean}\label{the-t-distribution-and-cis-for-a-mean}}
+
+In practical settings, we will use the t distribution to estimate a confidence interval from a population mean whenever we:
+
+\begin{itemize}
+\tightlist
+\item
+  are willing to assume that the sample is drawn at random from a population or process with a Normal distribution,
+\item
+  are using our sample to estimate both the mean and standard deviation, and
+\item
+  have a small sample size.
+\end{itemize}
+
+\hypertarget{the-formula}{%
+\subsection{The Formula}\label{the-formula}}
+
+The two-sided \(100(1-\alpha)\)\% confidence interval (based on a \(t\) test) is:
+
+\[\bar{x} \pm t_{\alpha/2, n-1}(s / \sqrt{n})\]
+
+where \(t_{\alpha/2, n-1}\) is the value that cuts off the top \(\alpha/2\) percent of the \(t\) distribution, with \(n - 1\) degrees of freedom.
+
+We obtain the relevant cutoff value in R by substituting in values for \texttt{alphaover2} and \texttt{n-1} into the following line of R code:
+
+\texttt{qt(alphaover2,\ df\ =\ n-1,\ lower.tail=FALSE)}
+
+\hypertarget{students-t-distribution}{%
+\subsection{Student's t distribution}\label{students-t-distribution}}
+
+Student's t distribution looks a lot like a Normal distribution, when the sample size is large. Unlike the normal distribution, which is specified by two parameters, the mean and the standard deviation, the t distribution is specified by one parameter, the degrees of freedom.
+
+\begin{itemize}
+\tightlist
+\item
+  t distributions with large numbers of degrees of freedom are more or less indistinguishable from the standard Normal distribution.
+\item
+  t distributions with smaller degrees of freedom (say, with df \textless{} 30, in particular) are still symmetric, but are more outlier-prone than a Normal distribution
+\end{itemize}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-149-1.pdf}
+
+\hypertarget{building-the-ci-in-r}{%
+\section{Building the CI in R}\label{building-the-ci-in-r}}
+
+Suppose we wish to build a 90\% confidence interval for the true mean serum zinc level across the entire population of teenage males. The confidence level will be 90\%, or 0.90, and so the \(\alpha\) value, which is 1 - confidence = 0.10.
+
+So what we know going in is that:
+
+\begin{itemize}
+\tightlist
+\item
+  We want \(\alpha\) = 0.10, because we're creating a 90\% confidence interval.
+\item
+  The sample size \emph{n} = 462 serum zinc measurements.
+\item
+  The sample mean of those measurements, \(\bar{x}\) = 87.937 micrograms per deciliter.
+\item
+  The sample standard deviation of those measurements, \emph{s} = 16.005 micrograms per deciliter.
+\end{itemize}
+
+\hypertarget{using-an-intercept-only-regression-model}{%
+\section{Using an intercept-only regression model}\label{using-an-intercept-only-regression-model}}
+
+in the context of fitting an intercept-only linear regression model. An intercept-only model is fitted by putting the number 1 on the right hand side of our linear model. The resulting model simply fits the overall mean of the data as a prediction for all subjects.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model_zinc <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(zinc }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{data =}\NormalTok{ serzinc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(model_zinc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = zinc ~ 1, data = serzinc)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-37.937 -11.937  -1.937  10.063  65.063 
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)    
+(Intercept)  87.9372     0.7446   118.1   <2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 16 on 461 degrees of freedom
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{confint}\NormalTok{(model_zinc, }\DataTypeTok{level =} \FloatTok{0.90}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+              5 %     95 %
+(Intercept) 86.71 89.16446
+\end{verbatim}
+
+Generally, though, I'll use the \texttt{tidy()} function in \texttt{broom} to obtain the key information from a model like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tidy}\NormalTok{(model_zinc, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf =} \FloatTok{0.90}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value & conf.low & conf.high\\
+\hline
+(Intercept) & 87.94 & 0.74 & 118.1 & 0 & 86.71 & 89.16\\
+\hline
+\end{tabular}
+
+As an alternative, we could also use the \texttt{t.test} function, which can build (in this case) a two-sided confidence interval for the zinc levels like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tt <-}\StringTok{ }\KeywordTok{t.test}\NormalTok{(serzinc}\OperatorTok{$}\NormalTok{zinc, }
+             \DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{, }
+             \DataTypeTok{alternative =} \StringTok{"two.sided"}\NormalTok{)}
+
+\NormalTok{tt}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+	One Sample t-test
+
+data:  serzinc$zinc
+t = 118.1, df = 461, p-value < 2.2e-16
+alternative hypothesis: true mean is not equal to 0
+90 percent confidence interval:
+ 86.71000 89.16446
+sample estimates:
+mean of x 
+ 87.93723 
+\end{verbatim}
+
+and the \texttt{tidy()} function from the \texttt{broom} package works here, too.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# requires library(broom)}
+\KeywordTok{tidy}\NormalTok{(tt, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf =} \FloatTok{0.90}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{  }\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{r|r|r|r|r|r|l|l}
+\hline
+estimate & statistic & p.value & parameter & conf.low & conf.high & method & alternative\\
+\hline
+87.94 & 118.1 & 0 & 461 & 86.71 & 89.16 & One Sample t-test & two.sided\\
+\hline
+\end{tabular}
+
+And again, our 90\% confidence interval for the true population mean serum zinc level, based on our sample of 462 patients, is (86.71, 89.16) micrograms per deciliter\footnote{Since the measured zinc levels appear as integers, we should probably be rounding even further in our confidence interval, down to perhaps one decimal place.}.
+
+\hypertarget{interpreting-the-result}{%
+\section{Interpreting the Result}\label{interpreting-the-result}}
+
+An appropriate interpretation of the 90\% two-sided confidence interval above follows:
+
+\begin{itemize}
+\tightlist
+\item
+  (86.71, 89.16) micrograms per deciliter is a 90\% two-sided confidence interval for the population mean serum zinc level among teenage males.
+\item
+  Our point estimate for the true population mean serum zinc level is 87.94. The values in the interval (86.71, 89.16) represent a reasonable range of estimates for the true population mean serum zinc level, and we are 90\% confident that this method of creating a confidence interval will produce a result containing the true population mean serum zinc level.
+\item
+  Were we to draw 100 samples of size 462 from the population described by this sample, and use each such sample to produce a confidence interval in this manner, approximately 90 of those confidence intervals would cover the true population mean serum zinc level.
+\end{itemize}
+
+\hypertarget{what-if-we-want-a-95-or-99-confidence-interval-instead}{%
+\section{What if we want a 95\% or 99\% confidence interval instead?}\label{what-if-we-want-a-95-or-99-confidence-interval-instead}}
+
+We can obtain them using \texttt{tidy} and the same modeling approach.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tidy}\NormalTok{(model_zinc, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 7
+  term        estimate std.error statistic p.value conf.low conf.high
+  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
+1 (Intercept)     87.9     0.745      118.       0     86.5      89.4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tidy}\NormalTok{(model_zinc, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.99}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 7
+  term        estimate std.error statistic p.value conf.low conf.high
+  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
+1 (Intercept)     87.9     0.745      118.       0     86.0      89.9
+\end{verbatim}
+
+\hypertarget{using-the-broom-package-with-the-t-test}{%
+\section{\texorpdfstring{Using the \texttt{broom} package with the t test}{Using the broom package with the t test}}\label{using-the-broom-package-with-the-t-test}}
+
+The \texttt{broom} package takes the messy output of built-in functions in R, such as \texttt{lm}, \texttt{t.test} or \texttt{wilcox.test}, and turns them into tidy data frames. A detailed description of the package and three of its key functions is found at \url{https://github.com/tidyverse/broom}.
+
+For example, we can use the \texttt{tidy} function within \texttt{broom} to create a single-row tibble of the key results from a t test.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tt <-}\StringTok{ }\KeywordTok{t.test}\NormalTok{(serzinc}\OperatorTok{$}\NormalTok{zinc, }\DataTypeTok{conf.level =} \FloatTok{0.95}\NormalTok{, }\DataTypeTok{alternative =} \StringTok{"two.sided"}\NormalTok{)}
+\KeywordTok{tidy}\NormalTok{(tt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 8
+  estimate statistic p.value parameter conf.low conf.high method     alternative
+     <dbl>     <dbl>   <dbl>     <dbl>    <dbl>     <dbl> <chr>      <chr>      
+1     87.9      118.       0       461     86.5      89.4 One Sampl~ two.sided  
+\end{verbatim}
+
+We can thus pull the endpoints of a 95\% confidence interval directly from this output. \texttt{broom} also has a \texttt{glance} function, which returns the same information as \texttt{tidy} in the case of a t-test.
+
+\hypertarget{effect-of-changing-the-confidence-level}{%
+\subsection{Effect of Changing the Confidence Level}\label{effect-of-changing-the-confidence-level}}
+
+Below, we see two-sided confidence intervals for various levels of \(\alpha\).
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+\begin{minipage}[b]{0.19\columnwidth}\centering
+Confidence Level\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\centering
+\(\alpha\)\strut
+\end{minipage} & \begin{minipage}[b]{0.30\columnwidth}\centering
+Two-Sided Interval Estimate for Zinc Level Population Mean, \(\mu\)\strut
+\end{minipage} & \begin{minipage}[b]{0.32\columnwidth}\centering
+Point Estimate of \(\mu\)\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.19\columnwidth}\centering
+80\% or 0.80\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\centering
+0.20\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+(87, 88.9)\strut
+\end{minipage} & \begin{minipage}[t]{0.32\columnwidth}\centering
+87.9\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\centering
+90\% or 0.90\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\centering
+0.10\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+(86.7, 89.2)\strut
+\end{minipage} & \begin{minipage}[t]{0.32\columnwidth}\centering
+87.9\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\centering
+95\% or 0.95\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\centering
+0.05\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+(86.5, 89.4)\strut
+\end{minipage} & \begin{minipage}[t]{0.32\columnwidth}\centering
+87.9\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.19\columnwidth}\centering
+99\% or 0.99\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\centering
+0.01\strut
+\end{minipage} & \begin{minipage}[t]{0.30\columnwidth}\centering
+(86, 89.9)\strut
+\end{minipage} & \begin{minipage}[t]{0.32\columnwidth}\centering
+87.9\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+What happens to the width of the confidence interval in this table as the confidence level changes?
+
+\hypertarget{one-sided-vs.-two-sided-confidence-intervals}{%
+\section{One-sided vs.~Two-sided Confidence Intervals}\label{one-sided-vs.-two-sided-confidence-intervals}}
+
+Occasionally, we want to estimate either an upper limit for the population mean \(\mu\), or a lower limit for \(\mu\), but not both.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(serzinc}\OperatorTok{$}\NormalTok{zinc, }\DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{, }\DataTypeTok{alternative =} \StringTok{"greater"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+	One Sample t-test
+
+data:  serzinc$zinc
+t = 118.1, df = 461, p-value < 2.2e-16
+alternative hypothesis: true mean is greater than 0
+90 percent confidence interval:
+ 86.98161      Inf
+sample estimates:
+mean of x 
+ 87.93723 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{t.test}\NormalTok{(serzinc}\OperatorTok{$}\NormalTok{zinc, }\DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{, }\DataTypeTok{alternative =} \StringTok{"less"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+	One Sample t-test
+
+data:  serzinc$zinc
+t = 118.1, df = 461, p-value = 1
+alternative hypothesis: true mean is less than 0
+90 percent confidence interval:
+     -Inf 88.89285
+sample estimates:
+mean of x 
+ 87.93723 
+\end{verbatim}
+
+Note the relationship between the \emph{two-sided} 80\% confidence interval, and the \emph{one-sided} 90\% confidence intervals.
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+\begin{minipage}[b]{0.13\columnwidth}\centering
+Confidence\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\centering
+\(\alpha\)\strut
+\end{minipage} & \begin{minipage}[b]{0.32\columnwidth}\centering
+Type of Interval\strut
+\end{minipage} & \begin{minipage}[b]{0.35\columnwidth}\centering
+Interval Estimate for Zinc Level Population Mean, \(\mu\)\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.13\columnwidth}\centering
+80\% (.80)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\centering
+0.20\strut
+\end{minipage} & \begin{minipage}[t]{0.32\columnwidth}\centering
+Two-Sided\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\centering
+(86.98, 88.89)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\centering
+90\% (.90)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\centering
+0.10\strut
+\end{minipage} & \begin{minipage}[t]{0.32\columnwidth}\centering
+One-Sided (Less Than)\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\centering
+\(\mu\) \textless{} 88.89.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\centering
+90\% (.90)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\centering
+0.10\strut
+\end{minipage} & \begin{minipage}[t]{0.32\columnwidth}\centering
+One-Sided (Greater Than)\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\centering
+\(\mu\) \textgreater{} 86.98.\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+Why does this happen? The 80\% two-sided interval is placed so as to cut off the top 10\% of the distribution with its upper bound, and the bottom 10\% of the distribution with its lower bound. The 90\% ``less than'' one-sided interval is placed so as to have its lower bound cut off the top 10\% of the distribution.
+
+The same issue appears when we consider two-sided 90\% and one-sided 95\% confidence intervals.
+
+\begin{longtable}[]{@{}cccc@{}}
+\toprule
+\begin{minipage}[b]{0.13\columnwidth}\centering
+Confidence\strut
+\end{minipage} & \begin{minipage}[b]{0.08\columnwidth}\centering
+\(\alpha\)\strut
+\end{minipage} & \begin{minipage}[b]{0.32\columnwidth}\centering
+Type of Interval\strut
+\end{minipage} & \begin{minipage}[b]{0.35\columnwidth}\centering
+Interval Estimate for Zinc Level Population Mean, \(\mu\)\strut
+\end{minipage}\tabularnewline
+\midrule
+\endhead
+\begin{minipage}[t]{0.13\columnwidth}\centering
+90\% (.90)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\centering
+0.10\strut
+\end{minipage} & \begin{minipage}[t]{0.32\columnwidth}\centering
+Two-Sided\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\centering
+(86.71, 89.16)\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\centering
+95\% (.95)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\centering
+0.05\strut
+\end{minipage} & \begin{minipage}[t]{0.32\columnwidth}\centering
+One-Sided (Less Than)\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\centering
+\(\mu\) \textless{} 89.16.\strut
+\end{minipage}\tabularnewline
+\begin{minipage}[t]{0.13\columnwidth}\centering
+95\% (.95)\strut
+\end{minipage} & \begin{minipage}[t]{0.08\columnwidth}\centering
+0.05\strut
+\end{minipage} & \begin{minipage}[t]{0.32\columnwidth}\centering
+One-Sided (Greater Than)\strut
+\end{minipage} & \begin{minipage}[t]{0.35\columnwidth}\centering
+\(\mu\) \textgreater{} 86.71.\strut
+\end{minipage}\tabularnewline
+\bottomrule
+\end{longtable}
+
+Again, the 90\% two-sided interval cuts off the top 5\% and bottom 5\% of the distribution with its bounds. The 95\% ``less than'' one-sided interval also has its lower bound cut off the top 5\% of the distribution.
+
+\hypertarget{bootstrap-confidence-intervals}{%
+\section{Bootstrap Confidence Intervals}\label{bootstrap-confidence-intervals}}
+
+The bootstrap (and in particular, what's known as bootstrap resampling) is a really good idea that you should know a little bit about.
+
+If we want to know how accurately a sample mean estimates the population mean, we would ideally like to take a very, very large sample, because if we did so, we could conclude with something that would eventually approach mathematical certainty that the sample mean would be very close to the population mean.
+
+But we can rarely draw enormous samples. So what can we do?
+
+\hypertarget{resampling-is-a-big-idea}{%
+\section{Resampling is A Big Idea}\label{resampling-is-a-big-idea}}
+
+One way to find out how precise our estimates are is to run them on multiple samples of the same size. This \emph{resampling} approach was codified originally by Brad Efron in 1979.
+
+Oversimplifying a lot, the idea is that if we sample (with replacement) from our current sample, we can draw a new sample of the same size as our original.
+
+\begin{itemize}
+\tightlist
+\item
+  And if we repeat this many times, we can generate as many samples of, say, 462 zinc levels, as we like.
+\item
+  Then we take these thousands of samples and calculate (for instance) the sample mean for each, and plot a histogram of those means.
+\item
+  If we then cut off the top and bottom 5\% of these sample means, we obtain a reasonable 90\% confidence interval for the population mean.
+\end{itemize}
+
+\hypertarget{when-is-a-bootstrap-confidence-interval-reasonable}{%
+\section{When is a Bootstrap Confidence Interval Reasonable?}\label{when-is-a-bootstrap-confidence-interval-reasonable}}
+
+A bootstrapped interval estimate for the population mean, \(\mu\), will be reasonable as long as we're willing to believe that:
+
+\begin{itemize}
+\tightlist
+\item
+  the original sample was a random sample (or at least a completely representative sample) from a population,
+\item
+  and that the samples are independent of each other,
+\end{itemize}
+
+even if the population of interest doesn't follow a Normal, or even a symmetric distribution.
+
+A downside of the bootstrap is that you and I will get (somewhat) different answers if we resample from the same data without setting the same random seed.
+
+\hypertarget{bootstrap-confidence-interval-for-the-mean-process}{%
+\section{Bootstrap confidence interval for the mean: Process}\label{bootstrap-confidence-interval-for-the-mean-process}}
+
+To avoid the Normality assumption, and take advantage of modern computing power, we use R to obtain a bootstrap confidence interval for the population mean based on a sample.
+
+What the computer does:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Re-sample the data with replacement, until it obtains a new sample that is equal in size to the original data set.
+\item
+  Calculates the statistic of interest (here, a sample mean.)
+\item
+  Repeat the steps above many times (the default is 1,000 using our approach) to obtain a set of 1,000 sample means.
+\item
+  Sort those 1,000 sample means in order, and estimate the 95\% confidence interval for the population mean based on the middle 95\% of the 1,000 bootstrap samples.
+\item
+  Send us a result, containing the sample mean, and a 95\% confidence interval for the population mean
+\end{enumerate}
+
+\hypertarget{using-r-to-estimate-a-bootstrap-ci}{%
+\section{Using R to estimate a bootstrap CI}\label{using-r-to-estimate-a-bootstrap-ci}}
+
+The command that we use to obtain a Confidence Interval for \(\mu\) using the basic nonparametric bootstrap and without assuming a Normally distributed population, is \texttt{smean.cl.boot}, a part of the \texttt{Hmisc} package in R.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{431}\NormalTok{)}
+\NormalTok{serzinc }\OperatorTok{%$%}\StringTok{ }\NormalTok{Hmisc}\OperatorTok{::}\KeywordTok{smean.cl.boot}\NormalTok{(zinc, }\DataTypeTok{B =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{conf.int =} \FloatTok{0.90}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    Mean    Lower    Upper 
+87.93723 86.76775 89.20617 
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Remember that the t-based 90\% CI for \(\mu\) was (86.71, 89.16), according to the following output\ldots{}
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tidy}\NormalTok{(}\KeywordTok{lm}\NormalTok{(zinc }\OperatorTok{~}\StringTok{ }\DecValTok{1}\NormalTok{, }\DataTypeTok{data =}\NormalTok{ serzinc), }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 7
+  term        estimate std.error statistic p.value conf.low conf.high
+  <chr>          <dbl>     <dbl>     <dbl>   <dbl>    <dbl>     <dbl>
+1 (Intercept)     87.9     0.745      118.       0     86.7      89.2
+\end{verbatim}
+
+\hypertarget{comparing-bootstrap-and-t-based-confidence-intervals}{%
+\section{Comparing Bootstrap and T-Based Confidence Intervals}\label{comparing-bootstrap-and-t-based-confidence-intervals}}
+
+\begin{itemize}
+\tightlist
+\item
+  The \texttt{smean.cl.boot} function (unlike most R functions) deletes missing data automatically, as does the \texttt{smean.cl.normal} function, which can also be used to produce the t-based confidence interval.
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{431}\NormalTok{)}
+\NormalTok{serzinc }\OperatorTok{%$%}\StringTok{ }\NormalTok{Hmisc}\OperatorTok{::}\KeywordTok{smean.cl.boot}\NormalTok{(zinc, }\DataTypeTok{B =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{conf.int =} \FloatTok{0.90}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    Mean    Lower    Upper 
+87.93723 86.76775 89.20617 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{serzinc }\OperatorTok{%$%}\StringTok{ }\NormalTok{Hmisc}\OperatorTok{::}\KeywordTok{smean.cl.normal}\NormalTok{(zinc, }\DataTypeTok{conf.int =} \FloatTok{0.90}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    Mean    Lower    Upper 
+87.93723 86.71000 89.16446 
+\end{verbatim}
+
+Bootstrap resampling confidence intervals do not follow the general confidence interval strategy using a point estimate plus or minus a margin for error.
+
+\begin{itemize}
+\tightlist
+\item
+  A bootstrap interval is often asymmetric, and while it will generally have the point estimate (the sample mean) near its center, for highly skewed data, this will not necessarily be the case.
+\item
+  We will usually use either 1,000 (the default) or 10,000 bootstrap replications for building confidence intervals -- practically, it makes little difference.
+\end{itemize}
+
+\hypertarget{bootstrap-resampling-advantages-and-caveats}{%
+\subsection{Bootstrap Resampling: Advantages and Caveats}\label{bootstrap-resampling-advantages-and-caveats}}
+
+The bootstrap may seem like the solution to all estimation problems. In theory, we could use the same approach to find a confidence interval for any other parameter -- it's not perfect, but it is very useful. Bootstrap procedures exist for virtually any statistical comparison - the t-test analog is just one of many possibilities, and bootstrap methods are rapidly gaining on more traditional approaches in the literature thanks mostly to faster computers.
+
+The great advantage of the bootstrap is its relative simplicity, but don't forget that many of the original assumptions of the t-based confidence interval still hold.
+
+\begin{itemize}
+\tightlist
+\item
+  Using a bootstrap does eliminate the need to worry about the Normality assumption in small sample size settings, but it still requires independent and identically distributed samples from the population of interest.
+\end{itemize}
+
+The bootstrap produces clean and robust inferences (such as confidence intervals) in many tricky situations. It is still possible that the results can be both:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{inaccurate} (i.e.~they can include the true value of the unknown population mean less often than the stated confidence probability) and
+\item
+  \textbf{imprecise} (i.e., they can include more extraneous values of the unknown population mean than is desirable).
+\end{itemize}
+
+\hypertarget{using-the-bootstrap-to-develop-other-cis}{%
+\section{Using the Bootstrap to develop other CIs}\label{using-the-bootstrap-to-develop-other-cis}}
+
+\hypertarget{changing-the-confidence-level}{%
+\subsection{Changing the Confidence Level}\label{changing-the-confidence-level}}
+
+What if we wanted to change the confidence level?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{431654}\NormalTok{)}
+\NormalTok{serzinc }\OperatorTok{%$%}\StringTok{ }\NormalTok{Hmisc}\OperatorTok{::}\KeywordTok{smean.cl.boot}\NormalTok{(zinc, }\DataTypeTok{B =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{conf.int =} \FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    Mean    Lower    Upper 
+87.93723 86.51066 89.42002 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{431321}\NormalTok{)}
+\NormalTok{serzinc }\OperatorTok{%$%}\StringTok{ }\NormalTok{Hmisc}\OperatorTok{::}\KeywordTok{smean.cl.boot}\NormalTok{(zinc, }\DataTypeTok{B =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{conf.int =} \FloatTok{0.99}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    Mean    Lower    Upper 
+87.93723 86.20657 89.68619 
+\end{verbatim}
+
+\hypertarget{one-tailed-bootstrap-confidence-intervals}{%
+\section{One-Tailed Bootstrap Confidence Intervals}\label{one-tailed-bootstrap-confidence-intervals}}
+
+If you want to estimate a one tailed confidence interval for the population mean using the bootstrap, then the procedure is as follows:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Determine \(\alpha\), the significance level you want to use in your one-sided confidence interval. Remember that \(\alpha\) is 1 minus the confidence level. Let's assume we want a 90\% one-sided interval, so \(\alpha\) = 0.10.
+\item
+  Double \(\alpha\) to determine the significance level we will use in the next step to fit a two-sided confidence interval.
+\item
+  Fit a two-sided confidence interval with confidence level \(100(1 - 2*\alpha)\). Let the bounds of this interval be (\emph{a}, \emph{b}).
+\item
+  The one-sided (greater than) confidence interval will have \emph{a} as its lower bound.
+\item
+  The one-sided (less than) confidence interval will have \emph{b} as its upper bound.
+\end{enumerate}
+
+Suppose that we want to find a 95\% one-sided upper bound for the population mean serum zinc level among teenage males, \(\mu\), using the bootstrap.
+
+Since we want a 95\% confidence interval, we have \(\alpha\) = 0.05. We double that to get \(\alpha\) = 0.10, which implies we need to instead fit a two-sided 90\% confidence interval.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{43101}\NormalTok{)}
+\NormalTok{serzinc }\OperatorTok{%$%}\StringTok{ }\NormalTok{Hmisc}\OperatorTok{::}\KeywordTok{smean.cl.boot}\NormalTok{(zinc, }\DataTypeTok{B =} \DecValTok{1000}\NormalTok{, }\DataTypeTok{conf.int =} \FloatTok{0.90}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+    Mean    Lower    Upper 
+87.93723 86.70509 89.11266 
+\end{verbatim}
+
+The upper bound of this two-sided 90\% CI will also be the upper bound for a 95\% one-sided CI.
+
+\hypertarget{bootstrap-ci-for-the-population-median}{%
+\subsection{Bootstrap CI for the Population Median}\label{bootstrap-ci-for-the-population-median}}
+
+If we are willing to do a small amount of programming work in R, we can obtain bootstrap confidence intervals for other population parameters besides the mean. One statistic of common interest is the median. How do we find a confidence interval for the population median using a bootstrap approach? The easiest way I know of makes use of the \texttt{boot} package, as follows.
+
+In step 1, we specify a new function to capture the medians from our sample.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f.median <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(y, id) }
+\NormalTok{\{    }\KeywordTok{median}\NormalTok{ ( y[id])  \}}
+\end{Highlighting}
+\end{Shaded}
+
+In step 2, we summon the \texttt{boot} package and call the \texttt{boot.ci} function.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{431787}\NormalTok{)}
+\NormalTok{boot}\OperatorTok{::}\KeywordTok{boot.ci}\NormalTok{(boot}\OperatorTok{::}\KeywordTok{boot}\NormalTok{ (serzinc}\OperatorTok{$}\NormalTok{zinc, f.median, }\DecValTok{1000}\NormalTok{), }\DataTypeTok{conf=}\FloatTok{0.90}\NormalTok{, }\DataTypeTok{type=}\StringTok{"basic"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 1000 bootstrap replicates
+
+CALL : 
+boot::boot.ci(boot.out = boot::boot(serzinc$zinc, f.median, 1000), 
+    conf = 0.9, type = "basic")
+
+Intervals : 
+Level      Basic         
+90%   (84, 87 )  
+Calculations and Intervals on Original Scale
+\end{verbatim}
+
+This yields a 90\% confidence interval for the population median serum zinc level. Recall that the sample median for the serum zinc levels in our sample of 462 teenage males was 86 micrograms per deciliter.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mosaic}\OperatorTok{::}\KeywordTok{favstats}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{zinc, }\DataTypeTok{data =}\NormalTok{ serzinc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+ min Q1 median Q3 max     mean       sd   n missing
+  50 76     86 98 153 87.93723 16.00469 462       0
+\end{verbatim}
+
+Actually, the \texttt{boot.ci} function can provide up to five different types of confidence interval (see the help file) if we change to \texttt{type="all"}, and some of those other versions have attractive properties. However, we'll stick with the basic approach in 431.
+
+\hypertarget{bootstrap-ci-for-the-iqr}{%
+\subsection{Bootstrap CI for the IQR}\label{bootstrap-ci-for-the-iqr}}
+
+If for some reason, we want to find a 95\% confidence interval for the population value of the inter-quartile range via the bootstrap, we can do it.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{IQR}\NormalTok{(serzinc}\OperatorTok{$}\NormalTok{zinc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+[1] 22
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{f.IQR <-}\StringTok{ }\ControlFlowTok{function}\NormalTok{(y, id) }
+\NormalTok{\{    }\KeywordTok{IQR}\NormalTok{ (y[id]) \}}
+
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{431207}\NormalTok{)}
+\NormalTok{boot}\OperatorTok{::}\KeywordTok{boot.ci}\NormalTok{(boot}\OperatorTok{::}\KeywordTok{boot}\NormalTok{ (serzinc}\OperatorTok{$}\NormalTok{zinc, f.IQR, }\DecValTok{1000}\NormalTok{), }
+        \DataTypeTok{conf=}\FloatTok{0.95}\NormalTok{, }\DataTypeTok{type=}\StringTok{"basic"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 1000 bootstrap replicates
+
+CALL : 
+boot::boot.ci(boot.out = boot::boot(serzinc$zinc, f.IQR, 1000), 
+    conf = 0.95, type = "basic")
+
+Intervals : 
+Level      Basic         
+95%   (20.00, 24.24 )  
+Calculations and Intervals on Original Scale
+\end{verbatim}
+
+\hypertarget{wilcoxon-signed-rank-procedure-for-cis}{%
+\section{Wilcoxon Signed Rank Procedure for CIs}\label{wilcoxon-signed-rank-procedure-for-cis}}
+
+It turns out to be difficult, without the bootstrap, to estimate an appropriate confidence interval for the median of a population, which might be an appealing thing to do, particularly if the sample data are clearly not Normally distributed, so that a median seems like a better summary of the center of the data. Bootstrap procedures are available to perform the task.
+
+The Wilcoxon signed rank approach can be used as an alternative to t-based procedures to build interval estimates for the population \emph{pseudo-median} when the population cannot be assumed to follow a Normal distribution.
+
+As it turns out, if you're willing to assume the population is \textbf{symmetric} (but not necessarily Normally distributed) then the pseudo-median is actually equal to the population median.
+
+\hypertarget{what-is-a-pseudo-median}{%
+\subsection{What is a Pseudo-Median?}\label{what-is-a-pseudo-median}}
+
+The pseudo-median of a particular distribution G is the median of the distribution of (u + v)/2, where both u and v have the same distribution (G).
+
+\begin{itemize}
+\tightlist
+\item
+  If the distribution G is symmetric, then the pseudomedian is equal to the median.
+\item
+  If the distribution is skewed, then the pseudomedian is not the same as the median.
+\item
+  For any sample, the pseudomedian is defined as the median of all of the midpoints of pairs of observations in the sample.
+\end{itemize}
+
+\hypertarget{wilcoxon-signed-rank-based-ci-in-r}{%
+\section{Wilcoxon Signed Rank-based CI in R}\label{wilcoxon-signed-rank-based-ci-in-r}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{serzinc }\OperatorTok{%$%}\StringTok{ }\KeywordTok{wilcox.test}\NormalTok{(zinc, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+	Wilcoxon signed rank test with continuity correction
+
+data:  zinc
+V = 106953, p-value < 2.2e-16
+alternative hypothesis: true location is not equal to 0
+95 percent confidence interval:
+ 85.99997 88.50002
+sample estimates:
+(pseudo)median 
+      87.49996 
+\end{verbatim}
+
+\hypertarget{interpreting-the-wilcoxon-ci-for-the-population-median}{%
+\subsection{Interpreting the Wilcoxon CI for the Population Median}\label{interpreting-the-wilcoxon-ci-for-the-population-median}}
+
+If we're willing to believe the \texttt{zinc} levels come from a population with a symmetric distribution, the 95\% Confidence Interval for the population median would be (86, 88.5)
+
+For a non-symmetric population, this only applies to the \emph{pseudo-median}.
+
+Note that the pseudo-median (87.5) is actually closer here to the sample mean (87.9) than it is to the sample median (86).
+
+\hypertarget{using-the-broom-package-with-the-wilcoxon-test}{%
+\subsection{\texorpdfstring{Using the \texttt{broom} package with the Wilcoxon test}{Using the broom package with the Wilcoxon test}}\label{using-the-broom-package-with-the-wilcoxon-test}}
+
+We can also use the \texttt{tidy} function within \texttt{broom} to create a single-row tibble of the key results from a Wilcoxon test, so long as we run \texttt{wilcox.test} specifying that we want a confidence interval.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wt <-}\StringTok{ }\NormalTok{serzinc }\OperatorTok{%$%}\StringTok{ }\KeywordTok{wilcox.test}\NormalTok{(zinc, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.95}\NormalTok{)}
+\KeywordTok{tidy}\NormalTok{(wt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 7
+  estimate statistic  p.value conf.low conf.high method              alternative
+     <dbl>     <dbl>    <dbl>    <dbl>     <dbl> <chr>               <chr>      
+1     87.5    106953 2.00e-77     86.0      88.5 Wilcoxon signed ra~ two.sided  
+\end{verbatim}
+
+\hypertarget{general-advice}{%
+\section{General Advice}\label{general-advice}}
+
+We have described several approaches to estimating a confidence interval for the center of a distribution of quantitative data.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The most commonly used approach uses the \emph{t} distribution to estimate a confidence interval for a population/process mean. This requires some extra assumptions, most particularly that the underlying distribution of the population values is at least approximately Normally distributed. This is identical to the result we get from an intercept-only linear regression model.
+\item
+  A more modern and very general approach uses the idea of the bootstrap to estimate a confidence for a population/process parameter, which could be a mean, median or other summary statistic. The bootstrap, and the underlying notion of \emph{resampling} is an important idea that lets us avoid some of the assumptions (in particular Normality) that are required by other methods. Bootstrap confidence intervals involve random sampling, so that the actual values obtained will differ a bit across replications.
+\item
+  Finally, the Wilcoxon signed-rank method is one of a number of inferential tools which transform the data to their \emph{ranks} before estimating a confidence interval. This avoids some assumptions, but yields inferences about a less-familiar parameter - the pseudo-median.
+\end{enumerate}
+
+Most of the time, the \textbf{bootstrap} provides a reasonably adequate confidence interval estimate of the population value of a parameter (mean or median, most commonly) from a distribution when our data consists of a single sample of quantitative information.
+
+\hypertarget{the-ibuprofen-in-sepsis-randomized-clinical-trial}{%
+\chapter{The Ibuprofen in Sepsis Randomized Clinical Trial}\label{the-ibuprofen-in-sepsis-randomized-clinical-trial}}
+
+Our next study is a randomized controlled trial comparing ibuprofen vs.~placebo in patients with sepsis, which uses an \emph{independent samples} design to compare two samples of quantitative data. We will be working with a sample from the Ibuprofen in Sepsis study, which is also studied in \citet{Dupont}. Quoting the abstract from \citet{Bernard1997}:
+
+\begin{quote}
+Ibuprofen has been shown to have effects on sepsis in humans, but because of their small samples (fewer than 30 patients), previous studies have been inadequate to assess effects on mortality. We sought to determine whether ibuprofen can alter rates of organ failure and mortality in patients with the sepsis syndrome, how the drug affects the increased metabolic demand in sepsis (e.g., fever, tachypnea, tachycardia, hypoxemia, and lactic acidosis), and what potential adverse effects the drug has in the sepsis syndrome.
+\end{quote}
+
+In this study, patients meeting specific criteria (including elevated temperature) for a diagnosis of sepsis were recruited if they fulfilled an additional set of study criteria in the intensive care unit at one of seven participating centers.
+
+The full trial involved 455 patients, of which our sample includes 300. 150 of our patients were randomly assigned to the Ibuprofen group and 150 to the Placebo group\footnote{This was a \emph{double-blind} study, where neither the patients nor their care providers know, during the execution of the trial, what intervention group was assigned to each patient.}. I picked the \texttt{sepsis} sample we will work with excluding patients with missing values for our outcome of interest, and then selected a random sample of 150 Ibuprofen and 150 Placebo patients from the rest of the group, and converted the temperatures and changes from Fahrenheit to Celsius. The data are gathered in the \texttt{sepsis} data file.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sepsis <-}\StringTok{ }\KeywordTok{read_csv}\NormalTok{(}\StringTok{"data/sepsis.csv"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+For the moment, we focus on two variables:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{treat}, which specifies the treatment group (intravenous Ibuprofen or intravenous Placebo), which was assigned via randomization to each patient, and
+\item
+  \textbf{temp\_drop}, the outcome of interest, measured as the change from baseline to 2 hours later in degrees Celsius. Positive values indicate improvement, that is, a \emph{drop} in temperature over the 2 hours following the baseline measurement.
+\end{itemize}
+
+The \texttt{sepsis.csv} file also contains each subject's
+
+\begin{itemize}
+\tightlist
+\item
+  \emph{id}, which is just a code
+\item
+  \emph{race} (three levels: White, AfricanA or Other)
+\item
+  \emph{apache} = baseline APACHE II score, a severity of disease score ranging from 0 to 71 with higher scores indicating more severe disease and a higher mortality risk
+\item
+  \emph{temp\_0} = baseline temperature, degrees Celsius.
+\end{itemize}
+
+but for the moment, we won't worry about those.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sepsis <-}\StringTok{ }\NormalTok{sepsis }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{treat =} \KeywordTok{factor}\NormalTok{(treat),}
+           \DataTypeTok{race =} \KeywordTok{factor}\NormalTok{(race))}
+
+\KeywordTok{summary}\NormalTok{(sepsis)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      id                  treat           race         apache    
+ Length:300         Ibuprofen:150   AfricanA: 80   Min.   : 0.0  
+ Class :character   Placebo  :150   Other   : 23   1st Qu.:10.0  
+ Mode  :character                   White   :197   Median :14.0  
+                                                   Mean   :15.4  
+                                                   3rd Qu.:20.0  
+                                                   Max.   :35.0  
+     temp_0        temp_drop      
+ Min.   :33.10   Min.   :-2.7000  
+ 1st Qu.:37.48   1st Qu.:-0.1000  
+ Median :38.20   Median : 0.3000  
+ Mean   :38.00   Mean   : 0.3083  
+ 3rd Qu.:38.70   3rd Qu.: 0.7000  
+ Max.   :41.70   Max.   : 3.1000  
+\end{verbatim}
+
+\hypertarget{comparing-two-groups}{%
+\section{Comparing Two Groups}\label{comparing-two-groups}}
+
+In making a choice between two alternatives, questions such as the following become paramount.
+
+\begin{itemize}
+\tightlist
+\item
+  Is there a status quo?
+\item
+  Is there a standard approach?
+\item
+  What are the costs of incorrect decisions?
+\item
+  Are such costs balanced?
+\end{itemize}
+
+The process of comparing the means/medians/proportions/rates of the populations represented by two independently obtained samples can be challenging, and such an approach is not always the best choice. Often, specially designed experiments can be more informative at lower cost (i.e.~smaller sample size). As one might expect, using these more sophisticated procedures introduces trade-offs, but the costs are typically small relative to the gain in information.
+
+When faced with such a comparison of two alternatives, a test based on \textbf{paired} data is often much better than a test based on two distinct, independent samples. Why? If we have done our experiment properly, the pairing lets us eliminate background variation that otherwise hides meaningful differences.
+
+\hypertarget{model-based-comparisons-and-anovaregression}{%
+\subsection{Model-Based Comparisons and ANOVA/Regression}\label{model-based-comparisons-and-anovaregression}}
+
+Comparisons based on independent samples of quantitative variables are also frequently accomplished through other equivalent methods, including the analysis of variance approach and dummy variable regression, both of which produce identical confidence intervals to the pooled variance t test for the same comparison.
+
+We will also discuss some of the main ideas in developing, designing and analyzing statistical experiments, specifically in terms of making comparisons. The ideas we will present in this section allow for the comparison of more than two populations in terms of their population means. The statistical techniques employed analyze the sample variance in order to test and estimate the population means and for this reason the method is called the analysis of variance (ANOVA), and we will discuss this approach alone, and within the context of a linear regression model using dummy or indicator variables.
+
+\hypertarget{key-questions-for-comparing-with-independent-samples}{%
+\section{Key Questions for Comparing with Independent Samples}\label{key-questions-for-comparing-with-independent-samples}}
+
+\hypertarget{what-is-the-population-under-study}{%
+\subsection{\texorpdfstring{What is the \textbf{population} under study?}{What is the population under study?}}\label{what-is-the-population-under-study}}
+
+\begin{itemize}
+\tightlist
+\item
+  All patients in the intensive care unit with sepsis who meet the inclusion and exclusion criteria of the study, at the entire population of health centers like the ones included in the trial.
+\end{itemize}
+
+\hypertarget{what-is-the-sample-is-it-representative-of-the-population}{%
+\subsection{\texorpdfstring{What is the \textbf{sample}? Is it representative of the population?}{What is the sample? Is it representative of the population?}}\label{what-is-the-sample-is-it-representative-of-the-population}}
+
+\begin{itemize}
+\tightlist
+\item
+  The sample consists of 300 patients. It is a convenient sample from the population under study.
+\item
+  This is a randomized clinical trial. 150 of the patients were assigned to Ibuprofen, and the rest to Placebo. It is this treatment assignment that is randomized, not the selection of the sample as a whole.
+\item
+  In expectation, randomization of individuals to treatments, as in this study, should be expected to eliminate treatment selection bias.
+\end{itemize}
+
+\hypertarget{who-are-the-subjects-individuals-within-the-sample}{%
+\subsection{\texorpdfstring{Who are the subjects / \textbf{individuals} within the sample?}{Who are the subjects / individuals within the sample?}}\label{who-are-the-subjects-individuals-within-the-sample}}
+
+\begin{itemize}
+\tightlist
+\item
+  150 patients who received Ibuprofen and a completely different set of 150 patients who received Placebo.
+\item
+  There is no match or link between the patients. They are best thought of as independent samples.
+\end{itemize}
+
+\hypertarget{what-data-are-available-on-each-individual}{%
+\subsection{\texorpdfstring{What \textbf{data} are available on each individual?}{What data are available on each individual?}}\label{what-data-are-available-on-each-individual}}
+
+\begin{itemize}
+\tightlist
+\item
+  The key variables are the treatment indicator (Ibuprofen or Placebo) and the outcome (drop in temperature in the 2 hours following administration of the randomly assigned treatment.)
+\end{itemize}
+
+\hypertarget{rct-caveats}{%
+\subsection{RCT Caveats}\label{rct-caveats}}
+
+The placebo-controlled, double-blind randomized clinical trial, especially if pre-registered, is often considered the best feasible study for assessing the effectiveness of a treatment. While that's not always true, it is a very solid design. The primary caveat is that the patients who are included in such trials are rarely excellent representations of the population of potentially affected patients as a whole.
+
+\hypertarget{exploratory-data-analysis}{%
+\section{Exploratory Data Analysis}\label{exploratory-data-analysis}}
+
+Consider the following boxplot with violin of the \texttt{temp\_drop} data within each \texttt{treat} group.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(sepsis, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ treat, }\DataTypeTok{y =}\NormalTok{ temp_drop, }\DataTypeTok{fill =}\NormalTok{ treat)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_violin}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.3}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_fill_viridis_d}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Boxplot of Temperature Drop in Sepsis Patients"}\NormalTok{,}
+         \DataTypeTok{x =} \StringTok{""}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Drop in Temperature (degrees C)"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{coord_flip}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-171-1.pdf}
+
+Next, we'll consider faceted histograms of the data.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(sepsis, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ temp_drop, }\DataTypeTok{fill =}\NormalTok{ treat, }\DataTypeTok{color =}\NormalTok{ treat)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_histogram}\NormalTok{(}\DataTypeTok{bins =} \DecValTok{20}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_fill_viridis_d}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_color_viridis_d}\NormalTok{(}\DataTypeTok{direction =} \DecValTok{-1}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \OtherTok{FALSE}\NormalTok{, }\DataTypeTok{color =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Histograms of Temperature Drop in Sepsis Patients"}\NormalTok{,}
+         \DataTypeTok{x =} \StringTok{"Drop in Temperature (degrees Celsius"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{treat)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/sepsis_temp_drop_by_treat_histograms-1.pdf}
+
+Here's a pair of Normal Q-Q plots. It's not hard to use a Normal model to approximate the Ibuprofen data, but such a model is probably not a good choice for the Placebo results.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(sepsis, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{sample =}\NormalTok{ temp_drop)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_qq}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_qq_line}\NormalTok{(}\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{treat) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{y =} \StringTok{"Temperature Drop Values (in degrees C)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-172-1.pdf}
+
+We'll could perhaps also look at a ridgeline plot.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(sepsis, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ temp_drop, }\DataTypeTok{y =}\NormalTok{ treat, }\DataTypeTok{fill =}\NormalTok{ treat)) }\OperatorTok{+}
+\StringTok{    }\NormalTok{ggridges}\OperatorTok{::}\KeywordTok{geom_density_ridges}\NormalTok{(}\DataTypeTok{scale =} \FloatTok{0.9}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Temperature Drop in Sepsis Patients"}\NormalTok{,}
+         \DataTypeTok{x =} \StringTok{"Drop in Temperature (degrees Celsius)"}\NormalTok{, }\DataTypeTok{y =} \StringTok{""}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\NormalTok{ggridges}\OperatorTok{::}\KeywordTok{theme_ridges}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Picking joint bandwidth of 0.182
+\end{verbatim}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-173-1.pdf}
+
+The center of the ibuprofen distribution is shifted a bit towards the more positive (greater improvement) direction, it seems, than is the distribution for the placebo patients. This conclusion matches what we see in some key numerical summaries, within the treatment groups.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mosaic}\OperatorTok{::}\KeywordTok{favstats}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat, }\DataTypeTok{data =}\NormalTok{ sepsis)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      treat  min     Q1 median  Q3 max      mean        sd   n missing
+1 Ibuprofen -1.5  0.000    0.5 0.9 3.1 0.4640000 0.6877919 150       0
+2   Placebo -2.7 -0.175    0.1 0.4 1.9 0.1526667 0.5709637 150       0
+\end{verbatim}
+
+\hypertarget{estimating-the-difference-in-population-means}{%
+\section{Estimating the Difference in Population Means}\label{estimating-the-difference-in-population-means}}
+
+Next, we will build a point estimate and 90\% confidence interval for the difference between the mean \texttt{temp\_drop} if treated with Ibuprofen and the mean \texttt{temp\_drop} if treated with Placebo. We'll use a regression model with a single predictor (the \texttt{treat} group) to do this.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model_sep <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat }\OperatorTok{==}\StringTok{ "Ibuprofen"}\NormalTok{, }\DataTypeTok{data =}\NormalTok{ sepsis)}
+
+\KeywordTok{tidy}\NormalTok{(model_sep, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value & conf.low & conf.high\\
+\hline
+(Intercept) & 0.153 & 0.052 & 2.958 & 0.003 & 0.068 & 0.238\\
+\hline
+treat == "Ibuprofen"TRUE & 0.311 & 0.073 & 4.266 & 0.000 & 0.191 & 0.432\\
+\hline
+\end{tabular}
+
+The point estimate for the ``Ibuprofen - Placebo'' difference in population means is 0.311 degrees C, and the 90\% confidence interval is (0.191, 0.432) degrees C.
+
+We could also have run the model like this:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model_sep2 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat, }\DataTypeTok{data =}\NormalTok{ sepsis)}
+
+\KeywordTok{tidy}\NormalTok{(model_sep2, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value & conf.low & conf.high\\
+\hline
+(Intercept) & 0.464 & 0.052 & 8.991 & 0 & 0.379 & 0.549\\
+\hline
+treatPlacebo & -0.311 & 0.073 & -4.266 & 0 & -0.432 & -0.191\\
+\hline
+\end{tabular}
+
+and would therefore conclude that the \emph{Placebo - Ibuprofen} difference was estimated as -0.311, with 90\% confidence interval (-0.432, -0.191), which is of course equivalent to our previous estimate.
+
+Fundamentally, this regression model approach is identical to a \textbf{two-sample t test, assuming equal population variances}, also called a \textbf{pooled t test}. This is just one possible way for us to estimate the difference between population means, as it turns out.
+
+\hypertarget{t-based-ci-for-population-mean1---mean2-difference}{%
+\section{t-based CI for population mean1 - mean2 difference}\label{t-based-ci-for-population-mean1---mean2-difference}}
+
+\hypertarget{the-pooled-t-procedure}{%
+\subsection{The Pooled t procedure}\label{the-pooled-t-procedure}}
+
+The most commonly used t-procedure for building a confidence interval assumes not only that each of the two populations being compared follows a Normal distribution, but also that they have the same population variance. This is the pooled t-test, and it is what people usually mean when they describe a two-sample t test.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sepsis }\OperatorTok{%$%}\StringTok{ }\KeywordTok{t.test}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat,}
+                  \DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{,}
+                  \DataTypeTok{alt =} \StringTok{"two.sided"}\NormalTok{,}
+                  \DataTypeTok{var.equal =} \OtherTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+	Two Sample t-test
+
+data:  temp_drop by treat
+t = 4.2656, df = 298, p-value = 2.68e-05
+alternative hypothesis: true difference in means is not equal to 0
+90 percent confidence interval:
+ 0.1909066 0.4317600
+sample estimates:
+mean in group Ibuprofen   mean in group Placebo 
+              0.4640000               0.1526667 
+\end{verbatim}
+
+Or, we can use \texttt{tidy} on this object:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tt1 <-}\StringTok{ }\NormalTok{sepsis }\OperatorTok{%$%}\StringTok{ }\KeywordTok{t.test}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat,}
+                  \DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{,}
+                  \DataTypeTok{alt =} \StringTok{"two.sided"}\NormalTok{,}
+                  \DataTypeTok{var.equal =} \OtherTok{TRUE}\NormalTok{)}
+\KeywordTok{tidy}\NormalTok{(tt1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 10
+  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
+     <dbl>     <dbl>     <dbl>     <dbl>   <dbl>     <dbl>    <dbl>     <dbl>
+1    0.311     0.464     0.153      4.27 2.68e-5       298    0.191     0.432
+# ... with 2 more variables: method <chr>, alternative <chr>
+\end{verbatim}
+
+\hypertarget{using-linear-regression-to-obtain-a-pooled-t-confidence-interval}{%
+\subsection{Using linear regression to obtain a pooled t confidence interval}\label{using-linear-regression-to-obtain-a-pooled-t-confidence-interval}}
+
+As we've seen, and will demonstrate again below, a linear regression model, using the same outcome and predictor (group) as the pooled t procedure, produces the same confidence interval, again, under the assumption that the two populations we are comparing follow a Normal distribution with the same (population) variance.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model1 <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat, }\DataTypeTok{data =}\NormalTok{ sepsis)}
+
+\KeywordTok{tidy}\NormalTok{(model1, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 2 x 7
+  term         estimate std.error statistic  p.value conf.low conf.high
+  <chr>           <dbl>     <dbl>     <dbl>    <dbl>    <dbl>     <dbl>
+1 (Intercept)     0.464    0.0516      8.99 2.91e-17    0.379     0.549
+2 treatPlacebo   -0.311    0.0730     -4.27 2.68e- 5   -0.432    -0.191
+\end{verbatim}
+
+We see that our point estimate from the linear regression model is that the difference in \texttt{temp\_drop} is -0.3113333, where Ibuprofen subjects have higher \texttt{temp\_drop} values than do Placebo subjects, and that the 90\% confidence interval for this difference ranges from -0.43176 to -0.1909066.
+
+We can obtain a t-based confidence interval for each of the parameter estimates in a linear model directly using \texttt{tidy} from the \texttt{broom} package. Linear models usually summarize only the estimate and standard error. Remember that a reasonable approximation in large samples to a 95\% confidence interval for a regression estimate (slope or intercept) can be obtained from estimate plus or minus two times the standard error.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tidy}\NormalTok{(model1, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.95}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{3}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{l|r|r|r|r|r|r}
+\hline
+term & estimate & std.error & statistic & p.value & conf.low & conf.high\\
+\hline
+(Intercept) & 0.464 & 0.052 & 8.991 & 0 & 0.362 & 0.566\\
+\hline
+treatPlacebo & -0.311 & 0.073 & -4.266 & 0 & -0.455 & -0.168\\
+\hline
+\end{tabular}
+
+So, in the case of the \texttt{treatPlacebo} estimate, we can obtain an approximate 95\% confidence interval with (-0.457, -0.165). Compare this to the 95\% confidence interval available from the model directly, shown in the tidied output above, or with the \texttt{confint} command below, and you'll see only a small difference.
+
+Note that we can also use \texttt{summary} and \texttt{confint} to build our estimates.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(model1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+Call:
+lm(formula = temp_drop ~ treat, data = sepsis)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-2.85267 -0.36400 -0.05267  0.34733  2.63600 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept)   0.46400    0.05161   8.991  < 2e-16 ***
+treatPlacebo -0.31133    0.07299  -4.266 2.68e-05 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.6321 on 298 degrees of freedom
+Multiple R-squared:  0.05755,	Adjusted R-squared:  0.05438 
+F-statistic:  18.2 on 1 and 298 DF,  p-value: 2.68e-05
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{confint}\NormalTok{(model1, }\DataTypeTok{level =} \FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+                  2.5 %     97.5 %
+(Intercept)   0.3624351  0.5655649
+treatPlacebo -0.4549679 -0.1676988
+\end{verbatim}
+
+\hypertarget{the-welch-t-procedure}{%
+\subsection{The Welch t procedure}\label{the-welch-t-procedure}}
+
+The default confidence interval based on the t test for independent samples in R uses something called the Welch test, in which the two populations being compared are not assumed to have the same variance. Each population is assumed to follow a Normal distribution.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sepsis }\OperatorTok{%$%}\StringTok{ }\KeywordTok{t.test}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat,}
+                  \DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{, }
+                  \DataTypeTok{alt =} \StringTok{"two.sided"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+	Welch Two Sample t-test
+
+data:  temp_drop by treat
+t = 4.2656, df = 288.24, p-value = 2.706e-05
+alternative hypothesis: true difference in means is not equal to 0
+90 percent confidence interval:
+ 0.1908939 0.4317728
+sample estimates:
+mean in group Ibuprofen   mean in group Placebo 
+              0.4640000               0.1526667 
+\end{verbatim}
+
+Tidying works in this situation, too.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tt0 <-}\StringTok{ }\NormalTok{sepsis }\OperatorTok{%$%}\StringTok{ }\KeywordTok{t.test}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat,}
+                  \DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{, }
+                  \DataTypeTok{alt =} \StringTok{"two.sided"}\NormalTok{)}
+
+\KeywordTok{tidy}\NormalTok{(tt0)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 10
+  estimate estimate1 estimate2 statistic p.value parameter conf.low conf.high
+     <dbl>     <dbl>     <dbl>     <dbl>   <dbl>     <dbl>    <dbl>     <dbl>
+1    0.311     0.464     0.153      4.27 2.71e-5      288.    0.191     0.432
+# ... with 2 more variables: method <chr>, alternative <chr>
+\end{verbatim}
+
+When there is a \emph{balanced design}, that is, when the same number of observations appear in each of the two samples, then the Welch t test and the Pooled t test produce the same confidence interval. Differences appear if the sample sizes in the two groups being compared are different.
+
+\hypertarget{wilcoxon-mann-whitney-rank-sum-ci}{%
+\section{Wilcoxon-Mann-Whitney ``Rank Sum'' CI}\label{wilcoxon-mann-whitney-rank-sum-ci}}
+
+As in the one-sample case, a rank-based alternative attributed to Wilcoxon (and sometimes to Mann and Whitney) provides a two-sample comparison of the pseudomedians in the two \texttt{treat} groups in terms of \texttt{temp\_drop}. This is called a \textbf{rank sum} test, rather than the Wilcoxon \textbf{signed rank} test that is used for inference about a single sample. Here's the resulting 90\% confidence interval for the difference in pseudomedians.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{wt <-}\StringTok{ }\NormalTok{sepsis }\OperatorTok{%$%}\StringTok{ }\KeywordTok{wilcox.test}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat,}
+                       \DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{,}
+                       \DataTypeTok{alt =} \StringTok{"two.sided"}\NormalTok{) }
+
+\NormalTok{wt}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+
+	Wilcoxon rank sum test with continuity correction
+
+data:  temp_drop by treat
+W = 14614, p-value = 7.281e-06
+alternative hypothesis: true location shift is not equal to 0
+90 percent confidence interval:
+ 0.1999699 0.4000330
+sample estimates:
+difference in location 
+             0.3000368 
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{tidy}\NormalTok{(wt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 7
+  estimate statistic  p.value conf.low conf.high method              alternative
+     <dbl>     <dbl>    <dbl>    <dbl>     <dbl> <chr>               <chr>      
+1    0.300    14614.  7.28e-6    0.200     0.400 Wilcoxon rank sum ~ two.sided  
+\end{verbatim}
+
+\hypertarget{bootstrapping-a-more-robust-approach}{%
+\section{Bootstrapping: A More Robust Approach}\label{bootstrapping-a-more-robust-approach}}
+
+Within a script called \texttt{Love-boost.R}, I have provided the following R code to create a function called \texttt{bootdif}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bootdif <-}
+\StringTok{  }\ControlFlowTok{function}\NormalTok{(y, g, }\DataTypeTok{conf.level=}\FloatTok{0.95}\NormalTok{, }\DataTypeTok{B.reps =} \DecValTok{2000}\NormalTok{) \{}
+\NormalTok{    lowq =}\StringTok{ }\NormalTok{(}\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{conf.level)}\OperatorTok{/}\DecValTok{2}
+\NormalTok{    g <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(g)}
+\NormalTok{    a <-}\StringTok{ }\KeywordTok{attr}\NormalTok{(Hmisc}\OperatorTok{::}\KeywordTok{smean.cl.boot}\NormalTok{(y[g}\OperatorTok{==}\KeywordTok{levels}\NormalTok{(g)[}\DecValTok{1}\NormalTok{]], }\DataTypeTok{B=}\NormalTok{B.reps, }\DataTypeTok{reps=}\OtherTok{TRUE}\NormalTok{),}\StringTok{'reps'}\NormalTok{)}
+\NormalTok{    b <-}\StringTok{ }\KeywordTok{attr}\NormalTok{(Hmisc}\OperatorTok{::}\KeywordTok{smean.cl.boot}\NormalTok{(y[g}\OperatorTok{==}\KeywordTok{levels}\NormalTok{(g)[}\DecValTok{2}\NormalTok{]], }\DataTypeTok{B=}\NormalTok{B.reps, }\DataTypeTok{reps=}\OtherTok{TRUE}\NormalTok{),}\StringTok{'reps'}\NormalTok{)}
+\NormalTok{    meandif <-}\StringTok{ }\KeywordTok{diff}\NormalTok{(}\KeywordTok{tapply}\NormalTok{(y, g, mean, }\DataTypeTok{na.rm=}\OtherTok{TRUE}\NormalTok{))}
+\NormalTok{    a.b <-}\StringTok{ }\KeywordTok{quantile}\NormalTok{(b}\OperatorTok{-}\NormalTok{a, }\KeywordTok{c}\NormalTok{(lowq,}\DecValTok{1}\OperatorTok{-}\NormalTok{lowq))}
+\NormalTok{    res <-}\StringTok{ }\KeywordTok{c}\NormalTok{(meandif, a.b)}
+    \KeywordTok{names}\NormalTok{(res) <-}\StringTok{ }\KeywordTok{c}\NormalTok{(}\StringTok{'Mean Difference'}\NormalTok{,lowq, }\DecValTok{1}\OperatorTok{-}\NormalTok{lowq)}
+\NormalTok{    res}
+\NormalTok{  \}}
+\end{Highlighting}
+\end{Shaded}
+
+Running this code will place a new function called \texttt{bootdif} in your environment, which will help us calculate an appropriate confidence interval using a bootstrap procedure. The \texttt{bootdif} function contained in the \texttt{Love-boost.R} script is a slightly edited version of the function at \url{http://biostat.mc.vanderbilt.edu/wiki/Main/BootstrapMeansSoftware}.
+
+\hypertarget{bootstrap-ci-for-the-sepsis-study}{%
+\subsection{Bootstrap CI for the Sepsis study}\label{bootstrap-ci-for-the-sepsis-study}}
+
+Note that this approach uses a comma to separate the outcome variable (here, \texttt{temp\_drop}) from the variable identifying the exposure groups (here, \texttt{treat}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{431212}\NormalTok{)}
+
+\NormalTok{sepsis }\OperatorTok{%$%}\StringTok{ }\KeywordTok{bootdif}\NormalTok{(temp_drop, treat, }\DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Mean Difference            0.05            0.95 
+     -0.3113333      -0.4313667      -0.1833000 
+\end{verbatim}
+
+This approach calculates a 90\% confidence interval for the difference in means between the two treatment groups. Note that the sign is in the opposite direction from what we've seen in our previous work. We can tell from the mean difference (and the summarized means from the data in each group) that this approach is finding a confidence interval using a bootstrap procedure for the Placebo - Ibuprofen difference, specifically (-0.431, -0.183).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mosaic}\OperatorTok{::}\KeywordTok{favstats}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat, }\DataTypeTok{data =}\NormalTok{ sepsis)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      treat  min     Q1 median  Q3 max      mean        sd   n missing
+1 Ibuprofen -1.5  0.000    0.5 0.9 3.1 0.4640000 0.6877919 150       0
+2   Placebo -2.7 -0.175    0.1 0.4 1.9 0.1526667 0.5709637 150       0
+\end{verbatim}
+
+To find a confidence interval using this bootstrap approach for the Ibuprofen - Placebo difference, we just need to switch the signs, and conclude that the 90\% bootstrap confidence interval for that difference would be (0.183, 0.431).
+
+\hypertarget{summary-specifying-a-two-sample-study-design}{%
+\section{Summary: Specifying A Two-Sample Study Design}\label{summary-specifying-a-two-sample-study-design}}
+
+These questions will help specify the details of the study design involved in any comparison of two populations on a quantitative outcome, perhaps with means.
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  What is the outcome under study?
+\item
+  What are the (in this case, two) treatment/exposure groups?
+\item
+  Were the data collected using matched / paired samples or independent samples?
+\item
+  Are the data a random sample from the population(s) of interest? Or is there at least a reasonable argument for generalizing from the sample to the population(s)?
+\item
+  What is the significance level (or, the confidence level) we require here?
+\item
+  Are we doing one-sided or two-sided testing/confidence interval generation?
+\item
+  If we have paired samples, did pairing help reduce nuisance variation?
+\item
+  If we have paired samples, what does the distribution of sample paired differences tell us about which inferential procedure to use?
+\item
+  If we have independent samples, what does the distribution of each individual sample tell us about which inferential procedure to use?
+\end{enumerate}
+
+\hypertarget{results-for-the-sepsis-study}{%
+\section{\texorpdfstring{Results for the \texttt{sepsis} study}{Results for the sepsis study}}\label{results-for-the-sepsis-study}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  The outcome is \texttt{temp\_drop}, the change in body temperature (in \(^{\circ}\)C) from baseline to 2 hours later, so that positive numbers indicate drops in temperature (a good outcome.)
+\item
+  The groups are \textbf{Ibuprofen} and \textbf{Placebo} as contained in the \texttt{treat} variable in the \texttt{sepsis} tibble.
+\item
+  The data were collected using independent samples. The Ibuprofen subjects are not matched or linked to individual Placebo subjects - they are separate groups.
+\item
+  The subjects of the study aren't drawn from a random sample of the population of interest, but they are randomly assigned to their respective treatments (Ibuprofen and Placebo) which will provide the reasoned basis for our inferences.
+\item
+  We'll use a 10\% significance level (or 90\% confidence level) in this setting, as we did in our previous work on these data.
+\item
+  We'll use a two-sided testing and confidence interval approach.
+\end{enumerate}
+
+Questions 7 and 8 don't apply, because these are independent samples of data, rather than paired samples.
+
+To address question 9, we'll need to look at the data in each sample, as we did previously to allow us to assess the Normality of the distributions of (separately) the \texttt{temp\_drop} results in the Ibuprofen and Placebo groups. We'll repeat those below.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(sepsis, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ treat, }\DataTypeTok{y =}\NormalTok{ temp_drop, }\DataTypeTok{fill =}\NormalTok{ treat)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_violin}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_boxplot}\NormalTok{(}\DataTypeTok{width =} \FloatTok{0.3}\NormalTok{, }\DataTypeTok{fill =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{scale_fill_viridis_d}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{fill =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Boxplot of Temperature Drop in Sepsis Patients"}\NormalTok{,}
+         \DataTypeTok{x =} \StringTok{""}\NormalTok{, }\DataTypeTok{y =} \StringTok{"Drop in Temperature (degrees C)"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{coord_flip}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-188-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(sepsis, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{sample =}\NormalTok{ temp_drop)) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{geom_qq}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_qq_line}\NormalTok{(}\DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}
+\StringTok{    }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}
+\StringTok{    }\KeywordTok{facet_wrap}\NormalTok{(}\OperatorTok{~}\StringTok{ }\NormalTok{treat) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{y =} \StringTok{"Temperature Drop Values (in degrees C)"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-189-1.pdf}
+
+From these plots we conclude that the data in the Ibuprofen sample follow a reasonably Normal distribution, but this isn't quite as true for the Placebo sample. It's hard to know whether the apparent Placebo group outliers will affect whether the Normal distribution assumption is reasonable, so we can see if the confidence intervals change much when we \emph{don't} assume Normality (for instance, comparing the bootstrap to the t-based approaches), as a way of understanding whether a Normal model has a large impact on our conclusions.
+
+\hypertarget{sepsis-estimation-results}{%
+\subsection{Sepsis Estimation Results}\label{sepsis-estimation-results}}
+
+Here's a set of confidence interval estimates (we'll use 90\% confidence here) using the methods discussed in this Chapter.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mosaic}\OperatorTok{::}\KeywordTok{favstats}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat, }\DataTypeTok{data =}\NormalTok{ sepsis)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+      treat  min     Q1 median  Q3 max      mean        sd   n missing
+1 Ibuprofen -1.5  0.000    0.5 0.9 3.1 0.4640000 0.6877919 150       0
+2   Placebo -2.7 -0.175    0.1 0.4 1.9 0.1526667 0.5709637 150       0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s_pooled_t_test <-}\StringTok{ }\NormalTok{sepsis }\OperatorTok{%$%}\StringTok{ }\KeywordTok{t.test}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat, }
+                           \DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{,}
+                           \DataTypeTok{alt =} \StringTok{"two.sided"}\NormalTok{, }
+                           \DataTypeTok{var.equal =} \OtherTok{TRUE}\NormalTok{)}
+
+\KeywordTok{tidy}\NormalTok{(s_pooled_t_test) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{select}\NormalTok{(conf.low, conf.high)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 2
+  conf.low conf.high
+     <dbl>     <dbl>
+1    0.191     0.432
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s_welch_t_test <-}\StringTok{ }\NormalTok{sepsis }\OperatorTok{%$%}\StringTok{ }\KeywordTok{t.test}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat, }
+                           \DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{,}
+                           \DataTypeTok{alt =} \StringTok{"two.sided"}\NormalTok{, }
+                           \DataTypeTok{var.equal =} \OtherTok{FALSE}\NormalTok{)}
+
+\KeywordTok{tidy}\NormalTok{(s_welch_t_test) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{select}\NormalTok{(estimate, conf.low, conf.high)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 3
+  estimate conf.low conf.high
+     <dbl>    <dbl>     <dbl>
+1    0.311    0.191     0.432
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{s_wilcoxon_test <-}\StringTok{ }\NormalTok{sepsis }\OperatorTok{%$%}\StringTok{ }\KeywordTok{wilcox.test}\NormalTok{(temp_drop }\OperatorTok{~}\StringTok{ }\NormalTok{treat,}
+                       \DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{,}
+                       \DataTypeTok{alt =} \StringTok{"two.sided"}\NormalTok{) }
+
+\KeywordTok{tidy}\NormalTok{(s_wilcoxon_test) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{select}\NormalTok{(estimate, conf.low, conf.high)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# A tibble: 1 x 3
+  estimate conf.low conf.high
+     <dbl>    <dbl>     <dbl>
+1    0.300    0.200     0.400
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{set.seed}\NormalTok{(}\DecValTok{431212}\NormalTok{)}
+\NormalTok{s_bootstrap <-}\StringTok{ }\NormalTok{sepsis }\OperatorTok{%$%}\StringTok{ }\KeywordTok{bootdif}\NormalTok{(temp_drop, treat, }
+                                  \DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{)}
+
+\NormalTok{s_bootstrap}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+Mean Difference            0.05            0.95 
+     -0.3113333      -0.4313667      -0.1833000 
+\end{verbatim}
+
+\begin{longtable}[]{@{}rrrr@{}}
+\toprule
+Procedure & Compares\ldots{} & Point Estimate & 90\% CI\tabularnewline
+\midrule
+\endhead
+Pooled t & Means & 0.311 & (0.191, 0.432)\tabularnewline
+Welch t & Means & 0.311 & (0.191, 0.432)\tabularnewline
+Bootstrap & Means & 0.311 & (0.183, 0.431)\tabularnewline
+Wilcoxon rank sum & Pseudo-Medians & 0.3 & (0.2, 0.4)\tabularnewline
+\bottomrule
+\end{longtable}
+
+What conclusions can we draw in this setting?
+
+\hypertarget{categorizing-the-outcome-and-comparing-rates}{%
+\section{Categorizing the Outcome and Comparing Rates}\label{categorizing-the-outcome-and-comparing-rates}}
+
+Suppose we were interested in comparing the percentage of patients in each arm of the trial (Ibuprofen vs.~Placebo) that showed an improvement in their temperature (\texttt{temp\_drop} \textgreater{} 0). To build the cross-tabulation of interest, we could create a new variable, called \texttt{dropped} which indicates whether the subject's temperature dropped, and then use \texttt{tabyl}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sepsis <-}\StringTok{ }\NormalTok{sepsis }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{dropped =} \KeywordTok{ifelse}\NormalTok{(temp_drop }\OperatorTok{>}\StringTok{ }\DecValTok{0}\NormalTok{, }\StringTok{"Drop"}\NormalTok{, }\StringTok{"No Drop"}\NormalTok{))}
+
+\NormalTok{sepsis }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tabyl}\NormalTok{(treat, dropped)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     treat Drop No Drop
+ Ibuprofen  107      43
+   Placebo   80      70
+\end{verbatim}
+
+Our primary interest is in comparing the percentage of Ibuprofen patients whose temperature dropped to the percentage of Placebo patients whose temperature dropped.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sepsis }\OperatorTok{%>%}\StringTok{ }\KeywordTok{tabyl}\NormalTok{(treat, dropped) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{adorn_totals}\NormalTok{() }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{adorn_percentages}\NormalTok{(}\DataTypeTok{denom =} \StringTok{"row"}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{adorn_pct_formatting}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{1}\NormalTok{) }\OperatorTok{%>%}
+\StringTok{    }\KeywordTok{adorn_ns}\NormalTok{(}\DataTypeTok{position =} \StringTok{"front"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+     treat        Drop     No Drop
+ Ibuprofen 107 (71.3%)  43 (28.7%)
+   Placebo  80 (53.3%)  70 (46.7%)
+     Total 187 (62.3%) 113 (37.7%)
+\end{verbatim}
+
+\hypertarget{estimating-the-difference-in-proportions}{%
+\section{Estimating the Difference in Proportions}\label{estimating-the-difference-in-proportions}}
+
+In our sample, 71.3\% of the Ibuprofen subjects, and 53.3\% of the Placebo subjects, experienced a drop in temperature. So our \emph{point estimate} of the difference in percentages would be 18.0 percentage points, but we will usually set this instead in terms of proportions, so that the difference is 0.180.
+
+Now, we'll find a confidence interval for that difference, which we can do in several ways, including the \texttt{twoby2} function in the \texttt{Epi} package.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{sepsis }\OperatorTok{%$%}\StringTok{ }\KeywordTok{table}\NormalTok{(treat, dropped) }\OperatorTok{%>%}\StringTok{ }\NormalTok{Epi}\OperatorTok{::}\KeywordTok{twoby2}\NormalTok{(}\DataTypeTok{alpha =} \FloatTok{0.10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+2 by 2 table analysis: 
+------------------------------------------------------ 
+Outcome   : Drop 
+Comparing : Ibuprofen vs. Placebo 
+
+          Drop No Drop    P(Drop) 90% conf. interval
+Ibuprofen  107      43     0.7133    0.6490   0.7701
+Placebo     80      70     0.5333    0.4661   0.5993
+
+                                   90% conf. interval
+             Relative Risk: 1.3375    1.1492   1.5567
+         Sample Odds Ratio: 2.1773    1.4583   3.2509
+Conditional MLE Odds Ratio: 2.1716    1.4177   3.3437
+    Probability difference: 0.1800    0.0881   0.2677
+
+             Exact P-value: 0.0019 
+        Asymptotic P-value: 0.0014 
+------------------------------------------------------
+\end{verbatim}
+
+While there is a lot of additional output here, we'll look for now just at the Probability difference row, where we see the point estimate (0.180) and the 90\% confidence interval estimate for the difference in proportions (0.088, 0.268) comparing Ibuprofen vs.~Placebo for the outcome of Dropping in Temperature.
+
+More on estimation of the difference in population proportions will be found later.
 
   \bibliography{book.bib,packages.bib}
 

@@ -76,7 +76,7 @@ This "loess" smooth curve is fairly close to the straight line fit, indicating t
 
 A **loess smooth** is a method of fitting a local polynomial regression model that R uses as its default smooth for scatterplots with fewer than 1000 observations. Think of the loess as a way of fitting a curve to data by tracking (at point x) the points within a neighborhood of point x, with more emphasis given to points near x. It can be adjusted by tweaking two specific parameters, in particular:
 
-- a `span` parameter (defaults to 0.75) which is also called $\alpha$ in the literature, that controls the degree of smoothing (essentially, how larger the neighborhood should be), and
+- a `span` parameter (defaults to 0.75) which is also called $\alpha$ in the literature, that controls the degree of smoothing (essentially, how large the neighborhood should be), and
 - a `degree` parameter (defaults to 2) which specifies the degree of polynomial to be used. Normally, this is either 1 or 2 - more complex functions are rarely needed for simple scatterplot smoothing.
 
 In addition to the curve, smoothing procedures can also provide confidence intervals around their main fitted line. Consider the following plot, which adjusts the span and also adds in the confidence intervals.

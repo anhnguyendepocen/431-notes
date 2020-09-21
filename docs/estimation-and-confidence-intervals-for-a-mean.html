@@ -1,0 +1,1426 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 17 Estimation and Confidence Intervals for a Mean | Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431</title>
+  <meta name="description" content="This book describes some fundamental approaches to doing biostatistical and data science in research." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 17 Estimation and Confidence Intervals for a Mean | Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book describes some fundamental approaches to doing biostatistical and data science in research." />
+  <meta name="github-repo" content="thomaselove/431-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 17 Estimation and Confidence Intervals for a Mean | Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431" />
+  
+  <meta name="twitter:description" content="This book describes some fundamental approaches to doing biostatistical and data science in research." />
+  
+
+<meta name="author" content="Thomas E. Love" />
+
+
+<meta name="date" content="2020-09-20" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="highlights-of-what-weve-seen-so-far.html"/>
+<link rel="next" href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Dr. Love's Notes for 431</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Working with These Notes</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-431-course-online"><i class="fa fa-check"></i>The 431 Course online</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-youll-find-here"><i class="fa fa-check"></i>What You’ll Find Here</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#setting-up-r"><i class="fa fa-check"></i>Setting Up R</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#initial-setup-of-r-packages"><i class="fa fa-check"></i>Initial Setup of R Packages</a></li>
+<li class="chapter" data-level="0.1" data-path="index.html"><a href="index.html#the-love-boost.r-script"><i class="fa fa-check"></i><b>0.1</b> The <code>Love-boost.R</code> script</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#additional-r-packages-installed-for-this-book"><i class="fa fa-check"></i>Additional R Packages installed for this book</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>1</b> Data Science</a><ul>
+<li class="chapter" data-level="1.1" data-path="data-science.html"><a href="data-science.html#data-science-project-cycle"><i class="fa fa-check"></i><b>1.1</b> Data Science Project Cycle</a></li>
+<li class="chapter" data-level="1.2" data-path="data-science.html"><a href="data-science.html#data-science-and-the-431-course"><i class="fa fa-check"></i><b>1.2</b> Data Science and the 431 Course</a></li>
+<li class="chapter" data-level="1.3" data-path="data-science.html"><a href="data-science.html#what-the-course-is-and-isnt"><i class="fa fa-check"></i><b>1.3</b> What The Course Is and Isn’t</a></li>
+</ul></li>
+<li class="part"><span><b>Part A. Exploring Data</b></span></li>
+<li class="chapter" data-level="2" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html"><i class="fa fa-check"></i><b>2</b> Looking at the Palmer Penguins</a><ul>
+<li class="chapter" data-level="2.1" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#package-loading-then-dealing-with-missing-data"><i class="fa fa-check"></i><b>2.1</b> Package Loading, then Dealing with Missing Data</a></li>
+<li class="chapter" data-level="2.2" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#counting-things-and-making-tables"><i class="fa fa-check"></i><b>2.2</b> Counting Things and Making Tables</a></li>
+<li class="chapter" data-level="2.3" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#visualizing-the-data-in-a-graph-or-a-few"><i class="fa fa-check"></i><b>2.3</b> Visualizing the Data in a Graph (or a few…)</a></li>
+<li class="chapter" data-level="2.4" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#six-ways-to-improve-this-graph"><i class="fa fa-check"></i><b>2.4</b> Six Ways To “Improve” This Graph</a></li>
+<li class="chapter" data-level="2.5" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#a-little-reflection"><i class="fa fa-check"></i><b>2.5</b> A Little Reflection</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dataviz.html"><a href="dataviz.html"><i class="fa fa-check"></i><b>3</b> NHANES: Initial Exploring</a><ul>
+<li class="chapter" data-level="3.1" data-path="dataviz.html"><a href="dataviz.html#the-nhanes-data-collecting-a-sample"><i class="fa fa-check"></i><b>3.1</b> The NHANES data: Collecting a Sample</a></li>
+<li class="chapter" data-level="3.2" data-path="dataviz.html"><a href="dataviz.html#age-and-height"><i class="fa fa-check"></i><b>3.2</b> Age and Height</a></li>
+<li class="chapter" data-level="3.3" data-path="dataviz.html"><a href="dataviz.html#subset-of-subjects-with-known-age-and-height"><i class="fa fa-check"></i><b>3.3</b> Subset of Subjects with Known Age and Height</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="dataviz.html"><a href="dataviz.html#the-distinction-between-gender-and-sex"><i class="fa fa-check"></i><b>3.3.1</b> The Distinction between <code>Gender</code> and <code>Sex</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="dataviz.html"><a href="dataviz.html#age-height-and-sex"><i class="fa fa-check"></i><b>3.4</b> Age-Height and Sex?</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="dataviz.html"><a href="dataviz.html#can-we-show-the-female-and-male-relationships-in-separate-panels"><i class="fa fa-check"></i><b>3.4.1</b> Can we show the Female and Male relationships in separate panels?</a></li>
+<li class="chapter" data-level="3.4.2" data-path="dataviz.html"><a href="dataviz.html#can-we-add-a-smooth-curve-to-show-the-relationship-in-each-plot"><i class="fa fa-check"></i><b>3.4.2</b> Can we add a smooth curve to show the relationship in each plot?</a></li>
+<li class="chapter" data-level="3.4.3" data-path="dataviz.html"><a href="dataviz.html#what-if-we-want-to-assume-straight-line-relationships"><i class="fa fa-check"></i><b>3.4.3</b> What if we want to assume straight line relationships?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="dataviz.html"><a href="dataviz.html#creating-a-new-subset-ages-21-79"><i class="fa fa-check"></i><b>3.5</b> Creating A New Subset: Ages 21-79</a></li>
+<li class="chapter" data-level="3.6" data-path="dataviz.html"><a href="dataviz.html#distribution-of-heights"><i class="fa fa-check"></i><b>3.6</b> Distribution of Heights</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="dataviz.html"><a href="dataviz.html#changing-a-histograms-fill-and-color"><i class="fa fa-check"></i><b>3.6.1</b> Changing a Histogram’s Fill and Color</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="dataviz.html"><a href="dataviz.html#height-and-sex"><i class="fa fa-check"></i><b>3.7</b> Height and Sex</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="dataviz.html"><a href="dataviz.html#a-boxplot-of-height-by-sex"><i class="fa fa-check"></i><b>3.7.1</b> A Boxplot of Height by Sex</a></li>
+<li class="chapter" data-level="3.7.2" data-path="dataviz.html"><a href="dataviz.html#histograms-of-height-by-sex"><i class="fa fa-check"></i><b>3.7.2</b> Histograms of Height by Sex</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="dataviz.html"><a href="dataviz.html#looking-at-pulse-rate"><i class="fa fa-check"></i><b>3.8</b> Looking at Pulse Rate</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="dataviz.html"><a href="dataviz.html#pulse-rate-and-physical-activity"><i class="fa fa-check"></i><b>3.8.1</b> Pulse Rate and Physical Activity</a></li>
+<li class="chapter" data-level="3.8.2" data-path="dataviz.html"><a href="dataviz.html#pulse-by-sleeping-trouble"><i class="fa fa-check"></i><b>3.8.2</b> Pulse by Sleeping Trouble</a></li>
+<li class="chapter" data-level="3.8.3" data-path="dataviz.html"><a href="dataviz.html#pulse-and-healthgen"><i class="fa fa-check"></i><b>3.8.3</b> Pulse and HealthGen</a></li>
+<li class="chapter" data-level="3.8.4" data-path="dataviz.html"><a href="dataviz.html#pulse-rate-and-systolic-blood-pressure"><i class="fa fa-check"></i><b>3.8.4</b> Pulse Rate and Systolic Blood Pressure</a></li>
+<li class="chapter" data-level="3.8.5" data-path="dataviz.html"><a href="dataviz.html#sleep-trouble-vs.-no-sleep-trouble"><i class="fa fa-check"></i><b>3.8.5</b> Sleep Trouble vs. No Sleep Trouble?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="dataviz.html"><a href="dataviz.html#general-health-status"><i class="fa fa-check"></i><b>3.9</b> General Health Status</a><ul>
+<li class="chapter" data-level="3.9.1" data-path="dataviz.html"><a href="dataviz.html#bar-chart-for-categorical-data"><i class="fa fa-check"></i><b>3.9.1</b> Bar Chart for Categorical Data</a></li>
+<li class="chapter" data-level="3.9.2" data-path="dataviz.html"><a href="dataviz.html#working-with-tables"><i class="fa fa-check"></i><b>3.9.2</b> Working with Tables</a></li>
+<li class="chapter" data-level="3.9.3" data-path="dataviz.html"><a href="dataviz.html#sbp-by-general-health-status"><i class="fa fa-check"></i><b>3.9.3</b> SBP by General Health Status</a></li>
+<li class="chapter" data-level="3.9.4" data-path="dataviz.html"><a href="dataviz.html#sbp-by-physical-activity-and-general-health-status"><i class="fa fa-check"></i><b>3.9.4</b> SBP by Physical Activity and General Health Status</a></li>
+<li class="chapter" data-level="3.9.5" data-path="dataviz.html"><a href="dataviz.html#sbp-by-sleep-trouble-and-general-health-status"><i class="fa fa-check"></i><b>3.9.5</b> SBP by Sleep Trouble and General Health Status</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="dataviz.html"><a href="dataviz.html#conclusions"><i class="fa fa-check"></i><b>3.10</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html"><i class="fa fa-check"></i><b>4</b> Data Structures and Types of Variables</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#data-require-structure-and-context"><i class="fa fa-check"></i><b>4.1</b> Data require structure and context</a></li>
+<li class="chapter" data-level="4.2" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#newNHANES"><i class="fa fa-check"></i><b>4.2</b> A New NHANES Adult Sample</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#summarizing-the-datas-structure"><i class="fa fa-check"></i><b>4.2.1</b> Summarizing the Data’s Structure</a></li>
+<li class="chapter" data-level="4.2.2" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#what-are-the-variables"><i class="fa fa-check"></i><b>4.2.2</b> What are the variables?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#quantitative-variables"><i class="fa fa-check"></i><b>4.3</b> Quantitative Variables</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#a-look-at-bmi-body-mass-index"><i class="fa fa-check"></i><b>4.3.1</b> A look at BMI (Body-Mass Index)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#qualitative-categorical-variables"><i class="fa fa-check"></i><b>4.4</b> Qualitative (Categorical) Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html"><i class="fa fa-check"></i><b>5</b> Summarizing Quantitative Variables</a><ul>
+<li class="chapter" data-level="5.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-summary-function-for-quantitative-data"><i class="fa fa-check"></i><b>5.1</b> The <code>summary</code> function for Quantitative data</a></li>
+<li class="chapter" data-level="5.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-center-of-a-distribution"><i class="fa fa-check"></i><b>5.2</b> Measuring the Center of a Distribution</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-mean-and-the-median"><i class="fa fa-check"></i><b>5.2.1</b> The Mean and The Median</a></li>
+<li class="chapter" data-level="5.2.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#dealing-with-missingness"><i class="fa fa-check"></i><b>5.2.2</b> Dealing with Missingness</a></li>
+<li class="chapter" data-level="5.2.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-mode-of-a-quantitative-variable"><i class="fa fa-check"></i><b>5.2.3</b> The Mode of a Quantitative Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-spread-of-a-distribution"><i class="fa fa-check"></i><b>5.3</b> Measuring the Spread of a Distribution</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#rangeandiqr"><i class="fa fa-check"></i><b>5.3.1</b> The Range and the Interquartile Range (IQR)</a></li>
+<li class="chapter" data-level="5.3.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-variance-and-the-standard-deviation"><i class="fa fa-check"></i><b>5.3.2</b> The Variance and the Standard Deviation</a></li>
+<li class="chapter" data-level="5.3.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#obtaining-the-variance-and-standard-deviation-in-r"><i class="fa fa-check"></i><b>5.3.3</b> Obtaining the Variance and Standard Deviation in R</a></li>
+<li class="chapter" data-level="5.3.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#defining-the-variance-and-standard-deviation"><i class="fa fa-check"></i><b>5.3.4</b> Defining the Variance and Standard Deviation</a></li>
+<li class="chapter" data-level="5.3.5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#interpreting-the-sd-when-the-data-are-normally-distributed"><i class="fa fa-check"></i><b>5.3.5</b> Interpreting the SD when the data are Normally distributed</a></li>
+<li class="chapter" data-level="5.3.6" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#chebyshevs-inequality-one-interpretation-of-the-standard-deviation"><i class="fa fa-check"></i><b>5.3.6</b> Chebyshev’s Inequality: One Interpretation of the Standard Deviation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-shape-of-a-distribution"><i class="fa fa-check"></i><b>5.4</b> Measuring the Shape of a Distribution</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#multimodal-vs.-unimodal-distributions"><i class="fa fa-check"></i><b>5.4.1</b> Multimodal vs. Unimodal distributions</a></li>
+<li class="chapter" data-level="5.4.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#skew"><i class="fa fa-check"></i><b>5.4.2</b> Skew</a></li>
+<li class="chapter" data-level="5.4.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#kurtosis"><i class="fa fa-check"></i><b>5.4.3</b> Kurtosis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#more-detailed-numerical-summaries-for-quantitative-variables"><i class="fa fa-check"></i><b>5.5</b> More Detailed Numerical Summaries for Quantitative Variables</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#favstats-in-the-mosaic-package"><i class="fa fa-check"></i><b>5.5.1</b> <code>favstats</code> in the <code>mosaic</code> package</a></li>
+<li class="chapter" data-level="5.5.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#describe-in-the-psych-package"><i class="fa fa-check"></i><b>5.5.2</b> <code>describe</code> in the <code>psych</code> package</a></li>
+<li class="chapter" data-level="5.5.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-hmisc-packages-version-of-describe"><i class="fa fa-check"></i><b>5.5.3</b> The <code>Hmisc</code> package’s version of <code>describe</code></a></li>
+<li class="chapter" data-level="5.5.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#other-options"><i class="fa fa-check"></i><b>5.5.4</b> Other options</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html"><i class="fa fa-check"></i><b>6</b> Summarizing Categorical Variables</a><ul>
+<li class="chapter" data-level="6.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#the-summary-function-for-categorical-data"><i class="fa fa-check"></i><b>6.1</b> The <code>summary</code> function for Categorical data</a></li>
+<li class="chapter" data-level="6.2" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#tables-to-describe-one-categorical-variable"><i class="fa fa-check"></i><b>6.2</b> Tables to describe One Categorical Variable</a></li>
+<li class="chapter" data-level="6.3" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#the-mode-of-a-categorical-variable"><i class="fa fa-check"></i><b>6.3</b> The Mode of a Categorical Variable</a></li>
+<li class="chapter" data-level="6.4" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#describe-in-the-hmisc-package"><i class="fa fa-check"></i><b>6.4</b> <code>describe</code> in the <code>Hmisc</code> package</a></li>
+<li class="chapter" data-level="6.5" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#cross-tabulations"><i class="fa fa-check"></i><b>6.5</b> Cross-Tabulations</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#cross-classifying-three-categorical-variables"><i class="fa fa-check"></i><b>6.5.1</b> Cross-Classifying Three Categorical Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#constructing-tables-well"><i class="fa fa-check"></i><b>6.6</b> Constructing Tables Well</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#alabama-first"><i class="fa fa-check"></i><b>6.6.1</b> Alabama First!</a></li>
+<li class="chapter" data-level="6.6.2" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#order-rows-and-columns-sensibly"><i class="fa fa-check"></i><b>6.6.2</b> Order rows and columns sensibly</a></li>
+<li class="chapter" data-level="6.6.3" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#round---a-lot"><i class="fa fa-check"></i><b>6.6.3</b> Round - a lot!</a></li>
+<li class="chapter" data-level="6.6.4" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#all-is-different-and-important"><i class="fa fa-check"></i><b>6.6.4</b> ALL is different and important</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#gaining-control-over-tables-in-r-the-gt-package"><i class="fa fa-check"></i><b>6.7</b> Gaining Control over Tables in R: the <code>gt</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="NYFS-Study.html"><a href="NYFS-Study.html"><i class="fa fa-check"></i><b>7</b> NHANES National Youth Fitness Survey (<code>nnyfs</code>)</a><ul>
+<li class="chapter" data-level="7.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-variables-included-in-nnyfs"><i class="fa fa-check"></i><b>7.1</b> The Variables included in <code>nnyfs</code></a><ul>
+<li class="chapter" data-level="7.1.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#from-the-nnyfs-demographic-component"><i class="fa fa-check"></i><b>7.1.1</b> From the <span>NNYFS Demographic Component</span></a></li>
+<li class="chapter" data-level="7.1.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#from-the-nnyfs-dietary-component"><i class="fa fa-check"></i><b>7.1.2</b> From the <span>NNYFS Dietary Component</span></a></li>
+<li class="chapter" data-level="7.1.3" data-path="NYFS-Study.html"><a href="NYFS-Study.html#from-the-nnyfs-examination-component"><i class="fa fa-check"></i><b>7.1.3</b> From the <span>NNYFS Examination Component</span></a></li>
+<li class="chapter" data-level="7.1.4" data-path="NYFS-Study.html"><a href="NYFS-Study.html#from-the-nnyfs-questionnaire-component"><i class="fa fa-check"></i><b>7.1.4</b> From the <span>NNYFS Questionnaire Component</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#looking-over-a-few-variables"><i class="fa fa-check"></i><b>7.2</b> Looking over A Few Variables</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#seqn"><i class="fa fa-check"></i><b>7.2.1</b> <code>SEQN</code></a></li>
+<li class="chapter" data-level="7.2.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#sex"><i class="fa fa-check"></i><b>7.2.2</b> <code>sex</code></a></li>
+<li class="chapter" data-level="7.2.3" data-path="NYFS-Study.html"><a href="NYFS-Study.html#age_child"><i class="fa fa-check"></i><b>7.2.3</b> <code>age_child</code></a></li>
+<li class="chapter" data-level="7.2.4" data-path="NYFS-Study.html"><a href="NYFS-Study.html#race_eth"><i class="fa fa-check"></i><b>7.2.4</b> <code>race_eth</code></a></li>
+<li class="chapter" data-level="7.2.5" data-path="NYFS-Study.html"><a href="NYFS-Study.html#income_pov"><i class="fa fa-check"></i><b>7.2.5</b> <code>income_pov</code></a></li>
+<li class="chapter" data-level="7.2.6" data-path="NYFS-Study.html"><a href="NYFS-Study.html#bmi"><i class="fa fa-check"></i><b>7.2.6</b> <code>bmi</code></a></li>
+<li class="chapter" data-level="7.2.7" data-path="NYFS-Study.html"><a href="NYFS-Study.html#bmi_cat"><i class="fa fa-check"></i><b>7.2.7</b> <code>bmi_cat</code></a></li>
+<li class="chapter" data-level="7.2.8" data-path="NYFS-Study.html"><a href="NYFS-Study.html#waist"><i class="fa fa-check"></i><b>7.2.8</b> <code>waist</code></a></li>
+<li class="chapter" data-level="7.2.9" data-path="NYFS-Study.html"><a href="NYFS-Study.html#triceps_skinfold"><i class="fa fa-check"></i><b>7.2.9</b> <code>triceps_skinfold</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="NYFS-Study.html"><a href="NYFS-Study.html#additional-numeric-summaries"><i class="fa fa-check"></i><b>7.3</b> Additional Numeric Summaries</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-five-number-summary-quantiles-and-iqr"><i class="fa fa-check"></i><b>7.3.1</b> The Five Number Summary, Quantiles and IQR</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="NYFS-Study.html"><a href="NYFS-Study.html#additional-summaries-from-favstats"><i class="fa fa-check"></i><b>7.4</b> Additional Summaries from <code>favstats</code></a></li>
+<li class="chapter" data-level="7.5" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-histogram"><i class="fa fa-check"></i><b>7.5</b> The Histogram</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#freedman-diaconis-rule-to-select-bin-width"><i class="fa fa-check"></i><b>7.5.1</b> Freedman-Diaconis Rule to select bin width</a></li>
+<li class="chapter" data-level="7.5.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#a-note-on-colors"><i class="fa fa-check"></i><b>7.5.2</b> A Note on Colors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-dot-plot-to-display-a-distribution"><i class="fa fa-check"></i><b>7.6</b> The Dot Plot to display a distribution</a></li>
+<li class="chapter" data-level="7.7" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-frequency-polygon"><i class="fa fa-check"></i><b>7.7</b> The Frequency Polygon</a></li>
+<li class="chapter" data-level="7.8" data-path="NYFS-Study.html"><a href="NYFS-Study.html#plotting-the-probability-density-function"><i class="fa fa-check"></i><b>7.8</b> Plotting the Probability Density Function</a></li>
+<li class="chapter" data-level="7.9" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-boxplot"><i class="fa fa-check"></i><b>7.9</b> The Boxplot</a><ul>
+<li class="chapter" data-level="7.9.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#drawing-a-boxplot-for-one-variable-in-ggplot2"><i class="fa fa-check"></i><b>7.9.1</b> Drawing a Boxplot for One Variable in <code>ggplot2</code></a></li>
+<li class="chapter" data-level="7.9.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#about-the-boxplot"><i class="fa fa-check"></i><b>7.9.2</b> About the Boxplot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="NYFS-Study.html"><a href="NYFS-Study.html#a-simple-comparison-boxplot"><i class="fa fa-check"></i><b>7.10</b> A Simple Comparison Boxplot</a></li>
+<li class="chapter" data-level="7.11" data-path="NYFS-Study.html"><a href="NYFS-Study.html#using-describe-in-the-psych-library"><i class="fa fa-check"></i><b>7.11</b> Using <code>describe</code> in the <code>psych</code> library</a><ul>
+<li class="chapter" data-level="7.11.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-trimmed-mean"><i class="fa fa-check"></i><b>7.11.1</b> The Trimmed Mean</a></li>
+<li class="chapter" data-level="7.11.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-median-absolute-deviation"><i class="fa fa-check"></i><b>7.11.2</b> The Median Absolute Deviation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.12" data-path="NYFS-Study.html"><a href="NYFS-Study.html#assessing-skew"><i class="fa fa-check"></i><b>7.12</b> Assessing Skew</a><ul>
+<li class="chapter" data-level="7.12.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#non-parametric-skewness"><i class="fa fa-check"></i><b>7.12.1</b> Non-parametric Skewness</a></li>
+</ul></li>
+<li class="chapter" data-level="7.13" data-path="NYFS-Study.html"><a href="NYFS-Study.html#assessing-kurtosis-heavy-tailedness"><i class="fa fa-check"></i><b>7.13</b> Assessing Kurtosis (Heavy-Tailedness)</a><ul>
+<li class="chapter" data-level="7.13.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-standard-error-of-the-sample-mean"><i class="fa fa-check"></i><b>7.13.1</b> The Standard Error of the Sample Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="7.14" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-describe-function-in-the-hmisc-package"><i class="fa fa-check"></i><b>7.14</b> The <code>describe</code> function in the <code>Hmisc</code> package</a></li>
+<li class="chapter" data-level="7.15" data-path="NYFS-Study.html"><a href="NYFS-Study.html#what-summaries-to-report"><i class="fa fa-check"></i><b>7.15</b> What Summaries to Report</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="assessing-normality.html"><a href="assessing-normality.html"><i class="fa fa-check"></i><b>8</b> Assessing Normality</a><ul>
+<li class="chapter" data-level="8.1" data-path="assessing-normality.html"><a href="assessing-normality.html#empirical-rule-interpretation-of-the-standard-deviation"><i class="fa fa-check"></i><b>8.1</b> Empirical Rule Interpretation of the Standard Deviation</a></li>
+<li class="chapter" data-level="8.2" data-path="assessing-normality.html"><a href="assessing-normality.html#describing-outlying-values-with-z-scores"><i class="fa fa-check"></i><b>8.2</b> Describing Outlying Values with Z Scores</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="assessing-normality.html"><a href="assessing-normality.html#fences-and-z-scores"><i class="fa fa-check"></i><b>8.2.1</b> Fences and Z Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="assessing-normality.html"><a href="assessing-normality.html#comparing-a-histogram-to-a-normal-distribution"><i class="fa fa-check"></i><b>8.3</b> Comparing a Histogram to a Normal Distribution</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="assessing-normality.html"><a href="assessing-normality.html#histogram-of-energy-with-normal-model-with-counts"><i class="fa fa-check"></i><b>8.3.1</b> Histogram of <code>energy</code> with Normal model (with Counts)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="assessing-normality.html"><a href="assessing-normality.html#does-a-normal-model-work-well-for-the-waist-circumference"><i class="fa fa-check"></i><b>8.4</b> Does a Normal model work well for the <code>waist</code> circumference?</a></li>
+<li class="chapter" data-level="8.5" data-path="assessing-normality.html"><a href="assessing-normality.html#the-normal-q-q-plot"><i class="fa fa-check"></i><b>8.5</b> The Normal Q-Q Plot</a></li>
+<li class="chapter" data-level="8.6" data-path="assessing-normality.html"><a href="assessing-normality.html#interpreting-the-normal-q-q-plot"><i class="fa fa-check"></i><b>8.6</b> Interpreting the Normal Q-Q Plot</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="assessing-normality.html"><a href="assessing-normality.html#data-from-a-normal-distribution-shows-up-as-a-straight-line-in-a-normal-q-q-plot"><i class="fa fa-check"></i><b>8.6.1</b> Data from a Normal distribution shows up as a straight line in a Normal Q-Q plot</a></li>
+<li class="chapter" data-level="8.6.2" data-path="assessing-normality.html"><a href="assessing-normality.html#skew-is-indicated-by-monotonic-curves-in-the-normal-q-q-plot"><i class="fa fa-check"></i><b>8.6.2</b> Skew is indicated by monotonic curves in the Normal Q-Q plot</a></li>
+<li class="chapter" data-level="8.6.3" data-path="assessing-normality.html"><a href="assessing-normality.html#direction-of-skew"><i class="fa fa-check"></i><b>8.6.3</b> Direction of Skew</a></li>
+<li class="chapter" data-level="8.6.4" data-path="assessing-normality.html"><a href="assessing-normality.html#outlier-proneness-is-indicated-by-s-shaped-curves-in-a-normal-q-q-plot"><i class="fa fa-check"></i><b>8.6.4</b> Outlier-proneness is indicated by “s-shaped” curves in a Normal Q-Q plot</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="assessing-normality.html"><a href="assessing-normality.html#can-a-normal-distribution-fit-the-nnyfs-energy-data-well"><i class="fa fa-check"></i><b>8.7</b> Can a Normal Distribution Fit the <code>nnyfs</code> <code>energy</code> data Well?</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html"><i class="fa fa-check"></i><b>9</b> Using Transformations to “Normalize” Distributions</a><ul>
+<li class="chapter" data-level="9.1" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#the-ladder-of-power-transformations"><i class="fa fa-check"></i><b>9.1</b> The Ladder of Power Transformations</a></li>
+<li class="chapter" data-level="9.2" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#using-the-ladder"><i class="fa fa-check"></i><b>9.2</b> Using the Ladder</a></li>
+<li class="chapter" data-level="9.3" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#protein-consumption-in-the-nnyfs-data"><i class="fa fa-check"></i><b>9.3</b> Protein Consumption in the NNYFS data</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#using-patchwork-to-compose-plots"><i class="fa fa-check"></i><b>9.3.1</b> Using <code>patchwork</code> to compose plots</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#can-we-transform-the-protein-data"><i class="fa fa-check"></i><b>9.4</b> Can we transform the <code>protein</code> data?</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#the-square-root"><i class="fa fa-check"></i><b>9.4.1</b> The Square Root</a></li>
+<li class="chapter" data-level="9.4.2" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#the-logarithm"><i class="fa fa-check"></i><b>9.4.2</b> The Logarithm</a></li>
+<li class="chapter" data-level="9.4.3" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#this-course-uses-natural-logarithms-unless-otherwise-specified"><i class="fa fa-check"></i><b>9.4.3</b> This course uses Natural Logarithms, unless otherwise specified</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#what-if-we-considered-all-9-available-transformations"><i class="fa fa-check"></i><b>9.5</b> What if we considered all 9 available transformations?</a></li>
+<li class="chapter" data-level="9.6" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#a-simulated-data-set"><i class="fa fa-check"></i><b>9.6</b> A Simulated Data Set</a></li>
+<li class="chapter" data-level="9.7" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#what-if-we-considered-all-9-available-transformations-1"><i class="fa fa-check"></i><b>9.7</b> What if we considered all 9 available transformations?</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html"><i class="fa fa-check"></i><b>10</b> Summarizing data within subgroups</a><ul>
+<li class="chapter" data-level="10.1" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#using-dplyr-and-summarise-to-build-a-tibble-of-summary-information"><i class="fa fa-check"></i><b>10.1</b> Using dplyr and summarise to build a tibble of summary information</a></li>
+<li class="chapter" data-level="10.2" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#another-example"><i class="fa fa-check"></i><b>10.2</b> Another Example</a></li>
+<li class="chapter" data-level="10.3" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#boxplots-to-relate-an-outcome-to-a-categorical-predictor"><i class="fa fa-check"></i><b>10.3</b> Boxplots to Relate an Outcome to a Categorical Predictor</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#augmenting-the-boxplot-with-the-sample-mean"><i class="fa fa-check"></i><b>10.3.1</b> Augmenting the Boxplot with the Sample Mean</a></li>
+<li class="chapter" data-level="10.3.2" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#building-a-violin-plot"><i class="fa fa-check"></i><b>10.3.2</b> Building a Violin Plot</a></li>
+<li class="chapter" data-level="10.3.3" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#adding-notches-to-a-boxplot"><i class="fa fa-check"></i><b>10.3.3</b> Adding Notches to a Boxplot</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#using-multiple-histograms-to-make-comparisons"><i class="fa fa-check"></i><b>10.4</b> Using Multiple Histograms to Make Comparisons</a></li>
+<li class="chapter" data-level="10.5" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#using-multiple-density-plots-to-make-comparisons"><i class="fa fa-check"></i><b>10.5</b> Using Multiple Density Plots to Make Comparisons</a></li>
+<li class="chapter" data-level="10.6" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#a-ridgeline-plot"><i class="fa fa-check"></i><b>10.6</b> A Ridgeline Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html"><i class="fa fa-check"></i><b>11</b> Straight Line Models and Correlation</a><ul>
+<li class="chapter" data-level="11.1" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#assessing-a-scatterplot"><i class="fa fa-check"></i><b>11.1</b> Assessing A Scatterplot</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#highlighting-an-unusual-point"><i class="fa fa-check"></i><b>11.1.1</b> Highlighting an unusual point</a></li>
+<li class="chapter" data-level="11.1.2" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#adding-a-scatterplot-smooth-using-loess"><i class="fa fa-check"></i><b>11.1.2</b> Adding a Scatterplot Smooth using loess</a></li>
+<li class="chapter" data-level="11.1.3" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#what-line-does-r-fit"><i class="fa fa-check"></i><b>11.1.3</b> What Line Does R Fit?</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#correlation-coefficients"><i class="fa fa-check"></i><b>11.2</b> Correlation Coefficients</a></li>
+<li class="chapter" data-level="11.3" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#the-pearson-correlation-coefficient"><i class="fa fa-check"></i><b>11.3</b> The Pearson Correlation Coefficient</a></li>
+<li class="chapter" data-level="11.4" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#studying-correlation-through-6-examples"><i class="fa fa-check"></i><b>11.4</b> Studying Correlation through 6 Examples</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#data-set-alex"><i class="fa fa-check"></i><b>11.4.1</b> Data Set Alex</a></li>
+<li class="chapter" data-level="11.4.2" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#data-set-bonnie"><i class="fa fa-check"></i><b>11.4.2</b> Data Set Bonnie</a></li>
+<li class="chapter" data-level="11.4.3" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#correlations-for-all-six-data-sets-in-the-correx1-example"><i class="fa fa-check"></i><b>11.4.3</b> Correlations for All Six Data Sets in the Correx1 Example</a></li>
+<li class="chapter" data-level="11.4.4" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#data-set-colin"><i class="fa fa-check"></i><b>11.4.4</b> Data Set Colin</a></li>
+<li class="chapter" data-level="11.4.5" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#draw-the-picture"><i class="fa fa-check"></i><b>11.4.5</b> Draw the Picture!</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#estimating-correlation-from-scatterplots"><i class="fa fa-check"></i><b>11.5</b> Estimating Correlation from Scatterplots</a></li>
+<li class="chapter" data-level="11.6" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#the-spearman-rank-correlation"><i class="fa fa-check"></i><b>11.6</b> The Spearman Rank Correlation</a><ul>
+<li class="chapter" data-level="11.6.1" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-formula"><i class="fa fa-check"></i><b>11.6.1</b> Spearman Formula</a></li>
+<li class="chapter" data-level="11.6.2" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#comparing-pearson-and-spearman-correlations"><i class="fa fa-check"></i><b>11.6.2</b> Comparing Pearson and Spearman Correlations</a></li>
+<li class="chapter" data-level="11.6.3" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-vs.-pearson-example-1"><i class="fa fa-check"></i><b>11.6.3</b> Spearman vs. Pearson Example 1</a></li>
+<li class="chapter" data-level="11.6.4" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-vs.-pearson-example-2"><i class="fa fa-check"></i><b>11.6.4</b> Spearman vs. Pearson Example 2</a></li>
+<li class="chapter" data-level="11.6.5" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-vs.-pearson-example-3"><i class="fa fa-check"></i><b>11.6.5</b> Spearman vs. Pearson Example 3</a></li>
+<li class="chapter" data-level="11.6.6" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-vs.-pearson-example-4"><i class="fa fa-check"></i><b>11.6.6</b> Spearman vs. Pearson Example 4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html"><i class="fa fa-check"></i><b>12</b> Studying Crab Claws (<code>crabs</code>)</a><ul>
+<li class="chapter" data-level="12.1" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#association-of-size-and-force"><i class="fa fa-check"></i><b>12.1</b> Association of Size and Force</a></li>
+<li class="chapter" data-level="12.2" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#loess_smooth"><i class="fa fa-check"></i><b>12.2</b> The <code>loess</code> smooth</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#smoothing-within-species"><i class="fa fa-check"></i><b>12.2.1</b> Smoothing within Species</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#fitting-a-linear-regression-model"><i class="fa fa-check"></i><b>12.3</b> Fitting a Linear Regression Model</a></li>
+<li class="chapter" data-level="12.4" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#is-a-linear-model-appropriate"><i class="fa fa-check"></i><b>12.4</b> Is a Linear Model Appropriate?</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#the-log-log-model"><i class="fa fa-check"></i><b>12.4.1</b> The log-log model</a></li>
+<li class="chapter" data-level="12.4.2" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#how-does-this-compare-to-our-original-linear-model"><i class="fa fa-check"></i><b>12.4.2</b> How does this compare to our original linear model?</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#making-predictions-with-a-model"><i class="fa fa-check"></i><b>12.5</b> Making Predictions with a Model</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#predictions-after-a-transformation"><i class="fa fa-check"></i><b>12.5.1</b> Predictions After a Transformation</a></li>
+<li class="chapter" data-level="12.5.2" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#comparing-model-predictions"><i class="fa fa-check"></i><b>12.5.2</b> Comparing Model Predictions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="WCGS-Study.html"><a href="WCGS-Study.html"><i class="fa fa-check"></i><b>13</b> The Western Collaborative Group Study</a><ul>
+<li class="chapter" data-level="13.1" data-path="WCGS-Study.html"><a href="WCGS-Study.html#the-western-collaborative-group-study-wcgs-data-set"><i class="fa fa-check"></i><b>13.1</b> The Western Collaborative Group Study (<code>wcgs</code>) data set</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="WCGS-Study.html"><a href="WCGS-Study.html#structure-of-wcgs"><i class="fa fa-check"></i><b>13.1.1</b> Structure of <code>wcgs</code></a></li>
+<li class="chapter" data-level="13.1.2" data-path="WCGS-Study.html"><a href="WCGS-Study.html#codebook-for-wcgs"><i class="fa fa-check"></i><b>13.1.2</b> Codebook for <code>wcgs</code></a></li>
+<li class="chapter" data-level="13.1.3" data-path="WCGS-Study.html"><a href="WCGS-Study.html#quick-summary"><i class="fa fa-check"></i><b>13.1.3</b> Quick Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="WCGS-Study.html"><a href="WCGS-Study.html#are-the-sbps-normally-distributed"><i class="fa fa-check"></i><b>13.2</b> Are the SBPs Normally Distributed?</a></li>
+<li class="chapter" data-level="13.3" data-path="WCGS-Study.html"><a href="WCGS-Study.html#identifying-and-describing-sbp-outliers"><i class="fa fa-check"></i><b>13.3</b> Identifying and Describing SBP outliers</a></li>
+<li class="chapter" data-level="13.4" data-path="WCGS-Study.html"><a href="WCGS-Study.html#does-weight-category-relate-to-sbp"><i class="fa fa-check"></i><b>13.4</b> Does Weight Category Relate to SBP?</a></li>
+<li class="chapter" data-level="13.5" data-path="WCGS-Study.html"><a href="WCGS-Study.html#re-leveling-a-factor"><i class="fa fa-check"></i><b>13.5</b> Re-Leveling a Factor</a><ul>
+<li class="chapter" data-level="13.5.1" data-path="WCGS-Study.html"><a href="WCGS-Study.html#sbp-by-weight-category"><i class="fa fa-check"></i><b>13.5.1</b> SBP by Weight Category</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="WCGS-Study.html"><a href="WCGS-Study.html#are-weight-and-sbp-linked"><i class="fa fa-check"></i><b>13.6</b> Are Weight and SBP Linked?</a></li>
+<li class="chapter" data-level="13.7" data-path="WCGS-Study.html"><a href="WCGS-Study.html#sbp-and-weight-by-arcus-senilis-groups"><i class="fa fa-check"></i><b>13.7</b> SBP and Weight by Arcus Senilis groups?</a></li>
+<li class="chapter" data-level="13.8" data-path="WCGS-Study.html"><a href="WCGS-Study.html#linear-model-for-sbp-weight-relationship-subjects-without-arcus-senilis"><i class="fa fa-check"></i><b>13.8</b> Linear Model for SBP-Weight Relationship: subjects without Arcus Senilis</a></li>
+<li class="chapter" data-level="13.9" data-path="WCGS-Study.html"><a href="WCGS-Study.html#linear-model-for-sbp-weight-relationship-subjects-with-arcus-senilis"><i class="fa fa-check"></i><b>13.9</b> Linear Model for SBP-Weight Relationship: subjects with Arcus Senilis</a></li>
+<li class="chapter" data-level="13.10" data-path="WCGS-Study.html"><a href="WCGS-Study.html#including-arcus-status-in-the-model"><i class="fa fa-check"></i><b>13.10</b> Including Arcus Status in the model</a></li>
+<li class="chapter" data-level="13.11" data-path="WCGS-Study.html"><a href="WCGS-Study.html#predictions-from-these-linear-models"><i class="fa fa-check"></i><b>13.11</b> Predictions from these Linear Models</a></li>
+<li class="chapter" data-level="13.12" data-path="WCGS-Study.html"><a href="WCGS-Study.html#scatterplots-with-facets-across-a-categorical-variable"><i class="fa fa-check"></i><b>13.12</b> Scatterplots with Facets Across a Categorical Variable</a></li>
+<li class="chapter" data-level="13.13" data-path="WCGS-Study.html"><a href="WCGS-Study.html#scatterplot-and-correlation-matrices"><i class="fa fa-check"></i><b>13.13</b> Scatterplot and Correlation Matrices</a><ul>
+<li class="chapter" data-level="13.13.1" data-path="WCGS-Study.html"><a href="WCGS-Study.html#displaying-a-correlation-matrix"><i class="fa fa-check"></i><b>13.13.1</b> Displaying a Correlation Matrix</a></li>
+<li class="chapter" data-level="13.13.2" data-path="WCGS-Study.html"><a href="WCGS-Study.html#using-the-ggally-package"><i class="fa fa-check"></i><b>13.13.2</b> Using the <code>GGally</code> package</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html"><i class="fa fa-check"></i><b>14</b> Re-Expression, Tukey’s Ladder &amp; Box-Cox Plot</a><ul>
+<li class="chapter" data-level="14.1" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#linearize-the-association-between-quantitative-variables"><i class="fa fa-check"></i><b>14.1</b> “Linearize” The Association between Quantitative Variables</a></li>
+<li class="chapter" data-level="14.2" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#a-new-tool-the-box-cox-plot"><i class="fa fa-check"></i><b>14.2</b> A New Tool: the Box-Cox Plot</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#a-few-caveats"><i class="fa fa-check"></i><b>14.2.1</b> A Few Caveats</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#a-simulated-example"><i class="fa fa-check"></i><b>14.3</b> A Simulated Example</a></li>
+<li class="chapter" data-level="14.4" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#checking-on-a-transformation-or-re-expression"><i class="fa fa-check"></i><b>14.4</b> Checking on a Transformation or Re-Expression</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#checking-the-correlation-coefficients"><i class="fa fa-check"></i><b>14.4.1</b> Checking the Correlation Coefficients</a></li>
+<li class="chapter" data-level="14.4.2" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#using-the-testtransform-function"><i class="fa fa-check"></i><b>14.4.2</b> Using the <code>testTransform</code> function</a></li>
+<li class="chapter" data-level="14.4.3" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#comparing-the-residual-plots"><i class="fa fa-check"></i><b>14.4.3</b> Comparing the Residual Plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html"><i class="fa fa-check"></i><b>15</b> Dehydration Recovery in Kids: A Small Study</a><ul>
+<li class="chapter" data-level="15.1" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#a-scatterplot-matrix"><i class="fa fa-check"></i><b>15.1</b> A Scatterplot Matrix</a></li>
+<li class="chapter" data-level="15.2" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#are-the-recovery-scores-well-described-by-a-normal-model"><i class="fa fa-check"></i><b>15.2</b> Are the recovery scores well described by a Normal model?</a></li>
+<li class="chapter" data-level="15.3" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#simple-regression-using-dose-to-predict-recovery"><i class="fa fa-check"></i><b>15.3</b> Simple Regression: Using Dose to predict Recovery</a></li>
+<li class="chapter" data-level="15.4" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#the-scatterplot-with-fitted-linear-model"><i class="fa fa-check"></i><b>15.4</b> The Scatterplot, with fitted Linear Model</a></li>
+<li class="chapter" data-level="15.5" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#the-fitted-linear-model"><i class="fa fa-check"></i><b>15.5</b> The Fitted Linear Model</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#confidence-intervals"><i class="fa fa-check"></i><b>15.5.1</b> Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#the-summary-output"><i class="fa fa-check"></i><b>15.6</b> The Summary Output</a><ul>
+<li class="chapter" data-level="15.6.1" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#model-specification"><i class="fa fa-check"></i><b>15.6.1</b> Model Specification</a></li>
+<li class="chapter" data-level="15.6.2" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#residual-summary"><i class="fa fa-check"></i><b>15.6.2</b> Residual Summary</a></li>
+<li class="chapter" data-level="15.6.3" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#coefficients-output"><i class="fa fa-check"></i><b>15.6.3</b> Coefficients Output</a></li>
+<li class="chapter" data-level="15.6.4" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#correlation-and-slope"><i class="fa fa-check"></i><b>15.6.4</b> Correlation and Slope</a></li>
+<li class="chapter" data-level="15.6.5" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#coefficient-testing"><i class="fa fa-check"></i><b>15.6.5</b> Coefficient Testing</a></li>
+<li class="chapter" data-level="15.6.6" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#summarizing-the-quality-of-fit"><i class="fa fa-check"></i><b>15.6.6</b> Summarizing the Quality of Fit</a></li>
+<li class="chapter" data-level="15.6.7" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#anova-f-test"><i class="fa fa-check"></i><b>15.6.7</b> ANOVA F test</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#viewing-the-complete-anova-table"><i class="fa fa-check"></i><b>15.7</b> Viewing the complete ANOVA table</a></li>
+<li class="chapter" data-level="15.8" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#plotting-residuals-vs.-fitted-values"><i class="fa fa-check"></i><b>15.8</b> Plotting Residuals vs. Fitted Values</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html"><i class="fa fa-check"></i><b>16</b> Highlights of What We’ve Seen So Far</a><ul>
+<li class="chapter" data-level="16.1" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#key-graphical-descriptive-summaries-for-quantitative-data"><i class="fa fa-check"></i><b>16.1</b> Key Graphical Descriptive Summaries for Quantitative Data</a></li>
+<li class="chapter" data-level="16.2" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#key-numerical-descriptive-summaries-for-quantitative-data"><i class="fa fa-check"></i><b>16.2</b> Key Numerical Descriptive Summaries for Quantitative Data</a></li>
+<li class="chapter" data-level="16.3" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#the-empirical-rule---interpreting-a-standard-deviation"><i class="fa fa-check"></i><b>16.3</b> The Empirical Rule - Interpreting a Standard Deviation</a></li>
+<li class="chapter" data-level="16.4" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#identifying-outliers-using-fences-andor-z-scores"><i class="fa fa-check"></i><b>16.4</b> Identifying “Outliers” Using Fences and/or Z Scores</a></li>
+<li class="chapter" data-level="16.5" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#summarizing-bivariate-associations-scatterplots-and-regression-lines"><i class="fa fa-check"></i><b>16.5</b> Summarizing Bivariate Associations: Scatterplots and Regression Lines</a></li>
+<li class="chapter" data-level="16.6" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#summarizing-bivariate-associations-with-correlations"><i class="fa fa-check"></i><b>16.6</b> Summarizing Bivariate Associations With Correlations</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html"><i class="fa fa-check"></i><b>17</b> Estimation and Confidence Intervals for a Mean</a><ul>
+<li class="chapter" data-level="17.1" data-path="index.html"><a href="index.html#the-love-boost.r-script"><i class="fa fa-check"></i><b>17.1</b> The <code>Love-boost.R</code> script</a></li>
+<li class="chapter" data-level="17.2" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#confidence-intervals-and-point-estimates"><i class="fa fa-check"></i><b>17.2</b> Confidence Intervals and Point Estimates</a></li>
+<li class="chapter" data-level="17.3" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#serum-zinc-levels-in-462-teenage-males-serzinc"><i class="fa fa-check"></i><b>17.3</b> Serum Zinc Levels in 462 Teenage Males (<code>serzinc</code>)</a></li>
+<li class="chapter" data-level="17.4" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#our-goal-a-confidence-interval-for-the-population-mean"><i class="fa fa-check"></i><b>17.4</b> Our Goal: A Confidence Interval for the Population Mean</a></li>
+<li class="chapter" data-level="17.5" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#exploratory-data-analysis-for-serum-zinc"><i class="fa fa-check"></i><b>17.5</b> Exploratory Data Analysis for Serum Zinc</a><ul>
+<li class="chapter" data-level="17.5.1" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#graphical-summaries"><i class="fa fa-check"></i><b>17.5.1</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="17.5.2" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#numerical-summaries"><i class="fa fa-check"></i><b>17.5.2</b> Numerical Summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="17.6" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#defining-a-confidence-interval"><i class="fa fa-check"></i><b>17.6</b> Defining a Confidence Interval</a></li>
+<li class="chapter" data-level="17.7" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#estimating-the-population-mean-from-the-serum-zinc-data"><i class="fa fa-check"></i><b>17.7</b> Estimating the Population Mean from the Serum Zinc data</a></li>
+<li class="chapter" data-level="17.8" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#confidence-vs.-significance-level"><i class="fa fa-check"></i><b>17.8</b> Confidence vs. Significance Level</a></li>
+<li class="chapter" data-level="17.9" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#the-standard-error-of-a-sample-mean"><i class="fa fa-check"></i><b>17.9</b> The Standard Error of a Sample Mean</a></li>
+<li class="chapter" data-level="17.10" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#the-t-distribution-and-confidence-intervals-for-mu"><i class="fa fa-check"></i><b>17.10</b> The t distribution and Confidence Intervals for <span class="math inline">\(\mu\)</span></a><ul>
+<li class="chapter" data-level="17.10.1" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#the-formula"><i class="fa fa-check"></i><b>17.10.1</b> The Formula</a></li>
+<li class="chapter" data-level="17.10.2" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#students-t-distribution"><i class="fa fa-check"></i><b>17.10.2</b> Student’s t distribution</a></li>
+<li class="chapter" data-level="17.10.3" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#building-the-ci-by-hand-for-the-serum-zinc-data"><i class="fa fa-check"></i><b>17.10.3</b> Building the CI “by hand” for the Serum Zinc data</a></li>
+<li class="chapter" data-level="17.10.4" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#getting-r-to-build-a-ci-for-the-serum-zinc-data"><i class="fa fa-check"></i><b>17.10.4</b> Getting R to build a CI for the Serum Zinc data</a></li>
+<li class="chapter" data-level="17.10.5" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#interpreting-the-result"><i class="fa fa-check"></i><b>17.10.5</b> Interpreting the Result</a></li>
+<li class="chapter" data-level="17.10.6" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#what-if-we-want-a-95-or-99-confidence-interval-instead"><i class="fa fa-check"></i><b>17.10.6</b> What if we want a 95% or 99% confidence interval instead?</a></li>
+<li class="chapter" data-level="17.10.7" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#using-the-broom-package-with-the-t-test"><i class="fa fa-check"></i><b>17.10.7</b> Using the <code>broom</code> package with the t test</a></li>
+<li class="chapter" data-level="17.10.8" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#effect-of-changing-the-confidence-level"><i class="fa fa-check"></i><b>17.10.8</b> Effect of Changing the Confidence Level</a></li>
+<li class="chapter" data-level="17.10.9" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#one-sided-vs.-two-sided-confidence-intervals"><i class="fa fa-check"></i><b>17.10.9</b> One-sided vs. Two-sided Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="17.11" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#bootstrap-confidence-intervals-for-mu"><i class="fa fa-check"></i><b>17.11</b> Bootstrap Confidence Intervals for <span class="math inline">\(\mu\)</span></a><ul>
+<li class="chapter" data-level="17.11.1" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#what-is-a-bootstrap-and-why-should-i-care"><i class="fa fa-check"></i><b>17.11.1</b> What is a Bootstrap and Why Should I Care?</a></li>
+<li class="chapter" data-level="17.11.2" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#resampling-is-a-big-idea"><i class="fa fa-check"></i><b>17.11.2</b> Resampling is A Big Idea</a></li>
+<li class="chapter" data-level="17.11.3" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#when-is-a-bootstrap-confidence-interval-for-mu-reasonable"><i class="fa fa-check"></i><b>17.11.3</b> When is a Bootstrap Confidence Interval for <span class="math inline">\(\mu\)</span> Reasonable?</a></li>
+<li class="chapter" data-level="17.11.4" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#bootstrap-steps-to-estimate-a-confidence-interval-for-mu"><i class="fa fa-check"></i><b>17.11.4</b> Bootstrap: Steps to estimate a confidence interval for <span class="math inline">\(\mu\)</span></a></li>
+<li class="chapter" data-level="17.11.5" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#using-r-to-estimate-a-90-ci-for-mu-with-the-bootstrap"><i class="fa fa-check"></i><b>17.11.5</b> Using R to estimate a 90% CI for <span class="math inline">\(\mu\)</span> with the bootstrap</a></li>
+<li class="chapter" data-level="17.11.6" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#comparing-bootstrap-and-t-based-confidence-intervals"><i class="fa fa-check"></i><b>17.11.6</b> Comparing Bootstrap and T-Based Confidence Intervals</a></li>
+<li class="chapter" data-level="17.11.7" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#ci-for-mu-via-bootstrap-changing-minor-details"><i class="fa fa-check"></i><b>17.11.7</b> 90% CI for <span class="math inline">\(\mu\)</span> via bootstrap, changing minor details</a></li>
+<li class="chapter" data-level="17.11.8" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#bootstrap-changing-the-confidence-level"><i class="fa fa-check"></i><b>17.11.8</b> Bootstrap: Changing the Confidence Level</a></li>
+<li class="chapter" data-level="17.11.9" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#bootstrap-obtaining-a-one-sided-confidence-interval"><i class="fa fa-check"></i><b>17.11.9</b> Bootstrap: Obtaining a One-sided Confidence Interval</a></li>
+<li class="chapter" data-level="17.11.10" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#bootstrap-ci-for-the-population-median"><i class="fa fa-check"></i><b>17.11.10</b> Bootstrap CI for the Population Median</a></li>
+<li class="chapter" data-level="17.11.11" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#bootstrap-ci-for-the-iqr"><i class="fa fa-check"></i><b>17.11.11</b> Bootstrap CI for the IQR</a></li>
+<li class="chapter" data-level="17.11.12" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#bootstrap-resampling-advantages-and-caveats"><i class="fa fa-check"></i><b>17.11.12</b> Bootstrap Resampling: Advantages and Caveats</a></li>
+</ul></li>
+<li class="chapter" data-level="17.12" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#wilcoxon-signed-rank-procedure-for-cis"><i class="fa fa-check"></i><b>17.12</b> Wilcoxon Signed Rank Procedure for CIs</a><ul>
+<li class="chapter" data-level="17.12.1" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#confidence-intervals-for-the-median-of-a-population"><i class="fa fa-check"></i><b>17.12.1</b> Confidence Intervals for the Median of a Population</a></li>
+<li class="chapter" data-level="17.12.2" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#what-is-a-pseudo-median"><i class="fa fa-check"></i><b>17.12.2</b> What is a Pseudo-Median?</a></li>
+<li class="chapter" data-level="17.12.3" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#getting-the-wilcoxon-signed-rank-based-ci-in-r"><i class="fa fa-check"></i><b>17.12.3</b> Getting the Wilcoxon Signed Rank-based CI in R</a></li>
+<li class="chapter" data-level="17.12.4" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#interpreting-the-wilcoxon-ci-for-the-population-median"><i class="fa fa-check"></i><b>17.12.4</b> Interpreting the Wilcoxon CI for the Population Median</a></li>
+<li class="chapter" data-level="17.12.5" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#using-the-broom-package-with-the-wilcoxon-test"><i class="fa fa-check"></i><b>17.12.5</b> Using the <code>broom</code> package with the Wilcoxon test</a></li>
+</ul></li>
+<li class="chapter" data-level="17.13" data-path="estimation-and-confidence-intervals-for-a-mean.html"><a href="estimation-and-confidence-intervals-for-a-mean.html#general-advice"><i class="fa fa-check"></i><b>17.13</b> General Advice</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><i class="fa fa-check"></i><b>18</b> The Ibuprofen in Sepsis Randomized Clinical Trial</a><ul>
+<li class="chapter" data-level="18.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#comparing-two-groups"><i class="fa fa-check"></i><b>18.1</b> Comparing Two Groups</a><ul>
+<li class="chapter" data-level="18.1.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#model-based-comparisons-and-anovaregression"><i class="fa fa-check"></i><b>18.1.1</b> Model-Based Comparisons and ANOVA/Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#key-questions-for-comparing-with-independent-samples"><i class="fa fa-check"></i><b>18.2</b> Key Questions for Comparing with Independent Samples</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#what-is-the-population-under-study"><i class="fa fa-check"></i><b>18.2.1</b> What is the <strong>population</strong> under study?</a></li>
+<li class="chapter" data-level="18.2.2" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#what-is-the-sample-is-it-representative-of-the-population"><i class="fa fa-check"></i><b>18.2.2</b> What is the <strong>sample</strong>? Is it representative of the population?</a></li>
+<li class="chapter" data-level="18.2.3" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#who-are-the-subjects-individuals-within-the-sample"><i class="fa fa-check"></i><b>18.2.3</b> Who are the subjects / <strong>individuals</strong> within the sample?</a></li>
+<li class="chapter" data-level="18.2.4" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#what-data-are-available-on-each-individual"><i class="fa fa-check"></i><b>18.2.4</b> What <strong>data</strong> are available on each individual?</a></li>
+<li class="chapter" data-level="18.2.5" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#rct-caveats"><i class="fa fa-check"></i><b>18.2.5</b> RCT Caveats</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>18.3</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="18.4" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#estimating-the-difference-in-population-means"><i class="fa fa-check"></i><b>18.4</b> Estimating the Difference in Population Means</a></li>
+<li class="chapter" data-level="18.5" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#t-based-ci-for-population-mean-difference-mu_1---mu_2-from-independent-samples"><i class="fa fa-check"></i><b>18.5</b> t-based CI for population mean difference <span class="math inline">\(\mu_1 - \mu_2\)</span> from Independent Samples</a><ul>
+<li class="chapter" data-level="18.5.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#the-pooled-t-procedure"><i class="fa fa-check"></i><b>18.5.1</b> The Pooled t procedure</a></li>
+<li class="chapter" data-level="18.5.2" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#using-linear-regression-to-obtain-a-pooled-t-confidence-interval"><i class="fa fa-check"></i><b>18.5.2</b> Using linear regression to obtain a pooled t confidence interval</a></li>
+<li class="chapter" data-level="18.5.3" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#the-welch-t-procedure"><i class="fa fa-check"></i><b>18.5.3</b> The Welch t procedure</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#wilcoxon-mann-whitney-rank-sum-ci-from-independent-samples"><i class="fa fa-check"></i><b>18.6</b> Wilcoxon-Mann-Whitney “Rank Sum” CI from Independent Samples</a></li>
+<li class="chapter" data-level="18.7" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#a-more-robust-approach"><i class="fa fa-check"></i><b>18.7</b> A More Robust Approach</a><ul>
+<li class="chapter" data-level="18.7.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#the-love-boost.r-script-is-available-to-you"><i class="fa fa-check"></i><b>18.7.1</b> The Love-boost.R script is available to you</a></li>
+<li class="chapter" data-level="18.7.2" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#bootstrap-ci-for-mu_1---mu_2-for-the-sepsis-study"><i class="fa fa-check"></i><b>18.7.2</b> Bootstrap CI for <span class="math inline">\(mu_1 - \mu_2\)</span> for the Sepsis study</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#summary-specifying-a-two-sample-study-design"><i class="fa fa-check"></i><b>18.8</b> Summary: Specifying A Two-Sample Study Design</a><ul>
+<li class="chapter" data-level="18.8.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#for-the-sepsis-study"><i class="fa fa-check"></i><b>18.8.1</b> For the <code>sepsis</code> study</a></li>
+<li class="chapter" data-level="18.8.2" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#sepsis-estimation-results"><i class="fa fa-check"></i><b>18.8.2</b> Sepsis Estimation Results</a></li>
+</ul></li>
+<li class="chapter" data-level="18.9" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#categorizing-the-outcome-and-comparing-rates"><i class="fa fa-check"></i><b>18.9</b> Categorizing the Outcome and Comparing Rates</a></li>
+<li class="chapter" data-level="18.10" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#estimating-the-difference-in-proportions"><i class="fa fa-check"></i><b>18.10</b> Estimating the Difference in Proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="estimation-and-confidence-intervals-for-a-mean" class="section level1">
+<h1><span class="header-section-number">Chapter 17</span> Estimation and Confidence Intervals for a Mean</h1>
+<div id="the-love-boost.r-script" class="section level2">
+<h2><span class="header-section-number">17.1</span> The <code>Love-boost.R</code> script</h2>
+<p>In this part of the course, we’ll make use of a few scripts I’ve gathered for you.</p>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb500-1"></a><span class="kw">source</span>(<span class="st">&quot;data/Love-boost.R&quot;</span>)</span></code></pre></div>
+</div>
+<div id="confidence-intervals-and-point-estimates" class="section level2">
+<h2><span class="header-section-number">17.2</span> Confidence Intervals and Point Estimates</h2>
+<p>The basic theory of estimation can be used to indicate the probable accuracy and potential for bias in estimating based on limited samples. A point estimate provides a single best guess as to the value of a population or process parameter.</p>
+<p>A confidence interval is a particularly useful way to convey to people just how much error one must allow for in a given estimate. In particular, a confidence interval allows us to quantify just how close we expect, for instance, the sample mean to be to the population or process mean. The computer will do the calculations; we need to interpret the results.</p>
+<p>The key tradeoffs are cost vs. precision, and precision vs. confidence in the correctness of the statement. Often, if we are dissatisfied with the width of the confidence interval and want to make it smaller, we have little choice but to reconsider the sample – larger samples produce shorter intervals.</p>
+<p>Suppose that we are interested in learning something about a population or process, from which we can obtain a sample that consists of a subset of potential results from that population or process. The main goal for many of the parametric models that are a large part of statistics is to estimate population parameters, like a population mean, or regression coefficient, on the basis of a sample. When we do this, we want to describe not only our best guess at the parameter – referred to as a <em>point estimate</em>, but also say something useful about the uncertainty in our estimate, to let us more completely assess what the data have to tell us. A key tool for doing this is a <strong>confidence interval</strong>, described here in some detail.</p>
+<p>Essentially every textbook on introductory statistics describes the development of a confidence interval, at least for a mean. Good supplemental resources include <span class="citation">Diez, Barr, and Çetinyaka-Rundel (<a href="#ref-OpenStats" role="doc-biblioref">n.d.</a>)</span>, <span class="citation">Bock, Velleman, and De Veaux (<a href="#ref-BockVD" role="doc-biblioref">2004</a>)</span> and <span class="citation">Pagano and Gauvreau (<a href="#ref-PaganoGauvreau" role="doc-biblioref">2000</a>)</span>, for instance.</p>
+<p>We’ll develop confidence intervals to compare parameters about two populations (either through matched pairs or independent samples) with confidence intervals soon. Here, we’ll consider the problem of estimating a confidence interval to describe the mean (or median) of the population represented by a single sample of quantitative data.</p>
+</div>
+<div id="serum-zinc-levels-in-462-teenage-males-serzinc" class="section level2">
+<h2><span class="header-section-number">17.3</span> Serum Zinc Levels in 462 Teenage Males (<code>serzinc</code>)</h2>
+<p>The <code>serzinc</code> data include serum zinc levels in micrograms per deciliter that have been gathered for a sample of 462 males aged 15-17, My source for these data is Appendix B1 of <span class="citation">Pagano and Gauvreau (<a href="#ref-PaganoGauvreau" role="doc-biblioref">2000</a>)</span>. Serum zinc deficiency has been associated with anemia, loss of strength and endurance, and it is thought that 25% of the world’s population is at risk of zinc deficiency. Such a deficiency can indicate poor nutrition, and can affect growth and vision, for instance. “Typical” values<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> are said to be 0.66-1.10 mcg/ml, which is 66 - 110 micrograms per deciliter.</p>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb501-1"></a>serzinc &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/serzinc.csv&quot;</span>)</span></code></pre></div>
+<pre><code>Parsed with column specification:
+cols(
+  ID = col_character(),
+  zinc = col_double()
+)</code></pre>
+<div class="sourceCode" id="cb503"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb503-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb503-1"></a><span class="kw">summary</span>(serzinc)</span></code></pre></div>
+<pre><code>      ID                 zinc       
+ Length:462         Min.   : 50.00  
+ Class :character   1st Qu.: 76.00  
+ Mode  :character   Median : 86.00  
+                    Mean   : 87.94  
+                    3rd Qu.: 98.00  
+                    Max.   :153.00  </code></pre>
+</div>
+<div id="our-goal-a-confidence-interval-for-the-population-mean" class="section level2">
+<h2><span class="header-section-number">17.4</span> Our Goal: A Confidence Interval for the Population Mean</h2>
+<p>After we assess the data a bit, and are satisfied that we understand it, our first inferential goal will be to produce a <strong>confidence interval for the true (population) mean</strong> of males age 15-17 based on this sample, assuming that these 462 males are a random sample from the population of interest, that each serum zinc level is drawn independently from an identical distribution describing that population.</p>
+<p>To do this, we will have several different procedures available, including:</p>
+<ol style="list-style-type: decimal">
+<li>A confidence interval for the population mean based on a t distribution, when we assume that the data are drawn from an approximately Normal distribution, using the sample standard deviation. (Interval corresponding to a t test, and it will be a good choice when the data really are approximately Normally distributed.)</li>
+<li>A resampling approach to generate a bootstrap confidence interval for the population mean, which does not require that we assume either that the population standard deviation is known, nor that the data are drawn from an approximately Normal distribution, but which has some other weaknesses.</li>
+<li>A rank-based procedure called the Wilcoxon signed rank test can also be used to yield a confidence interval statement about the population pseudo-median, a measure of the population distribution’s center (but not the population’s mean).</li>
+</ol>
+</div>
+<div id="exploratory-data-analysis-for-serum-zinc" class="section level2">
+<h2><span class="header-section-number">17.5</span> Exploratory Data Analysis for Serum Zinc</h2>
+<div id="graphical-summaries" class="section level3">
+<h3><span class="header-section-number">17.5.1</span> Graphical Summaries</h3>
+<p>The code presented below builds:</p>
+<ul>
+<li>a histogram (with Normal model superimposed),</li>
+<li>a boxplot (with median notch) and</li>
+<li>a Normal Q-Q plot (with guiding straight line through the quartiles)</li>
+</ul>
+<p>for the <code>zinc</code> results from the <code>serzinc</code> tibble.</p>
+<div class="sourceCode" id="cb505"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb505-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-1"></a>p1 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(serzinc, <span class="kw">aes</span>(<span class="dt">sample =</span> zinc)) <span class="op">+</span></span>
+<span id="cb505-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-2"></a><span class="st">  </span><span class="kw">geom_qq</span>(<span class="dt">col =</span> <span class="st">&quot;dodgerblue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_qq_line</span>(<span class="dt">col =</span> <span class="st">&quot;navy&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb505-3"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-3"></a><span class="st">  </span><span class="kw">theme</span>(<span class="dt">aspect.ratio =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb505-4"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-4"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Normal Q-Q plot&quot;</span>)</span>
+<span id="cb505-5"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-5"></a></span>
+<span id="cb505-6"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-6"></a>p2 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(serzinc, <span class="kw">aes</span>(<span class="dt">x =</span> zinc)) <span class="op">+</span></span>
+<span id="cb505-7"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-7"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> <span class="kw">stat</span>(density)), </span>
+<span id="cb505-8"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-8"></a>                 <span class="dt">bins =</span> <span class="dv">10</span>, <span class="dt">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
+<span id="cb505-9"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-9"></a><span class="st">  </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, </span>
+<span id="cb505-10"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-10"></a>                <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(serzinc<span class="op">$</span>zinc), </span>
+<span id="cb505-11"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-11"></a>                            <span class="dt">sd =</span> <span class="kw">sd</span>(serzinc<span class="op">$</span>zinc)),</span>
+<span id="cb505-12"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-12"></a>                <span class="dt">col =</span> <span class="st">&quot;navy&quot;</span>, <span class="dt">lwd =</span> <span class="fl">1.5</span>) <span class="op">+</span></span>
+<span id="cb505-13"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-13"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Histogram and Normal Density&quot;</span>)</span>
+<span id="cb505-14"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-14"></a></span>
+<span id="cb505-15"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-15"></a>p3 &lt;-<span class="st"> </span><span class="kw">ggplot</span>(serzinc, <span class="kw">aes</span>(<span class="dt">x =</span> zinc, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>)) <span class="op">+</span></span>
+<span id="cb505-16"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-16"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">fill =</span> <span class="st">&quot;dodgerblue&quot;</span>, <span class="dt">outlier.color =</span> <span class="st">&quot;dodgerblue&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb505-17"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-17"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Boxplot&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb505-18"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-18"></a></span>
+<span id="cb505-19"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-19"></a>p1 <span class="op">+</span><span class="st"> </span>(p2 <span class="op">/</span><span class="st"> </span>p3 <span class="op">+</span><span class="st"> </span><span class="kw">plot_layout</span>(<span class="dt">heights =</span> <span class="kw">c</span>(<span class="dv">4</span>,<span class="dv">1</span>))) <span class="op">+</span></span>
+<span id="cb505-20"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb505-20"></a><span class="st">  </span><span class="kw">plot_annotation</span>(<span class="dt">title =</span> <span class="st">&quot;Serum Zinc (micrograms per deciliter) for 462 Teenage Males&quot;</span>)</span></code></pre></div>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-146-1.png" width="672" /></p>
+<p>These results include some of the more useful plots and numerical summaries when assessing shape, center and spread. The <code>zinc</code> data in the <code>serzinc</code> data frame appear to be slightly right skewed, with five outlier values on the high end of the scale, in particular.</p>
+</div>
+<div id="numerical-summaries" class="section level3">
+<h3><span class="header-section-number">17.5.2</span> Numerical Summaries</h3>
+<p>This section describes some numerical summaries of interest to augment the plots in summarizing the center, spread and shape of the distribution of serum zinc among these 462 teenage males.</p>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb506-1"></a>mosaic<span class="op">::</span><span class="kw">favstats</span>(<span class="op">~</span><span class="st"> </span>zinc, <span class="dt">data =</span> serzinc) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb506-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb506-2"></a><span class="st">    </span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">min</th>
+<th align="right">Q1</th>
+<th align="right">median</th>
+<th align="right">Q3</th>
+<th align="right">max</th>
+<th align="right">mean</th>
+<th align="right">sd</th>
+<th align="right">n</th>
+<th align="right">missing</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"></td>
+<td align="right">50</td>
+<td align="right">76</td>
+<td align="right">86</td>
+<td align="right">98</td>
+<td align="right">153</td>
+<td align="right">87.937</td>
+<td align="right">16.005</td>
+<td align="right">462</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb507-1"></a>serzinc <span class="op">%&gt;%</span></span>
+<span id="cb507-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb507-2"></a><span class="st">    </span><span class="kw">summarize</span>(<span class="kw">mean</span>(zinc), <span class="kw">median</span>(zinc), <span class="kw">sd</span>(zinc),</span>
+<span id="cb507-3"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb507-3"></a>              <span class="dt">skew1 =</span> (<span class="kw">mean</span>(zinc) <span class="op">-</span><span class="st"> </span><span class="kw">median</span>(zinc))<span class="op">/</span><span class="kw">sd</span>(zinc)) <span class="op">%&gt;%</span></span>
+<span id="cb507-4"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb507-4"></a><span class="st">    </span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="dv">3</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">mean(zinc)</th>
+<th align="right">median(zinc)</th>
+<th align="right">sd(zinc)</th>
+<th align="right">skew1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">87.937</td>
+<td align="right">86</td>
+<td align="right">16.005</td>
+<td align="right">0.121</td>
+</tr>
+</tbody>
+</table>
+<p>The skew1 value here (mean - median divided by the standard deviation) backs up our graphical assessment, that the data are slightly right skewed.</p>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb508-1"></a>serzinc <span class="op">%$%</span><span class="st"> </span>psych<span class="op">::</span><span class="kw">describe</span>(zinc)</span></code></pre></div>
+<pre><code>   vars   n  mean sd median trimmed   mad min max range skew kurtosis   se
+X1    1 462 87.94 16     86   87.17 16.31  50 153   103 0.62     0.87 0.74</code></pre>
+<p>Rounded to two decimal places, the standard deviation of the serum zinc data turns out to be 16, and so the standard error of the mean, shown as <code>se</code> in the <code>psych::describe</code> output, is 16 divided by the square root of the sample size, <em>n</em> = 462. This standard error is about to become quite important to us in building statistical inferences about the mean of the entire population of teenage males based on this sample.</p>
+</div>
+</div>
+<div id="defining-a-confidence-interval" class="section level2">
+<h2><span class="header-section-number">17.6</span> Defining a Confidence Interval</h2>
+<p>A confidence interval for a population or process mean uses data from a sample (and perhaps some additional information) to identify a range of potential values for the population mean, which, if certain assumptions hold, can be assumed to provide a reasonable estimate for the true population mean. A confidence interval consists of:</p>
+<ol style="list-style-type: decimal">
+<li>An interval estimate describing the population parameter of interest (here the population mean), and</li>
+<li>A probability statement, expressed in terms of a confidence level.</li>
+</ol>
+</div>
+<div id="estimating-the-population-mean-from-the-serum-zinc-data" class="section level2">
+<h2><span class="header-section-number">17.7</span> Estimating the Population Mean from the Serum Zinc data</h2>
+<p>As an example, suppose that we are willing to assume that the mean serum zinc level across the entire population of teenage males, <span class="math inline">\(\mu\)</span>, follows a Normal distribution (and so, summarizing it with a mean is a rational thing to do.) Suppose that we are also willing to assume that the 462 teenage males contained in the <code>serzinc</code> tibble are a random sample from that complete population. While we know the mean of the sample of 462 boys, we don’t know <span class="math inline">\(\mu\)</span>, the mean across all teenage males. So we need to estimate it.</p>
+<p>Earlier we estimated that a 90% confidence interval for the mean serum zinc level (<span class="math inline">\(\mu\)</span>) across the entire population of teenage males was (86.71, 89.16) micrograms per deciliter. How should we interpret this result?</p>
+<ul>
+<li>Some people think this means that there is a 90% chance that the true mean of the population, <span class="math inline">\(\mu\)</span>, falls between 86.71 and 89.16 micrograms per deciliter. That’s not correct.</li>
+<li>The population mean is a constant <strong>parameter</strong> of the population of interest. That constant is not a random variable, and does not change. So the actual probability of the population mean falling inside that range is either 0 or 1.</li>
+<li>Our confidence is in our process.
+<ul>
+<li>It’s in the sampling method (random sampling) used to generate the data, and in the assumption that the population follows a Normal distribution.</li>
+<li>It’s captured in our accounting for one particular type of error (called <em>sampling error</em>) in developing our interval estimate, while assuming all other potential sources of error are negligible.</li>
+</ul></li>
+</ul>
+<p>So, what’s closer to the truth is:</p>
+<ul>
+<li>If we used this same method to sample data from the true population of teenage males, and built 100 such 90% confidence intervals, then about 90 of them would contain the true population mean.</li>
+</ul>
+</div>
+<div id="confidence-vs.-significance-level" class="section level2">
+<h2><span class="header-section-number">17.8</span> Confidence vs. Significance Level</h2>
+<p>We’ve estimated a 90% confidence interval for the population mean serum zinc level among teenage boys using the <code>serzinc</code> data.</p>
+<ul>
+<li>We call 100(1-<span class="math inline">\(\alpha\)</span>)%, here, 90%, or 0.90, the <em>confidence</em> level, and</li>
+<li><span class="math inline">\(\alpha\)</span> = 10%, or 0.10 is called the <em>significance</em> level.</li>
+</ul>
+<p>If we had instead built a series of 100 different 95% confidence intervals, then about 95 of them would contain the true value of <span class="math inline">\(\mu\)</span>.</p>
+<p>Let’s look more closely at the issue of estimating a population <strong>mean</strong> based on a sample of observations. We will need three critical pieces - the sample, the confidence level, and the margin of error, which is based on the standard error of a sample mean, when we are estimating a population mean.</p>
+</div>
+<div id="the-standard-error-of-a-sample-mean" class="section level2">
+<h2><span class="header-section-number">17.9</span> The Standard Error of a Sample Mean</h2>
+<p>The standard error, generally, is the name we give to the standard deviation associated with any particular parameter estimate.</p>
+<ul>
+<li><p>If we are using a sample mean based on a sample of size <span class="math inline">\(n\)</span> to estimate a population mean, the <strong>standard error of that sample mean</strong> is <span class="math inline">\(\sigma / \sqrt{n}\)</span>, where <span class="math inline">\(\sigma\)</span> is the standard deviation of the measurements in the population.</p></li>
+<li><p>We often estimate this particular standard error with its sample analogue, <span class="math inline">\(s / \sqrt{n}\)</span>, where <span class="math inline">\(s\)</span> is the sample standard deviation.</p></li>
+<li><p>Other statistics have different standard errors.</p>
+<ul>
+<li><span class="math inline">\(\sqrt{p (1-p) / n}\)</span> is the standard error of the sample proportion <span class="math inline">\(p\)</span> estimated using a sample of size <span class="math inline">\(n\)</span>.</li>
+<li><span class="math inline">\(\sqrt{\frac{1-r^2}{n-2}}\)</span> is the standard error of the sample Pearson correlation <span class="math inline">\(r\)</span> estimated using <span class="math inline">\(n\)</span> pairs of observations.</li>
+<li><span class="math inline">\(\sqrt{\frac{SD_1^2}{n_1} + \frac{SD_2^2}{n_2}}\)</span> is the standard error of the difference between two means <span class="math inline">\(\bar{x}_1\)</span> and <span class="math inline">\(\bar{x}_2\)</span>, estimated using samples of sizes <span class="math inline">\(n_1\)</span> and <span class="math inline">\(n_2\)</span> with sample standard devistions <span class="math inline">\(SD_1\)</span> and <span class="math inline">\(SD_2\)</span>, respectively.</li>
+</ul></li>
+</ul>
+<p>In developing a confidence interval for a population mean, we may be willing to assume that the data in our sample are drawn from a Normally distributed population. If so, the most common and useful means of building a confidence interval makes use of the t distribution (sometimes called Student’s t) and the notion of a <em>standard error</em>.</p>
+</div>
+<div id="the-t-distribution-and-confidence-intervals-for-mu" class="section level2">
+<h2><span class="header-section-number">17.10</span> The t distribution and Confidence Intervals for <span class="math inline">\(\mu\)</span></h2>
+<p>In practical settings, we will use the t distribution to estimate a confidence interval from a population mean whenever we:</p>
+<ul>
+<li>are willing to assume that the sample is drawn at random from a population or process with a Normal distribution,</li>
+<li>are using our sample to estimate both the mean and standard deviation, and</li>
+<li>have a small sample size.</li>
+</ul>
+<div id="the-formula" class="section level3">
+<h3><span class="header-section-number">17.10.1</span> The Formula</h3>
+<p>We can build a 100(1-<span class="math inline">\(\alpha\)</span>)% confidence interval using the <span class="math inline">\(t\)</span> distribution, using the sample mean <span class="math inline">\(\bar{x}\)</span>, the sample size <span class="math inline">\(n\)</span>, and the sample standard deviation <span class="math inline">\(s\)</span>.</p>
+<p>The two-sided 100(1-<span class="math inline">\(\alpha\)</span>)% confidence interval (based on a <span class="math inline">\(t\)</span> test) is:</p>
+<p><span class="math display">\[\bar{x} \pm t_{\alpha/2, n-1}(s / \sqrt{n})\]</span></p>
+<p>where <span class="math inline">\(t_{\alpha/2, n-1}\)</span> is the value that cuts off the top <span class="math inline">\(\alpha/2\)</span> percent of the <span class="math inline">\(t\)</span> distribution, with <span class="math inline">\(n - 1\)</span> degrees of freedom.</p>
+<p>We obtain the relevant cutoff value in R by substituting in values for <code>alphaover2</code> and <code>n-1</code> into the following line of R code:</p>
+<p><code>qt(alphaover2, df = n-1, lower.tail=FALSE)</code></p>
+</div>
+<div id="students-t-distribution" class="section level3">
+<h3><span class="header-section-number">17.10.2</span> Student’s t distribution</h3>
+<p>Student’s t distribution looks a lot like a Normal distribution, when the sample size is large. Unlike the normal distribution, which is specified by two parameters, the mean and the standard deviation, the t distribution is specified by one parameter, the degrees of freedom.</p>
+<ul>
+<li>t distributions with large numbers of degrees of freedom are more or less indistinguishable from the standard Normal distribution.</li>
+<li>t distributions with smaller degrees of freedom (say, with df &lt; 30, in particular) are still symmetric, but are more outlier-prone than a Normal distribution</li>
+</ul>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-149-1.png" width="672" /></p>
+</div>
+<div id="building-the-ci-by-hand-for-the-serum-zinc-data" class="section level3">
+<h3><span class="header-section-number">17.10.3</span> Building the CI “by hand” for the Serum Zinc data</h3>
+<p>In the serum zinc data, we observe the following results in our sample.</p>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb510-1"></a>mosaic<span class="op">::</span><span class="kw">favstats</span>(serzinc<span class="op">$</span>zinc)</span></code></pre></div>
+<pre><code> min Q1 median Q3 max     mean       sd   n missing
+  50 76     86 98 153 87.93723 16.00469 462       0</code></pre>
+<p>Suppose we wish to build a 90% confidence interval for the true mean serum zinc level across the entire population of teenage males. The confidence level will be 90%, or 0.90, and so the <span class="math inline">\(\alpha\)</span> value, which is 1 - confidence = 0.10.</p>
+<p>So what we know going in is that:</p>
+<ul>
+<li>We want <span class="math inline">\(\alpha\)</span> = 0.10, because we’re creating a 90% confidence interval.</li>
+<li>The sample size <em>n</em> = 462 serum zinc measurements.</li>
+<li>The sample mean of those measurements, <span class="math inline">\(\bar{x}\)</span> = 87.937 micrograms per deciliter.</li>
+<li>The sample standard deviation of those measurements, <em>s</em> = 16.005 micrograms per deciliter.</li>
+<li>As a result, our standard error of the sample mean is estimated well with <span class="math inline">\(s / \sqrt{n} = 16.005/\sqrt{462} = 0.745\)</span>.</li>
+</ul>
+</div>
+<div id="getting-r-to-build-a-ci-for-the-serum-zinc-data" class="section level3">
+<h3><span class="header-section-number">17.10.4</span> Getting R to build a CI for the Serum Zinc data</h3>
+<p>Happily, R does this work, in the context of fitting an intercept-only linear regression model. An intercept-only model is fitted by putting the number 1 on the right hand side of our linear model. The resulting model simply fits the overall mean of the data as a prediction for all subjects.</p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb512-1"></a>model_zinc &lt;-<span class="st"> </span><span class="kw">lm</span>(zinc <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> serzinc)</span>
+<span id="cb512-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb512-2"></a></span>
+<span id="cb512-3"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb512-3"></a><span class="kw">summary</span>(model_zinc)</span></code></pre></div>
+<pre><code>
+Call:
+lm(formula = zinc ~ 1, data = serzinc)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-37.937 -11.937  -1.937  10.063  65.063 
+
+Coefficients:
+            Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  87.9372     0.7446   118.1   &lt;2e-16 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 16 on 461 degrees of freedom</code></pre>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb514-1"></a><span class="kw">confint</span>(model_zinc, <span class="dt">level =</span> <span class="fl">0.90</span>)</span></code></pre></div>
+<pre><code>              5 %     95 %
+(Intercept) 86.71 89.16446</code></pre>
+<p>Generally, though, I’ll use the <code>tidy()</code> function in <code>broom</code> to obtain the key information from a model like this:</p>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb516-1"></a><span class="kw">tidy</span>(model_zinc, <span class="dt">conf.int =</span> <span class="ot">TRUE</span>, <span class="dt">conf =</span> <span class="fl">0.90</span>) <span class="op">%&gt;%</span></span>
+<span id="cb516-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb516-2"></a><span class="st">    </span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">term</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+<th align="right">conf.low</th>
+<th align="right">conf.high</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">87.94</td>
+<td align="right">0.74</td>
+<td align="right">118.1</td>
+<td align="right">0</td>
+<td align="right">86.71</td>
+<td align="right">89.16</td>
+</tr>
+</tbody>
+</table>
+<p>As an alternative, we could also use the <code>t.test</code> function, which can build (in this case) a two-sided confidence interval for the zinc levels like this:</p>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb517-1"></a>tt &lt;-<span class="st"> </span><span class="kw">t.test</span>(serzinc<span class="op">$</span>zinc, </span>
+<span id="cb517-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb517-2"></a>             <span class="dt">conf.level =</span> <span class="fl">0.90</span>, </span>
+<span id="cb517-3"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb517-3"></a>             <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span>
+<span id="cb517-4"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb517-4"></a></span>
+<span id="cb517-5"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb517-5"></a>tt</span></code></pre></div>
+<pre><code>
+	One Sample t-test
+
+data:  serzinc$zinc
+t = 118.1, df = 461, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is not equal to 0
+90 percent confidence interval:
+ 86.71000 89.16446
+sample estimates:
+mean of x 
+ 87.93723 </code></pre>
+<p>and the <code>tidy()</code> function from the <code>broom</code> package works here, too.</p>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb519-1"></a><span class="co"># requires library(broom)</span></span>
+<span id="cb519-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb519-2"></a><span class="kw">tidy</span>(tt, <span class="dt">conf.int =</span> <span class="ot">TRUE</span>, <span class="dt">conf =</span> <span class="fl">0.90</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb519-3"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb519-3"></a><span class="st">  </span>knitr<span class="op">::</span><span class="kw">kable</span>(<span class="dt">digits =</span> <span class="dv">2</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">estimate</th>
+<th align="right">statistic</th>
+<th align="right">p.value</th>
+<th align="right">parameter</th>
+<th align="right">conf.low</th>
+<th align="right">conf.high</th>
+<th align="left">method</th>
+<th align="left">alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">87.94</td>
+<td align="right">118.1</td>
+<td align="right">0</td>
+<td align="right">461</td>
+<td align="right">86.71</td>
+<td align="right">89.16</td>
+<td align="left">One Sample t-test</td>
+<td align="left">two.sided</td>
+</tr>
+</tbody>
+</table>
+<p>And again, our 90% confidence interval for the true population mean serum zinc level, based on our sample of 462 patients, is (86.71, 89.16) micrograms per deciliter<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a>.</p>
+</div>
+<div id="interpreting-the-result" class="section level3">
+<h3><span class="header-section-number">17.10.5</span> Interpreting the Result</h3>
+<p>An appropriate interpretation of the 90% two-sided confidence interval above follows:</p>
+<ul>
+<li>(86.71, 89.16) micrograms per deciliter is a 90% two-sided confidence interval for the population mean serum zinc level among teenage males.</li>
+<li>Our point estimate for the true population mean serum zinc level is 87.94. The values in the interval (86.71, 89.16) represent a reasonable range of estimates for the true population mean serum zinc level, and we are 90% confident that this method of creating a confidence interval will produce a result containing the true population mean serum zinc level.</li>
+<li>Were we to draw 100 samples of size 462 from the population described by this sample, and use each such sample to produce a confidence interval in this manner, approximately 90 of those confidence intervals would cover the true population mean serum zinc level.</li>
+</ul>
+</div>
+<div id="what-if-we-want-a-95-or-99-confidence-interval-instead" class="section level3">
+<h3><span class="header-section-number">17.10.6</span> What if we want a 95% or 99% confidence interval instead?</h3>
+<p>We can obtain them using <code>tidy</code> and the same modeling approach.</p>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb520-1"></a><span class="kw">tidy</span>(model_zinc, <span class="dt">conf.int =</span> <span class="ot">TRUE</span>, <span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code># A tibble: 1 x 7
+  term        estimate std.error statistic p.value conf.low conf.high
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)     87.9     0.745      118.       0     86.5      89.4</code></pre>
+<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb522-1"></a><span class="kw">tidy</span>(model_zinc, <span class="dt">conf.int =</span> <span class="ot">TRUE</span>, <span class="dt">conf.level =</span> <span class="fl">0.99</span>)</span></code></pre></div>
+<pre><code># A tibble: 1 x 7
+  term        estimate std.error statistic p.value conf.low conf.high
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)     87.9     0.745      118.       0     86.0      89.9</code></pre>
+</div>
+<div id="using-the-broom-package-with-the-t-test" class="section level3">
+<h3><span class="header-section-number">17.10.7</span> Using the <code>broom</code> package with the t test</h3>
+<p>The <code>broom</code> package takes the messy output of built-in functions in R, such as <code>lm</code>, <code>t.test</code> or <code>wilcox.test</code>, and turns them into tidy data frames. A detailed description of the package and three of its key functions is found at <a href="https://github.com/tidyverse/broom" class="uri">https://github.com/tidyverse/broom</a>.</p>
+<p>For example, we can use the <code>tidy</code> function within <code>broom</code> to create a single-row tibble of the key results from a t test.</p>
+<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb524-1"></a>tt &lt;-<span class="st"> </span><span class="kw">t.test</span>(serzinc<span class="op">$</span>zinc, <span class="dt">conf.level =</span> <span class="fl">0.95</span>, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span>
+<span id="cb524-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb524-2"></a><span class="kw">tidy</span>(tt)</span></code></pre></div>
+<pre><code># A tibble: 1 x 8
+  estimate statistic p.value parameter conf.low conf.high method     alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
+1     87.9      118.       0       461     86.5      89.4 One Sampl~ two.sided  </code></pre>
+<p>We can thus pull the endpoints of a 99% confidence interval directly from this output. <code>broom</code> also has a <code>glance</code> function, which returns the same information as <code>tidy</code> in the case of a t-test.</p>
+<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb526-1"></a>tt2 &lt;-<span class="st"> </span><span class="kw">t.test</span>(serzinc<span class="op">$</span>zinc, <span class="dt">conf.level =</span> <span class="fl">0.90</span>, <span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>)</span>
+<span id="cb526-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb526-2"></a><span class="kw">glance</span>(tt2)</span></code></pre></div>
+<pre><code># A tibble: 1 x 8
+  estimate statistic p.value parameter conf.low conf.high method     alternative
+     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      
+1     87.9      118.       1       461     -Inf      88.9 One Sampl~ less       </code></pre>
+<p>The <code>t.test</code> function in R also has an argument to specify the desired confidence level, for example:</p>
+<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb528-1"></a><span class="kw">t.test</span>(serzinc<span class="op">$</span>zinc, <span class="dt">conf.level =</span> <span class="fl">0.95</span>, <span class="dt">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<pre><code>
+	One Sample t-test
+
+data:  serzinc$zinc
+t = 118.1, df = 461, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 86.47399 89.40047
+sample estimates:
+mean of x 
+ 87.93723 </code></pre>
+</div>
+<div id="effect-of-changing-the-confidence-level" class="section level3">
+<h3><span class="header-section-number">17.10.8</span> Effect of Changing the Confidence Level</h3>
+<p>Below, we see two-sided confidence intervals for various levels of <span class="math inline">\(\alpha\)</span>.</p>
+<table>
+<colgroup>
+<col width="21%" />
+<col width="8%" />
+<col width="33%" />
+<col width="36%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Confidence Level</th>
+<th align="center"><span class="math inline">\(\alpha\)</span></th>
+<th align="center">Two-Sided Interval Estimate for Zinc Level Population Mean, <span class="math inline">\(\mu\)</span></th>
+<th align="center">Point Estimate of <span class="math inline">\(\mu\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">80% or 0.80</td>
+<td align="center">0.20</td>
+<td align="center">(87, 88.9)</td>
+<td align="center">87.9</td>
+</tr>
+<tr class="even">
+<td align="center">90% or 0.90</td>
+<td align="center">0.10</td>
+<td align="center">(86.7, 89.2)</td>
+<td align="center">87.9</td>
+</tr>
+<tr class="odd">
+<td align="center">95% or 0.95</td>
+<td align="center">0.05</td>
+<td align="center">(86.5, 89.4)</td>
+<td align="center">87.9</td>
+</tr>
+<tr class="even">
+<td align="center">99% or 0.99</td>
+<td align="center">0.01</td>
+<td align="center">(86, 89.9)</td>
+<td align="center">87.9</td>
+</tr>
+</tbody>
+</table>
+<p>What happens to the width of the confidence interval in this table as the confidence level changes?</p>
+</div>
+<div id="one-sided-vs.-two-sided-confidence-intervals" class="section level3">
+<h3><span class="header-section-number">17.10.9</span> One-sided vs. Two-sided Confidence Intervals</h3>
+<p>Occasionally, we want to estimate either an upper limit for the population mean <span class="math inline">\(\mu\)</span>, or a lower limit for <span class="math inline">\(\mu\)</span>, but not both.</p>
+<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb530-1"></a><span class="kw">t.test</span>(serzinc<span class="op">$</span>zinc, <span class="dt">conf.level =</span> <span class="fl">0.90</span>, <span class="dt">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span></code></pre></div>
+<pre><code>
+	One Sample t-test
+
+data:  serzinc$zinc
+t = 118.1, df = 461, p-value &lt; 2.2e-16
+alternative hypothesis: true mean is greater than 0
+90 percent confidence interval:
+ 86.98161      Inf
+sample estimates:
+mean of x 
+ 87.93723 </code></pre>
+<div class="sourceCode" id="cb532"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb532-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb532-1"></a><span class="kw">t.test</span>(serzinc<span class="op">$</span>zinc, <span class="dt">conf.level =</span> <span class="fl">0.90</span>, <span class="dt">alternative =</span> <span class="st">&quot;less&quot;</span>)</span></code></pre></div>
+<pre><code>
+	One Sample t-test
+
+data:  serzinc$zinc
+t = 118.1, df = 461, p-value = 1
+alternative hypothesis: true mean is less than 0
+90 percent confidence interval:
+     -Inf 88.89285
+sample estimates:
+mean of x 
+ 87.93723 </code></pre>
+<p>Note the relationship between the <em>two-sided</em> 80% confidence interval, and the <em>one-sided</em> 90% confidence intervals.</p>
+<table>
+<colgroup>
+<col width="14%" />
+<col width="9%" />
+<col width="36%" />
+<col width="39%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Confidence</th>
+<th align="center"><span class="math inline">\(\alpha\)</span></th>
+<th align="center">Type of Interval</th>
+<th align="center">Interval Estimate for Zinc Level Population Mean, <span class="math inline">\(\mu\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">80% (.80)</td>
+<td align="center">0.20</td>
+<td align="center">Two-Sided</td>
+<td align="center">(86.98, 88.89)</td>
+</tr>
+<tr class="even">
+<td align="center">90% (.90)</td>
+<td align="center">0.10</td>
+<td align="center">One-Sided (Less Than)</td>
+<td align="center"><span class="math inline">\(\mu\)</span> &lt; 88.89.</td>
+</tr>
+<tr class="odd">
+<td align="center">90% (.90)</td>
+<td align="center">0.10</td>
+<td align="center">One-Sided (Greater Than)</td>
+<td align="center"><span class="math inline">\(\mu\)</span> &gt; 86.98.</td>
+</tr>
+</tbody>
+</table>
+<p>Why does this happen? The 80% two-sided interval is placed so as to cut off the top 10% of the distribution with its upper bound, and the bottom 10% of the distribution with its lower bound. The 90% “less than” one-sided interval is placed so as to have its lower bound cut off the top 10% of the distribution.</p>
+<p>The same issue appears when we consider two-sided 90% and one-sided 95% confidence intervals.</p>
+<table>
+<colgroup>
+<col width="14%" />
+<col width="9%" />
+<col width="36%" />
+<col width="39%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="center">Confidence</th>
+<th align="center"><span class="math inline">\(\alpha\)</span></th>
+<th align="center">Type of Interval</th>
+<th align="center">Interval Estimate for Zinc Level Population Mean, <span class="math inline">\(\mu\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">90% (.90)</td>
+<td align="center">0.10</td>
+<td align="center">Two-Sided</td>
+<td align="center">(86.71, 89.16)</td>
+</tr>
+<tr class="even">
+<td align="center">95% (.95)</td>
+<td align="center">0.05</td>
+<td align="center">One-Sided (Less Than)</td>
+<td align="center"><span class="math inline">\(\mu\)</span> &lt; 89.16.</td>
+</tr>
+<tr class="odd">
+<td align="center">95% (.95)</td>
+<td align="center">0.05</td>
+<td align="center">One-Sided (Greater Than)</td>
+<td align="center"><span class="math inline">\(\mu\)</span> &gt; 86.71.</td>
+</tr>
+</tbody>
+</table>
+<p>Again, the 90% two-sided interval cuts off the top 5% and bottom 5% of the distribution with its bounds. The 95% “less than” one-sided interval also has its lower bound cut off the top 5% of the distribution.</p>
+</div>
+</div>
+<div id="bootstrap-confidence-intervals-for-mu" class="section level2">
+<h2><span class="header-section-number">17.11</span> Bootstrap Confidence Intervals for <span class="math inline">\(\mu\)</span></h2>
+<div id="what-is-a-bootstrap-and-why-should-i-care" class="section level3">
+<h3><span class="header-section-number">17.11.1</span> What is a Bootstrap and Why Should I Care?</h3>
+<p>The bootstrap (and in particular, what’s known as bootstrap resampling) is a really good idea that you should know a little bit about. <span class="citation">Good (<a href="#ref-Good2005" role="doc-biblioref">2005</a>)</span> and <span class="citation">Good and Hardin (<a href="#ref-GoodHardin" role="doc-biblioref">2006</a>)</span> are excellent resources, for instance.</p>
+<p>If we want to know how accurately a sample mean estimates the population mean, we would ideally like to take a very, very large sample, because if we did so, we could conclude with something that would eventually approach mathematical certainty that the sample mean would be very close to the population mean.</p>
+<p>But we can rarely draw enormous samples. So what can we do?</p>
+</div>
+<div id="resampling-is-a-big-idea" class="section level3">
+<h3><span class="header-section-number">17.11.2</span> Resampling is A Big Idea</h3>
+<p>One way to find out how precise our estimates are is to run them on multiple samples of the same size. This <em>resampling</em> approach was codified originally by Brad Efron in, for example, <span class="citation">Efron (<a href="#ref-Efron1979" role="doc-biblioref">1979</a>)</span>.</p>
+<p>Oversimplifying a lot, the idea is that if we sample (with replacement) from our current sample, we can draw a new sample of the same size as our original.</p>
+<ul>
+<li>And if we repeat this many times, we can generate as many samples of, say, 462 zinc levels, as we like.</li>
+<li>Then we take these thousands of samples and calculate (for instance) the sample mean for each, and plot a histogram of those means.</li>
+<li>If we then cut off the top and bottom 5% of these sample means, we obtain a reasonable 90% confidence interval for the population mean.</li>
+</ul>
+</div>
+<div id="when-is-a-bootstrap-confidence-interval-for-mu-reasonable" class="section level3">
+<h3><span class="header-section-number">17.11.3</span> When is a Bootstrap Confidence Interval for <span class="math inline">\(\mu\)</span> Reasonable?</h3>
+<p>The interval will be reasonable as long as we’re willing to believe that:</p>
+<ul>
+<li>the original sample was a random sample (or at least a completely representative sample) from a population,</li>
+<li>and that the samples are independent of each other,</li>
+</ul>
+<p>even if the population of interest doesn’t follow a Normal, or even a symmetric distribution.</p>
+<p>A downside of the bootstrap is that you and I will get (somewhat) different answers if we resample from the same data without setting the same random seed.</p>
+</div>
+<div id="bootstrap-steps-to-estimate-a-confidence-interval-for-mu" class="section level3">
+<h3><span class="header-section-number">17.11.4</span> Bootstrap: Steps to estimate a confidence interval for <span class="math inline">\(\mu\)</span></h3>
+<p>To avoid the Normality assumption, and take advantage of modern computing power, we use R to obtain a bootstrap confidence interval for the population mean based on a sample.</p>
+<p>What the computer does:</p>
+<ol style="list-style-type: decimal">
+<li>Resample the data with replacement, until it obtains a new sample that is equal in size to the original data set.</li>
+<li>Calculates the statistic of interest (here, a sample mean.)</li>
+<li>Repeat the steps above many times (the default is 1,000 using our approach) to obtain a set of 1,000 sample means.</li>
+<li>Sort those 1,000 sample means in order, and estimate the 95% confidence interval for the population mean based on the middle 95% of the 1,000 bootstrap samples.</li>
+<li>Send us a result, containing the sample mean, and a 95% confidence interval for the population mean</li>
+</ol>
+</div>
+<div id="using-r-to-estimate-a-90-ci-for-mu-with-the-bootstrap" class="section level3">
+<h3><span class="header-section-number">17.11.5</span> Using R to estimate a 90% CI for <span class="math inline">\(\mu\)</span> with the bootstrap</h3>
+<p>The command that we use to obtain a CI for <span class="math inline">\(\mu\)</span> using the basic nonparametric bootstrap and without assuming a Normally distributed population, is <code>smean.cl.boot</code>, a part of the <code>Hmisc</code> package in R.</p>
+<div class="sourceCode" id="cb534"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb534-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb534-1"></a><span class="kw">set.seed</span>(<span class="dv">431</span>)</span>
+<span id="cb534-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb534-2"></a>serzinc <span class="op">%$%</span><span class="st"> </span>Hmisc<span class="op">::</span><span class="kw">smean.cl.boot</span>(zinc, <span class="dt">B =</span> <span class="dv">1000</span>, <span class="dt">conf.int =</span> <span class="fl">0.90</span>)</span></code></pre></div>
+<pre><code>    Mean    Lower    Upper 
+87.93723 86.76775 89.20617 </code></pre>
+<ul>
+<li>Remember that the t-based 90% CI for <span class="math inline">\(\mu\)</span> was (86.71, 89.16), according to the following output…</li>
+</ul>
+<div class="sourceCode" id="cb536"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb536-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb536-1"></a><span class="kw">tidy</span>(<span class="kw">lm</span>(zinc <span class="op">~</span><span class="st"> </span><span class="dv">1</span>, <span class="dt">data =</span> serzinc), <span class="dt">conf.int =</span> <span class="ot">TRUE</span>, <span class="dt">conf.level =</span> <span class="fl">0.90</span>)</span></code></pre></div>
+<pre><code># A tibble: 1 x 7
+  term        estimate std.error statistic p.value conf.low conf.high
+  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+1 (Intercept)     87.9     0.745      118.       0     86.7      89.2</code></pre>
+</div>
+<div id="comparing-bootstrap-and-t-based-confidence-intervals" class="section level3">
+<h3><span class="header-section-number">17.11.6</span> Comparing Bootstrap and T-Based Confidence Intervals</h3>
+<ul>
+<li>The <code>smean.cl.boot</code> function (unlike most R functions) deletes missing data automatically, as does the <code>smean.cl.normal</code> function, which can also be used to produce the t-based confidence interval.</li>
+</ul>
+<div class="sourceCode" id="cb538"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb538-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb538-1"></a><span class="kw">set.seed</span>(<span class="dv">431</span>)</span>
+<span id="cb538-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb538-2"></a>serzinc <span class="op">%$%</span><span class="st"> </span>Hmisc<span class="op">::</span><span class="kw">smean.cl.boot</span>(zinc, <span class="dt">B =</span> <span class="dv">1000</span>, <span class="dt">conf.int =</span> <span class="fl">0.90</span>)</span></code></pre></div>
+<pre><code>    Mean    Lower    Upper 
+87.93723 86.76775 89.20617 </code></pre>
+<div class="sourceCode" id="cb540"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb540-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb540-1"></a>serzinc <span class="op">%$%</span><span class="st"> </span>Hmisc<span class="op">::</span><span class="kw">smean.cl.normal</span>(zinc, <span class="dt">conf.int =</span> <span class="fl">0.90</span>)</span></code></pre></div>
+<pre><code>    Mean    Lower    Upper 
+87.93723 86.71000 89.16446 </code></pre>
+<p>Bootstrap resampling confidence intervals do not follow the general confidence interval strategy using a point estimate <span class="math inline">\(\pm\)</span> a margin for error.</p>
+<ul>
+<li>A bootstrap interval is often asymmetric, and while it will generally have the point estimate (the sample mean) near its center, for highly skewed data, this will not necessarily be the case.</li>
+<li>We will usually use either 1,000 (the default) or 10,000 bootstrap replications for building confidence intervals – practically, it makes little difference.</li>
+</ul>
+</div>
+<div id="ci-for-mu-via-bootstrap-changing-minor-details" class="section level3">
+<h3><span class="header-section-number">17.11.7</span> 90% CI for <span class="math inline">\(\mu\)</span> via bootstrap, changing minor details</h3>
+<p>Suppose we change the random seed that we set, or change the number (<code>B</code>) of desired bootstrap replications.</p>
+<div class="sourceCode" id="cb542"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb542-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb542-1"></a><span class="kw">set.seed</span>(<span class="dv">431</span>) </span>
+<span id="cb542-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb542-2"></a>serzinc <span class="op">%$%</span><span class="st"> </span>Hmisc<span class="op">::</span><span class="kw">smean.cl.boot</span>(zinc, <span class="dt">B =</span> <span class="dv">1000</span>, <span class="dt">conf.int =</span> <span class="fl">0.90</span>)</span></code></pre></div>
+<pre><code>    Mean    Lower    Upper 
+87.93723 86.76775 89.20617 </code></pre>
+<div class="sourceCode" id="cb544"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb544-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb544-1"></a><span class="kw">set.seed</span>(<span class="dv">431212</span>)</span>
+<span id="cb544-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb544-2"></a>serzinc <span class="op">%$%</span><span class="st"> </span>Hmisc<span class="op">::</span><span class="kw">smean.cl.boot</span>(zinc, <span class="dt">B =</span> <span class="dv">1000</span>, <span class="dt">conf.int =</span> <span class="fl">0.90</span>)</span></code></pre></div>
+<pre><code>    Mean    Lower    Upper 
+87.93723 86.68160 89.14069 </code></pre>
+<div class="sourceCode" id="cb546"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb546-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb546-1"></a><span class="kw">set.seed</span>(<span class="dv">431212</span>)</span>
+<span id="cb546-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb546-2"></a>serzinc <span class="op">%$%</span><span class="st"> </span>Hmisc<span class="op">::</span><span class="kw">smean.cl.boot</span>(zinc, <span class="dt">B =</span> <span class="dv">1000</span>, <span class="dt">conf.int =</span> <span class="fl">0.90</span>)</span></code></pre></div>
+<pre><code>    Mean    Lower    Upper 
+87.93723 86.68160 89.14069 </code></pre>
+</div>
+<div id="bootstrap-changing-the-confidence-level" class="section level3">
+<h3><span class="header-section-number">17.11.8</span> Bootstrap: Changing the Confidence Level</h3>
+<div class="sourceCode" id="cb548"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb548-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb548-1"></a><span class="kw">set.seed</span>(<span class="dv">431654</span>)</span>
+<span id="cb548-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb548-2"></a>serzinc <span class="op">%$%</span><span class="st"> </span>Hmisc<span class="op">::</span><span class="kw">smean.cl.boot</span>(zinc, <span class="dt">B =</span> <span class="dv">1000</span>, <span class="dt">conf.int =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>    Mean    Lower    Upper 
+87.93723 86.51066 89.42002 </code></pre>
+<div class="sourceCode" id="cb550"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb550-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb550-1"></a><span class="kw">set.seed</span>(<span class="dv">431321</span>)</span>
+<span id="cb550-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb550-2"></a>serzinc <span class="op">%$%</span><span class="st"> </span>Hmisc<span class="op">::</span><span class="kw">smean.cl.boot</span>(zinc, <span class="dt">B =</span> <span class="dv">1000</span>, <span class="dt">conf.int =</span> <span class="fl">0.99</span>)</span></code></pre></div>
+<pre><code>    Mean    Lower    Upper 
+87.93723 86.20657 89.68619 </code></pre>
+</div>
+<div id="bootstrap-obtaining-a-one-sided-confidence-interval" class="section level3">
+<h3><span class="header-section-number">17.11.9</span> Bootstrap: Obtaining a One-sided Confidence Interval</h3>
+<p>If you want to estimate a one tailed confidence interval for the population mean using the bootstrap, then the procedure is as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Determine <span class="math inline">\(\alpha\)</span>, the significance level you want to use in your one-sided confidence interval. Remember that <span class="math inline">\(\alpha\)</span> is 1 minus the confidence level. Let’s assume we want a 90% one-sided interval, so <span class="math inline">\(\alpha\)</span> = 0.10.</li>
+<li>Double <span class="math inline">\(\alpha\)</span> to determine the significance level we will use in the next step to fit a two-sided confidence interval.</li>
+<li>Fit a two-sided confidence interval with confidence level <span class="math inline">\(100(1 - 2*\alpha)\)</span>. Let the bounds of this interval be (<em>a</em>, <em>b</em>).</li>
+<li>The one-sided (greater than) confidence interval will have <em>a</em> as its lower bound.</li>
+<li>The one-sided (less than) confidence interval will have <em>b</em> as its upper bound.</li>
+</ol>
+<p>Suppose that we want to find a 95% one-sided upper bound for the population mean serum zinc level among teenage males, <span class="math inline">\(\mu\)</span>, using the bootstrap.</p>
+<p>Since we want a 95% confidence interval, we have <span class="math inline">\(\alpha\)</span> = 0.05. We double that to get <span class="math inline">\(\alpha\)</span> = 0.10, which implies we need to instead fit a two-sided 90% confidence interval.</p>
+<div class="sourceCode" id="cb552"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb552-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb552-1"></a><span class="kw">set.seed</span>(<span class="dv">43101</span>)</span>
+<span id="cb552-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb552-2"></a>serzinc <span class="op">%$%</span><span class="st"> </span>Hmisc<span class="op">::</span><span class="kw">smean.cl.boot</span>(zinc, <span class="dt">B =</span> <span class="dv">1000</span>, <span class="dt">conf.int =</span> <span class="fl">0.90</span>)</span></code></pre></div>
+<pre><code>    Mean    Lower    Upper 
+87.93723 86.70509 89.11266 </code></pre>
+<p>The upper bound of this two-sided 90% CI will also be the upper bound for a 95% one-sided CI.</p>
+</div>
+<div id="bootstrap-ci-for-the-population-median" class="section level3">
+<h3><span class="header-section-number">17.11.10</span> Bootstrap CI for the Population Median</h3>
+<p>If we are willing to do a small amount of programming work in R, we can obtain bootstrap confidence intervals for other population parameters besides the mean. One statistic of common interest is the median. How do we find a confidence interval for the population median using a bootstrap approach? The easiest way I know of makes use of the <code>boot</code> package, as follows.</p>
+<p>In step 1, we specify a new function to capture the medians from our sample.</p>
+<div class="sourceCode" id="cb554"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb554-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb554-1"></a>f.median &lt;-<span class="st"> </span><span class="cf">function</span>(y, id) </span>
+<span id="cb554-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb554-2"></a>{    <span class="kw">median</span> ( y[id])  }</span></code></pre></div>
+<p>In step 2, we summon the <code>boot</code> package and call the <code>boot.ci</code> function:</p>
+<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb555-1"></a><span class="kw">set.seed</span>(<span class="dv">431787</span>)</span>
+<span id="cb555-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb555-2"></a>boot<span class="op">::</span><span class="kw">boot.ci</span>(boot<span class="op">::</span><span class="kw">boot</span> (serzinc<span class="op">$</span>zinc, f.median, <span class="dv">1000</span>), <span class="dt">conf=</span><span class="fl">0.90</span>, <span class="dt">type=</span><span class="st">&quot;basic&quot;</span>)</span></code></pre></div>
+<pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 1000 bootstrap replicates
+
+CALL : 
+boot::boot.ci(boot.out = boot::boot(serzinc$zinc, f.median, 1000), 
+    conf = 0.9, type = &quot;basic&quot;)
+
+Intervals : 
+Level      Basic         
+90%   (84, 87 )  
+Calculations and Intervals on Original Scale</code></pre>
+<p>This yields a 90% confidence interval<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> for the population median serum zinc level.</p>
+<p>Recall that the sample median for the serum zinc levels in our sample of 462 teenage males was 86 micrograms per deciliter.</p>
+<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb557-1"></a>mosaic<span class="op">::</span><span class="kw">favstats</span>(<span class="op">~</span><span class="st"> </span>zinc, <span class="dt">data =</span> serzinc)</span></code></pre></div>
+<pre><code> min Q1 median Q3 max     mean       sd   n missing
+  50 76     86 98 153 87.93723 16.00469 462       0</code></pre>
+</div>
+<div id="bootstrap-ci-for-the-iqr" class="section level3">
+<h3><span class="header-section-number">17.11.11</span> Bootstrap CI for the IQR</h3>
+<p>If for some reason, we want to find a 95% confidence interval for the population value of the inter-quartile range via the bootstrap, we can do it.</p>
+<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb559-1"></a><span class="kw">IQR</span>(serzinc<span class="op">$</span>zinc)</span></code></pre></div>
+<pre><code>[1] 22</code></pre>
+<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb561-1"></a>f.IQR &lt;-<span class="st"> </span><span class="cf">function</span>(y, id) </span>
+<span id="cb561-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb561-2"></a>{    <span class="kw">IQR</span> (y[id]) }</span>
+<span id="cb561-3"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb561-3"></a></span>
+<span id="cb561-4"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb561-4"></a><span class="kw">set.seed</span>(<span class="dv">431207</span>)</span>
+<span id="cb561-5"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb561-5"></a>boot<span class="op">::</span><span class="kw">boot.ci</span>(boot<span class="op">::</span><span class="kw">boot</span> (serzinc<span class="op">$</span>zinc, f.IQR, <span class="dv">1000</span>), </span>
+<span id="cb561-6"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb561-6"></a>        <span class="dt">conf=</span><span class="fl">0.95</span>, <span class="dt">type=</span><span class="st">&quot;basic&quot;</span>)</span></code></pre></div>
+<pre><code>BOOTSTRAP CONFIDENCE INTERVAL CALCULATIONS
+Based on 1000 bootstrap replicates
+
+CALL : 
+boot::boot.ci(boot.out = boot::boot(serzinc$zinc, f.IQR, 1000), 
+    conf = 0.95, type = &quot;basic&quot;)
+
+Intervals : 
+Level      Basic         
+95%   (20.00, 24.24 )  
+Calculations and Intervals on Original Scale</code></pre>
+</div>
+<div id="bootstrap-resampling-advantages-and-caveats" class="section level3">
+<h3><span class="header-section-number">17.11.12</span> Bootstrap Resampling: Advantages and Caveats</h3>
+<p>The bootstrap may seem like the solution to all estimation problems. In theory, we could use the same approach to find a confidence interval for any other parameter – it’s not perfect, but it is very useful. Bootstrap procedures exist for virtually any statistical comparison - the t-test analog is just one of many possibilities, and bootstrap methods are rapidly gaining on more traditional approaches in the literature thanks mostly to faster computers.</p>
+<p>The great advantage of the bootstrap is its relative simplicity, but don’t forget that many of the original assumptions of the t-based confidence interval still hold.</p>
+<ul>
+<li>Using a bootstrap does eliminate the need to worry about the Normality assumption in small sample size settings, but it still requires independent and identically distributed samples from the population of interest.</li>
+</ul>
+<p>The bootstrap produces clean and robust inferences (such as confidence intervals) in many tricky situations. It is still possible that the results can be both:</p>
+<ul>
+<li><strong>inaccurate</strong> (i.e. they can include the true value of the unknown population mean less often than the stated confidence probability) and</li>
+<li><strong>imprecise</strong> (i.e., they can include more extraneous values of the unknown population mean than is desirable).</li>
+</ul>
+</div>
+</div>
+<div id="wilcoxon-signed-rank-procedure-for-cis" class="section level2">
+<h2><span class="header-section-number">17.12</span> Wilcoxon Signed Rank Procedure for CIs</h2>
+<div id="confidence-intervals-for-the-median-of-a-population" class="section level3">
+<h3><span class="header-section-number">17.12.1</span> Confidence Intervals for the Median of a Population</h3>
+<p>It turns out to be difficult, without the bootstrap, to estimate an appropriate confidence interval for the median of a population, which might be an appealing thing to do, particularly if the sample data are clearly not Normally distributed, so that a median seems like a better summary of the center of the data. Bootstrap procedures are available to perform the task.</p>
+<p>The Wilcoxon signed rank approach can be used as an alternative to t-based procedures to build interval estimates for the population <em>pseudo-median</em> when the population cannot be assumed to follow a Normal distribution.</p>
+<p>As it turns out, if you’re willing to assume the population is <strong>symmetric</strong> (but not necessarily Normally distributed) then the pseudo-median is actually equal to the population median.</p>
+</div>
+<div id="what-is-a-pseudo-median" class="section level3">
+<h3><span class="header-section-number">17.12.2</span> What is a Pseudo-Median?</h3>
+<p>The pseudo-median of a particular distribution G is the median of the distribution of (u + v)/2, where both u and v have the same distribution (G).</p>
+<ul>
+<li>If the distribution G is symmetric, then the pseudomedian is equal to the median.</li>
+<li>If the distribution is skewed, then the pseudomedian is not the same as the median.</li>
+<li>For any sample, the pseudomedian is defined as the median of all of the midpoints of pairs of observations in the sample.</li>
+</ul>
+</div>
+<div id="getting-the-wilcoxon-signed-rank-based-ci-in-r" class="section level3">
+<h3><span class="header-section-number">17.12.3</span> Getting the Wilcoxon Signed Rank-based CI in R</h3>
+<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb563-1"></a>serzinc <span class="op">%$%</span><span class="st"> </span><span class="kw">wilcox.test</span>(zinc, <span class="dt">conf.int =</span> <span class="ot">TRUE</span>, <span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<pre><code>
+	Wilcoxon signed rank test with continuity correction
+
+data:  zinc
+V = 106953, p-value &lt; 2.2e-16
+alternative hypothesis: true location is not equal to 0
+95 percent confidence interval:
+ 85.99997 88.50002
+sample estimates:
+(pseudo)median 
+      87.49996 </code></pre>
+</div>
+<div id="interpreting-the-wilcoxon-ci-for-the-population-median" class="section level3">
+<h3><span class="header-section-number">17.12.4</span> Interpreting the Wilcoxon CI for the Population Median</h3>
+<p>If we’re willing to believe the <code>zinc</code> levels come from a population with a symmetric distribution, the 95% Confidence Interval for the population median would be (86, 88.5)</p>
+<p>For a non-symmetric population, this only applies to the <em>pseudo-median</em>.</p>
+<p>Note that the pseudo-median (87.5) is actually closer here to the sample mean (87.9) than it is to the sample median (86).</p>
+</div>
+<div id="using-the-broom-package-with-the-wilcoxon-test" class="section level3">
+<h3><span class="header-section-number">17.12.5</span> Using the <code>broom</code> package with the Wilcoxon test</h3>
+<p>We can also use the <code>tidy</code> function within <code>broom</code> to create a single-row tibble of the key results from a Wilcoxon test, so long as we run <code>wilcox.test</code> specifying that we want a confidence interval.</p>
+<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb565-1"></a>wt &lt;-<span class="st"> </span>serzinc <span class="op">%$%</span><span class="st"> </span><span class="kw">wilcox.test</span>(zinc, <span class="dt">conf.int =</span> <span class="ot">TRUE</span>, <span class="dt">conf.level =</span> <span class="fl">0.95</span>)</span>
+<span id="cb565-2"><a href="estimation-and-confidence-intervals-for-a-mean.html#cb565-2"></a><span class="kw">tidy</span>(wt)</span></code></pre></div>
+<pre><code># A tibble: 1 x 7
+  estimate statistic  p.value conf.low conf.high method              alternative
+     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;               &lt;chr&gt;      
+1     87.5    106953 2.00e-77     86.0      88.5 Wilcoxon signed ra~ two.sided  </code></pre>
+</div>
+</div>
+<div id="general-advice" class="section level2">
+<h2><span class="header-section-number">17.13</span> General Advice</h2>
+<p>We have described several approaches to estimating a confidence interval for the center of a distribution of quantitative data.</p>
+<ol style="list-style-type: decimal">
+<li>The most commonly used approach uses the <em>t</em> distribution to estimate a confidence interval for a population/process mean. This requires some extra assumptions, most particularly that the underlying distribution of the population values is at least approximately Normally distributed. This is identical to the result we get from an intercept-only linear regression model.</li>
+<li>A more modern and very general approach uses the idea of the bootstrap to estimate a confidence for a population/process parameter, which could be a mean, median or other summary statistic. The bootstrap, and the underlying notion of <em>resampling</em> is an important idea that lets us avoid some of the assumptions (in particular Normality) that are required by other methods. Bootstrap confidence intervals involve random sampling, so that the actual values obtained will differ a bit across replications.</li>
+<li>Finally, the Wilcoxon signed-rank method is one of a number of inferential tools which transform the data to their <em>ranks</em> before estimating a confidence interval. This avoids some assumptions, but yields inferences about a less-familiar parameter - the pseudo-median.</li>
+</ol>
+<p>Most of the time, the <strong>bootstrap</strong> provides a reasonably adequate confidence interval estimate of the population value of a parameter (mean or median, most commonly) from a distribution when our data consists of a single sample of quantitative information.</p>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-BockVD">
+<p>Bock, David E., Paul F. Velleman, and Richard D. De Veaux. 2004. <em>Stats: Modelling the World</em>. Boston MA: Pearson Addison-Wesley.</p>
+</div>
+<div id="ref-OpenStats">
+<p>Diez, David M., Christopher D. Barr, and Mine Çetinyaka-Rundel. n.d. <em>OpenIntro Statistics</em>. Third. <a href="https://www.openintro.org/stat/textbook.php?stat_book=os">https://www.openintro.org/stat/textbook.php?stat_book=os</a>.</p>
+</div>
+<div id="ref-Efron1979">
+<p>Efron, Bradley. 1979. “Bootstrap Methods: Another Look at the Jackknife.” <em>Annals of Statistics</em> 7(1): 1–26. <a href="https://projecteuclid.org/euclid.aos/1176344552">https://projecteuclid.org/euclid.aos/1176344552</a>.</p>
+</div>
+<div id="ref-Good2005">
+<p>Good, Phillip I. 2005. <em>Introduction to Statistics Through Resampling Methods and R/S-Plus</em>. Hoboken, NJ: Wiley.</p>
+</div>
+<div id="ref-GoodHardin">
+<p>Good, Phillip I., and James W. Hardin. 2006. <em>Common Errors in Statistics (and How to Avoid Them)</em>. Second. Hoboken, NJ: Wiley.</p>
+</div>
+<div id="ref-PaganoGauvreau">
+<p>Pagano, Marcello, and Kimberlee Gauvreau. 2000. <em>Principles of Biostatistics</em>. Second. Duxbury Press.</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="9">
+<li id="fn9"><p>Reference values for those over the age of 10 years at <a href="http://www.mayomedicallaboratories.com/test-catalog/Clinical+and+Interpretive/8620" class="uri">http://www.mayomedicallaboratories.com/test-catalog/Clinical+and+Interpretive/8620</a> , visited 2019-09-17.<a href="estimation-and-confidence-intervals-for-a-mean.html#fnref9" class="footnote-back">↩︎</a></p></li>
+<li id="fn10"><p>Since the measured zinc levels appear as integers, we should probably be rounding even further in our confidence interval, down to perhaps one decimal place.<a href="estimation-and-confidence-intervals-for-a-mean.html#fnref10" class="footnote-back">↩︎</a></p></li>
+<li id="fn11"><p>Actually, the boot.ci function can provide up to five different types of confidence interval (see the help file) if we change to type=“all”, and some of those other versions have attractive properties. However, we’ll stick with the basic approach in 431.<a href="estimation-and-confidence-intervals-for-a-mean.html#fnref11" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="highlights-of-what-weve-seen-so-far.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/17_CIsforaMean.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["431-notes.pdf", "431-notes.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

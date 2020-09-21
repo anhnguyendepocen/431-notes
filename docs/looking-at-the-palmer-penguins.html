@@ -24,7 +24,7 @@
 <meta name="author" content="Thomas E. Love" />
 
 
-<meta name="date" content="2020-09-19" />
+<meta name="date" content="2020-09-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -139,6 +139,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-youll-find-here"><i class="fa fa-check"></i>What You’ll Find Here</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#setting-up-r"><i class="fa fa-check"></i>Setting Up R</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#initial-setup-of-r-packages"><i class="fa fa-check"></i>Initial Setup of R Packages</a></li>
+<li><a href="index.html#the-love-boost.r-script">The <code>Love-boost.R</code> script</a></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html#additional-r-packages-installed-for-this-book"><i class="fa fa-check"></i>Additional R Packages installed for this book</a></li>
 </ul></li>
 <li class="chapter" data-level="1" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>1</b> Data Science</a><ul>
@@ -439,6 +440,85 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="16.5" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#summarizing-bivariate-associations-scatterplots-and-regression-lines"><i class="fa fa-check"></i><b>16.5</b> Summarizing Bivariate Associations: Scatterplots and Regression Lines</a></li>
 <li class="chapter" data-level="16.6" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#summarizing-bivariate-associations-with-correlations"><i class="fa fa-check"></i><b>16.6</b> Summarizing Bivariate Associations With Correlations</a></li>
 </ul></li>
+<li class="chapter" data-level="17" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html"><i class="fa fa-check"></i><b>17</b> Confidence Intervals for a Mean</a><ul>
+<li class="chapter" data-level="17.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#love-boost.r-is-something-well-start-using-now"><i class="fa fa-check"></i><b>17.1</b> <code>Love-boost.R</code> is something we’ll start using now</a></li>
+<li class="chapter" data-level="17.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#introduction"><i class="fa fa-check"></i><b>17.2</b> Introduction</a></li>
+<li class="chapter" data-level="17.3" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#this-chapters-goals"><i class="fa fa-check"></i><b>17.3</b> This Chapter’s Goals</a></li>
+<li class="chapter" data-level="17.4" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#serum-zinc-levels-in-462-teenage-males-serzinc"><i class="fa fa-check"></i><b>17.4</b> Serum Zinc Levels in 462 Teenage Males (<code>serzinc</code>)</a></li>
+<li class="chapter" data-level="17.5" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#our-goal-a-confidence-interval-for-the-population-mean"><i class="fa fa-check"></i><b>17.5</b> Our Goal: A Confidence Interval for the Population Mean</a></li>
+<li class="chapter" data-level="17.6" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#exploratory-data-analysis-for-serum-zinc"><i class="fa fa-check"></i><b>17.6</b> Exploratory Data Analysis for Serum Zinc</a><ul>
+<li class="chapter" data-level="17.6.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#graphical-summaries"><i class="fa fa-check"></i><b>17.6.1</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="17.6.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#numerical-summaries"><i class="fa fa-check"></i><b>17.6.2</b> Numerical Summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="17.7" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#defining-a-confidence-interval"><i class="fa fa-check"></i><b>17.7</b> Defining a Confidence Interval</a></li>
+<li class="chapter" data-level="17.8" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#estimating-the-population-mean-from-the-serum-zinc-data"><i class="fa fa-check"></i><b>17.8</b> Estimating the Population Mean from the Serum Zinc data</a></li>
+<li class="chapter" data-level="17.9" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#confidence-vs.-significance-level"><i class="fa fa-check"></i><b>17.9</b> Confidence vs. Significance Level</a></li>
+<li class="chapter" data-level="17.10" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#the-standard-error-of-a-sample-mean"><i class="fa fa-check"></i><b>17.10</b> The Standard Error of a Sample Mean</a></li>
+<li class="chapter" data-level="17.11" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#the-t-distribution-and-cis-for-a-mean"><i class="fa fa-check"></i><b>17.11</b> The t distribution and CIs for a Mean</a><ul>
+<li class="chapter" data-level="17.11.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#the-formula"><i class="fa fa-check"></i><b>17.11.1</b> The Formula</a></li>
+<li class="chapter" data-level="17.11.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#students-t-distribution"><i class="fa fa-check"></i><b>17.11.2</b> Student’s t distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="17.12" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#building-the-ci-in-r"><i class="fa fa-check"></i><b>17.12</b> Building the CI in R</a></li>
+<li class="chapter" data-level="17.13" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#using-an-intercept-only-regression-model"><i class="fa fa-check"></i><b>17.13</b> Using an intercept-only regression model</a></li>
+<li class="chapter" data-level="17.14" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#interpreting-the-result"><i class="fa fa-check"></i><b>17.14</b> Interpreting the Result</a></li>
+<li class="chapter" data-level="17.15" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#what-if-we-want-a-95-or-99-confidence-interval-instead"><i class="fa fa-check"></i><b>17.15</b> What if we want a 95% or 99% confidence interval instead?</a></li>
+<li class="chapter" data-level="17.16" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#using-the-broom-package-with-the-t-test"><i class="fa fa-check"></i><b>17.16</b> Using the <code>broom</code> package with the t test</a><ul>
+<li class="chapter" data-level="17.16.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#effect-of-changing-the-confidence-level"><i class="fa fa-check"></i><b>17.16.1</b> Effect of Changing the Confidence Level</a></li>
+</ul></li>
+<li class="chapter" data-level="17.17" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#one-sided-vs.-two-sided-confidence-intervals"><i class="fa fa-check"></i><b>17.17</b> One-sided vs. Two-sided Confidence Intervals</a></li>
+<li class="chapter" data-level="17.18" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>17.18</b> Bootstrap Confidence Intervals</a></li>
+<li class="chapter" data-level="17.19" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#resampling-is-a-big-idea"><i class="fa fa-check"></i><b>17.19</b> Resampling is A Big Idea</a></li>
+<li class="chapter" data-level="17.20" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#when-is-a-bootstrap-confidence-interval-reasonable"><i class="fa fa-check"></i><b>17.20</b> When is a Bootstrap Confidence Interval Reasonable?</a></li>
+<li class="chapter" data-level="17.21" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#bootstrap-confidence-interval-for-the-mean-process"><i class="fa fa-check"></i><b>17.21</b> Bootstrap confidence interval for the mean: Process</a></li>
+<li class="chapter" data-level="17.22" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#using-r-to-estimate-a-bootstrap-ci"><i class="fa fa-check"></i><b>17.22</b> Using R to estimate a bootstrap CI</a></li>
+<li class="chapter" data-level="17.23" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#comparing-bootstrap-and-t-based-confidence-intervals"><i class="fa fa-check"></i><b>17.23</b> Comparing Bootstrap and T-Based Confidence Intervals</a><ul>
+<li class="chapter" data-level="17.23.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#bootstrap-resampling-advantages-and-caveats"><i class="fa fa-check"></i><b>17.23.1</b> Bootstrap Resampling: Advantages and Caveats</a></li>
+</ul></li>
+<li class="chapter" data-level="17.24" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#using-the-bootstrap-to-develop-other-cis"><i class="fa fa-check"></i><b>17.24</b> Using the Bootstrap to develop other CIs</a><ul>
+<li class="chapter" data-level="17.24.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#changing-the-confidence-level"><i class="fa fa-check"></i><b>17.24.1</b> Changing the Confidence Level</a></li>
+</ul></li>
+<li class="chapter" data-level="17.25" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#one-tailed-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>17.25</b> One-Tailed Bootstrap Confidence Intervals</a><ul>
+<li class="chapter" data-level="17.25.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#bootstrap-ci-for-the-population-median"><i class="fa fa-check"></i><b>17.25.1</b> Bootstrap CI for the Population Median</a></li>
+<li class="chapter" data-level="17.25.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#bootstrap-ci-for-the-iqr"><i class="fa fa-check"></i><b>17.25.2</b> Bootstrap CI for the IQR</a></li>
+</ul></li>
+<li class="chapter" data-level="17.26" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#wilcoxon-signed-rank-procedure-for-cis"><i class="fa fa-check"></i><b>17.26</b> Wilcoxon Signed Rank Procedure for CIs</a><ul>
+<li class="chapter" data-level="17.26.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#what-is-a-pseudo-median"><i class="fa fa-check"></i><b>17.26.1</b> What is a Pseudo-Median?</a></li>
+</ul></li>
+<li class="chapter" data-level="17.27" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#wilcoxon-signed-rank-based-ci-in-r"><i class="fa fa-check"></i><b>17.27</b> Wilcoxon Signed Rank-based CI in R</a><ul>
+<li class="chapter" data-level="17.27.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#interpreting-the-wilcoxon-ci-for-the-population-median"><i class="fa fa-check"></i><b>17.27.1</b> Interpreting the Wilcoxon CI for the Population Median</a></li>
+<li class="chapter" data-level="17.27.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#using-the-broom-package-with-the-wilcoxon-test"><i class="fa fa-check"></i><b>17.27.2</b> Using the <code>broom</code> package with the Wilcoxon test</a></li>
+</ul></li>
+<li class="chapter" data-level="17.28" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#general-advice"><i class="fa fa-check"></i><b>17.28</b> General Advice</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><i class="fa fa-check"></i><b>18</b> The Ibuprofen in Sepsis Randomized Clinical Trial</a><ul>
+<li class="chapter" data-level="18.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#comparing-two-groups"><i class="fa fa-check"></i><b>18.1</b> Comparing Two Groups</a><ul>
+<li class="chapter" data-level="18.1.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#model-based-comparisons-and-anovaregression"><i class="fa fa-check"></i><b>18.1.1</b> Model-Based Comparisons and ANOVA/Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#key-questions-for-comparing-with-independent-samples"><i class="fa fa-check"></i><b>18.2</b> Key Questions for Comparing with Independent Samples</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#what-is-the-population-under-study"><i class="fa fa-check"></i><b>18.2.1</b> What is the <strong>population</strong> under study?</a></li>
+<li class="chapter" data-level="18.2.2" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#what-is-the-sample-is-it-representative-of-the-population"><i class="fa fa-check"></i><b>18.2.2</b> What is the <strong>sample</strong>? Is it representative of the population?</a></li>
+<li class="chapter" data-level="18.2.3" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#who-are-the-subjects-individuals-within-the-sample"><i class="fa fa-check"></i><b>18.2.3</b> Who are the subjects / <strong>individuals</strong> within the sample?</a></li>
+<li class="chapter" data-level="18.2.4" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#what-data-are-available-on-each-individual"><i class="fa fa-check"></i><b>18.2.4</b> What <strong>data</strong> are available on each individual?</a></li>
+<li class="chapter" data-level="18.2.5" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#rct-caveats"><i class="fa fa-check"></i><b>18.2.5</b> RCT Caveats</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>18.3</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="18.4" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#estimating-the-difference-in-population-means"><i class="fa fa-check"></i><b>18.4</b> Estimating the Difference in Population Means</a></li>
+<li class="chapter" data-level="18.5" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#t-based-ci-for-population-mean1---mean2-difference"><i class="fa fa-check"></i><b>18.5</b> t-based CI for population mean1 - mean2 difference</a><ul>
+<li class="chapter" data-level="18.5.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#the-pooled-t-procedure"><i class="fa fa-check"></i><b>18.5.1</b> The Pooled t procedure</a></li>
+<li class="chapter" data-level="18.5.2" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#using-linear-regression-to-obtain-a-pooled-t-confidence-interval"><i class="fa fa-check"></i><b>18.5.2</b> Using linear regression to obtain a pooled t confidence interval</a></li>
+<li class="chapter" data-level="18.5.3" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#the-welch-t-procedure"><i class="fa fa-check"></i><b>18.5.3</b> The Welch t procedure</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#wilcoxon-mann-whitney-rank-sum-ci"><i class="fa fa-check"></i><b>18.6</b> Wilcoxon-Mann-Whitney “Rank Sum” CI</a></li>
+<li class="chapter" data-level="18.7" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#bootstrapping-a-more-robust-approach"><i class="fa fa-check"></i><b>18.7</b> Bootstrapping: A More Robust Approach</a><ul>
+<li class="chapter" data-level="18.7.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#bootstrap-ci-for-the-sepsis-study"><i class="fa fa-check"></i><b>18.7.1</b> Bootstrap CI for the Sepsis study</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#summary-specifying-a-two-sample-study-design"><i class="fa fa-check"></i><b>18.8</b> Summary: Specifying A Two-Sample Study Design</a></li>
+<li class="chapter" data-level="18.9" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#results-for-the-sepsis-study"><i class="fa fa-check"></i><b>18.9</b> Results for the <code>sepsis</code> study</a><ul>
+<li class="chapter" data-level="18.9.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#sepsis-estimation-results"><i class="fa fa-check"></i><b>18.9.1</b> Sepsis Estimation Results</a></li>
+</ul></li>
+<li class="chapter" data-level="18.10" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#categorizing-the-outcome-and-comparing-rates"><i class="fa fa-check"></i><b>18.10</b> Categorizing the Outcome and Comparing Rates</a></li>
+<li class="chapter" data-level="18.11" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#estimating-the-difference-in-proportions"><i class="fa fa-check"></i><b>18.11</b> Estimating the Difference in Proportions</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -468,17 +548,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">2.1</span> Package Loading, then Dealing with Missing Data</h2>
 <p>To start, let’s load up the necessary R packages to manage the data and summarize it in a small table, and a plot. We’ve actually done this previously, but we’ll repeat the steps here, because it’s worth seeing what R is doing.</p>
 <p>In this case, we’ll load up five packages.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="looking-at-the-palmer-penguins.html#cb3-1"></a><span class="kw">library</span>(palmerpenguins)  <span class="co"># source for the data set</span></span>
-<span id="cb3-2"><a href="looking-at-the-palmer-penguins.html#cb3-2"></a><span class="kw">library</span>(janitor)         <span class="co"># some utilities for cleanup and simple tables</span></span>
-<span id="cb3-3"><a href="looking-at-the-palmer-penguins.html#cb3-3"></a><span class="kw">library</span>(magrittr)        <span class="co"># provides us with the pipe %&gt;% for code management</span></span>
-<span id="cb3-4"><a href="looking-at-the-palmer-penguins.html#cb3-4"></a><span class="kw">library</span>(dplyr)           <span class="co"># part of the tidyverse: data management tools</span></span>
-<span id="cb3-5"><a href="looking-at-the-palmer-penguins.html#cb3-5"></a><span class="kw">library</span>(ggplot2)         <span class="co"># part of the tidyverse: tools for plotting data</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="looking-at-the-palmer-penguins.html#cb4-1"></a><span class="kw">library</span>(palmerpenguins)  <span class="co"># source for the data set</span></span>
+<span id="cb4-2"><a href="looking-at-the-palmer-penguins.html#cb4-2"></a><span class="kw">library</span>(janitor)         <span class="co"># some utilities for cleanup and simple tables</span></span>
+<span id="cb4-3"><a href="looking-at-the-palmer-penguins.html#cb4-3"></a><span class="kw">library</span>(magrittr)        <span class="co"># provides us with the pipe %&gt;% for code management</span></span>
+<span id="cb4-4"><a href="looking-at-the-palmer-penguins.html#cb4-4"></a><span class="kw">library</span>(dplyr)           <span class="co"># part of the tidyverse: data management tools</span></span>
+<span id="cb4-5"><a href="looking-at-the-palmer-penguins.html#cb4-5"></a><span class="kw">library</span>(ggplot2)         <span class="co"># part of the tidyverse: tools for plotting data</span></span></code></pre></div>
 <p>It’s worth remembering that everything after the <code>#</code> on each line above is just a comment for the reader, and is ignored by R. We’ll see later that the loading of a single package (called <code>tidyverse</code>) gives us both the <code>dplyr</code> and <code>ggplot2</code> packages, as well as several other useful things.</p>
 <p>Next, let’s take the <code>penguins</code> data from the <code>palmerpenguins</code> package, and identify those observations which have complete data (so, no missing values) in four variables of interest. We’ll store that result in a new data frame (think of this as a data set) called <code>new_penguins</code> and then take a look at that result using the following code.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="looking-at-the-palmer-penguins.html#cb4-1"></a>new_penguins &lt;-<span class="st"> </span>penguins <span class="op">%&gt;%</span></span>
-<span id="cb4-2"><a href="looking-at-the-palmer-penguins.html#cb4-2"></a><span class="st">    </span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(flipper_length_mm, body_mass_g, species, sex))</span>
-<span id="cb4-3"><a href="looking-at-the-palmer-penguins.html#cb4-3"></a></span>
-<span id="cb4-4"><a href="looking-at-the-palmer-penguins.html#cb4-4"></a>new_penguins</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="looking-at-the-palmer-penguins.html#cb5-1"></a>new_penguins &lt;-<span class="st"> </span>penguins <span class="op">%&gt;%</span></span>
+<span id="cb5-2"><a href="looking-at-the-palmer-penguins.html#cb5-2"></a><span class="st">    </span><span class="kw">filter</span>(<span class="kw">complete.cases</span>(flipper_length_mm, body_mass_g, species, sex))</span>
+<span id="cb5-3"><a href="looking-at-the-palmer-penguins.html#cb5-3"></a></span>
+<span id="cb5-4"><a href="looking-at-the-palmer-penguins.html#cb5-4"></a>new_penguins</span></code></pre></div>
 <pre><code># A tibble: 333 x 8
    species island bill_length_mm bill_depth_mm flipper_length_~ body_mass_g
    &lt;fct&gt;   &lt;fct&gt;           &lt;dbl&gt;         &lt;dbl&gt;            &lt;int&gt;       &lt;int&gt;
@@ -497,19 +577,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="counting-things-and-making-tables" class="section level2">
 <h2><span class="header-section-number">2.2</span> Counting Things and Making Tables</h2>
 <p>So, how many penguins are in our <code>new_penguins</code> data? When we printed out the result, we got an answer, but (as with many things in R) there are many ways to get the same result.</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="looking-at-the-palmer-penguins.html#cb6-1"></a><span class="kw">nrow</span>(new_penguins)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="looking-at-the-palmer-penguins.html#cb7-1"></a><span class="kw">nrow</span>(new_penguins)</span></code></pre></div>
 <pre><code>[1] 333</code></pre>
 <p>How do our <code>new_penguins</code> data break down by sex and species?</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="looking-at-the-palmer-penguins.html#cb8-1"></a>new_penguins <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb8-2"><a href="looking-at-the-palmer-penguins.html#cb8-2"></a><span class="st">    </span><span class="kw">tabyl</span>(sex, species) <span class="co"># tabyl comes from the janitor package</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="looking-at-the-palmer-penguins.html#cb9-1"></a>new_penguins <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb9-2"><a href="looking-at-the-palmer-penguins.html#cb9-2"></a><span class="st">    </span><span class="kw">tabyl</span>(sex, species) <span class="co"># tabyl comes from the janitor package</span></span></code></pre></div>
 <pre><code>    sex Adelie Chinstrap Gentoo
  female     73        34     58
    male     73        34     61</code></pre>
 <p>Note the strange spelling of <code>tabyl</code> here. The output is reasonably clear, but could we make that table a little prettier, and while we’re at it, can we add the row and column totals to it?</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="looking-at-the-palmer-penguins.html#cb10-1"></a>new_penguins <span class="op">%&gt;%</span><span class="st"> </span></span>
-<span id="cb10-2"><a href="looking-at-the-palmer-penguins.html#cb10-2"></a><span class="st">    </span><span class="kw">tabyl</span>(sex, species) <span class="op">%&gt;%</span></span>
-<span id="cb10-3"><a href="looking-at-the-palmer-penguins.html#cb10-3"></a><span class="st">    </span><span class="kw">adorn_totals</span>(<span class="dt">where =</span> <span class="kw">c</span>(<span class="st">&quot;row&quot;</span>, <span class="st">&quot;col&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># add row, column totals</span></span>
-<span id="cb10-4"><a href="looking-at-the-palmer-penguins.html#cb10-4"></a><span class="st">    </span>kable  <span class="co"># one convenient way to make the table prettier</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="looking-at-the-palmer-penguins.html#cb11-1"></a>new_penguins <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb11-2"><a href="looking-at-the-palmer-penguins.html#cb11-2"></a><span class="st">    </span><span class="kw">tabyl</span>(sex, species) <span class="op">%&gt;%</span></span>
+<span id="cb11-3"><a href="looking-at-the-palmer-penguins.html#cb11-3"></a><span class="st">    </span><span class="kw">adorn_totals</span>(<span class="dt">where =</span> <span class="kw">c</span>(<span class="st">&quot;row&quot;</span>, <span class="st">&quot;col&quot;</span>)) <span class="op">%&gt;%</span><span class="st"> </span><span class="co"># add row, column totals</span></span>
+<span id="cb11-4"><a href="looking-at-the-palmer-penguins.html#cb11-4"></a><span class="st">    </span>kable  <span class="co"># one convenient way to make the table prettier</span></span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -548,20 +628,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="visualizing-the-data-in-a-graph-or-a-few" class="section level2">
 <h2><span class="header-section-number">2.3</span> Visualizing the Data in a Graph (or a few…)</h2>
 <p>Now, let’s look at the other two variables of interest. Let’s create a graph showing the association of body mass with flipper length across the complete set of 333 penguins.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="looking-at-the-palmer-penguins.html#cb11-1"></a><span class="kw">ggplot</span>(new_penguins, <span class="kw">aes</span>(<span class="dt">x =</span> body_mass_g, <span class="dt">y =</span> flipper_length_mm)) <span class="op">+</span></span>
-<span id="cb11-2"><a href="looking-at-the-palmer-penguins.html#cb11-2"></a><span class="st">    </span><span class="kw">geom_point</span>() </span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>Some of you may want to include a straight-line model (fit by a classical linear regression) to this plot. One way to do that in R involves the addition of a single line of code, like this:</p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="looking-at-the-palmer-penguins.html#cb12-1"></a><span class="kw">ggplot</span>(new_penguins, <span class="kw">aes</span>(<span class="dt">x =</span> body_mass_g, <span class="dt">y =</span> flipper_length_mm)) <span class="op">+</span></span>
-<span id="cb12-2"><a href="looking-at-the-palmer-penguins.html#cb12-2"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
-<span id="cb12-3"><a href="looking-at-the-palmer-penguins.html#cb12-3"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<span id="cb12-2"><a href="looking-at-the-palmer-penguins.html#cb12-2"></a><span class="st">    </span><span class="kw">geom_point</span>() </span></code></pre></div>
 <p><img src="431-notes_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p>Whenever we build a graph for ourselves, these default choices may be sufficient. But I’d like to see a prettier version if I was going to show it to someone else. So, I might use a different color for each species, and I might neaten up the theme (to get rid of the default grey background) and add a title, like this.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="looking-at-the-palmer-penguins.html#cb13-1"></a><span class="kw">ggplot</span>(new_penguins, <span class="kw">aes</span>(<span class="dt">x =</span> body_mass_g, <span class="dt">y =</span> flipper_length_mm, <span class="dt">col =</span> species)) <span class="op">+</span></span>
-<span id="cb13-2"><a href="looking-at-the-palmer-penguins.html#cb13-2"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb13-3"><a href="looking-at-the-palmer-penguins.html#cb13-3"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb13-4"><a href="looking-at-the-palmer-penguins.html#cb13-4"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Flipper Length and Body Mass for 333 of the Palmer Penguins&quot;</span>)</span></code></pre></div>
+<p>Some of you may want to include a straight-line model (fit by a classical linear regression) to this plot. One way to do that in R involves the addition of a single line of code, like this:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="looking-at-the-palmer-penguins.html#cb13-1"></a><span class="kw">ggplot</span>(new_penguins, <span class="kw">aes</span>(<span class="dt">x =</span> body_mass_g, <span class="dt">y =</span> flipper_length_mm)) <span class="op">+</span></span>
+<span id="cb13-2"><a href="looking-at-the-palmer-penguins.html#cb13-2"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span></span>
+<span id="cb13-3"><a href="looking-at-the-palmer-penguins.html#cb13-3"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
 <p><img src="431-notes_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>Whenever we build a graph for ourselves, these default choices may be sufficient. But I’d like to see a prettier version if I was going to show it to someone else. So, I might use a different color for each species, and I might neaten up the theme (to get rid of the default grey background) and add a title, like this.</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="looking-at-the-palmer-penguins.html#cb14-1"></a><span class="kw">ggplot</span>(new_penguins, <span class="kw">aes</span>(<span class="dt">x =</span> body_mass_g, <span class="dt">y =</span> flipper_length_mm, <span class="dt">col =</span> species)) <span class="op">+</span></span>
+<span id="cb14-2"><a href="looking-at-the-palmer-penguins.html#cb14-2"></a><span class="st">    </span><span class="kw">geom_point</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb14-3"><a href="looking-at-the-palmer-penguins.html#cb14-3"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb14-4"><a href="looking-at-the-palmer-penguins.html#cb14-4"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Flipper Length and Body Mass for 333 of the Palmer Penguins&quot;</span>)</span></code></pre></div>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="six-ways-to-improve-this-graph" class="section level2">
 <h2><span class="header-section-number">2.4</span> Six Ways To “Improve” This Graph</h2>
@@ -574,17 +654,17 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>improve the axis labels,</li>
 <li>improve the titles by adding a subtitle, and also adding in some code to count the penguins (rather than hard-coding in the total number.)</li>
 </ol>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="looking-at-the-palmer-penguins.html#cb14-1"></a><span class="kw">ggplot</span>(new_penguins, <span class="kw">aes</span>(<span class="dt">x =</span> body_mass_g, <span class="dt">y =</span> flipper_length_mm, </span>
-<span id="cb14-2"><a href="looking-at-the-palmer-penguins.html#cb14-2"></a>                         <span class="dt">col =</span> species)) <span class="op">+</span></span>
-<span id="cb14-3"><a href="looking-at-the-palmer-penguins.html#cb14-3"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
-<span id="cb14-4"><a href="looking-at-the-palmer-penguins.html#cb14-4"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span></span>
-<span id="cb14-5"><a href="looking-at-the-palmer-penguins.html#cb14-5"></a><span class="st">    </span><span class="kw">facet_grid</span>(<span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span></span>
-<span id="cb14-6"><a href="looking-at-the-palmer-penguins.html#cb14-6"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
-<span id="cb14-7"><a href="looking-at-the-palmer-penguins.html#cb14-7"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Flipper Length and Body Mass, by Sex &amp; Species&quot;</span>,</span>
-<span id="cb14-8"><a href="looking-at-the-palmer-penguins.html#cb14-8"></a>         <span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="kw">nrow</span>(new_penguins), <span class="st">&quot; of the Palmer Penguins&quot;</span>),</span>
-<span id="cb14-9"><a href="looking-at-the-palmer-penguins.html#cb14-9"></a>         <span class="dt">x =</span> <span class="st">&quot;Body Mass (g)&quot;</span>, </span>
-<span id="cb14-10"><a href="looking-at-the-palmer-penguins.html#cb14-10"></a>         <span class="dt">y =</span> <span class="st">&quot;Flipper Length (mm)&quot;</span>)</span></code></pre></div>
-<p><img src="431-notes_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="looking-at-the-palmer-penguins.html#cb15-1"></a><span class="kw">ggplot</span>(new_penguins, <span class="kw">aes</span>(<span class="dt">x =</span> body_mass_g, <span class="dt">y =</span> flipper_length_mm, </span>
+<span id="cb15-2"><a href="looking-at-the-palmer-penguins.html#cb15-2"></a>                         <span class="dt">col =</span> species)) <span class="op">+</span></span>
+<span id="cb15-3"><a href="looking-at-the-palmer-penguins.html#cb15-3"></a><span class="st">    </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>, <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb15-4"><a href="looking-at-the-palmer-penguins.html#cb15-4"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>, <span class="dt">se =</span> <span class="ot">FALSE</span>, <span class="dt">size =</span> <span class="fl">1.5</span>) <span class="op">+</span></span>
+<span id="cb15-5"><a href="looking-at-the-palmer-penguins.html#cb15-5"></a><span class="st">    </span><span class="kw">facet_grid</span>(<span class="op">~</span><span class="st"> </span>sex) <span class="op">+</span></span>
+<span id="cb15-6"><a href="looking-at-the-palmer-penguins.html#cb15-6"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb15-7"><a href="looking-at-the-palmer-penguins.html#cb15-7"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Flipper Length and Body Mass, by Sex &amp; Species&quot;</span>,</span>
+<span id="cb15-8"><a href="looking-at-the-palmer-penguins.html#cb15-8"></a>         <span class="dt">subtitle =</span> <span class="kw">paste0</span>(<span class="kw">nrow</span>(new_penguins), <span class="st">&quot; of the Palmer Penguins&quot;</span>),</span>
+<span id="cb15-9"><a href="looking-at-the-palmer-penguins.html#cb15-9"></a>         <span class="dt">x =</span> <span class="st">&quot;Body Mass (g)&quot;</span>, </span>
+<span id="cb15-10"><a href="looking-at-the-palmer-penguins.html#cb15-10"></a>         <span class="dt">y =</span> <span class="st">&quot;Flipper Length (mm)&quot;</span>)</span></code></pre></div>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 </div>
 <div id="a-little-reflection" class="section level2">
 <h2><span class="header-section-number">2.5</span> A Little Reflection</h2>
