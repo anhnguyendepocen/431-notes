@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 20 Two Examples Comparing Means | Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431</title>
+  <meta name="description" content="This book describes some fundamental approaches to doing biostatistical and data science in research." />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 20 Two Examples Comparing Means | Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="This book describes some fundamental approaches to doing biostatistical and data science in research." />
+  <meta name="github-repo" content="thomaselove/431-book" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 20 Two Examples Comparing Means | Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431" />
+  
+  <meta name="twitter:description" content="This book describes some fundamental approaches to doing biostatistical and data science in research." />
+  
+
+<meta name="author" content="Thomas E. Love" />
+
+
+<meta name="date" content="2020-09-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="comparing-means-with-paired-samples.html"/>
+<link rel="next" href="analysis-of-variance.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Dr. Love's Notes for 431</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Working with These Notes</a><ul>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#the-431-course-online"><i class="fa fa-check"></i>The 431 Course online</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#what-youll-find-here"><i class="fa fa-check"></i>What You’ll Find Here</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#setting-up-r"><i class="fa fa-check"></i>Setting Up R</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#initial-setup-of-r-packages"><i class="fa fa-check"></i>Initial Setup of R Packages</a></li>
+<li><a href="index.html#the-love-boost.r-script">The <code>Love-boost.R</code> script</a></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html#additional-r-packages-installed-for-this-book"><i class="fa fa-check"></i>Additional R Packages installed for this book</a></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="data-science.html"><a href="data-science.html"><i class="fa fa-check"></i><b>1</b> Data Science</a><ul>
+<li class="chapter" data-level="1.1" data-path="data-science.html"><a href="data-science.html#data-science-project-cycle"><i class="fa fa-check"></i><b>1.1</b> Data Science Project Cycle</a></li>
+<li class="chapter" data-level="1.2" data-path="data-science.html"><a href="data-science.html#data-science-and-the-431-course"><i class="fa fa-check"></i><b>1.2</b> Data Science and the 431 Course</a></li>
+<li class="chapter" data-level="1.3" data-path="data-science.html"><a href="data-science.html#what-the-course-is-and-isnt"><i class="fa fa-check"></i><b>1.3</b> What The Course Is and Isn’t</a></li>
+</ul></li>
+<li class="part"><span><b>Part A. Exploring Data</b></span></li>
+<li class="chapter" data-level="2" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html"><i class="fa fa-check"></i><b>2</b> Looking at the Palmer Penguins</a><ul>
+<li class="chapter" data-level="2.1" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#package-loading-then-dealing-with-missing-data"><i class="fa fa-check"></i><b>2.1</b> Package Loading, then Dealing with Missing Data</a></li>
+<li class="chapter" data-level="2.2" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#counting-things-and-making-tables"><i class="fa fa-check"></i><b>2.2</b> Counting Things and Making Tables</a></li>
+<li class="chapter" data-level="2.3" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#visualizing-the-data-in-a-graph-or-a-few"><i class="fa fa-check"></i><b>2.3</b> Visualizing the Data in a Graph (or a few…)</a></li>
+<li class="chapter" data-level="2.4" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#six-ways-to-improve-this-graph"><i class="fa fa-check"></i><b>2.4</b> Six Ways To “Improve” This Graph</a></li>
+<li class="chapter" data-level="2.5" data-path="looking-at-the-palmer-penguins.html"><a href="looking-at-the-palmer-penguins.html#a-little-reflection"><i class="fa fa-check"></i><b>2.5</b> A Little Reflection</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="dataviz.html"><a href="dataviz.html"><i class="fa fa-check"></i><b>3</b> NHANES: Initial Exploring</a><ul>
+<li class="chapter" data-level="3.1" data-path="dataviz.html"><a href="dataviz.html#the-nhanes-data-collecting-a-sample"><i class="fa fa-check"></i><b>3.1</b> The NHANES data: Collecting a Sample</a></li>
+<li class="chapter" data-level="3.2" data-path="dataviz.html"><a href="dataviz.html#age-and-height"><i class="fa fa-check"></i><b>3.2</b> Age and Height</a></li>
+<li class="chapter" data-level="3.3" data-path="dataviz.html"><a href="dataviz.html#subset-of-subjects-with-known-age-and-height"><i class="fa fa-check"></i><b>3.3</b> Subset of Subjects with Known Age and Height</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="dataviz.html"><a href="dataviz.html#the-distinction-between-gender-and-sex"><i class="fa fa-check"></i><b>3.3.1</b> The Distinction between <code>Gender</code> and <code>Sex</code></a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="dataviz.html"><a href="dataviz.html#age-height-and-sex"><i class="fa fa-check"></i><b>3.4</b> Age-Height and Sex?</a><ul>
+<li class="chapter" data-level="3.4.1" data-path="dataviz.html"><a href="dataviz.html#can-we-show-the-female-and-male-relationships-in-separate-panels"><i class="fa fa-check"></i><b>3.4.1</b> Can we show the Female and Male relationships in separate panels?</a></li>
+<li class="chapter" data-level="3.4.2" data-path="dataviz.html"><a href="dataviz.html#can-we-add-a-smooth-curve-to-show-the-relationship-in-each-plot"><i class="fa fa-check"></i><b>3.4.2</b> Can we add a smooth curve to show the relationship in each plot?</a></li>
+<li class="chapter" data-level="3.4.3" data-path="dataviz.html"><a href="dataviz.html#what-if-we-want-to-assume-straight-line-relationships"><i class="fa fa-check"></i><b>3.4.3</b> What if we want to assume straight line relationships?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="dataviz.html"><a href="dataviz.html#creating-a-new-subset-ages-21-79"><i class="fa fa-check"></i><b>3.5</b> Creating A New Subset: Ages 21-79</a></li>
+<li class="chapter" data-level="3.6" data-path="dataviz.html"><a href="dataviz.html#distribution-of-heights"><i class="fa fa-check"></i><b>3.6</b> Distribution of Heights</a><ul>
+<li class="chapter" data-level="3.6.1" data-path="dataviz.html"><a href="dataviz.html#changing-a-histograms-fill-and-color"><i class="fa fa-check"></i><b>3.6.1</b> Changing a Histogram’s Fill and Color</a></li>
+</ul></li>
+<li class="chapter" data-level="3.7" data-path="dataviz.html"><a href="dataviz.html#height-and-sex"><i class="fa fa-check"></i><b>3.7</b> Height and Sex</a><ul>
+<li class="chapter" data-level="3.7.1" data-path="dataviz.html"><a href="dataviz.html#a-boxplot-of-height-by-sex"><i class="fa fa-check"></i><b>3.7.1</b> A Boxplot of Height by Sex</a></li>
+<li class="chapter" data-level="3.7.2" data-path="dataviz.html"><a href="dataviz.html#histograms-of-height-by-sex"><i class="fa fa-check"></i><b>3.7.2</b> Histograms of Height by Sex</a></li>
+</ul></li>
+<li class="chapter" data-level="3.8" data-path="dataviz.html"><a href="dataviz.html#looking-at-pulse-rate"><i class="fa fa-check"></i><b>3.8</b> Looking at Pulse Rate</a><ul>
+<li class="chapter" data-level="3.8.1" data-path="dataviz.html"><a href="dataviz.html#pulse-rate-and-physical-activity"><i class="fa fa-check"></i><b>3.8.1</b> Pulse Rate and Physical Activity</a></li>
+<li class="chapter" data-level="3.8.2" data-path="dataviz.html"><a href="dataviz.html#pulse-by-sleeping-trouble"><i class="fa fa-check"></i><b>3.8.2</b> Pulse by Sleeping Trouble</a></li>
+<li class="chapter" data-level="3.8.3" data-path="dataviz.html"><a href="dataviz.html#pulse-and-healthgen"><i class="fa fa-check"></i><b>3.8.3</b> Pulse and HealthGen</a></li>
+<li class="chapter" data-level="3.8.4" data-path="dataviz.html"><a href="dataviz.html#pulse-rate-and-systolic-blood-pressure"><i class="fa fa-check"></i><b>3.8.4</b> Pulse Rate and Systolic Blood Pressure</a></li>
+<li class="chapter" data-level="3.8.5" data-path="dataviz.html"><a href="dataviz.html#sleep-trouble-vs.-no-sleep-trouble"><i class="fa fa-check"></i><b>3.8.5</b> Sleep Trouble vs. No Sleep Trouble?</a></li>
+</ul></li>
+<li class="chapter" data-level="3.9" data-path="dataviz.html"><a href="dataviz.html#general-health-status"><i class="fa fa-check"></i><b>3.9</b> General Health Status</a><ul>
+<li class="chapter" data-level="3.9.1" data-path="dataviz.html"><a href="dataviz.html#bar-chart-for-categorical-data"><i class="fa fa-check"></i><b>3.9.1</b> Bar Chart for Categorical Data</a></li>
+<li class="chapter" data-level="3.9.2" data-path="dataviz.html"><a href="dataviz.html#working-with-tables"><i class="fa fa-check"></i><b>3.9.2</b> Working with Tables</a></li>
+<li class="chapter" data-level="3.9.3" data-path="dataviz.html"><a href="dataviz.html#sbp-by-general-health-status"><i class="fa fa-check"></i><b>3.9.3</b> SBP by General Health Status</a></li>
+<li class="chapter" data-level="3.9.4" data-path="dataviz.html"><a href="dataviz.html#sbp-by-physical-activity-and-general-health-status"><i class="fa fa-check"></i><b>3.9.4</b> SBP by Physical Activity and General Health Status</a></li>
+<li class="chapter" data-level="3.9.5" data-path="dataviz.html"><a href="dataviz.html#sbp-by-sleep-trouble-and-general-health-status"><i class="fa fa-check"></i><b>3.9.5</b> SBP by Sleep Trouble and General Health Status</a></li>
+</ul></li>
+<li class="chapter" data-level="3.10" data-path="dataviz.html"><a href="dataviz.html#conclusions"><i class="fa fa-check"></i><b>3.10</b> Conclusions</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html"><i class="fa fa-check"></i><b>4</b> Data Structures and Types of Variables</a><ul>
+<li class="chapter" data-level="4.1" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#data-require-structure-and-context"><i class="fa fa-check"></i><b>4.1</b> Data require structure and context</a></li>
+<li class="chapter" data-level="4.2" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#newNHANES"><i class="fa fa-check"></i><b>4.2</b> A New NHANES Adult Sample</a><ul>
+<li class="chapter" data-level="4.2.1" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#summarizing-the-datas-structure"><i class="fa fa-check"></i><b>4.2.1</b> Summarizing the Data’s Structure</a></li>
+<li class="chapter" data-level="4.2.2" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#what-are-the-variables"><i class="fa fa-check"></i><b>4.2.2</b> What are the variables?</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#quantitative-variables"><i class="fa fa-check"></i><b>4.3</b> Quantitative Variables</a><ul>
+<li class="chapter" data-level="4.3.1" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#a-look-at-bmi-body-mass-index"><i class="fa fa-check"></i><b>4.3.1</b> A look at BMI (Body-Mass Index)</a></li>
+</ul></li>
+<li class="chapter" data-level="4.4" data-path="data-structures-and-types-of-variables.html"><a href="data-structures-and-types-of-variables.html#qualitative-categorical-variables"><i class="fa fa-check"></i><b>4.4</b> Qualitative (Categorical) Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html"><i class="fa fa-check"></i><b>5</b> Summarizing Quantitative Variables</a><ul>
+<li class="chapter" data-level="5.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-summary-function-for-quantitative-data"><i class="fa fa-check"></i><b>5.1</b> The <code>summary</code> function for Quantitative data</a></li>
+<li class="chapter" data-level="5.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-center-of-a-distribution"><i class="fa fa-check"></i><b>5.2</b> Measuring the Center of a Distribution</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-mean-and-the-median"><i class="fa fa-check"></i><b>5.2.1</b> The Mean and The Median</a></li>
+<li class="chapter" data-level="5.2.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#dealing-with-missingness"><i class="fa fa-check"></i><b>5.2.2</b> Dealing with Missingness</a></li>
+<li class="chapter" data-level="5.2.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-mode-of-a-quantitative-variable"><i class="fa fa-check"></i><b>5.2.3</b> The Mode of a Quantitative Variable</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-spread-of-a-distribution"><i class="fa fa-check"></i><b>5.3</b> Measuring the Spread of a Distribution</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#rangeandiqr"><i class="fa fa-check"></i><b>5.3.1</b> The Range and the Interquartile Range (IQR)</a></li>
+<li class="chapter" data-level="5.3.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-variance-and-the-standard-deviation"><i class="fa fa-check"></i><b>5.3.2</b> The Variance and the Standard Deviation</a></li>
+<li class="chapter" data-level="5.3.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#obtaining-the-variance-and-standard-deviation-in-r"><i class="fa fa-check"></i><b>5.3.3</b> Obtaining the Variance and Standard Deviation in R</a></li>
+<li class="chapter" data-level="5.3.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#defining-the-variance-and-standard-deviation"><i class="fa fa-check"></i><b>5.3.4</b> Defining the Variance and Standard Deviation</a></li>
+<li class="chapter" data-level="5.3.5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#interpreting-the-sd-when-the-data-are-normally-distributed"><i class="fa fa-check"></i><b>5.3.5</b> Interpreting the SD when the data are Normally distributed</a></li>
+<li class="chapter" data-level="5.3.6" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#chebyshevs-inequality-one-interpretation-of-the-standard-deviation"><i class="fa fa-check"></i><b>5.3.6</b> Chebyshev’s Inequality: One Interpretation of the Standard Deviation</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#measuring-the-shape-of-a-distribution"><i class="fa fa-check"></i><b>5.4</b> Measuring the Shape of a Distribution</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#multimodal-vs.-unimodal-distributions"><i class="fa fa-check"></i><b>5.4.1</b> Multimodal vs. Unimodal distributions</a></li>
+<li class="chapter" data-level="5.4.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#skew"><i class="fa fa-check"></i><b>5.4.2</b> Skew</a></li>
+<li class="chapter" data-level="5.4.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#kurtosis"><i class="fa fa-check"></i><b>5.4.3</b> Kurtosis</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#more-detailed-numerical-summaries-for-quantitative-variables"><i class="fa fa-check"></i><b>5.5</b> More Detailed Numerical Summaries for Quantitative Variables</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#favstats-in-the-mosaic-package"><i class="fa fa-check"></i><b>5.5.1</b> <code>favstats</code> in the <code>mosaic</code> package</a></li>
+<li class="chapter" data-level="5.5.2" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#describe-in-the-psych-package"><i class="fa fa-check"></i><b>5.5.2</b> <code>describe</code> in the <code>psych</code> package</a></li>
+<li class="chapter" data-level="5.5.3" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#the-hmisc-packages-version-of-describe"><i class="fa fa-check"></i><b>5.5.3</b> The <code>Hmisc</code> package’s version of <code>describe</code></a></li>
+<li class="chapter" data-level="5.5.4" data-path="summarizing-quantities.html"><a href="summarizing-quantities.html#other-options"><i class="fa fa-check"></i><b>5.5.4</b> Other options</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html"><i class="fa fa-check"></i><b>6</b> Summarizing Categorical Variables</a><ul>
+<li class="chapter" data-level="6.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#the-summary-function-for-categorical-data"><i class="fa fa-check"></i><b>6.1</b> The <code>summary</code> function for Categorical data</a></li>
+<li class="chapter" data-level="6.2" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#tables-to-describe-one-categorical-variable"><i class="fa fa-check"></i><b>6.2</b> Tables to describe One Categorical Variable</a></li>
+<li class="chapter" data-level="6.3" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#the-mode-of-a-categorical-variable"><i class="fa fa-check"></i><b>6.3</b> The Mode of a Categorical Variable</a></li>
+<li class="chapter" data-level="6.4" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#describe-in-the-hmisc-package"><i class="fa fa-check"></i><b>6.4</b> <code>describe</code> in the <code>Hmisc</code> package</a></li>
+<li class="chapter" data-level="6.5" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#cross-tabulations"><i class="fa fa-check"></i><b>6.5</b> Cross-Tabulations</a><ul>
+<li class="chapter" data-level="6.5.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#cross-classifying-three-categorical-variables"><i class="fa fa-check"></i><b>6.5.1</b> Cross-Classifying Three Categorical Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#constructing-tables-well"><i class="fa fa-check"></i><b>6.6</b> Constructing Tables Well</a><ul>
+<li class="chapter" data-level="6.6.1" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#alabama-first"><i class="fa fa-check"></i><b>6.6.1</b> Alabama First!</a></li>
+<li class="chapter" data-level="6.6.2" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#order-rows-and-columns-sensibly"><i class="fa fa-check"></i><b>6.6.2</b> Order rows and columns sensibly</a></li>
+<li class="chapter" data-level="6.6.3" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#round---a-lot"><i class="fa fa-check"></i><b>6.6.3</b> Round - a lot!</a></li>
+<li class="chapter" data-level="6.6.4" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#all-is-different-and-important"><i class="fa fa-check"></i><b>6.6.4</b> ALL is different and important</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summarizing-categorical-variables.html"><a href="summarizing-categorical-variables.html#gaining-control-over-tables-in-r-the-gt-package"><i class="fa fa-check"></i><b>6.7</b> Gaining Control over Tables in R: the <code>gt</code> package</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="NYFS-Study.html"><a href="NYFS-Study.html"><i class="fa fa-check"></i><b>7</b> NHANES National Youth Fitness Survey (<code>nnyfs</code>)</a><ul>
+<li class="chapter" data-level="7.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-variables-included-in-nnyfs"><i class="fa fa-check"></i><b>7.1</b> The Variables included in <code>nnyfs</code></a><ul>
+<li class="chapter" data-level="7.1.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#from-the-nnyfs-demographic-component"><i class="fa fa-check"></i><b>7.1.1</b> From the <span>NNYFS Demographic Component</span></a></li>
+<li class="chapter" data-level="7.1.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#from-the-nnyfs-dietary-component"><i class="fa fa-check"></i><b>7.1.2</b> From the <span>NNYFS Dietary Component</span></a></li>
+<li class="chapter" data-level="7.1.3" data-path="NYFS-Study.html"><a href="NYFS-Study.html#from-the-nnyfs-examination-component"><i class="fa fa-check"></i><b>7.1.3</b> From the <span>NNYFS Examination Component</span></a></li>
+<li class="chapter" data-level="7.1.4" data-path="NYFS-Study.html"><a href="NYFS-Study.html#from-the-nnyfs-questionnaire-component"><i class="fa fa-check"></i><b>7.1.4</b> From the <span>NNYFS Questionnaire Component</span></a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#looking-over-a-few-variables"><i class="fa fa-check"></i><b>7.2</b> Looking over A Few Variables</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#seqn"><i class="fa fa-check"></i><b>7.2.1</b> <code>SEQN</code></a></li>
+<li class="chapter" data-level="7.2.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#sex"><i class="fa fa-check"></i><b>7.2.2</b> <code>sex</code></a></li>
+<li class="chapter" data-level="7.2.3" data-path="NYFS-Study.html"><a href="NYFS-Study.html#age_child"><i class="fa fa-check"></i><b>7.2.3</b> <code>age_child</code></a></li>
+<li class="chapter" data-level="7.2.4" data-path="NYFS-Study.html"><a href="NYFS-Study.html#race_eth"><i class="fa fa-check"></i><b>7.2.4</b> <code>race_eth</code></a></li>
+<li class="chapter" data-level="7.2.5" data-path="NYFS-Study.html"><a href="NYFS-Study.html#income_pov"><i class="fa fa-check"></i><b>7.2.5</b> <code>income_pov</code></a></li>
+<li class="chapter" data-level="7.2.6" data-path="NYFS-Study.html"><a href="NYFS-Study.html#bmi"><i class="fa fa-check"></i><b>7.2.6</b> <code>bmi</code></a></li>
+<li class="chapter" data-level="7.2.7" data-path="NYFS-Study.html"><a href="NYFS-Study.html#bmi_cat"><i class="fa fa-check"></i><b>7.2.7</b> <code>bmi_cat</code></a></li>
+<li class="chapter" data-level="7.2.8" data-path="NYFS-Study.html"><a href="NYFS-Study.html#waist"><i class="fa fa-check"></i><b>7.2.8</b> <code>waist</code></a></li>
+<li class="chapter" data-level="7.2.9" data-path="NYFS-Study.html"><a href="NYFS-Study.html#triceps_skinfold"><i class="fa fa-check"></i><b>7.2.9</b> <code>triceps_skinfold</code></a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="NYFS-Study.html"><a href="NYFS-Study.html#additional-numeric-summaries"><i class="fa fa-check"></i><b>7.3</b> Additional Numeric Summaries</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-five-number-summary-quantiles-and-iqr"><i class="fa fa-check"></i><b>7.3.1</b> The Five Number Summary, Quantiles and IQR</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="NYFS-Study.html"><a href="NYFS-Study.html#additional-summaries-from-favstats"><i class="fa fa-check"></i><b>7.4</b> Additional Summaries from <code>favstats</code></a></li>
+<li class="chapter" data-level="7.5" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-histogram"><i class="fa fa-check"></i><b>7.5</b> The Histogram</a><ul>
+<li class="chapter" data-level="7.5.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#freedman-diaconis-rule-to-select-bin-width"><i class="fa fa-check"></i><b>7.5.1</b> Freedman-Diaconis Rule to select bin width</a></li>
+<li class="chapter" data-level="7.5.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#a-note-on-colors"><i class="fa fa-check"></i><b>7.5.2</b> A Note on Colors</a></li>
+</ul></li>
+<li class="chapter" data-level="7.6" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-dot-plot-to-display-a-distribution"><i class="fa fa-check"></i><b>7.6</b> The Dot Plot to display a distribution</a></li>
+<li class="chapter" data-level="7.7" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-frequency-polygon"><i class="fa fa-check"></i><b>7.7</b> The Frequency Polygon</a></li>
+<li class="chapter" data-level="7.8" data-path="NYFS-Study.html"><a href="NYFS-Study.html#plotting-the-probability-density-function"><i class="fa fa-check"></i><b>7.8</b> Plotting the Probability Density Function</a></li>
+<li class="chapter" data-level="7.9" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-boxplot"><i class="fa fa-check"></i><b>7.9</b> The Boxplot</a><ul>
+<li class="chapter" data-level="7.9.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#drawing-a-boxplot-for-one-variable-in-ggplot2"><i class="fa fa-check"></i><b>7.9.1</b> Drawing a Boxplot for One Variable in <code>ggplot2</code></a></li>
+<li class="chapter" data-level="7.9.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#about-the-boxplot"><i class="fa fa-check"></i><b>7.9.2</b> About the Boxplot</a></li>
+</ul></li>
+<li class="chapter" data-level="7.10" data-path="NYFS-Study.html"><a href="NYFS-Study.html#a-simple-comparison-boxplot"><i class="fa fa-check"></i><b>7.10</b> A Simple Comparison Boxplot</a></li>
+<li class="chapter" data-level="7.11" data-path="NYFS-Study.html"><a href="NYFS-Study.html#using-describe-in-the-psych-library"><i class="fa fa-check"></i><b>7.11</b> Using <code>describe</code> in the <code>psych</code> library</a><ul>
+<li class="chapter" data-level="7.11.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-trimmed-mean"><i class="fa fa-check"></i><b>7.11.1</b> The Trimmed Mean</a></li>
+<li class="chapter" data-level="7.11.2" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-median-absolute-deviation"><i class="fa fa-check"></i><b>7.11.2</b> The Median Absolute Deviation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.12" data-path="NYFS-Study.html"><a href="NYFS-Study.html#assessing-skew"><i class="fa fa-check"></i><b>7.12</b> Assessing Skew</a><ul>
+<li class="chapter" data-level="7.12.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#non-parametric-skewness"><i class="fa fa-check"></i><b>7.12.1</b> Non-parametric Skewness</a></li>
+</ul></li>
+<li class="chapter" data-level="7.13" data-path="NYFS-Study.html"><a href="NYFS-Study.html#assessing-kurtosis-heavy-tailedness"><i class="fa fa-check"></i><b>7.13</b> Assessing Kurtosis (Heavy-Tailedness)</a><ul>
+<li class="chapter" data-level="7.13.1" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-standard-error-of-the-sample-mean"><i class="fa fa-check"></i><b>7.13.1</b> The Standard Error of the Sample Mean</a></li>
+</ul></li>
+<li class="chapter" data-level="7.14" data-path="NYFS-Study.html"><a href="NYFS-Study.html#the-describe-function-in-the-hmisc-package"><i class="fa fa-check"></i><b>7.14</b> The <code>describe</code> function in the <code>Hmisc</code> package</a></li>
+<li class="chapter" data-level="7.15" data-path="NYFS-Study.html"><a href="NYFS-Study.html#what-summaries-to-report"><i class="fa fa-check"></i><b>7.15</b> What Summaries to Report</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="assessing-normality.html"><a href="assessing-normality.html"><i class="fa fa-check"></i><b>8</b> Assessing Normality</a><ul>
+<li class="chapter" data-level="8.1" data-path="assessing-normality.html"><a href="assessing-normality.html#empirical-rule-interpretation-of-the-standard-deviation"><i class="fa fa-check"></i><b>8.1</b> Empirical Rule Interpretation of the Standard Deviation</a></li>
+<li class="chapter" data-level="8.2" data-path="assessing-normality.html"><a href="assessing-normality.html#describing-outlying-values-with-z-scores"><i class="fa fa-check"></i><b>8.2</b> Describing Outlying Values with Z Scores</a><ul>
+<li class="chapter" data-level="8.2.1" data-path="assessing-normality.html"><a href="assessing-normality.html#fences-and-z-scores"><i class="fa fa-check"></i><b>8.2.1</b> Fences and Z Scores</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="assessing-normality.html"><a href="assessing-normality.html#comparing-a-histogram-to-a-normal-distribution"><i class="fa fa-check"></i><b>8.3</b> Comparing a Histogram to a Normal Distribution</a><ul>
+<li class="chapter" data-level="8.3.1" data-path="assessing-normality.html"><a href="assessing-normality.html#histogram-of-energy-with-normal-model-with-counts"><i class="fa fa-check"></i><b>8.3.1</b> Histogram of <code>energy</code> with Normal model (with Counts)</a></li>
+</ul></li>
+<li class="chapter" data-level="8.4" data-path="assessing-normality.html"><a href="assessing-normality.html#does-a-normal-model-work-well-for-the-waist-circumference"><i class="fa fa-check"></i><b>8.4</b> Does a Normal model work well for the <code>waist</code> circumference?</a></li>
+<li class="chapter" data-level="8.5" data-path="assessing-normality.html"><a href="assessing-normality.html#the-normal-q-q-plot"><i class="fa fa-check"></i><b>8.5</b> The Normal Q-Q Plot</a></li>
+<li class="chapter" data-level="8.6" data-path="assessing-normality.html"><a href="assessing-normality.html#interpreting-the-normal-q-q-plot"><i class="fa fa-check"></i><b>8.6</b> Interpreting the Normal Q-Q Plot</a><ul>
+<li class="chapter" data-level="8.6.1" data-path="assessing-normality.html"><a href="assessing-normality.html#data-from-a-normal-distribution-shows-up-as-a-straight-line-in-a-normal-q-q-plot"><i class="fa fa-check"></i><b>8.6.1</b> Data from a Normal distribution shows up as a straight line in a Normal Q-Q plot</a></li>
+<li class="chapter" data-level="8.6.2" data-path="assessing-normality.html"><a href="assessing-normality.html#skew-is-indicated-by-monotonic-curves-in-the-normal-q-q-plot"><i class="fa fa-check"></i><b>8.6.2</b> Skew is indicated by monotonic curves in the Normal Q-Q plot</a></li>
+<li class="chapter" data-level="8.6.3" data-path="assessing-normality.html"><a href="assessing-normality.html#direction-of-skew"><i class="fa fa-check"></i><b>8.6.3</b> Direction of Skew</a></li>
+<li class="chapter" data-level="8.6.4" data-path="assessing-normality.html"><a href="assessing-normality.html#outlier-proneness-is-indicated-by-s-shaped-curves-in-a-normal-q-q-plot"><i class="fa fa-check"></i><b>8.6.4</b> Outlier-proneness is indicated by “s-shaped” curves in a Normal Q-Q plot</a></li>
+</ul></li>
+<li class="chapter" data-level="8.7" data-path="assessing-normality.html"><a href="assessing-normality.html#can-a-normal-distribution-fit-the-nnyfs-energy-data-well"><i class="fa fa-check"></i><b>8.7</b> Can a Normal Distribution Fit the <code>nnyfs</code> <code>energy</code> data Well?</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html"><i class="fa fa-check"></i><b>9</b> Using Transformations to “Normalize” Distributions</a><ul>
+<li class="chapter" data-level="9.1" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#the-ladder-of-power-transformations"><i class="fa fa-check"></i><b>9.1</b> The Ladder of Power Transformations</a></li>
+<li class="chapter" data-level="9.2" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#using-the-ladder"><i class="fa fa-check"></i><b>9.2</b> Using the Ladder</a></li>
+<li class="chapter" data-level="9.3" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#protein-consumption-in-the-nnyfs-data"><i class="fa fa-check"></i><b>9.3</b> Protein Consumption in the NNYFS data</a><ul>
+<li class="chapter" data-level="9.3.1" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#using-patchwork-to-compose-plots"><i class="fa fa-check"></i><b>9.3.1</b> Using <code>patchwork</code> to compose plots</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#can-we-transform-the-protein-data"><i class="fa fa-check"></i><b>9.4</b> Can we transform the <code>protein</code> data?</a><ul>
+<li class="chapter" data-level="9.4.1" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#the-square-root"><i class="fa fa-check"></i><b>9.4.1</b> The Square Root</a></li>
+<li class="chapter" data-level="9.4.2" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#the-logarithm"><i class="fa fa-check"></i><b>9.4.2</b> The Logarithm</a></li>
+<li class="chapter" data-level="9.4.3" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#this-course-uses-natural-logarithms-unless-otherwise-specified"><i class="fa fa-check"></i><b>9.4.3</b> This course uses Natural Logarithms, unless otherwise specified</a></li>
+</ul></li>
+<li class="chapter" data-level="9.5" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#what-if-we-considered-all-9-available-transformations"><i class="fa fa-check"></i><b>9.5</b> What if we considered all 9 available transformations?</a></li>
+<li class="chapter" data-level="9.6" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#a-simulated-data-set"><i class="fa fa-check"></i><b>9.6</b> A Simulated Data Set</a></li>
+<li class="chapter" data-level="9.7" data-path="using-transformations-to-normalize-distributions.html"><a href="using-transformations-to-normalize-distributions.html#what-if-we-considered-all-9-available-transformations-1"><i class="fa fa-check"></i><b>9.7</b> What if we considered all 9 available transformations?</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html"><i class="fa fa-check"></i><b>10</b> Summarizing data within subgroups</a><ul>
+<li class="chapter" data-level="10.1" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#using-dplyr-and-summarise-to-build-a-tibble-of-summary-information"><i class="fa fa-check"></i><b>10.1</b> Using dplyr and summarise to build a tibble of summary information</a></li>
+<li class="chapter" data-level="10.2" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#another-example"><i class="fa fa-check"></i><b>10.2</b> Another Example</a></li>
+<li class="chapter" data-level="10.3" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#boxplots-to-relate-an-outcome-to-a-categorical-predictor"><i class="fa fa-check"></i><b>10.3</b> Boxplots to Relate an Outcome to a Categorical Predictor</a><ul>
+<li class="chapter" data-level="10.3.1" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#augmenting-the-boxplot-with-the-sample-mean"><i class="fa fa-check"></i><b>10.3.1</b> Augmenting the Boxplot with the Sample Mean</a></li>
+<li class="chapter" data-level="10.3.2" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#building-a-violin-plot"><i class="fa fa-check"></i><b>10.3.2</b> Building a Violin Plot</a></li>
+<li class="chapter" data-level="10.3.3" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#adding-notches-to-a-boxplot"><i class="fa fa-check"></i><b>10.3.3</b> Adding Notches to a Boxplot</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#using-multiple-histograms-to-make-comparisons"><i class="fa fa-check"></i><b>10.4</b> Using Multiple Histograms to Make Comparisons</a></li>
+<li class="chapter" data-level="10.5" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#using-multiple-density-plots-to-make-comparisons"><i class="fa fa-check"></i><b>10.5</b> Using Multiple Density Plots to Make Comparisons</a></li>
+<li class="chapter" data-level="10.6" data-path="summarizing-data-within-subgroups.html"><a href="summarizing-data-within-subgroups.html#a-ridgeline-plot"><i class="fa fa-check"></i><b>10.6</b> A Ridgeline Plot</a></li>
+</ul></li>
+<li class="chapter" data-level="11" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html"><i class="fa fa-check"></i><b>11</b> Straight Line Models and Correlation</a><ul>
+<li class="chapter" data-level="11.1" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#assessing-a-scatterplot"><i class="fa fa-check"></i><b>11.1</b> Assessing A Scatterplot</a><ul>
+<li class="chapter" data-level="11.1.1" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#highlighting-an-unusual-point"><i class="fa fa-check"></i><b>11.1.1</b> Highlighting an unusual point</a></li>
+<li class="chapter" data-level="11.1.2" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#adding-a-scatterplot-smooth-using-loess"><i class="fa fa-check"></i><b>11.1.2</b> Adding a Scatterplot Smooth using loess</a></li>
+<li class="chapter" data-level="11.1.3" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#what-line-does-r-fit"><i class="fa fa-check"></i><b>11.1.3</b> What Line Does R Fit?</a></li>
+</ul></li>
+<li class="chapter" data-level="11.2" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#correlation-coefficients"><i class="fa fa-check"></i><b>11.2</b> Correlation Coefficients</a></li>
+<li class="chapter" data-level="11.3" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#the-pearson-correlation-coefficient"><i class="fa fa-check"></i><b>11.3</b> The Pearson Correlation Coefficient</a></li>
+<li class="chapter" data-level="11.4" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#studying-correlation-through-6-examples"><i class="fa fa-check"></i><b>11.4</b> Studying Correlation through 6 Examples</a><ul>
+<li class="chapter" data-level="11.4.1" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#data-set-alex"><i class="fa fa-check"></i><b>11.4.1</b> Data Set Alex</a></li>
+<li class="chapter" data-level="11.4.2" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#data-set-bonnie"><i class="fa fa-check"></i><b>11.4.2</b> Data Set Bonnie</a></li>
+<li class="chapter" data-level="11.4.3" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#correlations-for-all-six-data-sets-in-the-correx1-example"><i class="fa fa-check"></i><b>11.4.3</b> Correlations for All Six Data Sets in the Correx1 Example</a></li>
+<li class="chapter" data-level="11.4.4" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#data-set-colin"><i class="fa fa-check"></i><b>11.4.4</b> Data Set Colin</a></li>
+<li class="chapter" data-level="11.4.5" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#draw-the-picture"><i class="fa fa-check"></i><b>11.4.5</b> Draw the Picture!</a></li>
+</ul></li>
+<li class="chapter" data-level="11.5" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#estimating-correlation-from-scatterplots"><i class="fa fa-check"></i><b>11.5</b> Estimating Correlation from Scatterplots</a></li>
+<li class="chapter" data-level="11.6" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#the-spearman-rank-correlation"><i class="fa fa-check"></i><b>11.6</b> The Spearman Rank Correlation</a><ul>
+<li class="chapter" data-level="11.6.1" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-formula"><i class="fa fa-check"></i><b>11.6.1</b> Spearman Formula</a></li>
+<li class="chapter" data-level="11.6.2" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#comparing-pearson-and-spearman-correlations"><i class="fa fa-check"></i><b>11.6.2</b> Comparing Pearson and Spearman Correlations</a></li>
+<li class="chapter" data-level="11.6.3" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-vs.-pearson-example-1"><i class="fa fa-check"></i><b>11.6.3</b> Spearman vs. Pearson Example 1</a></li>
+<li class="chapter" data-level="11.6.4" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-vs.-pearson-example-2"><i class="fa fa-check"></i><b>11.6.4</b> Spearman vs. Pearson Example 2</a></li>
+<li class="chapter" data-level="11.6.5" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-vs.-pearson-example-3"><i class="fa fa-check"></i><b>11.6.5</b> Spearman vs. Pearson Example 3</a></li>
+<li class="chapter" data-level="11.6.6" data-path="straight-line-models-and-correlation.html"><a href="straight-line-models-and-correlation.html#spearman-vs.-pearson-example-4"><i class="fa fa-check"></i><b>11.6.6</b> Spearman vs. Pearson Example 4</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="12" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html"><i class="fa fa-check"></i><b>12</b> Studying Crab Claws (<code>crabs</code>)</a><ul>
+<li class="chapter" data-level="12.1" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#association-of-size-and-force"><i class="fa fa-check"></i><b>12.1</b> Association of Size and Force</a></li>
+<li class="chapter" data-level="12.2" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#loess_smooth"><i class="fa fa-check"></i><b>12.2</b> The <code>loess</code> smooth</a><ul>
+<li class="chapter" data-level="12.2.1" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#smoothing-within-species"><i class="fa fa-check"></i><b>12.2.1</b> Smoothing within Species</a></li>
+</ul></li>
+<li class="chapter" data-level="12.3" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#fitting-a-linear-regression-model"><i class="fa fa-check"></i><b>12.3</b> Fitting a Linear Regression Model</a></li>
+<li class="chapter" data-level="12.4" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#is-a-linear-model-appropriate"><i class="fa fa-check"></i><b>12.4</b> Is a Linear Model Appropriate?</a><ul>
+<li class="chapter" data-level="12.4.1" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#the-log-log-model"><i class="fa fa-check"></i><b>12.4.1</b> The log-log model</a></li>
+<li class="chapter" data-level="12.4.2" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#how-does-this-compare-to-our-original-linear-model"><i class="fa fa-check"></i><b>12.4.2</b> How does this compare to our original linear model?</a></li>
+</ul></li>
+<li class="chapter" data-level="12.5" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#making-predictions-with-a-model"><i class="fa fa-check"></i><b>12.5</b> Making Predictions with a Model</a><ul>
+<li class="chapter" data-level="12.5.1" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#predictions-after-a-transformation"><i class="fa fa-check"></i><b>12.5.1</b> Predictions After a Transformation</a></li>
+<li class="chapter" data-level="12.5.2" data-path="studying-crab-claws-crabs.html"><a href="studying-crab-claws-crabs.html#comparing-model-predictions"><i class="fa fa-check"></i><b>12.5.2</b> Comparing Model Predictions</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="13" data-path="WCGS-Study.html"><a href="WCGS-Study.html"><i class="fa fa-check"></i><b>13</b> The Western Collaborative Group Study</a><ul>
+<li class="chapter" data-level="13.1" data-path="WCGS-Study.html"><a href="WCGS-Study.html#the-western-collaborative-group-study-wcgs-data-set"><i class="fa fa-check"></i><b>13.1</b> The Western Collaborative Group Study (<code>wcgs</code>) data set</a><ul>
+<li class="chapter" data-level="13.1.1" data-path="WCGS-Study.html"><a href="WCGS-Study.html#structure-of-wcgs"><i class="fa fa-check"></i><b>13.1.1</b> Structure of <code>wcgs</code></a></li>
+<li class="chapter" data-level="13.1.2" data-path="WCGS-Study.html"><a href="WCGS-Study.html#codebook-for-wcgs"><i class="fa fa-check"></i><b>13.1.2</b> Codebook for <code>wcgs</code></a></li>
+<li class="chapter" data-level="13.1.3" data-path="WCGS-Study.html"><a href="WCGS-Study.html#quick-summary"><i class="fa fa-check"></i><b>13.1.3</b> Quick Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="13.2" data-path="WCGS-Study.html"><a href="WCGS-Study.html#are-the-sbps-normally-distributed"><i class="fa fa-check"></i><b>13.2</b> Are the SBPs Normally Distributed?</a></li>
+<li class="chapter" data-level="13.3" data-path="WCGS-Study.html"><a href="WCGS-Study.html#identifying-and-describing-sbp-outliers"><i class="fa fa-check"></i><b>13.3</b> Identifying and Describing SBP outliers</a></li>
+<li class="chapter" data-level="13.4" data-path="WCGS-Study.html"><a href="WCGS-Study.html#does-weight-category-relate-to-sbp"><i class="fa fa-check"></i><b>13.4</b> Does Weight Category Relate to SBP?</a></li>
+<li class="chapter" data-level="13.5" data-path="WCGS-Study.html"><a href="WCGS-Study.html#re-leveling-a-factor"><i class="fa fa-check"></i><b>13.5</b> Re-Leveling a Factor</a><ul>
+<li class="chapter" data-level="13.5.1" data-path="WCGS-Study.html"><a href="WCGS-Study.html#sbp-by-weight-category"><i class="fa fa-check"></i><b>13.5.1</b> SBP by Weight Category</a></li>
+</ul></li>
+<li class="chapter" data-level="13.6" data-path="WCGS-Study.html"><a href="WCGS-Study.html#are-weight-and-sbp-linked"><i class="fa fa-check"></i><b>13.6</b> Are Weight and SBP Linked?</a></li>
+<li class="chapter" data-level="13.7" data-path="WCGS-Study.html"><a href="WCGS-Study.html#sbp-and-weight-by-arcus-senilis-groups"><i class="fa fa-check"></i><b>13.7</b> SBP and Weight by Arcus Senilis groups?</a></li>
+<li class="chapter" data-level="13.8" data-path="WCGS-Study.html"><a href="WCGS-Study.html#linear-model-for-sbp-weight-relationship-subjects-without-arcus-senilis"><i class="fa fa-check"></i><b>13.8</b> Linear Model for SBP-Weight Relationship: subjects without Arcus Senilis</a></li>
+<li class="chapter" data-level="13.9" data-path="WCGS-Study.html"><a href="WCGS-Study.html#linear-model-for-sbp-weight-relationship-subjects-with-arcus-senilis"><i class="fa fa-check"></i><b>13.9</b> Linear Model for SBP-Weight Relationship: subjects with Arcus Senilis</a></li>
+<li class="chapter" data-level="13.10" data-path="WCGS-Study.html"><a href="WCGS-Study.html#including-arcus-status-in-the-model"><i class="fa fa-check"></i><b>13.10</b> Including Arcus Status in the model</a></li>
+<li class="chapter" data-level="13.11" data-path="WCGS-Study.html"><a href="WCGS-Study.html#predictions-from-these-linear-models"><i class="fa fa-check"></i><b>13.11</b> Predictions from these Linear Models</a></li>
+<li class="chapter" data-level="13.12" data-path="WCGS-Study.html"><a href="WCGS-Study.html#scatterplots-with-facets-across-a-categorical-variable"><i class="fa fa-check"></i><b>13.12</b> Scatterplots with Facets Across a Categorical Variable</a></li>
+<li class="chapter" data-level="13.13" data-path="WCGS-Study.html"><a href="WCGS-Study.html#scatterplot-and-correlation-matrices"><i class="fa fa-check"></i><b>13.13</b> Scatterplot and Correlation Matrices</a><ul>
+<li class="chapter" data-level="13.13.1" data-path="WCGS-Study.html"><a href="WCGS-Study.html#displaying-a-correlation-matrix"><i class="fa fa-check"></i><b>13.13.1</b> Displaying a Correlation Matrix</a></li>
+<li class="chapter" data-level="13.13.2" data-path="WCGS-Study.html"><a href="WCGS-Study.html#using-the-ggally-package"><i class="fa fa-check"></i><b>13.13.2</b> Using the <code>GGally</code> package</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="14" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html"><i class="fa fa-check"></i><b>14</b> Re-Expression, Tukey’s Ladder &amp; Box-Cox Plot</a><ul>
+<li class="chapter" data-level="14.1" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#linearize-the-association-between-quantitative-variables"><i class="fa fa-check"></i><b>14.1</b> “Linearize” The Association between Quantitative Variables</a></li>
+<li class="chapter" data-level="14.2" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#a-new-tool-the-box-cox-plot"><i class="fa fa-check"></i><b>14.2</b> A New Tool: the Box-Cox Plot</a><ul>
+<li class="chapter" data-level="14.2.1" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#a-few-caveats"><i class="fa fa-check"></i><b>14.2.1</b> A Few Caveats</a></li>
+</ul></li>
+<li class="chapter" data-level="14.3" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#a-simulated-example"><i class="fa fa-check"></i><b>14.3</b> A Simulated Example</a></li>
+<li class="chapter" data-level="14.4" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#checking-on-a-transformation-or-re-expression"><i class="fa fa-check"></i><b>14.4</b> Checking on a Transformation or Re-Expression</a><ul>
+<li class="chapter" data-level="14.4.1" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#checking-the-correlation-coefficients"><i class="fa fa-check"></i><b>14.4.1</b> Checking the Correlation Coefficients</a></li>
+<li class="chapter" data-level="14.4.2" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#using-the-testtransform-function"><i class="fa fa-check"></i><b>14.4.2</b> Using the <code>testTransform</code> function</a></li>
+<li class="chapter" data-level="14.4.3" data-path="re-expression-tukeys-ladder-box-cox-plot.html"><a href="re-expression-tukeys-ladder-box-cox-plot.html#comparing-the-residual-plots"><i class="fa fa-check"></i><b>14.4.3</b> Comparing the Residual Plots</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="15" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html"><i class="fa fa-check"></i><b>15</b> Dehydration Recovery in Kids: A Small Study</a><ul>
+<li class="chapter" data-level="15.1" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#a-scatterplot-matrix"><i class="fa fa-check"></i><b>15.1</b> A Scatterplot Matrix</a></li>
+<li class="chapter" data-level="15.2" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#are-the-recovery-scores-well-described-by-a-normal-model"><i class="fa fa-check"></i><b>15.2</b> Are the recovery scores well described by a Normal model?</a></li>
+<li class="chapter" data-level="15.3" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#simple-regression-using-dose-to-predict-recovery"><i class="fa fa-check"></i><b>15.3</b> Simple Regression: Using Dose to predict Recovery</a></li>
+<li class="chapter" data-level="15.4" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#the-scatterplot-with-fitted-linear-model"><i class="fa fa-check"></i><b>15.4</b> The Scatterplot, with fitted Linear Model</a></li>
+<li class="chapter" data-level="15.5" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#the-fitted-linear-model"><i class="fa fa-check"></i><b>15.5</b> The Fitted Linear Model</a><ul>
+<li class="chapter" data-level="15.5.1" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#confidence-intervals"><i class="fa fa-check"></i><b>15.5.1</b> Confidence Intervals</a></li>
+</ul></li>
+<li class="chapter" data-level="15.6" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#the-summary-output"><i class="fa fa-check"></i><b>15.6</b> The Summary Output</a><ul>
+<li class="chapter" data-level="15.6.1" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#model-specification"><i class="fa fa-check"></i><b>15.6.1</b> Model Specification</a></li>
+<li class="chapter" data-level="15.6.2" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#residual-summary"><i class="fa fa-check"></i><b>15.6.2</b> Residual Summary</a></li>
+<li class="chapter" data-level="15.6.3" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#coefficients-output"><i class="fa fa-check"></i><b>15.6.3</b> Coefficients Output</a></li>
+<li class="chapter" data-level="15.6.4" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#correlation-and-slope"><i class="fa fa-check"></i><b>15.6.4</b> Correlation and Slope</a></li>
+<li class="chapter" data-level="15.6.5" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#coefficient-testing"><i class="fa fa-check"></i><b>15.6.5</b> Coefficient Testing</a></li>
+<li class="chapter" data-level="15.6.6" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#summarizing-the-quality-of-fit"><i class="fa fa-check"></i><b>15.6.6</b> Summarizing the Quality of Fit</a></li>
+<li class="chapter" data-level="15.6.7" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#anova-f-test"><i class="fa fa-check"></i><b>15.6.7</b> ANOVA F test</a></li>
+</ul></li>
+<li class="chapter" data-level="15.7" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#viewing-the-complete-anova-table"><i class="fa fa-check"></i><b>15.7</b> Viewing the complete ANOVA table</a></li>
+<li class="chapter" data-level="15.8" data-path="dehydration-recovery-in-kids-a-small-study.html"><a href="dehydration-recovery-in-kids-a-small-study.html#plotting-residuals-vs.-fitted-values"><i class="fa fa-check"></i><b>15.8</b> Plotting Residuals vs. Fitted Values</a></li>
+</ul></li>
+<li class="chapter" data-level="16" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html"><i class="fa fa-check"></i><b>16</b> Highlights of What We’ve Seen So Far</a><ul>
+<li class="chapter" data-level="16.1" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#key-graphical-descriptive-summaries-for-quantitative-data"><i class="fa fa-check"></i><b>16.1</b> Key Graphical Descriptive Summaries for Quantitative Data</a></li>
+<li class="chapter" data-level="16.2" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#key-numerical-descriptive-summaries-for-quantitative-data"><i class="fa fa-check"></i><b>16.2</b> Key Numerical Descriptive Summaries for Quantitative Data</a></li>
+<li class="chapter" data-level="16.3" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#the-empirical-rule---interpreting-a-standard-deviation"><i class="fa fa-check"></i><b>16.3</b> The Empirical Rule - Interpreting a Standard Deviation</a></li>
+<li class="chapter" data-level="16.4" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#identifying-outliers-using-fences-andor-z-scores"><i class="fa fa-check"></i><b>16.4</b> Identifying “Outliers” Using Fences and/or Z Scores</a></li>
+<li class="chapter" data-level="16.5" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#summarizing-bivariate-associations-scatterplots-and-regression-lines"><i class="fa fa-check"></i><b>16.5</b> Summarizing Bivariate Associations: Scatterplots and Regression Lines</a></li>
+<li class="chapter" data-level="16.6" data-path="highlights-of-what-weve-seen-so-far.html"><a href="highlights-of-what-weve-seen-so-far.html#summarizing-bivariate-associations-with-correlations"><i class="fa fa-check"></i><b>16.6</b> Summarizing Bivariate Associations With Correlations</a></li>
+</ul></li>
+<li class="chapter" data-level="17" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html"><i class="fa fa-check"></i><b>17</b> Confidence Intervals for a Mean</a><ul>
+<li class="chapter" data-level="17.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#love-boost.r-is-something-well-start-using-now"><i class="fa fa-check"></i><b>17.1</b> <code>Love-boost.R</code> is something we’ll start using now</a></li>
+<li class="chapter" data-level="17.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#introduction"><i class="fa fa-check"></i><b>17.2</b> Introduction</a></li>
+<li class="chapter" data-level="17.3" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#this-chapters-goals"><i class="fa fa-check"></i><b>17.3</b> This Chapter’s Goals</a></li>
+<li class="chapter" data-level="17.4" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#serum-zinc-levels-in-462-teenage-males-serzinc"><i class="fa fa-check"></i><b>17.4</b> Serum Zinc Levels in 462 Teenage Males (<code>serzinc</code>)</a></li>
+<li class="chapter" data-level="17.5" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#our-goal-a-confidence-interval-for-the-population-mean"><i class="fa fa-check"></i><b>17.5</b> Our Goal: A Confidence Interval for the Population Mean</a></li>
+<li class="chapter" data-level="17.6" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#exploratory-data-analysis-for-serum-zinc"><i class="fa fa-check"></i><b>17.6</b> Exploratory Data Analysis for Serum Zinc</a><ul>
+<li class="chapter" data-level="17.6.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#graphical-summaries"><i class="fa fa-check"></i><b>17.6.1</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="17.6.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#numerical-summaries"><i class="fa fa-check"></i><b>17.6.2</b> Numerical Summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="17.7" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#defining-a-confidence-interval"><i class="fa fa-check"></i><b>17.7</b> Defining a Confidence Interval</a></li>
+<li class="chapter" data-level="17.8" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#estimating-the-population-mean-from-the-serum-zinc-data"><i class="fa fa-check"></i><b>17.8</b> Estimating the Population Mean from the Serum Zinc data</a></li>
+<li class="chapter" data-level="17.9" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#confidence-vs.-significance-level"><i class="fa fa-check"></i><b>17.9</b> Confidence vs. Significance Level</a></li>
+<li class="chapter" data-level="17.10" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#the-standard-error-of-a-sample-mean"><i class="fa fa-check"></i><b>17.10</b> The Standard Error of a Sample Mean</a></li>
+<li class="chapter" data-level="17.11" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#the-t-distribution-and-cis-for-a-mean"><i class="fa fa-check"></i><b>17.11</b> The t distribution and CIs for a Mean</a><ul>
+<li class="chapter" data-level="17.11.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#the-formula"><i class="fa fa-check"></i><b>17.11.1</b> The Formula</a></li>
+<li class="chapter" data-level="17.11.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#students-t-distribution"><i class="fa fa-check"></i><b>17.11.2</b> Student’s t distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="17.12" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#building-the-ci-in-r"><i class="fa fa-check"></i><b>17.12</b> Building the CI in R</a></li>
+<li class="chapter" data-level="17.13" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#using-an-intercept-only-regression-model"><i class="fa fa-check"></i><b>17.13</b> Using an intercept-only regression model</a></li>
+<li class="chapter" data-level="17.14" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#interpreting-the-result"><i class="fa fa-check"></i><b>17.14</b> Interpreting the Result</a></li>
+<li class="chapter" data-level="17.15" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#what-if-we-want-a-95-or-99-confidence-interval-instead"><i class="fa fa-check"></i><b>17.15</b> What if we want a 95% or 99% confidence interval instead?</a></li>
+<li class="chapter" data-level="17.16" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#using-the-broom-package-with-the-t-test"><i class="fa fa-check"></i><b>17.16</b> Using the <code>broom</code> package with the t test</a><ul>
+<li class="chapter" data-level="17.16.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#effect-of-changing-the-confidence-level"><i class="fa fa-check"></i><b>17.16.1</b> Effect of Changing the Confidence Level</a></li>
+</ul></li>
+<li class="chapter" data-level="17.17" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#one-sided-vs.-two-sided-confidence-intervals"><i class="fa fa-check"></i><b>17.17</b> One-sided vs. Two-sided Confidence Intervals</a></li>
+<li class="chapter" data-level="17.18" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>17.18</b> Bootstrap Confidence Intervals</a></li>
+<li class="chapter" data-level="17.19" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#resampling-is-a-big-idea"><i class="fa fa-check"></i><b>17.19</b> Resampling is A Big Idea</a></li>
+<li class="chapter" data-level="17.20" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#when-is-a-bootstrap-confidence-interval-reasonable"><i class="fa fa-check"></i><b>17.20</b> When is a Bootstrap Confidence Interval Reasonable?</a></li>
+<li class="chapter" data-level="17.21" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#bootstrap-confidence-interval-for-the-mean-process"><i class="fa fa-check"></i><b>17.21</b> Bootstrap confidence interval for the mean: Process</a></li>
+<li class="chapter" data-level="17.22" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#using-r-to-estimate-a-bootstrap-ci"><i class="fa fa-check"></i><b>17.22</b> Using R to estimate a bootstrap CI</a></li>
+<li class="chapter" data-level="17.23" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#comparing-bootstrap-and-t-based-confidence-intervals"><i class="fa fa-check"></i><b>17.23</b> Comparing Bootstrap and T-Based Confidence Intervals</a><ul>
+<li class="chapter" data-level="17.23.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#bootstrap-resampling-advantages-and-caveats"><i class="fa fa-check"></i><b>17.23.1</b> Bootstrap Resampling: Advantages and Caveats</a></li>
+</ul></li>
+<li class="chapter" data-level="17.24" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#using-the-bootstrap-to-develop-other-cis"><i class="fa fa-check"></i><b>17.24</b> Using the Bootstrap to develop other CIs</a><ul>
+<li class="chapter" data-level="17.24.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#changing-the-confidence-level"><i class="fa fa-check"></i><b>17.24.1</b> Changing the Confidence Level</a></li>
+</ul></li>
+<li class="chapter" data-level="17.25" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#one-tailed-bootstrap-confidence-intervals"><i class="fa fa-check"></i><b>17.25</b> One-Tailed Bootstrap Confidence Intervals</a><ul>
+<li class="chapter" data-level="17.25.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#bootstrap-ci-for-the-population-median"><i class="fa fa-check"></i><b>17.25.1</b> Bootstrap CI for the Population Median</a></li>
+<li class="chapter" data-level="17.25.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#bootstrap-ci-for-the-iqr"><i class="fa fa-check"></i><b>17.25.2</b> Bootstrap CI for the IQR</a></li>
+</ul></li>
+<li class="chapter" data-level="17.26" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#wilcoxon-signed-rank-procedure-for-cis"><i class="fa fa-check"></i><b>17.26</b> Wilcoxon Signed Rank Procedure for CIs</a><ul>
+<li class="chapter" data-level="17.26.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#what-is-a-pseudo-median"><i class="fa fa-check"></i><b>17.26.1</b> What is a Pseudo-Median?</a></li>
+</ul></li>
+<li class="chapter" data-level="17.27" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#wilcoxon-signed-rank-based-ci-in-r"><i class="fa fa-check"></i><b>17.27</b> Wilcoxon Signed Rank-based CI in R</a><ul>
+<li class="chapter" data-level="17.27.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#interpreting-the-wilcoxon-ci-for-the-population-median"><i class="fa fa-check"></i><b>17.27.1</b> Interpreting the Wilcoxon CI for the Population Median</a></li>
+<li class="chapter" data-level="17.27.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#using-the-broom-package-with-the-wilcoxon-test"><i class="fa fa-check"></i><b>17.27.2</b> Using the <code>broom</code> package with the Wilcoxon test</a></li>
+</ul></li>
+<li class="chapter" data-level="17.28" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#general-advice"><i class="fa fa-check"></i><b>17.28</b> General Advice</a></li>
+</ul></li>
+<li class="chapter" data-level="18" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><i class="fa fa-check"></i><b>18</b> The Ibuprofen in Sepsis Randomized Clinical Trial</a><ul>
+<li class="chapter" data-level="18.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#comparing-two-groups"><i class="fa fa-check"></i><b>18.1</b> Comparing Two Groups</a><ul>
+<li class="chapter" data-level="18.1.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#model-based-comparisons-and-anovaregression"><i class="fa fa-check"></i><b>18.1.1</b> Model-Based Comparisons and ANOVA/Regression</a></li>
+</ul></li>
+<li class="chapter" data-level="18.2" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#key-questions-for-comparing-with-independent-samples"><i class="fa fa-check"></i><b>18.2</b> Key Questions for Comparing with Independent Samples</a><ul>
+<li class="chapter" data-level="18.2.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#what-is-the-population-under-study"><i class="fa fa-check"></i><b>18.2.1</b> What is the <strong>population</strong> under study?</a></li>
+<li class="chapter" data-level="18.2.2" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#what-is-the-sample-is-it-representative-of-the-population"><i class="fa fa-check"></i><b>18.2.2</b> What is the <strong>sample</strong>? Is it representative of the population?</a></li>
+<li class="chapter" data-level="18.2.3" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#who-are-the-subjects-individuals-within-the-sample"><i class="fa fa-check"></i><b>18.2.3</b> Who are the subjects / <strong>individuals</strong> within the sample?</a></li>
+<li class="chapter" data-level="18.2.4" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#what-data-are-available-on-each-individual"><i class="fa fa-check"></i><b>18.2.4</b> What <strong>data</strong> are available on each individual?</a></li>
+<li class="chapter" data-level="18.2.5" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#rct-caveats"><i class="fa fa-check"></i><b>18.2.5</b> RCT Caveats</a></li>
+</ul></li>
+<li class="chapter" data-level="18.3" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#exploratory-data-analysis"><i class="fa fa-check"></i><b>18.3</b> Exploratory Data Analysis</a></li>
+<li class="chapter" data-level="18.4" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#estimating-the-difference-in-population-means"><i class="fa fa-check"></i><b>18.4</b> Estimating the Difference in Population Means</a></li>
+<li class="chapter" data-level="18.5" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#t-based-ci-for-population-mean1---mean2-difference"><i class="fa fa-check"></i><b>18.5</b> t-based CI for population mean1 - mean2 difference</a><ul>
+<li class="chapter" data-level="18.5.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#the-pooled-t-procedure"><i class="fa fa-check"></i><b>18.5.1</b> The Pooled t procedure</a></li>
+<li class="chapter" data-level="18.5.2" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#using-linear-regression-to-obtain-a-pooled-t-confidence-interval"><i class="fa fa-check"></i><b>18.5.2</b> Using linear regression to obtain a pooled t confidence interval</a></li>
+<li class="chapter" data-level="18.5.3" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#the-welch-t-procedure"><i class="fa fa-check"></i><b>18.5.3</b> The Welch t procedure</a></li>
+</ul></li>
+<li class="chapter" data-level="18.6" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#wilcoxon-mann-whitney-rank-sum-ci"><i class="fa fa-check"></i><b>18.6</b> Wilcoxon-Mann-Whitney “Rank Sum” CI</a></li>
+<li class="chapter" data-level="18.7" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#bootstrapping-a-more-robust-approach"><i class="fa fa-check"></i><b>18.7</b> Bootstrapping: A More Robust Approach</a><ul>
+<li class="chapter" data-level="18.7.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#bootstrap-ci-for-the-sepsis-study"><i class="fa fa-check"></i><b>18.7.1</b> Bootstrap CI for the Sepsis study</a></li>
+</ul></li>
+<li class="chapter" data-level="18.8" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#summary-specifying-a-two-sample-study-design"><i class="fa fa-check"></i><b>18.8</b> Summary: Specifying A Two-Sample Study Design</a></li>
+<li class="chapter" data-level="18.9" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#results-for-the-sepsis-study"><i class="fa fa-check"></i><b>18.9</b> Results for the <code>sepsis</code> study</a><ul>
+<li class="chapter" data-level="18.9.1" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#sepsis-estimation-results"><i class="fa fa-check"></i><b>18.9.1</b> Sepsis Estimation Results</a></li>
+</ul></li>
+<li class="chapter" data-level="18.10" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#categorizing-the-outcome-and-comparing-rates"><i class="fa fa-check"></i><b>18.10</b> Categorizing the Outcome and Comparing Rates</a></li>
+<li class="chapter" data-level="18.11" data-path="the-ibuprofen-in-sepsis-randomized-clinical-trial.html"><a href="the-ibuprofen-in-sepsis-randomized-clinical-trial.html#estimating-the-difference-in-proportions"><i class="fa fa-check"></i><b>18.11</b> Estimating the Difference in Proportions</a></li>
+</ul></li>
+<li class="chapter" data-level="19" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html"><i class="fa fa-check"></i><b>19</b> Comparing Means with Paired Samples</a><ul>
+<li class="chapter" data-level="19.1" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#lead-in-the-blood-of-children"><i class="fa fa-check"></i><b>19.1</b> Lead in the Blood of Children</a></li>
+<li class="chapter" data-level="19.2" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#the-lead-in-the-blood-of-children-study"><i class="fa fa-check"></i><b>19.2</b> The Lead in the Blood of Children Study</a><ul>
+<li class="chapter" data-level="19.2.1" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#our-key-questions-for-a-paired-samples-comparison"><i class="fa fa-check"></i><b>19.2.1</b> Our Key Questions for a Paired Samples Comparison</a></li>
+<li class="chapter" data-level="19.2.2" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#lead-study-caveats"><i class="fa fa-check"></i><b>19.2.2</b> Lead Study Caveats</a></li>
+</ul></li>
+<li class="chapter" data-level="19.3" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#exploratory-data-analysis-for-paired-samples"><i class="fa fa-check"></i><b>19.3</b> Exploratory Data Analysis for Paired Samples</a><ul>
+<li class="chapter" data-level="19.3.1" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#the-paired-differences"><i class="fa fa-check"></i><b>19.3.1</b> The Paired Differences</a></li>
+<li class="chapter" data-level="19.3.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#numerical-summaries"><i class="fa fa-check"></i><b>19.3.2</b> Numerical Summaries</a></li>
+<li class="chapter" data-level="19.3.3" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#impact-of-matching---scatterplot-and-correlation"><i class="fa fa-check"></i><b>19.3.3</b> Impact of Matching - Scatterplot and Correlation</a></li>
+</ul></li>
+<li class="chapter" data-level="19.4" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#looking-at-separate-samples-using-pivot_longer"><i class="fa fa-check"></i><b>19.4</b> Looking at Separate Samples: Using <code>pivot_longer</code></a></li>
+<li class="chapter" data-level="19.5" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#estimating-the-difference-in-means-with-paired-samples"><i class="fa fa-check"></i><b>19.5</b> Estimating the Difference in Means with Paired Samples</a><ul>
+<li class="chapter" data-level="19.5.1" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#paired-data-in-longer-format"><i class="fa fa-check"></i><b>19.5.1</b> Paired Data in Longer Format?</a></li>
+</ul></li>
+<li class="chapter" data-level="19.6" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#matched-pairs-vs.-two-independent-samples"><i class="fa fa-check"></i><b>19.6</b> Matched Pairs vs. Two Independent Samples</a></li>
+<li class="chapter" data-level="19.7" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#estimating-the-population-mean-of-the-paired-differences"><i class="fa fa-check"></i><b>19.7</b> Estimating the Population Mean of the Paired Differences</a></li>
+<li class="chapter" data-level="19.8" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#t-based-ci-for-population-mean-of-paired-differences"><i class="fa fa-check"></i><b>19.8</b> t-based CI for Population Mean of Paired Differences</a><ul>
+<li class="chapter" data-level="19.8.1" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#method-1"><i class="fa fa-check"></i><b>19.8.1</b> Method 1</a></li>
+<li class="chapter" data-level="19.8.2" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#method-2"><i class="fa fa-check"></i><b>19.8.2</b> Method 2</a></li>
+<li class="chapter" data-level="19.8.3" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#method-3"><i class="fa fa-check"></i><b>19.8.3</b> Method 3</a></li>
+<li class="chapter" data-level="19.8.4" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#method-4"><i class="fa fa-check"></i><b>19.8.4</b> Method 4</a></li>
+<li class="chapter" data-level="19.8.5" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#method-5"><i class="fa fa-check"></i><b>19.8.5</b> Method 5</a></li>
+<li class="chapter" data-level="19.8.6" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#assumptions"><i class="fa fa-check"></i><b>19.8.6</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="19.9" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#bootstrap-ci-for-mean-difference-using-paired-samples"><i class="fa fa-check"></i><b>19.9</b> Bootstrap CI for mean difference using paired samples</a><ul>
+<li class="chapter" data-level="19.9.1" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#assumptions-1"><i class="fa fa-check"></i><b>19.9.1</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="19.10" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#wilcoxon-signed-rank-based-ci-for-paired-samples"><i class="fa fa-check"></i><b>19.10</b> Wilcoxon Signed Rank-based CI for paired samples</a><ul>
+<li class="chapter" data-level="19.10.1" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#assumptions-2"><i class="fa fa-check"></i><b>19.10.1</b> Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="19.11" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#choosing-a-confidence-interval-approach"><i class="fa fa-check"></i><b>19.11</b> Choosing a Confidence Interval Approach</a></li>
+<li class="chapter" data-level="19.12" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#conclusions-for-the-bloodlead-study"><i class="fa fa-check"></i><b>19.12</b> Conclusions for the <code>bloodlead</code> study</a></li>
+<li class="chapter" data-level="19.13" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#the-sign-test"><i class="fa fa-check"></i><b>19.13</b> The Sign test</a></li>
+<li class="chapter" data-level="19.14" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#paired-dependent-vs.-independent-samples"><i class="fa fa-check"></i><b>19.14</b> Paired (Dependent) vs. Independent Samples</a><ul>
+<li class="chapter" data-level="19.14.1" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#three-tricky-examples"><i class="fa fa-check"></i><b>19.14.1</b> Three “Tricky” Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="19.15" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#a-more-complete-decision-support-tool-comparing-means"><i class="fa fa-check"></i><b>19.15</b> A More Complete Decision Support Tool: Comparing Means</a><ul>
+<li class="chapter" data-level="19.15.1" data-path="comparing-means-with-paired-samples.html"><a href="comparing-means-with-paired-samples.html#answers-for-the-three-tricky-examples"><i class="fa fa-check"></i><b>19.15.1</b> Answers for the Three “Tricky” Examples</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="20" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html"><i class="fa fa-check"></i><b>20</b> Two Examples Comparing Means</a><ul>
+<li class="chapter" data-level="20.1" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#a-study-of-battery-life"><i class="fa fa-check"></i><b>20.1</b> A Study of Battery Life</a><ul>
+<li class="chapter" data-level="20.1.1" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-1.-what-is-the-outcome-under-study"><i class="fa fa-check"></i><b>20.1.1</b> Question 1. What is the outcome under study?</a></li>
+<li class="chapter" data-level="20.1.2" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-2.-what-are-the-treatmentexposure-groups"><i class="fa fa-check"></i><b>20.1.2</b> Question 2. What are the treatment/exposure groups?</a></li>
+<li class="chapter" data-level="20.1.3" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-3.-are-the-data-collected-using-paired-or-independent-samples"><i class="fa fa-check"></i><b>20.1.3</b> Question 3. Are the data collected using paired or independent samples?</a></li>
+<li class="chapter" data-level="20.1.4" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-4.-are-the-data-a-random-sample-from-the-population-of-interest"><i class="fa fa-check"></i><b>20.1.4</b> Question 4. Are the data a random sample from the population of interest?</a></li>
+<li class="chapter" data-level="20.1.5" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-5.-what-significance-level-will-we-use"><i class="fa fa-check"></i><b>20.1.5</b> Question 5. What significance level will we use?</a></li>
+<li class="chapter" data-level="20.1.6" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-6.-are-we-using-a-one-sided-or-two-sided-comparison"><i class="fa fa-check"></i><b>20.1.6</b> Question 6. Are we using a one-sided or two-sided comparison?</a></li>
+<li class="chapter" data-level="20.1.7" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-9.-what-does-the-distribution-of-outcomes-in-each-group-tell-us"><i class="fa fa-check"></i><b>20.1.7</b> Question 9. What does the distribution of outcomes in each group tell us?</a></li>
+<li class="chapter" data-level="20.1.8" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#inferential-results-for-the-battery-study"><i class="fa fa-check"></i><b>20.1.8</b> Inferential Results for the Battery Study</a></li>
+<li class="chapter" data-level="20.1.9" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#paired-samples-approaches"><i class="fa fa-check"></i><b>20.1.9</b> Paired Samples Approaches</a></li>
+<li class="chapter" data-level="20.1.10" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#independent-samples-approaches"><i class="fa fa-check"></i><b>20.1.10</b> Independent Samples Approaches</a></li>
+</ul></li>
+<li class="chapter" data-level="20.2" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#the-breakfast-study-does-oat-bran-cereal-lower-serum-ldl-cholesterol"><i class="fa fa-check"></i><b>20.2</b> The Breakfast Study: Does Oat Bran Cereal Lower Serum LDL Cholesterol?</a><ul>
+<li class="chapter" data-level="20.2.1" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-1.-what-is-the-outcome-under-study-1"><i class="fa fa-check"></i><b>20.2.1</b> Question 1. What is the outcome under study?</a></li>
+<li class="chapter" data-level="20.2.2" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-2.-what-are-the-treatmentexposure-groups-1"><i class="fa fa-check"></i><b>20.2.2</b> Question 2. What are the treatment/exposure groups?</a></li>
+<li class="chapter" data-level="20.2.3" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-3.-are-the-data-collected-using-paired-or-independent-samples-1"><i class="fa fa-check"></i><b>20.2.3</b> Question 3. Are the data collected using paired or independent samples?</a></li>
+<li class="chapter" data-level="20.2.4" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-4.-are-the-data-a-random-sample-from-the-population-of-interest-1"><i class="fa fa-check"></i><b>20.2.4</b> Question 4. Are the data a random sample from the population of interest?</a></li>
+<li class="chapter" data-level="20.2.5" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-5.-what-significance-level-will-we-use-1"><i class="fa fa-check"></i><b>20.2.5</b> Question 5. What significance level will we use?</a></li>
+<li class="chapter" data-level="20.2.6" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-6.-are-we-using-a-one-sided-or-two-sided-comparison-1"><i class="fa fa-check"></i><b>20.2.6</b> Question 6. Are we using a one-sided or two-sided comparison?</a></li>
+<li class="chapter" data-level="20.2.7" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-7.-did-pairing-help-reduce-nuisance-variation"><i class="fa fa-check"></i><b>20.2.7</b> Question 7. Did pairing help reduce nuisance variation?</a></li>
+<li class="chapter" data-level="20.2.8" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#question-8.-what-does-the-distribution-of-paired-differences-tell-us"><i class="fa fa-check"></i><b>20.2.8</b> Question 8. What does the distribution of paired differences tell us?</a></li>
+</ul></li>
+<li class="chapter" data-level="20.3" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#power-sample-size-and-the-breakfast-study"><i class="fa fa-check"></i><b>20.3</b> Power, Sample Size and the Breakfast Study</a><ul>
+<li class="chapter" data-level="20.3.1" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#the-setup"><i class="fa fa-check"></i><b>20.3.1</b> The Setup</a></li>
+<li class="chapter" data-level="20.3.2" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#the-r-calculations"><i class="fa fa-check"></i><b>20.3.2</b> The R Calculations</a></li>
+<li class="chapter" data-level="20.3.3" data-path="two-examples-comparing-means.html"><a href="two-examples-comparing-means.html#independent-samples-instead-of-paired-samples"><i class="fa fa-check"></i><b>20.3.3</b> Independent samples, instead of paired samples?</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="21" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html"><i class="fa fa-check"></i><b>21</b> Analysis of Variance</a><ul>
+<li class="chapter" data-level="21.1" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#comparing-gross-motor-quotient-scores-by-income-level-3-categories"><i class="fa fa-check"></i><b>21.1</b> Comparing Gross Motor Quotient Scores by Income Level (3 Categories)</a><ul>
+<li class="chapter" data-level="21.1.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#graphical-summaries"><i class="fa fa-check"></i><b>21.1.1</b> Graphical Summaries</a></li>
+<li class="chapter" data-level="21.1.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#numerical-summaries"><i class="fa fa-check"></i><b>21.1.2</b> Numerical Summaries</a></li>
+</ul></li>
+<li class="chapter" data-level="21.2" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#alternative-procedures-for-comparing-more-than-two-means"><i class="fa fa-check"></i><b>21.2</b> Alternative Procedures for Comparing More Than Two Means</a><ul>
+<li class="chapter" data-level="21.2.1" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#extending-the-welch-test-to-2-independent-samples"><i class="fa fa-check"></i><b>21.2.1</b> Extending the Welch Test to &gt; 2 Independent Samples</a></li>
+<li class="chapter" data-level="21.2.2" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#extending-the-rank-sum-test-to-2-independent-samples"><i class="fa fa-check"></i><b>21.2.2</b> Extending the Rank Sum Test to &gt; 2 Independent Samples</a></li>
+<li class="chapter" data-level="21.2.3" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#can-we-use-the-bootstrap-to-compare-more-than-two-means"><i class="fa fa-check"></i><b>21.2.3</b> Can we use the bootstrap to compare more than two means?</a></li>
+</ul></li>
+<li class="chapter" data-level="21.3" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#the-analysis-of-variance"><i class="fa fa-check"></i><b>21.3</b> The Analysis of Variance</a><ul>
+<li class="chapter" data-level="21.3.1" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#the-oneway.test-approach"><i class="fa fa-check"></i><b>21.3.1</b> The <code>oneway.test</code> approach</a></li>
+<li class="chapter" data-level="21.3.2" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#using-the-aov-approach-and-the-summary-function"><i class="fa fa-check"></i><b>21.3.2</b> Using the <code>aov</code> approach and the <code>summary</code> function</a></li>
+<li class="chapter" data-level="21.3.3" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#using-the-anova-function-after-fitting-a-linear-model"><i class="fa fa-check"></i><b>21.3.3</b> Using the <code>anova</code> function after fitting a linear model</a></li>
+</ul></li>
+<li class="chapter" data-level="21.4" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#interpreting-the-anova-table"><i class="fa fa-check"></i><b>21.4</b> Interpreting the ANOVA Table</a><ul>
+<li class="chapter" data-level="21.4.1" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#what-are-we-testing"><i class="fa fa-check"></i><b>21.4.1</b> What are we Testing?</a></li>
+<li class="chapter" data-level="21.4.2" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#elements-of-the-anova-table"><i class="fa fa-check"></i><b>21.4.2</b> Elements of the ANOVA Table</a></li>
+<li class="chapter" data-level="21.4.3" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#the-degrees-of-freedom"><i class="fa fa-check"></i><b>21.4.3</b> The Degrees of Freedom</a></li>
+<li class="chapter" data-level="21.4.4" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#the-sums-of-squares"><i class="fa fa-check"></i><b>21.4.4</b> The Sums of Squares</a></li>
+<li class="chapter" data-level="21.4.5" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#the-mean-square"><i class="fa fa-check"></i><b>21.4.5</b> The Mean Square</a></li>
+<li class="chapter" data-level="21.4.6" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#the-f-test-statistic-and-p-value"><i class="fa fa-check"></i><b>21.4.6</b> The F Test Statistic and <em>p</em> Value</a></li>
+</ul></li>
+<li class="chapter" data-level="21.5" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#the-residual-standard-error"><i class="fa fa-check"></i><b>21.5</b> The Residual Standard Error</a></li>
+<li class="chapter" data-level="21.6" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#the-proportion-of-variance-explained-by-the-factor"><i class="fa fa-check"></i><b>21.6</b> The Proportion of Variance Explained by the Factor</a></li>
+<li class="chapter" data-level="21.7" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#the-regression-approach-to-compare-population-means-based-on-independent-samples"><i class="fa fa-check"></i><b>21.7</b> The Regression Approach to Compare Population Means based on Independent Samples</a><ul>
+<li class="chapter" data-level="21.7.1" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#interpreting-the-regression-output"><i class="fa fa-check"></i><b>21.7.1</b> Interpreting the Regression Output</a></li>
+<li class="chapter" data-level="21.7.2" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#the-full-anova-table"><i class="fa fa-check"></i><b>21.7.2</b> The Full ANOVA Table</a></li>
+<li class="chapter" data-level="21.7.3" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#anova-assumptions"><i class="fa fa-check"></i><b>21.7.3</b> ANOVA Assumptions</a></li>
+</ul></li>
+<li class="chapter" data-level="21.8" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#equivalent-approach-to-get-anova-results"><i class="fa fa-check"></i><b>21.8</b> Equivalent approach to get ANOVA Results</a></li>
+<li class="chapter" data-level="21.9" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#the-problem-of-multiple-comparisons"><i class="fa fa-check"></i><b>21.9</b> The Problem of Multiple Comparisons</a><ul>
+<li class="chapter" data-level="21.9.1" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#the-bonferroni-solution"><i class="fa fa-check"></i><b>21.9.1</b> The Bonferroni solution</a></li>
+<li class="chapter" data-level="21.9.2" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#pairwise-comparisons-using-tukeys-hsd-method"><i class="fa fa-check"></i><b>21.9.2</b> Pairwise Comparisons using Tukey’s HSD Method</a></li>
+<li class="chapter" data-level="21.9.3" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#plotting-the-tukey-hsd-results"><i class="fa fa-check"></i><b>21.9.3</b> Plotting the Tukey HSD results</a></li>
+</ul></li>
+<li class="chapter" data-level="21.10" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#what-if-we-consider-another-outcome-bmi"><i class="fa fa-check"></i><b>21.10</b> What if we consider another outcome, BMI?</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="two-examples-comparing-means" class="section level1">
+<h1><span class="header-section-number">Chapter 20</span> Two Examples Comparing Means</h1>
+<div id="a-study-of-battery-life" class="section level2">
+<h2><span class="header-section-number">20.1</span> A Study of Battery Life</h2>
+<p>Should you buy generic rather than brand-name batteries? <span class="citation">Bock, Velleman, and De Veaux (<a href="#ref-BockVD" role="doc-biblioref">2004</a>)</span> descibe a designed experiment to test battery life. A (male) student obtained six pairs of AA alkaline batteries from two major battery manufacturers; a well-known brand name and a generic brand, so that battery brand was the factor of interest.</p>
+<p>To estimate the difference in mean lifetimes across the two manufacturers, the student kept a battery-powered CD player with the same CD running continuously, with the volume control fixed at 5, and measured the time until no more music was heard through the headphones. (He ran an initial trial to find out approximately how long that would take, so he didn’t have to spend the first 3 hours of each run listening to the same CD.) The outcome was the time in minutes until the sound stopped. To account for changes in the CD player’s performance over time, he randomized the run order by choosing pairs of batteries (the CD-player required two batteries to run) at random.</p>
+<p>Here are the results for the 6 brand name and 6 generic tests, in minutes, found in the <code>battery.csv</code> data file, where <code>run</code> indicates the order in which the tests were run…</p>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="two-examples-comparing-means.html#cb659-1"></a>battery &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/battery.csv&quot;</span>)</span></code></pre></div>
+<pre><code>Parsed with column specification:
+cols(
+  run = col_double(),
+  test = col_double(),
+  type = col_character(),
+  time = col_double()
+)</code></pre>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="two-examples-comparing-means.html#cb661-1"></a>battery</span></code></pre></div>
+<pre><code># A tibble: 12 x 4
+     run  test type        time
+   &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
+ 1     1     1 brand name  191.
+ 2     2     2 brand name  206.
+ 3     6     3 brand name  199.
+ 4     8     4 brand name  172.
+ 5     9     5 brand name  184 
+ 6    12     6 brand name  170.
+ 7     3     1 generic     194 
+ 8     4     2 generic     204.
+ 9     5     3 generic     204.
+10     7     4 generic     206.
+11    10     5 generic     222.
+12    11     6 generic     209.</code></pre>
+<div id="question-1.-what-is-the-outcome-under-study" class="section level3">
+<h3><span class="header-section-number">20.1.1</span> Question 1. What is the outcome under study?</h3>
+<p>We are studying battery lifetimes (time until the sound stopped) in minutes.</p>
+</div>
+<div id="question-2.-what-are-the-treatmentexposure-groups" class="section level3">
+<h3><span class="header-section-number">20.1.2</span> Question 2. What are the treatment/exposure groups?</h3>
+<p>We are comparing the two brands of batteries: the well-known vs. the generic.</p>
+</div>
+<div id="question-3.-are-the-data-collected-using-paired-or-independent-samples" class="section level3">
+<h3><span class="header-section-number">20.1.3</span> Question 3. Are the data collected using paired or independent samples?</h3>
+<p>Of course, if we had different numbers of samples in the two groups, then we’d know without further thought that independent samples were required. Since we have 6 observations in the brand name group, and also have 6 observations in the generic group, i.e. a balanced design, we need to pause now to decide whether paired or independent samples testing is appropriate in this setting.</p>
+<p>Two samples are paired if each data point in one sample is naturally linked to a specific data point in the other sample. So, do we have paired or independent samples?</p>
+<ul>
+<li>Despite the way I’ve set up the data table, there is no particular reason to pair, say, run #1 (a brand name run) with any particular experimental run in the generic group. So the samples are independent. This is not a matched-pairs design.</li>
+<li>In each trial, the student either used two of the well-known batteries, or two of the generic batteries.</li>
+<li>Any of the tests/confidence intervals for the independent samples methods suggests a statistically significant (at the 5% level) difference between the generic and brand name batteries.</li>
+</ul>
+</div>
+<div id="question-4.-are-the-data-a-random-sample-from-the-population-of-interest" class="section level3">
+<h3><span class="header-section-number">20.1.4</span> Question 4. Are the data a random sample from the population of interest?</h3>
+<p>Probably not. The data are likely to come from a convenient sample of batteries. I don’t know how this might bias the study, though. It seems unlikely that there would be a particular bias unless, for example, the well-known batteries were substantially older or younger than the generic.</p>
+</div>
+<div id="question-5.-what-significance-level-will-we-use" class="section level3">
+<h3><span class="header-section-number">20.1.5</span> Question 5. What significance level will we use?</h3>
+<p>We have no reason not to use a 95% confidence level.</p>
+</div>
+<div id="question-6.-are-we-using-a-one-sided-or-two-sided-comparison" class="section level3">
+<h3><span class="header-section-number">20.1.6</span> Question 6. Are we using a one-sided or two-sided comparison?</h3>
+<p>We could argue for a one-sided comparison, but I’ll be safe and use the two-sided version.</p>
+</div>
+<div id="question-9.-what-does-the-distribution-of-outcomes-in-each-group-tell-us" class="section level3">
+<h3><span class="header-section-number">20.1.7</span> Question 9. What does the distribution of outcomes in each group tell us?</h3>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="two-examples-comparing-means.html#cb663-1"></a><span class="kw">ggplot</span>(battery, <span class="kw">aes</span>(<span class="dt">x =</span> type, <span class="dt">y =</span> time, <span class="dt">fill =</span> type)) <span class="op">+</span></span>
+<span id="cb663-2"><a href="two-examples-comparing-means.html#cb663-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">color =</span> type), <span class="dt">alpha =</span> <span class="fl">0.75</span>, <span class="dt">width =</span> <span class="fl">0.125</span>) <span class="op">+</span></span>
+<span id="cb663-3"><a href="two-examples-comparing-means.html#cb663-3"></a><span class="st">  </span><span class="kw">geom_boxplot</span>(<span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span></span>
+<span id="cb663-4"><a href="two-examples-comparing-means.html#cb663-4"></a><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></span>
+<span id="cb663-5"><a href="two-examples-comparing-means.html#cb663-5"></a><span class="st">  </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="ot">FALSE</span>, <span class="dt">col =</span> <span class="ot">FALSE</span>) <span class="op">+</span></span>
+<span id="cb663-6"><a href="two-examples-comparing-means.html#cb663-6"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Battery Running Time, by Manufacturer&quot;</span>,</span>
+<span id="cb663-7"><a href="two-examples-comparing-means.html#cb663-7"></a>       <span class="dt">y =</span> <span class="st">&quot;Running Time (minutes)&quot;</span>, <span class="dt">x =</span> <span class="st">&quot;Manufacturer&quot;</span>)</span></code></pre></div>
+<p><img src="431-notes_files/figure-html/battery1-fig-1.png" width="672" /></p>
+<p>We can generate histograms, too, but that’s an issue, because we have so few observations.</p>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="two-examples-comparing-means.html#cb664-1"></a><span class="kw">ggplot</span>(battery, <span class="kw">aes</span>(<span class="dt">x =</span> time, <span class="dt">fill =</span> type)) <span class="op">+</span></span>
+<span id="cb664-2"><a href="two-examples-comparing-means.html#cb664-2"></a><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">bins =</span> <span class="dv">6</span>, <span class="dt">col =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span></span>
+<span id="cb664-3"><a href="two-examples-comparing-means.html#cb664-3"></a><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span><span class="st"> </span>type) <span class="op">+</span></span>
+<span id="cb664-4"><a href="two-examples-comparing-means.html#cb664-4"></a><span class="st">  </span><span class="kw">guides</span>(<span class="dt">fill =</span> <span class="ot">FALSE</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb664-5"><a href="two-examples-comparing-means.html#cb664-5"></a><span class="st">  </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Battery Running Time, by Manufacturer&quot;</span>)</span></code></pre></div>
+<p><img src="431-notes_files/figure-html/histogram-battery-fig-1.png" width="672" /></p>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="two-examples-comparing-means.html#cb665-1"></a>mosaic<span class="op">::</span><span class="kw">favstats</span>(time <span class="op">~</span><span class="st"> </span>type, <span class="dt">data =</span> battery)</span></code></pre></div>
+<pre><code>        type   min    Q1 median      Q3   max     mean        sd n missing
+1 brand name 169.5 175.3 187.35 197.075 205.5 186.8833 14.374341 6       0
+2    generic 194.0 203.5 205.00 208.675 222.5 206.5667  9.366251 6       0</code></pre>
+<p>It sure looks like the generic batteries lasted longer. And they also look like they were more consistent. The sample means are 206.6 for the generic group, 186.9 minutes for brand name, so the point estimate of the difference is 19.7 minutes.</p>
+<p>The question is: can we be confident that the difference we observe here is more than just random fluctuation, at a 5% significance level?</p>
+</div>
+<div id="inferential-results-for-the-battery-study" class="section level3">
+<h3><span class="header-section-number">20.1.8</span> Inferential Results for the Battery Study</h3>
+<p>In the table below, I have summarized the two-sided testing results for most of the ways in which we have looked at a two sample comparison so far, with 95% confidence intervals. If the samples really are paired, then we must choose from the paired samples comparisons described in the table. If the samples really are independent, then we must choose from the independent samples comparisons.</p>
+</div>
+<div id="paired-samples-approaches" class="section level3">
+<h3><span class="header-section-number">20.1.9</span> Paired Samples Approaches</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Method</th>
+<th align="right"><em>p</em> Value</th>
+<th align="center">95% CI for Generic - Brand Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">Paired t</td>
+<td align="right">0.058</td>
+<td align="center">-1.0, 40.4</td>
+</tr>
+<tr class="even">
+<td align="right">Wilcoxon signed rank</td>
+<td align="right">0.063</td>
+<td align="center">-2.0, 39.9</td>
+</tr>
+<tr class="odd">
+<td align="right">Bootstrap via <code>smean.cl.boot</code></td>
+<td align="right">–</td>
+<td align="center">6.7, 33.0</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="independent-samples-approaches" class="section level3">
+<h3><span class="header-section-number">20.1.10</span> Independent Samples Approaches</h3>
+<table>
+<thead>
+<tr class="header">
+<th align="right">Method</th>
+<th align="right"><em>p</em> Value</th>
+<th align="center">95% CI for Generic - Brand Name</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">Pooled t</td>
+<td align="right">0.018</td>
+<td align="center">4.1, 35.3</td>
+</tr>
+<tr class="even">
+<td align="right">Welch’s t</td>
+<td align="right">0.021</td>
+<td align="center">3.7, 35.6</td>
+</tr>
+<tr class="odd">
+<td align="right">Wilcoxon Mann Whitney rank sum</td>
+<td align="right">0.030</td>
+<td align="center">3.3, 37.0</td>
+</tr>
+<tr class="even">
+<td align="right">Bootstrap via <code>bootdif</code></td>
+<td align="right">–</td>
+<td align="center">7.7, 32.2</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="the-breakfast-study-does-oat-bran-cereal-lower-serum-ldl-cholesterol" class="section level2">
+<h2><span class="header-section-number">20.2</span> The Breakfast Study: Does Oat Bran Cereal Lower Serum LDL Cholesterol?</h2>
+<p><span class="citation">Norman and Streiner (<a href="#ref-Norman-Streiner" role="doc-biblioref">2014</a>)</span> describe a crossover study that was conducted to investigate whether oat bran cereal helps to lower serum cholesterol levels in hypercholesterolemic males. Fourteen such individuals were randomly placed on a diet that included either oat bran or corn flakes; after two weeks, their low-density lipoprotein (LDL) cholesterol levels, in mmol/l were recorded. Each subject was then switched to the alternative diet. After a second two-week period, the LDL cholesterol level of each subject was again recorded.</p>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="two-examples-comparing-means.html#cb667-1"></a>breakfast &lt;-<span class="st"> </span><span class="kw">read_csv</span>(<span class="st">&quot;data/breakfast.csv&quot;</span>)</span></code></pre></div>
+<pre><code>Parsed with column specification:
+cols(
+  subject = col_double(),
+  cornflakes = col_double(),
+  oatbran = col_double()
+)</code></pre>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="two-examples-comparing-means.html#cb669-1"></a>breakfast</span></code></pre></div>
+<pre><code># A tibble: 14 x 3
+   subject cornflakes oatbran
+     &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;
+ 1       1       4.61    3.84
+ 2       2       6.42    5.57
+ 3       3       5.4     5.85
+ 4       4       4.54    4.8 
+ 5       5       3.98    3.68
+ 6       6       3.82    2.96
+ 7       7       5.01    4.41
+ 8       8       4.34    3.72
+ 9       9       3.8     3.49
+10      10       4.56    3.84
+11      11       5.35    5.26
+12      12       3.89    3.73
+13      13       2.25    1.84
+14      14       4.24    4.14</code></pre>
+<div id="question-1.-what-is-the-outcome-under-study-1" class="section level3">
+<h3><span class="header-section-number">20.2.1</span> Question 1. What is the outcome under study?</h3>
+<p>We are studying levels of LDL cholesterol, in mmol/l. Note that if we wanted to convert to a more familiar scale, specifically mg/dl, we would multiply the mmol/l by 18, as it turns out.</p>
+</div>
+<div id="question-2.-what-are-the-treatmentexposure-groups-1" class="section level3">
+<h3><span class="header-section-number">20.2.2</span> Question 2. What are the treatment/exposure groups?</h3>
+<p>We are comparing subjects after two weeks of eating corn flakes to the same subjects after two weeks of eating oat bran.</p>
+</div>
+<div id="question-3.-are-the-data-collected-using-paired-or-independent-samples-1" class="section level3">
+<h3><span class="header-section-number">20.2.3</span> Question 3. Are the data collected using paired or independent samples?</h3>
+<p>These are matched pairs, paired by subject. Each subject produced an oat bran result and a corn flakes result.</p>
+</div>
+<div id="question-4.-are-the-data-a-random-sample-from-the-population-of-interest-1" class="section level3">
+<h3><span class="header-section-number">20.2.4</span> Question 4. Are the data a random sample from the population of interest?</h3>
+<p>Probably not. The data are likely to come from a convenient sample of 14 individuals but they were randomly assigned to cornflakes first or to oat bran first, then crossed over.</p>
+</div>
+<div id="question-5.-what-significance-level-will-we-use-1" class="section level3">
+<h3><span class="header-section-number">20.2.5</span> Question 5. What significance level will we use?</h3>
+<p>We have no reason not to use our usual 95% confidence level, so <code>alpha</code> = 0.05</p>
+</div>
+<div id="question-6.-are-we-using-a-one-sided-or-two-sided-comparison-1" class="section level3">
+<h3><span class="header-section-number">20.2.6</span> Question 6. Are we using a one-sided or two-sided comparison?</h3>
+<p>We could argue for a one-sided comparison, but I’ll be safe and use the two-sided version.</p>
+</div>
+<div id="question-7.-did-pairing-help-reduce-nuisance-variation" class="section level3">
+<h3><span class="header-section-number">20.2.7</span> Question 7. Did pairing help reduce nuisance variation?</h3>
+<p>After we drop the <code>breakfast.csv</code> file into the <code>breakfast</code> data frame, we look at the correlation of cornflakes and oatbran results across our 14 subjects.</p>
+<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="two-examples-comparing-means.html#cb671-1"></a>breakfast <span class="op">%$%</span><span class="st"> </span><span class="kw">cor</span>(cornflakes, oatbran)</span></code></pre></div>
+<pre><code>[1] 0.9233247</code></pre>
+<p>The sample Pearson correlation coefficient is very strong and positive at 0.92, so the paired samples approach will use these data far more effectively than the (incorrect) independent samples approach.</p>
+</div>
+<div id="question-8.-what-does-the-distribution-of-paired-differences-tell-us" class="section level3">
+<h3><span class="header-section-number">20.2.8</span> Question 8. What does the distribution of paired differences tell us?</h3>
+<p>We summarize the distribution of the paired differences (cornflakes - oatbran) below.</p>
+<p><img src="431-notes_files/figure-html/unnamed-chunk-223-1.png" width="672" /></p>
+<p>The Normal distribution doesn’t look too ridiculous in this case for the paired (cornflakes-oatbran) differences. Suppose we assume Normality and run the paired t test.</p>
+<div class="sourceCode" id="cb673"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb673-1"><a href="two-examples-comparing-means.html#cb673-1"></a><span class="kw">t.test</span>(breakfast<span class="op">$</span>cornflakes <span class="op">-</span><span class="st"> </span>breakfast<span class="op">$</span>oatbran)</span></code></pre></div>
+<pre><code>
+	One Sample t-test
+
+data:  breakfast$cornflakes - breakfast$oatbran
+t = 3.3444, df = 13, p-value = 0.005278
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ 0.1284606 0.5972537
+sample estimates:
+mean of x 
+0.3628571 </code></pre>
+<p>Based on this sample of 14 subjects in the crossover study, we observe a 95% confidence interval for the difference between the LDL cholesterol levels after eating corn flakes and eating oat bran that is entirely positive, suggesting that LDL levels were detectably higher (according to this t test procedure) after eating corn flakes than after eating oat bran.</p>
+</div>
+</div>
+<div id="power-sample-size-and-the-breakfast-study" class="section level2">
+<h2><span class="header-section-number">20.3</span> Power, Sample Size and the Breakfast Study</h2>
+<p>As a preview of what’s next to come, let’s investigate these promising results a bit further. Suppose that in a new study, you wish to be able to detect a difference in LDL cholesterol between two exposures: subjects who eat cornflakes (as in the original study) and subjects who continue to eat cornflakes but also take a supplemental dosage of what you believe to be the crucial ingredient in oatbran.</p>
+<p>Suppose you believe that the effect of taking the new supplement will be about half the size of the effect you observed in the original breakfast study on hypercholesterolemic males, but that males generally may be more likely to take your supplement regularly than switch from cornflakes to a less appetizing breakfast choice, making your supplement attractive.</p>
+<p>What sample size will be required to yield 90% power to detect an effect half the size of the effect we observed in the breakfast study, in a new paired samples study using a two-tailed 5% significance level? What if we only required 80% power?</p>
+<div id="the-setup" class="section level3">
+<h3><span class="header-section-number">20.3.1</span> The Setup</h3>
+<p>We want to know <em>n</em>, the minimum required sample size for the new study, and we have:</p>
+<ul>
+<li>A specified effect size of half of what we saw in the breakfast study, where the sample mean difference between cornflakes and oatbran was 0.36 mmol/l, so our effect size is assumed to be <code>delta</code> = 0.18 mmol/l.</li>
+<li>An assumed standard deviation equal to the standard deviation of the differences in the pilot breakfast study, which turns out to have been s = 0.41 mmol/l.</li>
+<li>We also have a pre-specified <code>alpha</code> = 0.05 using a two-tailed test.</li>
+<li>We also want the power to be at least 90% for our new study.</li>
+</ul>
+</div>
+<div id="the-r-calculations" class="section level3">
+<h3><span class="header-section-number">20.3.2</span> The R Calculations</h3>
+<p><strong>Question 1.</strong> What sample size will be required to yield 90% power to detect an effect half the size of the effect we observed in the breakfast study, in a new paired samples study using a two-tailed 5% significance level?</p>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="two-examples-comparing-means.html#cb675-1"></a><span class="kw">power.t.test</span>(<span class="dt">delta =</span> <span class="fl">0.18</span>, <span class="dt">sd =</span> <span class="fl">0.41</span>, <span class="dt">sig.level =</span> <span class="fl">0.05</span>, </span>
+<span id="cb675-2"><a href="two-examples-comparing-means.html#cb675-2"></a>             <span class="dt">power =</span> <span class="fl">0.9</span>, <span class="dt">type=</span><span class="st">&quot;paired&quot;</span>, <span class="dt">alternative=</span><span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<pre><code>
+     Paired t test power calculation 
+
+              n = 56.47119
+          delta = 0.18
+             sd = 0.41
+      sig.level = 0.05
+          power = 0.9
+    alternative = two.sided
+
+NOTE: n is number of *pairs*, sd is std.dev. of *differences* within pairs</code></pre>
+<p>And so our new study will require at least <strong>57 subjects</strong> (each measured in two circumstances, so 114 total measurements) in order to achieve at least 90% power to detect the difference of 0.18 mmol/l while meeting these specifications.</p>
+<p><strong>Question 2.</strong> What if we were willing to accept only 80% power?</p>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="two-examples-comparing-means.html#cb677-1"></a><span class="kw">power.t.test</span>(<span class="dt">delta =</span> <span class="fl">0.18</span>, <span class="dt">sd =</span> <span class="fl">0.41</span>, <span class="dt">sig.level =</span> <span class="fl">0.05</span>, </span>
+<span id="cb677-2"><a href="two-examples-comparing-means.html#cb677-2"></a>             <span class="dt">power =</span> <span class="fl">0.8</span>, <span class="dt">type=</span><span class="st">&quot;paired&quot;</span>, <span class="dt">alternative=</span><span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<pre><code>
+     Paired t test power calculation 
+
+              n = 42.68269
+          delta = 0.18
+             sd = 0.41
+      sig.level = 0.05
+          power = 0.8
+    alternative = two.sided
+
+NOTE: n is number of *pairs*, sd is std.dev. of *differences* within pairs</code></pre>
+<p>It turns out that this would require at least <strong>43 subjects</strong>.</p>
+</div>
+<div id="independent-samples-instead-of-paired-samples" class="section level3">
+<h3><span class="header-section-number">20.3.3</span> Independent samples, instead of paired samples?</h3>
+<p>What would happen if, instead of doing a paired samples study, we did one using independent samples? Assuming we used a balanced design, and assigned the same number of different people at random to either the oatbran supplement or regular cornflakes alone, we could do such a study, but it would require many more people to obtain similar power to the paired samples study.</p>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="two-examples-comparing-means.html#cb679-1"></a><span class="kw">power.t.test</span>(<span class="dt">delta =</span> <span class="fl">0.18</span>, <span class="dt">sd =</span> <span class="fl">0.41</span>, <span class="dt">sig.level =</span> <span class="fl">0.05</span>, </span>
+<span id="cb679-2"><a href="two-examples-comparing-means.html#cb679-2"></a>             <span class="dt">power =</span> <span class="fl">0.9</span>, <span class="dt">type=</span><span class="st">&quot;two.sample&quot;</span>, <span class="dt">alternative=</span><span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<pre><code>
+     Two-sample t test power calculation 
+
+              n = 110
+          delta = 0.18
+             sd = 0.41
+      sig.level = 0.05
+          power = 0.9
+    alternative = two.sided
+
+NOTE: n is number in *each* group</code></pre>
+<p>In all, <strong>220 people</strong> would be required in the independent samples study (110 in each exposure group), as compared to only <strong>57 people</strong> (each measured twice) in the paired study.</p>
+<p>More on power calculations coming soon.</p>
+
+</div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-BockVD">
+<p>Bock, David E., Paul F. Velleman, and Richard D. De Veaux. 2004. <em>Stats: Modelling the World</em>. Boston MA: Pearson Addison-Wesley.</p>
+</div>
+<div id="ref-Norman-Streiner">
+<p>Norman, Geoffrey R., and David L. Streiner. 2014. <em>Biostatistics: The Bare Essentials</em>. Fourth. People’s Medical Publishing House.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="comparing-means-with-paired-samples.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="analysis-of-variance.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/rstudio/bookdown-demo/edit/master/20_Two_Means_Examples.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["431-notes.pdf", "431-notes.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
