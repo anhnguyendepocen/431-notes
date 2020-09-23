@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (MiKTeX 2.9) (preloaded format=xelatex 2016.8.27)  22 SEP 2020 12:08
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (MiKTeX 2.9) (preloaded format=xelatex 2016.8.27)  23 SEP 2020 11:30
 entering extended mode
 **431-notes.tex
 (C:\Users\Thomas\Dropbox\2020-431\431-notes\431-notes.tex
@@ -3715,31 +3715,116 @@ Overfull \hbox (29.5pt too wide) in paragraph at lines 14184--14184
 [379]
 File: 431-notes_files/figure-latex/unnamed-chunk-235-1.pdf Graphic file (type Q
 Tm)
-<use  "431-notes_files/figure-latex/unnamed-chunk-235-1.pdf" > (C:\Users\Thomas
-\Dropbox\2020-431\431-notes\431-notes.bbl [380] [381
+<use  "431-notes_files/figure-latex/unnamed-chunk-235-1.pdf" > [380]
+Chapter 22.
+[381
 
-])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 14246.
-[382]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 14246.
+] [382]
+Underfull \vbox (badness 1178) has occurred while \output is active []
+
+[383]
+Underfull \hbox (badness 1728) in paragraph at lines 14341--14342
+[]\EU1/lmr/m/n/10 The ASA Statement on p-Values and Statistical Significance
+ []
+
+
+Underfull \hbox (badness 1521) in paragraph at lines 14357--14358
+[]\EU1/lmr/m/n/10 The ASA Statement on P-Values and Statistical Significance
+ []
+
+[384] [385]
+Overfull \hbox (12.44704pt too wide) in alignment at lines 14435--14439
+ [] [] [] 
+ []
+
+
+Overfull \hbox (12.44704pt too wide) in alignment at lines 14439--14443
+ [] [] [] 
+ []
+
+[386] [387] [388] [389] [390] [391] [392]
+Underfull \vbox (badness 1831) has occurred while \output is active []
+
+[393]
+Overfull \hbox (22.5pt too wide) in paragraph at lines 14835--14835
+[]\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
+* within pairs[] 
+ []
+
+
+Underfull \vbox (badness 1087) has occurred while \output is active []
+
+[394]
+Overfull \hbox (22.5pt too wide) in paragraph at lines 14868--14868
+[]\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
+* within pairs[] 
+ []
+
+[395]
+Overfull \hbox (22.5pt too wide) in paragraph at lines 14891--14891
+[]\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
+* within pairs[] 
+ []
+
+
+Overfull \hbox (22.5pt too wide) in paragraph at lines 14919--14919
+[]\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
+* within pairs[] 
+ []
+
+[396]
+Overfull \hbox (22.5pt too wide) in paragraph at lines 14957--14957
+[]\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
+* within pairs[] 
+ []
+
+
+Overfull \hbox (22.5pt too wide) in paragraph at lines 14982--14982
+[]\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
+* within pairs[] 
+ []
+
+[397]
+Overfull \hbox (22.5pt too wide) in paragraph at lines 15008--15008
+[]\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
+* within pairs[] 
+ []
+
+[398]
+Underfull \hbox (badness 10000) in paragraph at lines 15047--15049
+
+ []
+
+[399] [400] (C:\Users\Thomas\Dropbox\2020-431\431-notes\431-notes.bbl
+Overfull \hbox (82.93123pt too wide) has occurred while \output is active
+\EU1/lmr/m/sl/10 22.18.  POWER FOR INDEPENDENT SAMPLE T TESTS WITH UNBALANCED D
+ESIGNS \EU1/lmr/m/n/10 401
+ []
+
+[401] [402
+
+] [403])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 15181.
+[404]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 15181.
 (C:\Users\Thomas\Dropbox\2020-431\431-notes\431-notes.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 14246.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 14246.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 15181.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 15181.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 14246.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 15181.
  ) 
 Here is how much of TeX's memory you used:
- 30054 strings out of 428790
- 534050 string characters out of 3163802
- 692298 words of memory out of 3000000
- 32900 multiletter control sequences out of 15000+200000
- 10081 words of font info for 80 fonts, out of 3000000 for 9000
+ 30112 strings out of 428790
+ 535635 string characters out of 3163802
+ 696050 words of memory out of 3000000
+ 32957 multiletter control sequences out of 15000+200000
+ 10089 words of font info for 81 fonts, out of 3000000 for 9000
  1096 hyphenation exceptions out of 8191
  58i,9n,103p,10404b,601s stack positions out of 5000i,500n,10000p,200000b,50000s
 
-Output written on 431-notes.pdf (382 pages).
+Output written on 431-notes.pdf (404 pages).
 
 
 ! ** WARNING ** Failed to convert input string to UTF16...
@@ -3752,6 +3837,25 @@ Output written on 431-notes.pdf (382 pages).
 ! ** WARNING ** Failed to convert input string to UTF16...
 ! ** WARNING ** Failed to convert input string to UTF16...
 ! libpng warning: Interlace handling should be turned on when using png_read_image
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
+! ** WARNING ** Failed to convert input string to UTF16...
 ! ** WARNING ** Failed to convert input string to UTF16...
 ! ** WARNING ** Failed to convert input string to UTF16...
 ! ** WARNING ** Failed to convert input string to UTF16...
