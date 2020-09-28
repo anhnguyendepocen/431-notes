@@ -24,7 +24,7 @@
 <meta name="author" content="Thomas E. Love" />
 
 
-<meta name="date" content="2020-09-23" />
+<meta name="date" content="2020-09-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -590,10 +590,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="21" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html"><i class="fa fa-check"></i><b>21</b> Analysis of Variance</a><ul>
-<li class="chapter" data-level="21.1" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#comparing-gross-motor-quotient-scores-by-income-level-3-categories"><i class="fa fa-check"></i><b>21.1</b> Comparing Gross Motor Quotient Scores by Income Level (3 Categories)</a><ul>
-<li class="chapter" data-level="21.1.1" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#graphical-summaries"><i class="fa fa-check"></i><b>21.1.1</b> Graphical Summaries</a></li>
-<li class="chapter" data-level="21.1.2" data-path="confidence-intervals-for-a-mean.html"><a href="confidence-intervals-for-a-mean.html#numerical-summaries"><i class="fa fa-check"></i><b>21.1.2</b> Numerical Summaries</a></li>
-</ul></li>
+<li class="chapter" data-level="21.1" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#comparing-gross-motor-quotient-scores-by-income-level-3-categories"><i class="fa fa-check"></i><b>21.1</b> Comparing Gross Motor Quotient Scores by Income Level (3 Categories)</a></li>
 <li class="chapter" data-level="21.2" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#alternative-procedures-for-comparing-more-than-two-means"><i class="fa fa-check"></i><b>21.2</b> Alternative Procedures for Comparing More Than Two Means</a><ul>
 <li class="chapter" data-level="21.2.1" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#extending-the-welch-test-to-2-independent-samples"><i class="fa fa-check"></i><b>21.2.1</b> Extending the Welch Test to &gt; 2 Independent Samples</a></li>
 <li class="chapter" data-level="21.2.2" data-path="analysis-of-variance.html"><a href="analysis-of-variance.html#extending-the-rank-sum-test-to-2-independent-samples"><i class="fa fa-check"></i><b>21.2.2</b> Extending the Rank Sum Test to &gt; 2 Independent Samples</a></li>
@@ -743,8 +740,6 @@ cols(
 <span id="cb690-3"><a href="analysis-of-variance.html#cb690-3"></a>                         <span class="st">&quot;Low (below 25K)&quot;</span>,</span>
 <span id="cb690-4"><a href="analysis-of-variance.html#cb690-4"></a>                         <span class="st">&quot;Middle (25 - 64K)&quot;</span>,</span>
 <span id="cb690-5"><a href="analysis-of-variance.html#cb690-5"></a>                         <span class="st">&quot;High (65K or more)&quot;</span>)</span></code></pre></div>
-<div id="graphical-summaries" class="section level3">
-<h3><span class="header-section-number">21.1.1</span> Graphical Summaries</h3>
 <p>When working with three independent samples, I use graphs analogous to those we built for two independent samples.</p>
 <div class="sourceCode" id="cb691"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb691-1"><a href="analysis-of-variance.html#cb691-1"></a><span class="kw">ggplot</span>(nyfs2a, <span class="kw">aes</span>(<span class="dt">x =</span> income.cat3, <span class="dt">y =</span> GMQ, <span class="dt">fill =</span> income.cat3)) <span class="op">+</span></span>
 <span id="cb691-2"><a href="analysis-of-variance.html#cb691-2"></a><span class="st">  </span><span class="kw">geom_jitter</span>(<span class="kw">aes</span>(<span class="dt">color =</span> income.cat3), <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">width =</span> <span class="fl">0.25</span>) <span class="op">+</span></span>
@@ -769,9 +764,6 @@ cols(
 <span id="cb693-5"><a href="analysis-of-variance.html#cb693-5"></a>         <span class="dt">x =</span> <span class="st">&quot;GMQ Score&quot;</span>, <span class="dt">y =</span> <span class="st">&quot;&quot;</span>) <span class="op">+</span></span>
 <span id="cb693-6"><a href="analysis-of-variance.html#cb693-6"></a><span class="st">    </span>ggridges<span class="op">::</span><span class="kw">theme_ridges</span>()</span></code></pre></div>
 <p><img src="431-notes_files/figure-html/nyfs2a_ridgelineplot-1.png" width="672" /></p>
-</div>
-<div id="numerical-summaries" class="section level3">
-<h3><span class="header-section-number">21.1.2</span> Numerical Summaries</h3>
 <div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="analysis-of-variance.html#cb694-1"></a><span class="kw">by</span>(nyfs2a<span class="op">$</span>GMQ, nyfs2a<span class="op">$</span>income.cat3, mosaic<span class="op">::</span>favstats)</span></code></pre></div>
 <pre><code>nyfs2a$income.cat3: Low (below 25K)
  min Q1 median  Q3 max     mean       sd  n missing
@@ -784,7 +776,6 @@ nyfs2a$income.cat3: Middle (25 - 64K)
 nyfs2a$income.cat3: High (65K or more)
  min Q1 median  Q3 max     mean       sd  n missing
   64 85     97 103 145 95.72826 14.49525 92       0</code></pre>
-</div>
 </div>
 <div id="alternative-procedures-for-comparing-more-than-two-means" class="section level2">
 <h2><span class="header-section-number">21.2</span> Alternative Procedures for Comparing More Than Two Means</h2>

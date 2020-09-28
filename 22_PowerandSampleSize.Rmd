@@ -433,7 +433,7 @@ We would need at least 53 subjects in the "placebo" group.
 
 We saw earlier that a test with 60 subjects in each group would yield just under 86% power. Suppose we instead built a test with 80 subjects in the treated group, and 40 in the placebo group, then what would our power be?
 
-```{r hair unbalanced 2}
+```{r}
 pwr::pwr.t2n.test(n1 = 80, n2 = 40, d = 4.5/9, 
              sig.level = 0.10,
              alternative="two.sided")

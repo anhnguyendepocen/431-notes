@@ -34,8 +34,6 @@ nyfs2a$income.cat3 <-
                          "High (65K or more)")
 ```
 
-### Graphical Summaries
-
 When working with three independent samples, I use graphs analogous to those we built for two independent samples.
 
 ```{r boxplot_nyfs2a}
@@ -68,8 +66,6 @@ ggplot(nyfs2a, aes(x = GMQ, y = income.cat3, fill = income.cat3)) +
          x = "GMQ Score", y = "") +
     ggridges::theme_ridges()
 ```
-
-### Numerical Summaries
 
 ```{r, message=FALSE, warning=FALSE}
 by(nyfs2a$GMQ, nyfs2a$income.cat3, mosaic::favstats)

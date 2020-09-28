@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.1415926-2.5-0.9999.3 (MiKTeX 2.9) (preloaded format=xelatex 2016.8.27)  23 SEP 2020 11:30
+This is XeTeX, Version 3.1415926-2.5-0.9999.3 (MiKTeX 2.9) (preloaded format=xelatex 2016.8.27)  27 SEP 2020 19:49
 entering extended mode
 **431-notes.tex
 (C:\Users\Thomas\Dropbox\2020-431\431-notes\431-notes.tex
@@ -815,12 +815,6 @@ Package: natbib 2010/09/13 8.31b (PWD, AO)
 LaTeX Info: Redefining \cite on input line 694.
 \c@NAT@ctr=\count164
 ) (C:\Users\Thomas\Dropbox\2020-431\431-notes\431-notes.aux
-
-LaTeX Warning: Label `numerical-summaries' multiply defined.
-
-
-LaTeX Warning: Label `graphical-summaries' multiply defined.
-
 
 LaTeX Warning: Label `numerical-summaries' multiply defined.
 
@@ -2661,19 +2655,25 @@ Overfull \hbox (1.02011pt too wide) in paragraph at lines 6883--6892
 [][] 
  []
 
-[195] [196]
+
+Underfull \vbox (badness 3557) has occurred while \output is active []
+
+[195]
+Underfull \vbox (badness 1009) has occurred while \output is active []
+
+[196]
 File: 431-notes_files/figure-latex/unnamed-chunk-94-1.pdf Graphic file (type QT
 m)
-<use  "431-notes_files/figure-latex/unnamed-chunk-94-1.pdf" > [197]
+<use  "431-notes_files/figure-latex/unnamed-chunk-94-1.pdf" >
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+[197]
 File: 431-notes_files/figure-latex/unnamed-chunk-95-1.pdf Graphic file (type QT
 m)
-<use  "431-notes_files/figure-latex/unnamed-chunk-95-1.pdf" >
+<use  "431-notes_files/figure-latex/unnamed-chunk-95-1.pdf" > [198]
 File: 431-notes_files/figure-latex/unnamed-chunk-96-1.pdf Graphic file (type QT
 m)
 <use  "431-notes_files/figure-latex/unnamed-chunk-96-1.pdf" >
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-[198]
 File: 431-notes_files/figure-latex/unnamed-chunk-97-1.pdf Graphic file (type QT
 m)
 <use  "431-notes_files/figure-latex/unnamed-chunk-97-1.pdf" >
@@ -3603,9 +3603,6 @@ Overfull \hbox (5.0pt too wide) in paragraph at lines 13410--13410
 irc <dbl>,[] 
  []
 
-
-Underfull \vbox (badness 3635) has occurred while \output is active []
-
 [362]
 File: 431-notes_files/figure-latex/boxplot_nyfs2a-1.pdf Graphic file (type QTm)
 
@@ -3628,7 +3625,7 @@ e QTm)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [364]
-Underfull \hbox (badness 4108) in paragraph at lines 13530--13530
+Underfull \hbox (badness 4108) in paragraph at lines 13524--13524
 []\EU1/lmr/bx/n/14.4 Alternative Procedures for Comparing
  []
 
@@ -3638,14 +3635,17 @@ Overfull \hbox (64.31235pt too wide) has occurred while \output is active
 S \EU1/lmr/m/n/10 365
  []
 
-[365] [366] [367] [368] [369] [370]
-Overfull \hbox (0.95787pt too wide) in paragraph at lines 13833--13835
+[365] [366] [367]
+Underfull \vbox (badness 1248) has occurred while \output is active []
+
+[368] [369] [370]
+Overfull \hbox (0.95787pt too wide) in paragraph at lines 13827--13829
 []\EU1/lmr/m/n/10 The ANOVA F test is obtained by calculating MS(Factor) / MS(R
 esiduals).
  []
 
 [371]
-Underfull \hbox (badness 1990) in paragraph at lines 13869--13869
+Underfull \hbox (badness 1990) in paragraph at lines 13863--13863
 []\EU1/lmr/bx/n/14.4 The Regression Approach to Compare
  []
 
@@ -3656,19 +3656,19 @@ ED ON INDEPENDENT SAMPLES \EU1/lmr/m/n/10 373
  []
 
 [373] [374]
-Overfull \hbox (33.0pt too wide) in paragraph at lines 14100--14100
+Overfull \hbox (33.0pt too wide) in paragraph at lines 14094--14094
 []\EU1/lmtt/m/n/10 Middle (25 - 64K)-Low (below 25K)    -1.6639456 -6.649518 3.
 321627 0.7116745[] 
  []
 
 
-Overfull \hbox (34.75pt too wide) in paragraph at lines 14100--14100
+Overfull \hbox (34.75pt too wide) in paragraph at lines 14094--14094
 []\EU1/lmtt/m/n/10 High (65K or more)-Low (below 25K)   -1.3023514 -6.259595 3.
 654892 0.8098084[] 
  []
 
 
-Overfull \hbox (34.75pt too wide) in paragraph at lines 14100--14100
+Overfull \hbox (34.75pt too wide) in paragraph at lines 14094--14094
 []\EU1/lmtt/m/n/10 High (65K or more)-Middle (25 - 64K)  0.3615942 -4.701208 5.
 424396 0.9845073[] 
  []
@@ -3695,19 +3695,19 @@ Tm)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 [378]
-Overfull \hbox (26.0pt too wide) in paragraph at lines 14184--14184
+Overfull \hbox (26.0pt too wide) in paragraph at lines 14178--14178
 []\EU1/lmtt/m/n/10 1    Low (below 25K) 13.8 15.500  16.50 17.9 25.2 16.98163 2
 .194574 98       0[] 
  []
 
 
-Overfull \hbox (27.75pt too wide) in paragraph at lines 14184--14184
+Overfull \hbox (27.75pt too wide) in paragraph at lines 14178--14178
 []\EU1/lmtt/m/n/10 2  Middle (25 - 64K) 13.7 15.225  16.05 16.9 24.1 16.37111 1
 .898920 90       0[] 
  []
 
 
-Overfull \hbox (29.5pt too wide) in paragraph at lines 14184--14184
+Overfull \hbox (29.5pt too wide) in paragraph at lines 14178--14178
 []\EU1/lmtt/m/n/10 3 High (65K or more) 13.8 15.300  15.85 17.2 21.8 16.27065 1
 .614395 92       0[] 
  []
@@ -3723,22 +3723,22 @@ Chapter 22.
 Underfull \vbox (badness 1178) has occurred while \output is active []
 
 [383]
-Underfull \hbox (badness 1728) in paragraph at lines 14341--14342
+Underfull \hbox (badness 1728) in paragraph at lines 14335--14336
 []\EU1/lmr/m/n/10 The ASA Statement on p-Values and Statistical Significance
  []
 
 
-Underfull \hbox (badness 1521) in paragraph at lines 14357--14358
+Underfull \hbox (badness 1521) in paragraph at lines 14351--14352
 []\EU1/lmr/m/n/10 The ASA Statement on P-Values and Statistical Significance
  []
 
 [384] [385]
-Overfull \hbox (12.44704pt too wide) in alignment at lines 14435--14439
+Overfull \hbox (12.44704pt too wide) in alignment at lines 14429--14433
  [] [] [] 
  []
 
 
-Overfull \hbox (12.44704pt too wide) in alignment at lines 14439--14443
+Overfull \hbox (12.44704pt too wide) in alignment at lines 14433--14437
  [] [] [] 
  []
 
@@ -3746,7 +3746,7 @@ Overfull \hbox (12.44704pt too wide) in alignment at lines 14439--14443
 Underfull \vbox (badness 1831) has occurred while \output is active []
 
 [393]
-Overfull \hbox (22.5pt too wide) in paragraph at lines 14835--14835
+Overfull \hbox (22.5pt too wide) in paragraph at lines 14829--14829
 []\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
 * within pairs[] 
  []
@@ -3755,43 +3755,43 @@ Overfull \hbox (22.5pt too wide) in paragraph at lines 14835--14835
 Underfull \vbox (badness 1087) has occurred while \output is active []
 
 [394]
-Overfull \hbox (22.5pt too wide) in paragraph at lines 14868--14868
+Overfull \hbox (22.5pt too wide) in paragraph at lines 14862--14862
 []\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
 * within pairs[] 
  []
 
 [395]
-Overfull \hbox (22.5pt too wide) in paragraph at lines 14891--14891
+Overfull \hbox (22.5pt too wide) in paragraph at lines 14885--14885
 []\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
 * within pairs[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 14919--14919
+Overfull \hbox (22.5pt too wide) in paragraph at lines 14913--14913
 []\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
 * within pairs[] 
  []
 
 [396]
-Overfull \hbox (22.5pt too wide) in paragraph at lines 14957--14957
+Overfull \hbox (22.5pt too wide) in paragraph at lines 14951--14951
 []\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
 * within pairs[] 
  []
 
 
-Overfull \hbox (22.5pt too wide) in paragraph at lines 14982--14982
+Overfull \hbox (22.5pt too wide) in paragraph at lines 14976--14976
 []\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
 * within pairs[] 
  []
 
 [397]
-Overfull \hbox (22.5pt too wide) in paragraph at lines 15008--15008
+Overfull \hbox (22.5pt too wide) in paragraph at lines 15002--15002
 []\EU1/lmtt/m/n/10 NOTE: n is number of *pairs*, sd is std.dev. of *differences
 * within pairs[] 
  []
 
 [398]
-Underfull \hbox (badness 10000) in paragraph at lines 15047--15049
+Underfull \hbox (badness 10000) in paragraph at lines 15041--15043
 
  []
 
@@ -3804,16 +3804,16 @@ ESIGNS \EU1/lmr/m/n/10 401
 [401] [402
 
 ] [403])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 15181.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 15175.
 [404]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 15181.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 15175.
 (C:\Users\Thomas\Dropbox\2020-431\431-notes\431-notes.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 15181.
-Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 15181.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 15175.
+Package atveryend Info: Empty hook `AtEndAfterFileList' on input line 15175.
 
 LaTeX Warning: There were multiply-defined labels.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 15181.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 15175.
  ) 
 Here is how much of TeX's memory you used:
  30112 strings out of 428790

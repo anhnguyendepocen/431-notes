@@ -106,7 +106,7 @@ By reducing the size of the span, the plot on the right shows a somewhat less "s
 
 ### What Line Does R Fit?
 
-Returning to the linear regrssion model, how can we, mathematically, characterize that line? As with any straight line, our model equation requires us to specify two parameters: a slope and an intercept (sometimes called the y-intercept.)
+Returning to the linear regression model, how can we, mathematically, characterize that line? As with any straight line, our model equation requires us to specify two parameters: a slope and an intercept (sometimes called the y-intercept.)
 
 To identify the equation R used to fit this line (using the method of least squares), we use the `lm` command
 
