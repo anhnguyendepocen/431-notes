@@ -120,7 +120,7 @@
 
 \title{Data Science for Biological, Medical and Health Research: Notes for PQHS/CRSP/MPHP 431}
 \author{Thomas E. Love}
-\date{2020-09-27}
+\date{2020-10-01}
 
 \begin{document}
 \maketitle
@@ -9362,6 +9362,42 @@ dose & 4.88 & 2.17 & 2.25 & 0.03 & 1.21 & 8.55\\
 
 So, our 90\% confidence interval for the slope of \texttt{dose} ranges from 1.21 to 8.55.
 
+\hypertarget{coefficient-plots}{%
+\section{Coefficient Plots}\label{coefficient-plots}}
+
+The \texttt{tidy} method makes it easy to construct coefficient plots using \texttt{ggplot2}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{td <-}\StringTok{ }\KeywordTok{tidy}\NormalTok{(m1, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(td, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ estimate, }\DataTypeTok{y =}\NormalTok{ term, }\DataTypeTok{col =}\NormalTok{ term)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_crossbarh}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{xmin =}\NormalTok{ conf.low, }\DataTypeTok{xmax =}\NormalTok{ conf.high)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept =} \DecValTok{0}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{col =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Estimates with 90% confidence intervals from m1 in hydrate"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-140-1.pdf}
+
+Another option would be to use \texttt{geom\_errorbarh} in this setting, perhaps with a different color scheme\ldots{}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{td <-}\StringTok{ }\KeywordTok{tidy}\NormalTok{(m1, }\DataTypeTok{conf.int =} \OtherTok{TRUE}\NormalTok{, }\DataTypeTok{conf.level =} \FloatTok{0.90}\NormalTok{)}
+\KeywordTok{ggplot}\NormalTok{(td, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ estimate, }\DataTypeTok{y =}\NormalTok{ term, }\DataTypeTok{col =}\NormalTok{ term)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_errorbarh}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{xmin =}\NormalTok{ conf.low, }\DataTypeTok{xmax =}\NormalTok{ conf.high)) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{geom_vline}\NormalTok{(}\DataTypeTok{xintercept =} \DecValTok{0}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{scale_color_viridis_d}\NormalTok{(}\DataTypeTok{end =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{guides}\NormalTok{(}\DataTypeTok{col =} \OtherTok{FALSE}\NormalTok{) }\OperatorTok{+}
+\StringTok{  }\KeywordTok{labs}\NormalTok{(}\DataTypeTok{title =} \StringTok{"Estimates with 90% confidence intervals from m1 in hydrate"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-141-1.pdf}
+
 \hypertarget{the-summary-output}{%
 \section{The Summary Output}\label{the-summary-output}}
 
@@ -9772,6 +9808,85 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
   Note that this is \emph{not} the same ANOVA model we would get if we treated \texttt{dose} as a factor with seven levels, rather than as a quantitative variable.
 \end{itemize}
 
+\hypertarget{using-glance-to-summarize-the-models-fit}{%
+\section{\texorpdfstring{Using \texttt{glance} to summarize the model's fit}{Using glance to summarize the model's fit}}\label{using-glance-to-summarize-the-models-fit}}
+
+When applied to a linear model, the \texttt{glance} function from the \texttt{broom} package summarizes 12 characteristics of the model's fit.
+
+Let's look at the eight of these that we've already addressed.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glance}\NormalTok{(m1) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(r.squared}\OperatorTok{:}\NormalTok{df, df.residual, nobs) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \KeywordTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{0}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{r|r|r|r|r|r|r|r}
+\hline
+r.squared & adj.r.squared & sigma & statistic & p.value & df & df.residual & nobs\\
+\hline
+0.129 & 0.104 & 12.2 & 5.05 & 0.031 & 1 & 34 & 36\\
+\hline
+\end{tabular}
+
+\begin{itemize}
+\tightlist
+\item
+  We've discussed the R-square value, shown in \texttt{r.squared}.
+\item
+  We've also discussed the adjusted R-square value, in \texttt{adj.r.squared}
+\item
+  \texttt{sigma} is the residual standard error.
+\item
+  \texttt{statistic} is the ANOVA F statistic.
+\item
+  \texttt{p.value} is the \emph{p} value associated with the ANOVA F statistic.
+\item
+  \texttt{df} is the numerator degrees of freedom (here, the \texttt{df} associated with \texttt{dose}) for the ANOVA test associated with this model.
+\item
+  \texttt{df.residual} is the denominator degrees of freedom (here the \texttt{df} associated with \texttt{residual}) for that same ANOVA test.
+\item
+  Remember that the F-statistic at the bottom of the summary output provides these last four statistics, as well.
+\item
+  \texttt{nobs} is the number of observations (rows) used to fit the model.
+\end{itemize}
+
+Now, let's look at the remaining four summaries:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{glance}\NormalTok{(m1) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{select}\NormalTok{(logLik}\OperatorTok{:}\NormalTok{deviance) }\OperatorTok{%>%}
+\StringTok{  }\KeywordTok{kable}\NormalTok{(}\DataTypeTok{digits =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{r|r|r|r}
+\hline
+logLik & AIC & BIC & deviance\\
+\hline
+-140.1 & 286.3 & 291 & 5066.7\\
+\hline
+\end{tabular}
+
+\begin{itemize}
+\tightlist
+\item
+  \texttt{logLik} is the log-likelihood value for the model, and is most commonly used for a model (like the ordinary least squares model fit by \texttt{lm} that is fit using the method of maximum likelihood). Thus, the log-likelihood value will be maximized in this fit.
+\item
+  \texttt{AIC} is the Akaike Information Criterion for the model. When comparing models fitted by maximum likelihood to the same outcome variable (using the same transformation, for example), the smaller the AIC, the better the fit.
+\item
+  \texttt{BIC} is the Bayes Information Criterion for the model. When comparing models fitted by maximum likelihood to the same outcome variable (using the same transformation, for example), the smaller the BIC, the better the fit. BIC often prefers models with fewer coefficients to estimate than does AIC.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \texttt{AIC} and \texttt{BIC} can be estimated using several different approaches in R, but we'll need to use the same one across multiple models if we're comparing the results, because the concepts are only defined up to a constant.
+  \end{itemize}
+\item
+  \texttt{deviance} is the fitted model's deviance, a measure of lack of fit. It is a generalization of the residual sum of squares seen in the ANOVA table, and takes the same value in the case of a simple linear regression model fit with \texttt{lm} as we have here. For some generalized linear models, we'll use this for hypothesis testing, just as the ANOVA table does in the linear model case.
+\end{itemize}
+
 \hypertarget{plotting-residuals-vs.-fitted-values}{%
 \section{Plotting Residuals vs.~Fitted Values}\label{plotting-residuals-vs.-fitted-values}}
 
@@ -9788,7 +9903,7 @@ To save the residuals and predicted (fitted) values from this simple regression 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-142-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-146-1.pdf}
 
 We can also obtain a plot of residuals vs.~fitted values for \texttt{m1} using the following code from base R.
 
@@ -9798,7 +9913,7 @@ We can also obtain a plot of residuals vs.~fitted values for \texttt{m1} using t
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-143-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-147-1.pdf}
 
 We hope in this plot to see a generally random scatter of points, perhaps looking like a ``fuzzy football''. Since we only have seven possible \texttt{dose} values, we obtain only seven distinct predicted values, which explains the seven vertical lines in the plot. Here, the smooth red line indicates a gentle curve, but no evidence of a strong curve, or any other regular pattern in this residual plot.
 
@@ -10025,7 +10140,7 @@ for the \texttt{zinc} results from the \texttt{serzinc} tibble.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-146-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-150-1.pdf}
 
 These results include some of the more useful plots and numerical summaries when assessing shape, center and spread. The \texttt{zinc} data in the \texttt{serzinc} data frame appear to be slightly right skewed, with five outlier values on the high end of the scale, in particular.
 
@@ -10212,7 +10327,7 @@ Student's t distribution looks a lot like a Normal distribution, when the sample
   t distributions with smaller degrees of freedom (say, with df \textless{} 30, in particular) are still symmetric, but are more outlier-prone than a Normal distribution
 \end{itemize}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-149-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-153-1.pdf}
 
 \hypertarget{building-the-ci-in-r}{%
 \section{Building the CI in R}\label{building-the-ci-in-r}}
@@ -11199,7 +11314,7 @@ Consider the following boxplot with violin of the \texttt{temp\_drop} data withi
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-171-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-175-1.pdf}
 
 Next, we'll consider faceted histograms of the data.
 
@@ -11231,7 +11346,7 @@ Here's a pair of Normal Q-Q plots. It's not hard to use a Normal model to approx
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-172-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-176-1.pdf}
 
 We'll could perhaps also look at a ridgeline plot.
 
@@ -11250,7 +11365,7 @@ We'll could perhaps also look at a ridgeline plot.
 Picking joint bandwidth of 0.182
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-173-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-177-1.pdf}
 
 The center of the ibuprofen distribution is shifted a bit towards the more positive (greater improvement) direction, it seems, than is the distribution for the placebo patients. This conclusion matches what we see in some key numerical summaries, within the treatment groups.
 
@@ -11667,7 +11782,7 @@ To address question 9, we'll need to look at the data in each sample, as we did 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-188-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-192-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11679,7 +11794,7 @@ To address question 9, we'll need to look at the data in each sample, as we did 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-189-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-193-1.pdf}
 
 From these plots we conclude that the data in the Ibuprofen sample follow a reasonably Normal distribution, but this isn't quite as true for the Placebo sample. It's hard to know whether the apparent Placebo group outliers will affect whether the Normal distribution assumption is reasonable, so we can see if the confidence intervals change much when we \emph{don't} assume Normality (for instance, comparing the bootstrap to the t-based approaches), as a way of understanding whether a Normal model has a large impact on our conclusions.
 
@@ -12092,7 +12207,7 @@ To begin, we focus on \texttt{lead\_diff} for our exploratory work, which is the
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-200-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-204-1.pdf}
 
 Note that in all of this work, I plotted the paired differences. One obvious way to tell if you have paired samples is that you can pair every single subject from one exposure group to a unique subject in the other exposure group. Everyone has to be paired, so the sample sizes will always be the same in the two groups.
 
@@ -12146,7 +12261,7 @@ Here, the data are paired by the study through matching on neighborhood, age and
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-202-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-206-1.pdf}
 
 Each point here represents a \textbf{pair} of observations, one from a control child, and one from the matched exposed child. If there is a strong linear relationship (usually with a positive slope, thus positive correlation) between the paired outcomes, then the pairing will be more helpful in terms of improving statistical power of the estimates we build than if there is a weak relationship.
 
@@ -12242,7 +12357,7 @@ First, we'll look at a boxplot, showing all of the data.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-205-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-209-1.pdf}
 
 We'll also look at a ridgeline plot, because Dr.~Love likes them, even though they're really more useful when we're comparing more than two samples.
 
@@ -12260,7 +12375,7 @@ We'll also look at a ridgeline plot, because Dr.~Love likes them, even though th
 Picking joint bandwidth of 4.01
 \end{verbatim}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-206-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-210-1.pdf}
 
 Both the center and the spread of the distribution are substantially larger in the exposed group than in the controls. Of course, numerical summaries show these patterns, too.
 
@@ -13220,7 +13335,7 @@ The sample Pearson correlation coefficient is very strong and positive at 0.92, 
 
 We summarize the distribution of the paired differences (cornflakes - oatbran) below.
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-223-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-227-1.pdf}
 
 The Normal distribution doesn't look too ridiculous in this case for the paired (cornflakes-oatbran) differences. Suppose we assume Normality and run the paired t test.
 
@@ -14115,7 +14230,7 @@ Note that the default positioning of the y axis in the plot of Tukey HSD results
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-230-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-234-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14145,7 +14260,7 @@ We'll look at the full data set in \texttt{nyfs2} now, so we can look at BMI as 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-231-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-235-1.pdf}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -14160,7 +14275,7 @@ We'll look at the full data set in \texttt{nyfs2} now, so we can look at BMI as 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-232-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-236-1.pdf}
 
 Here are the descriptive numerical summaries:
 
@@ -14211,7 +14326,7 @@ Let's consider the Tukey HSD results. First, we'll create a factor with shorter 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{431-notes_files/figure-latex/unnamed-chunk-235-1.pdf}
+\includegraphics{431-notes_files/figure-latex/unnamed-chunk-239-1.pdf}
 
 It appears that there is a detectable difference between the \texttt{bmi} means of the ``Low'' group and both the ``High'' and ``Middle'' group at the 90\% confidence level, but no detectable difference between ``Middle'' and ``High.'' Details of those confidence intervals for those pairwise comparisons follow.
 

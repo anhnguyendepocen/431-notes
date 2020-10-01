@@ -98,6 +98,33 @@ tidy(m1, conf.int = TRUE, conf.level = 0.90) %>% kable(digits = 2)
 
 So, our 90% confidence interval for the slope of `dose` ranges from 1.21 to 8.55.
 
+## Coefficient Plots
+
+The `tidy` method makes it easy to construct coefficient plots using `ggplot2`.
+
+```{r}
+td <- tidy(m1, conf.int = TRUE, conf.level = 0.90)
+ggplot(td, aes(x = estimate, y = term, col = term)) +
+  geom_point() +
+  geom_crossbarh(aes(xmin = conf.low, xmax = conf.high)) +
+  geom_vline(xintercept = 0) +
+  guides(col = FALSE) +
+  labs(title = "Estimates with 90% confidence intervals from m1 in hydrate")
+```
+
+Another option would be to use `geom_errorbarh` in this setting, perhaps with a different color scheme...
+
+```{r}
+td <- tidy(m1, conf.int = TRUE, conf.level = 0.90)
+ggplot(td, aes(x = estimate, y = term, col = term)) +
+  geom_point() +
+  geom_errorbarh(aes(xmin = conf.low, xmax = conf.high)) +
+  geom_vline(xintercept = 0) +
+  scale_color_viridis_d(end = 0.5) +
+  guides(col = FALSE) +
+  labs(title = "Estimates with 90% confidence intervals from m1 in hydrate")
+```
+
 ## The Summary Output
 
 To get a more complete understanding of the fitted model, we'll summarize it.
@@ -249,6 +276,40 @@ anova(lm(recov.score ~ dose, data = hydrate))
 - The R-squared for our regression model is equal to the $\eta^2$ for this ANOVA model.
     - If we divide SS(dose) = 752.2 by the total sum of squares (752.2 + 5066.7), we'll get the multiple R-squared [0.1293]
 - Note that this is *not* the same ANOVA model we would get if we treated `dose` as a factor with seven levels, rather than as a quantitative variable.
+
+## Using `glance` to summarize the model's fit
+
+When applied to a linear model, the `glance` function from the `broom` package summarizes 12 characteristics of the model's fit.
+
+Let's look at the eight of these that we've already addressed.
+
+```{r}
+glance(m1) %>% select(r.squared:df, df.residual, nobs) %>%
+  kable(digits = c(3, 3, 1, 2, 3, 0, 0, 0))
+```
+
+- We've discussed the R-square value, shown in `r.squared`.
+- We've also discussed the adjusted R-square value, in `adj.r.squared`
+- `sigma` is the residual standard error.
+- `statistic` is the ANOVA F statistic.
+- `p.value` is the *p* value associated with the ANOVA F statistic.
+- `df` is the numerator degrees of freedom (here, the `df` associated with `dose`) for the ANOVA test associated with this model.
+- `df.residual` is the denominator degrees of freedom (here the `df` associated with `residual`) for that same ANOVA test.
+- Remember that the F-statistic at the bottom of the summary output provides these last four statistics, as well.
+- `nobs` is the number of observations (rows) used to fit the model.
+
+Now, let's look at the remaining four summaries:
+
+```{r}
+glance(m1) %>% select(logLik:deviance) %>%
+  kable(digits = 1)
+```
+
+- `logLik` is the log-likelihood value for the model, and is most commonly used for a model (like the ordinary least squares model fit by `lm` that is fit using the method of maximum likelihood). Thus, the log-likelihood value will be maximized in this fit.
+- `AIC` is the Akaike Information Criterion for the model. When comparing models fitted by maximum likelihood to the same outcome variable (using the same transformation, for example), the smaller the AIC, the better the fit.
+- `BIC` is the Bayes Information Criterion for the model. When comparing models fitted by maximum likelihood to the same outcome variable (using the same transformation, for example), the smaller the BIC, the better the fit. BIC often prefers models with fewer coefficients to estimate than does AIC.
+  - `AIC` and `BIC` can be estimated using several different approaches in R, but we'll need to use the same one across multiple models if we're comparing the results, because the concepts are only defined up to a constant. 
+- `deviance` is the fitted model's deviance, a measure of lack of fit. It is a generalization of the residual sum of squares seen in the ANOVA table, and takes the same value in the case of a simple linear regression model fit with `lm` as we have here. For some generalized linear  models, we'll use this for hypothesis testing, just as the ANOVA table does in the linear model case.
 
 ## Plotting Residuals vs. Fitted Values
 
